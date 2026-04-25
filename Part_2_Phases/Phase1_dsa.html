@@ -1,0 +1,1655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IT Interview 2025 — Part 2, Phase 1: DSA Mastery | 35 Real Questions | The Tech Intel</title>
+<meta name="description" content="35 real DSA interview questions with complete answers — Arrays, Linked Lists, Trees, Graphs, Hashing, Sorting, Searching, DP, Recursion, Backtracking. With Big-O reference, code examples, and expert context. Phase 1 of 6 technical phases.">
+<meta name="keywords" content="DSA interview questions 2025, data structures algorithms interview, arrays interview questions, linked list interview, tree graph interview questions, dynamic programming interview, recursion backtracking, binary search interview, sorting algorithms interview, Big-O complexity interview, Infosys DSA questions freshers">
+<meta name="author" content="The Tech Intel — Priyanshu">
+<meta property="og:title" content="DSA Interview Mastery — 35 Real Questions with Answers | The Tech Intel">
+<meta property="og:description" content="The complete DSA interview guide for IT freshers. Every question answered, Big-O tables, code examples, expert context.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0f0e0b;--paper:#faf9f5;--cream:#f0ebe0;
+  --teal:#1a6b72;--teal-pale:#e4f2f3;--teal-mid:#2a8a94;
+  --gold:#c48a28;--gold-pale:#f8edda;
+  --rust:#b44830;--rust-pale:#fdf0ec;
+  --slate:#383430;--muted:#7a746a;--border:#e0dbd0;
+  --white:#fff;--code-bg:#18161200;--code-text:#e2ddd6;
+  --green:#2d7a35;--green-pale:#edf7ee;
+  --blue:#1a5a9a;--blue-pale:#e8f0fa;
+  --orange:#c06020;--orange-pale:#fdf3e8;
+  --red:#9a1a20;--red-pale:#fdeaeb;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.8;font-size:17px}
+
+/* Progress */
+#bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--teal),var(--gold));width:0%;z-index:999;transition:width .08s}
+
+/* Nav */
+.nav{position:sticky;top:0;z-index:200;background:rgba(250,249,245,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:52px}
+.nav-logo{font-family:'Playfair Display',serif;font-weight:900;font-size:16px}
+.nav-phase{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.nav-toc{padding:6px 16px;border:1px solid var(--border);border-radius:20px;font-size:12px;cursor:pointer;background:none;color:var(--slate);font-family:'DM Sans',sans-serif;transition:all .2s}
+.nav-toc:hover{background:var(--ink);color:var(--white);border-color:var(--ink)}
+
+/* Drawer */
+#ov{display:none;position:fixed;inset:0;background:rgba(15,14,11,.55);z-index:300}
+#drawer{position:fixed;right:-380px;top:0;bottom:0;width:360px;background:var(--white);z-index:400;padding:28px 22px;overflow-y:auto;transition:right .3s cubic-bezier(.4,0,.2,1);box-shadow:-8px 0 40px rgba(0,0,0,.14)}
+#drawer.open{right:0}
+.dr-close{position:absolute;top:18px;right:18px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted)}
+.dr-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin:6px 0 22px}
+.tg{margin-bottom:22px}
+.tg-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);display:block;font-family:'JetBrains Mono',monospace}
+.tg a{display:block;font-size:13.5px;color:var(--slate);text-decoration:none;padding:5px 8px;border-radius:5px;border-left:2px solid transparent;transition:all .2s}
+.tg a:hover,.tg a.active{color:var(--teal);border-left-color:var(--teal);background:var(--teal-pale)}
+
+/* Hero */
+.hero{background:var(--ink);color:var(--white);padding:80px 24px 60px;text-align:center;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 20% 70%,rgba(26,107,114,.22) 0%,transparent 65%),radial-gradient(ellipse 60% 50% at 80% 20%,rgba(196,138,40,.12) 0%,transparent 65%);pointer-events:none}
+.hero-phase{display:inline-flex;align-items:center;gap:8px;background:rgba(26,107,114,.2);border:1px solid rgba(26,107,114,.4);color:#5ac8d0;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:5px 16px;border-radius:20px;margin-bottom:28px;position:relative;z-index:1}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,58px);font-weight:900;line-height:1.08;margin-bottom:20px;position:relative;z-index:1}
+.hero h1 em{font-style:normal;color:#5ac8d0}
+.hero-sub{font-size:17px;color:rgba(250,249,245,.7);max-width:620px;margin:0 auto 32px;line-height:1.75;position:relative;z-index:1}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;position:relative;z-index:1}
+.chip{font-family:'JetBrains Mono',monospace;font-size:11.5px;padding:5px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:rgba(250,249,245,.75)}
+.chip.active{background:rgba(26,107,114,.3);border-color:rgba(26,107,114,.5);color:#5ac8d0}
+.hero-meta{display:flex;flex-wrap:wrap;gap:6px 20px;justify-content:center;font-size:13px;color:rgba(250,249,245,.4);margin-top:22px;position:relative;z-index:1}
+
+/* Phase nav strip */
+.phase-strip{background:var(--cream);border-bottom:1px solid var(--border);padding:12px 24px;overflow-x:auto;white-space:nowrap;display:flex;gap:8px;align-items:center}
+.ph-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-right:6px;flex-shrink:0}
+.ph-btn{font-family:'JetBrains Mono',monospace;font-size:11px;padding:5px 13px;border-radius:20px;border:1px solid var(--border);background:var(--white);color:var(--slate);cursor:pointer;white-space:nowrap;transition:all .2s;text-decoration:none;display:inline-block}
+.ph-btn.now{background:var(--teal);color:var(--white);border-color:var(--teal)}
+.ph-btn:hover:not(.now){background:var(--teal-pale);border-color:var(--teal);color:var(--teal)}
+
+/* Main */
+.main{max-width:720px;margin:0 auto;padding:0 24px 100px}
+
+/* Pill row */
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin:36px 0 28px}
+.pill{font-size:11px;font-family:'JetBrains Mono',monospace;padding:5px 13px;border-radius:20px;border:1px solid var(--border);background:var(--cream);color:var(--slate);text-decoration:none;transition:all .2s}
+.pill:hover{background:var(--teal);color:var(--white);border-color:var(--teal)}
+
+/* Section header */
+.sh{margin:68px 0 26px;padding-bottom:14px;border-bottom:2px solid var(--border)}
+.sh-eye{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.sh h2{font-family:'Playfair Display',serif;font-size:clamp(24px,3.5vw,34px);font-weight:700;line-height:1.2}
+
+/* Why box */
+.why{border-left:4px solid var(--teal);background:var(--teal-pale);padding:18px 22px;border-radius:0 8px 8px 0;margin:26px 0}
+.why-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);font-weight:700;margin-bottom:6px}
+.why p{font-size:15px;color:#1a4a50;margin:0;line-height:1.75}
+
+/* Expert quote */
+.qb{background:var(--ink);color:var(--white);padding:32px 38px;margin:32px 0;border-radius:6px;position:relative}
+.qb::before{content:'\201C';font-family:'Playfair Display',serif;font-size:96px;color:rgba(90,200,208,.18);position:absolute;top:4px;left:26px;line-height:1}
+.qb blockquote{font-family:'Playfair Display',serif;font-size:18px;font-style:italic;line-height:1.65;position:relative;margin-bottom:14px}
+.qb cite{font-family:'JetBrains Mono',monospace;font-size:11px;color:#5ac8d0;letter-spacing:.05em;font-style:normal}
+
+/* Info box */
+.info{border-left:4px solid var(--gold);background:var(--gold-pale);padding:15px 20px;border-radius:0 6px 6px 0;margin:20px 0}
+.info p{margin:0;font-size:15px;color:#5a4010}
+
+/* Warning */
+.warn{border-left:4px solid var(--rust);background:var(--rust-pale);padding:15px 20px;border-radius:0 6px 6px 0;margin:20px 0}
+.warn-l{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--rust);font-weight:700;margin-bottom:5px}
+.warn p{margin:0;font-size:15px;color:#6b2a18}
+
+/* Formula */
+.formula{background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin:20px 0}
+.f-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:8px;display:block;font-family:'JetBrains Mono',monospace}
+.f-body{font-family:'JetBrains Mono',monospace;font-size:13px;line-height:2;color:var(--slate)}
+
+/* Table */
+.tbl{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px}
+.tbl th{background:var(--ink);color:var(--white);padding:9px 13px;text-align:left;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.04em;font-weight:400}
+.tbl td{padding:9px 13px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.55}
+.tbl tr:nth-child(even) td{background:var(--cream)}
+.tbl td code{font-family:'JetBrains Mono',monospace;background:var(--cream);padding:1px 6px;border-radius:3px;font-size:12px;border:1px solid var(--border)}
+
+/* Complexity badges */
+.o1{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;padding:2px 10px;border-radius:12px;background:#e6f4ea;color:#1b5e20;border:1px solid #a8d5b0}
+.ologn{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;padding:2px 10px;border-radius:12px;background:#e3f0fb;color:#0d47a1;border:1px solid #90bde8}
+.on{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;padding:2px 10px;border-radius:12px;background:#fff3e0;color:#bf360c;border:1px solid #ffb74d}
+.on2{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;padding:2px 10px;border-radius:12px;background:#fce4ec;color:#880e4f;border:1px solid #f48fb1}
+.onlogn{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;padding:2px 10px;border-radius:12px;background:#ede7f6;color:#4527a0;border:1px solid #b39ddb}
+
+/* Q&A */
+.qa-wrap{margin:18px 0}
+.qa-cat{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:14px 0 10px;border-top:1px solid var(--border);margin-top:20px;display:block}
+.qa-item{border-bottom:1px solid var(--border)}
+.qa-btn{width:100%;display:flex;align-items:flex-start;gap:12px;padding:14px 0;background:none;border:none;cursor:pointer;text-align:left;font-family:'DM Sans',sans-serif;font-size:15.5px;font-weight:600;color:var(--slate);transition:color .2s}
+.qa-btn:hover{color:var(--teal)}
+.qa-num{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--teal);font-weight:600;min-width:28px;padding-top:3px;flex-shrink:0}
+.qa-icon{margin-left:auto;font-size:11px;color:var(--muted);transition:transform .3s;flex-shrink:0;padding-top:4px}
+.qa-btn.open .qa-icon{transform:rotate(180deg)}
+.qa-body{max-height:0;overflow:hidden;transition:max-height .45s ease;padding-left:40px}
+.qa-body.open{max-height:3000px;padding-bottom:18px}
+.qa-body p,.qa-body li{font-size:15px;color:var(--slate);line-height:1.78}
+.qa-body ul,.qa-body ol{padding-left:20px;margin:8px 0}
+.qa-body li{margin-bottom:5px}
+.qa-body strong{color:var(--ink)}
+.qa-body code{font-family:'JetBrains Mono',monospace;background:var(--cream);padding:1px 6px;border-radius:3px;font-size:12.5px;border:1px solid var(--border);color:var(--ink)}
+.qa-body pre{background:#1a1815;color:#ddd8ce;padding:18px 20px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.9;margin:12px 0;overflow-x:auto;border:1px solid rgba(255,255,255,.05)}
+.qa-body table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0}
+.qa-body th{background:var(--cream);padding:8px 11px;border:1px solid var(--border);text-align:left;font-weight:600;font-size:12px}
+.qa-body td{padding:8px 11px;border:1px solid var(--border);vertical-align:top;line-height:1.55}
+.qa-body .tip{background:var(--teal-pale);border-left:3px solid var(--teal);padding:10px 14px;margin-top:12px;font-size:14px;border-radius:0 5px 5px 0;color:#1a4a50}
+.qa-body .note{background:var(--gold-pale);border-left:3px solid var(--gold);padding:10px 14px;margin-top:10px;font-size:14px;border-radius:0 5px 5px 0;color:#5a4010}
+.qa-body .crit{background:var(--rust-pale);border-left:3px solid var(--rust);padding:10px 14px;margin-top:10px;font-size:14px;border-radius:0 5px 5px 0;color:#6b2a18}
+
+/* Expand buttons */
+.xp{display:flex;gap:10px;margin:12px 0}
+.xp-btn{font-family:'JetBrains Mono',monospace;font-size:11px;padding:5px 13px;border:1px solid var(--border);border-radius:4px;cursor:pointer;background:none;color:var(--slate);transition:all .2s}
+.xp-btn:hover{background:var(--teal-pale);border-color:var(--teal);color:var(--teal)}
+
+/* Self assess */
+.assess{background:var(--ink);color:var(--white);border-radius:10px;padding:30px;margin:32px 0}
+.assess h3{font-family:'Playfair Display',serif;font-size:21px;margin-bottom:6px}
+.assess-sub{font-size:13px;color:rgba(250,249,245,.5);margin-bottom:22px}
+.s-row{display:flex;align-items:center;gap:14px;margin-bottom:13px}
+.s-label{min-width:180px;font-size:13px;color:rgba(250,249,245,.8);flex-shrink:0}
+.s-range{flex:1;-webkit-appearance:none;height:3px;border-radius:2px;background:rgba(255,255,255,.15);outline:none;cursor:pointer}
+.s-range::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:#5ac8d0;cursor:pointer}
+.s-val{min-width:22px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:13px;color:#5ac8d0}
+.s-total{border-top:1px solid rgba(255,255,255,.1);padding-top:16px;margin-top:6px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.s-score{font-family:'Playfair Display',serif;font-size:42px;font-weight:700;color:#5ac8d0;line-height:1}
+.s-of{font-size:13px;color:rgba(250,249,245,.45)}
+.s-msg{font-size:13px;color:rgba(250,249,245,.6);max-width:220px;text-align:right}
+
+/* Tag */
+.tag{display:inline-block;background:var(--cream);color:var(--slate);font-family:'JetBrains Mono',monospace;font-size:11px;padding:3px 9px;border-radius:3px;border:1px solid var(--border);margin:2px}
+
+/* Div */
+.div{text-align:center;margin:52px 0;font-size:22px;color:var(--border);letter-spacing:14px}
+
+/* Next phase bar */
+.next-bar{background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:var(--white);padding:36px 28px;border-radius:10px;margin:52px 0;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.next-bar h3{font-family:'Playfair Display',serif;font-size:22px;margin-bottom:6px}
+.next-bar p{font-size:14px;color:rgba(255,255,255,.8);margin:0}
+.next-btn{background:var(--white);color:var(--teal);padding:12px 24px;border-radius:6px;font-weight:700;font-size:14px;text-decoration:none;white-space:nowrap;font-family:'DM Sans',sans-serif;transition:opacity .2s;flex-shrink:0}
+.next-btn:hover{opacity:.9}
+
+/* Footer */
+.footer{background:var(--ink);color:var(--white);text-align:center;padding:56px 24px 40px}
+.footer h2{font-family:'Playfair Display',serif;font-size:28px;margin-bottom:12px}
+.footer p{color:rgba(250,249,245,.55);margin-bottom:0;font-size:15px;max-width:480px;margin-left:auto;margin-right:auto}
+.footer-small{font-size:12px;color:rgba(250,249,245,.22);margin-top:36px}
+
+/* Prose */
+p{margin-bottom:16px}
+strong{font-weight:600;color:var(--ink)}
+ul,ol{padding-left:22px;margin-bottom:14px}
+li{margin-bottom:5px}
+.lead{font-size:19px;line-height:1.85;color:#282420}
+
+/* ── Footer ── */
+.footer { background: var(--ink); color: var(--paper); text-align: center; padding: 64px 24px 48px; }
+.footer h2 { font-family: 'Playfair Display', serif; font-size: 32px; margin-bottom: 14px; }
+.footer p { color: rgba(250,249,246,.6); margin-bottom: 28px; max-width: 520px; margin-left: auto; margin-right: auto; }
+.cta { display: inline-block; background: var(--gold); color: var(--ink); padding: 14px 34px; border-radius: 6px; font-weight: 700; font-size: 14px; letter-spacing: .04em; text-decoration: none; font-family: 'DM Sans', sans-serif; transition: opacity .2s; }
+.cta:hover { opacity: .88; }
+.footer-small { font-size: 12px; color: rgba(250,249,246,.25); margin-top: 40px; }
+.footer-links {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+
+  .footer-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--accent); }
+
+@media(max-width:620px){
+  .hero{padding:54px 18px 46px}
+  .nav-phase{display:none}
+  body{font-size:16px}
+  #drawer{width:100%;right:-100%}
+  .s-label{min-width:130px}
+  .next-bar{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<div id="bar"></div>
+
+<!-- Drawer -->
+<div id="ov" onclick="closeD()"></div>
+<div id="drawer">
+  <button class="dr-close" onclick="closeD()">✕</button>
+  <div class="dr-title">DSA — Table of Contents</div>
+  <div class="tg">
+    <span class="tg-label">Overview</span>
+    <a href="#overview">Why DSA Matters</a>
+    <a href="#bigo">Big-O Reference</a>
+    <a href="#patterns">Must-Know Patterns</a>
+    <a href="#assess">Readiness Check</a>
+  </div>
+  <div class="tg">
+    <span class="tg-label">Fundamentals (Q1–Q9)</span>
+    <a href="#q-arrays">Arrays & Linked Lists</a>
+    <a href="#q-stack">Stacks & Queues</a>
+  </div>
+  <div class="tg">
+    <span class="tg-label">Trees & Graphs (Q10–Q15)</span>
+    <a href="#q-trees">Trees, BST, Heap</a>
+    <a href="#q-graphs">BFS, DFS, Graphs</a>
+  </div>
+  <div class="tg">
+    <span class="tg-label">Hashing & Search (Q16–Q20)</span>
+    <a href="#q-hash">Hashing & Searching</a>
+    <a href="#q-sort">Sorting Algorithms</a>
+  </div>
+  <div class="tg">
+    <span class="tg-label">Algorithm Paradigms (Q21–Q35)</span>
+    <a href="#q-recursion">Recursion & Iteration</a>
+    <a href="#q-dp">Dynamic Programming</a>
+    <a href="#q-greedy">Greedy & Backtracking</a>
+    <a href="#q-coding">Coding Problems</a>
+  </div>
+</div>
+
+<!-- Nav -->
+<nav class="nav">
+  <span class="nav-logo">The Tech Intel</span>
+  <span class="nav-phase">Part 2 · Phase 1 of 6 · DSA</span>
+  <button class="nav-toc" onclick="openD()">Contents ↗</button>
+</nav>
+
+<!-- Phase strip -->
+<div class="phase-strip">
+  <span class="ph-label">Part 2:</span>
+  <a href="./Phase1_dsa.html"><span class="ph-btn now">① DSA</span></a>
+  <a href="./Phase2_sql.html"><span class="ph-btn">② SQL</span></a>
+  <a href="./Phase1_dsa.html"><span class="ph-btn">③ OOPs</span></a>
+  <a href="./Phase1_dsa.html"><span class="ph-btn">④ DBMS</span></a>
+  <a href="./Phase1_dsa.html"><span class="ph-btn">⑤ OS</span></a>
+  <a href="./Phase1_dsa.html"><span class="ph-btn">⑥ Networks + System Design + SDLC</span></a>
+</div>
+
+<!-- Hero -->
+<header class="hero">
+  <div class="hero-phase">⚙ Part 2 · Phase 1 of 6 · April 2025</div>
+  <h1>Data Structures & Algorithms<br><em>35 Real Interview Questions</em></h1>
+  <p class="hero-sub">Every question you'll face on DSA in technical interviews — fully answered with code examples, Big-O analysis, expert quotes, and "Why It Matters" at every topic. Built for Infosys and IT fresher interviews 2025.</p>
+  <div class="hero-chips">
+    <span class="chip active">Arrays</span>
+    <span class="chip active">Linked Lists</span>
+    <span class="chip active">Stacks & Queues</span>
+    <span class="chip active">Trees & BST</span>
+    <span class="chip active">Graphs</span>
+    <span class="chip active">Hashing</span>
+    <span class="chip active">Sorting & Searching</span>
+    <span class="chip active">Recursion</span>
+    <span class="chip active">Dynamic Programming</span>
+    <span class="chip active">Greedy & Backtracking</span>
+  </div>
+  <div class="hero-meta">
+    <span>✍ The Tech Intel</span>
+    <span>⏱ ~35 min read</span>
+    <span>📋 35 Questions · Full Answers</span>
+    <span>💻 Code Examples Included</span>
+  </div>
+</header>
+
+<!-- Main -->
+<main class="main">
+
+<p class="lead" style="margin-top:48px;">DSA is the language of technical interviews. Every company — from Infosys to Google — uses DSA questions to test whether you can <strong>think algorithmically</strong>: break a problem down, choose the right data structure, implement a solution, and analyze its efficiency. This isn't about memorizing algorithms. It's about building the mental model that makes you dangerous in any coding situation.</p>
+
+<p>This is Phase 1 of 6 in the technical blueprint. Each phase is focused and complete — read it, work the questions, and move to the next. Don't skim. The questions below are the exact patterns that repeat in Infosys, TCS, Wipro, Accenture, and Cognizant technical rounds.</p>
+
+<div class="pills">
+  <a class="pill" href="#overview">🧭 Overview</a>
+  <a class="pill" href="#bigo">📊 Big-O</a>
+  <a class="pill" href="#q-arrays">🔢 Arrays</a>
+  <a class="pill" href="#q-stack">📦 Stacks/Q</a>
+  <a class="pill" href="#q-trees">🌳 Trees</a>
+  <a class="pill" href="#q-graphs">🕸 Graphs</a>
+  <a class="pill" href="#q-hash">🔑 Hashing</a>
+  <a class="pill" href="#q-sort">↕ Sorting</a>
+  <a class="pill" href="#q-dp">🧮 DP</a>
+  <a class="pill" href="#q-coding">💻 Coding</a>
+</div>
+
+<!-- OVERVIEW -->
+<section id="overview">
+  <div class="sh"><div class="sh-eye">Overview</div><h2>🧭 Why DSA Is The #1 Technical Filter</h2></div>
+
+  <div class="why">
+    <div class="why-label">⚡ Why DSA Is Non-Negotiable</div>
+    <p>DSA questions appear in every stage of the Infosys process — from the online assessment pseudocode section to the technical interview. They test your ability to think algorithmically and reason about efficiency. Companies don't care if you've memorized Dijkstra's algorithm. They care whether you can break a <em>new</em> problem down, choose the right data structure, and analyze your own solution's trade-offs. <strong>DSA is the vocabulary of computer science — without it, you can't have a technical conversation.</strong></p>
+  </div>
+
+  <div class="qb">
+    <blockquote>"Every computer scientist should know at least one language well enough to write correct, efficient, maintainable code under time pressure. Data structures are the vocabulary of that language."</blockquote>
+    <cite>— Donald Knuth · Author, "The Art of Computer Programming" · Father of algorithm analysis · Stanford University</cite>
+  </div>
+
+  <p>The three things interviewers test in DSA:</p>
+  <ol style="padding-left:22px;line-height:2.2;font-size:16px;">
+    <li><strong>Can you identify the right data structure?</strong> — Do you reach for a HashMap when you need O(1) lookup, or do you naively scan an array?</li>
+    <li><strong>Can you reason about complexity?</strong> — Do you know why your solution is O(n log n) and not O(n²)?</li>
+    <li><strong>Can you write clean, correct code?</strong> — Does your code handle edge cases (empty input, single element, duplicates)?</li>
+  </ol>
+</section>
+
+<!-- BIG-O -->
+<section id="bigo">
+  <div class="sh"><div class="sh-eye">Reference</div><h2>📊 Big-O Complexity — Know This Cold</h2></div>
+
+  <div class="why">
+    <div class="why-label">⚡ Why Big-O Is Always Asked</div>
+    <p>After you explain any solution, the interviewer's next question is always: "What's the time and space complexity?" Answering confidently — and correctly — signals that you think beyond just "does this work?" to "does this <em>scale</em>?" In every Infosys interview, expect to discuss Big-O for your chosen algorithm. A correct answer with a suboptimal complexity is often better than a claimed-optimal answer you can't explain.</p>
+  </div>
+
+  <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin:24px 0 12px;">Data Structure Operations — Memorize This Table</h3>
+  <table class="tbl">
+    <thead><tr><th>Data Structure</th><th>Access</th><th>Search</th><th>Insert</th><th>Delete</th><th>Space</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Array</strong></td><td><span class="o1">O(1)</span></td><td><span class="on">O(n)</span></td><td><span class="on">O(n)</span></td><td><span class="on">O(n)</span></td><td><span class="on">O(n)</span></td></tr>
+      <tr><td><strong>Sorted Array</strong></td><td><span class="o1">O(1)</span></td><td><span class="ologn">O(log n)</span></td><td><span class="on">O(n)</span></td><td><span class="on">O(n)</span></td><td><span class="on">O(n)</span></td></tr>
+      <tr><td><strong>Linked List (Singly)</strong></td><td><span class="on">O(n)</span></td><td><span class="on">O(n)</span></td><td><span class="o1">O(1)*</span></td><td><span class="o1">O(1)*</span></td><td><span class="on">O(n)</span></td></tr>
+      <tr><td><strong>Stack / Queue</strong></td><td>—</td><td><span class="on">O(n)</span></td><td><span class="o1">O(1)</span></td><td><span class="o1">O(1)</span></td><td><span class="on">O(n)</span></td></tr>
+      <tr><td><strong>Hash Table</strong></td><td>—</td><td><span class="o1">O(1) avg</span></td><td><span class="o1">O(1) avg</span></td><td><span class="o1">O(1) avg</span></td><td><span class="on">O(n)</span></td></tr>
+      <tr><td><strong>BST (balanced)</strong></td><td><span class="ologn">O(log n)</span></td><td><span class="ologn">O(log n)</span></td><td><span class="ologn">O(log n)</span></td><td><span class="ologn">O(log n)</span></td><td><span class="on">O(n)</span></td></tr>
+      <tr><td><strong>BST (worst/skewed)</strong></td><td><span class="on">O(n)</span></td><td><span class="on">O(n)</span></td><td><span class="on">O(n)</span></td><td><span class="on">O(n)</span></td><td><span class="on">O(n)</span></td></tr>
+      <tr><td><strong>Heap (min/max)</strong></td><td><span class="o1">O(1) top</span></td><td><span class="on">O(n)</span></td><td><span class="ologn">O(log n)</span></td><td><span class="ologn">O(log n)</span></td><td><span class="on">O(n)</span></td></tr>
+      <tr><td><strong>Trie</strong></td><td><span class="on">O(m)*</span></td><td><span class="on">O(m)*</span></td><td><span class="on">O(m)*</span></td><td><span class="on">O(m)*</span></td><td><span class="on">O(n·m)</span></td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12.5px;color:var(--muted);">* with a pointer to the node already | m = string length for Trie</p>
+
+  <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin:24px 0 12px;">Sorting Algorithm Complexities</h3>
+  <table class="tbl">
+    <thead><tr><th>Algorithm</th><th>Best</th><th>Average</th><th>Worst</th><th>Space</th><th>Stable?</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Bubble Sort</strong></td><td><span class="on">O(n)</span></td><td><span class="on2">O(n²)</span></td><td><span class="on2">O(n²)</span></td><td><span class="o1">O(1)</span></td><td>✅ Yes</td></tr>
+      <tr><td><strong>Selection Sort</strong></td><td><span class="on2">O(n²)</span></td><td><span class="on2">O(n²)</span></td><td><span class="on2">O(n²)</span></td><td><span class="o1">O(1)</span></td><td>❌ No</td></tr>
+      <tr><td><strong>Insertion Sort</strong></td><td><span class="on">O(n)</span></td><td><span class="on2">O(n²)</span></td><td><span class="on2">O(n²)</span></td><td><span class="o1">O(1)</span></td><td>✅ Yes</td></tr>
+      <tr><td><strong>Merge Sort</strong></td><td><span class="onlogn">O(n log n)</span></td><td><span class="onlogn">O(n log n)</span></td><td><span class="onlogn">O(n log n)</span></td><td><span class="on">O(n)</span></td><td>✅ Yes</td></tr>
+      <tr><td><strong>Quick Sort</strong></td><td><span class="onlogn">O(n log n)</span></td><td><span class="onlogn">O(n log n)</span></td><td><span class="on2">O(n²)</span></td><td><span class="ologn">O(log n)</span></td><td>❌ No</td></tr>
+      <tr><td><strong>Heap Sort</strong></td><td><span class="onlogn">O(n log n)</span></td><td><span class="onlogn">O(n log n)</span></td><td><span class="onlogn">O(n log n)</span></td><td><span class="o1">O(1)</span></td><td>❌ No</td></tr>
+      <tr><td><strong>Tim Sort</strong> (Python/Java default)</td><td><span class="on">O(n)</span></td><td><span class="onlogn">O(n log n)</span></td><td><span class="onlogn">O(n log n)</span></td><td><span class="on">O(n)</span></td><td>✅ Yes</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin:24px 0 12px;">Big-O Growth Order — Fastest to Slowest</h3>
+  <div class="formula">
+    <span class="f-label">From Best to Worst — for the same input size n</span>
+    <div class="f-body">O(1) → O(log n) → O(n) → O(n log n) → O(n²) → O(2ⁿ) → O(n!)<br><br>
+O(1)    = constant   → finding array element by index<br>
+O(log n) = logarithmic → binary search (halves search space each step)<br>
+O(n)    = linear     → single loop over n elements<br>
+O(n log n) = linearithmic → merge sort, heap sort<br>
+O(n²)   = quadratic  → nested loops (bubble sort, naive string matching)<br>
+O(2ⁿ)   = exponential → recursive Fibonacci, power set generation<br>
+O(n!)   = factorial  → generating all permutations</div>
+  </div>
+</section>
+
+<!-- MUST-KNOW PATTERNS -->
+<section id="patterns">
+  <div class="sh"><div class="sh-eye">Strategy</div><h2>🧩 Must-Know Algorithm Patterns</h2></div>
+
+  <div class="why">
+    <div class="why-label">⚡ Why Patterns Matter More Than Problems</div>
+    <p>There are thousands of DSA problems but only a handful of underlying patterns. Once you recognize a pattern, 80% of the solution is already there. Infosys technical rounds for freshers almost never require exotic algorithms — they test your ability to apply these core patterns correctly and cleanly.</p>
+  </div>
+
+  <table class="tbl">
+    <thead><tr><th>Pattern</th><th>When to Use</th><th>Key Idea</th><th>Classic Problems</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Two Pointers</strong></td><td>Array/string, sorted, looking for pairs</td><td>Left + right pointers converging</td><td>Two-Sum (sorted), palindrome check, container with most water</td></tr>
+      <tr><td><strong>Sliding Window</strong></td><td>Contiguous subarray/substring</td><td>Expand right, shrink left</td><td>Max subarray of size k, longest substring without repeat</td></tr>
+      <tr><td><strong>Fast & Slow Pointers</strong></td><td>Linked list, cycle detection</td><td>One moves 2x speed of other</td><td>Detect cycle, find middle, find cycle start</td></tr>
+      <tr><td><strong>BFS</strong></td><td>Shortest path (unweighted), level-order</td><td>Queue-based, level by level</td><td>Shortest path in maze, level order tree traversal</td></tr>
+      <tr><td><strong>DFS</strong></td><td>Traversal, connectivity, backtracking</td><td>Stack/recursion, depth-first</td><td>Path finding, connected components, island count</td></tr>
+      <tr><td><strong>Binary Search</strong></td><td>Sorted data, find target efficiently</td><td>Halve search space each step</td><td>Search in rotated array, find peak element</td></tr>
+      <tr><td><strong>HashMap</strong></td><td>Frequency count, pair lookup, cache</td><td>O(1) insert/lookup</td><td>Two-Sum, group anagrams, subarray sum equals k</td></tr>
+      <tr><td><strong>Dynamic Programming</strong></td><td>Optimal substructure + overlapping subproblems</td><td>Store subproblem results</td><td>Fibonacci, 0/1 Knapsack, LCS, coin change</td></tr>
+      <tr><td><strong>Greedy</strong></td><td>Local optimal → global optimal</td><td>Make the best current choice</td><td>Activity selection, fractional knapsack, Huffman</td></tr>
+      <tr><td><strong>Backtracking</strong></td><td>Generate all valid combinations/permutations</td><td>Try → recurse → undo if invalid</td><td>N-Queens, Sudoku, subset generation</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- READINESS -->
+<section id="assess">
+  <div class="assess">
+    <h3>📊 DSA Readiness Score</h3>
+    <p class="assess-sub">Rate yourself honestly. Aim for 8+ before your first interview. Check back after finishing this article.</p>
+    <div class="s-row"><span class="s-label">Arrays & Strings</span><input type="range" class="s-range" min="1" max="10" value="5" oninput="upScore()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-label">Linked Lists</span><input type="range" class="s-range" min="1" max="10" value="5" oninput="upScore()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-label">Stacks & Queues</span><input type="range" class="s-range" min="1" max="10" value="5" oninput="upScore()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-label">Trees & BST</span><input type="range" class="s-range" min="1" max="10" value="5" oninput="upScore()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-label">Graphs (BFS/DFS)</span><input type="range" class="s-range" min="1" max="10" value="5" oninput="upScore()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-label">Hashing & Searching</span><input type="range" class="s-range" min="1" max="10" value="5" oninput="upScore()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-label">Sorting Algorithms</span><input type="range" class="s-range" min="1" max="10" value="5" oninput="upScore()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-label">Dynamic Programming</span><input type="range" class="s-range" min="1" max="10" value="5" oninput="upScore()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-label">Recursion & Backtracking</span><input type="range" class="s-range" min="1" max="10" value="5" oninput="upScore()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-label">Big-O Analysis</span><input type="range" class="s-range" min="1" max="10" value="5" oninput="upScore()"><span class="s-val">5</span></div>
+    <div class="s-total">
+      <div><div class="s-score" id="sc">50</div><div class="s-of">/ 100 — Target: 80+</div></div>
+      <div class="s-msg" id="sc-msg"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ALL 35 QUESTIONS
+     ============================================================ -->
+
+<!-- ARRAYS & LINKED LISTS -->
+<section id="q-arrays">
+  <div class="sh"><div class="sh-eye">Questions 1–9</div><h2>🔢 Arrays, Strings & Linked Lists</h2></div>
+
+  <div class="why">
+    <div class="why-label">⚡ Why Arrays & Linked Lists Are Always Tested</div>
+    <p>Arrays and linked lists are the two most fundamental data structures — they're the building blocks everything else is built on. Interviewers start here to assess baseline competence. If you can't clearly explain the difference between them or trace through a pointer-reversal, the interview moves uphill fast. Master this section first — it unlocks everything else.</p>
+  </div>
+
+  <div class="xp"><button class="xp-btn" onclick="xpAll('qa1')">Expand All</button><button class="xp-btn" onclick="xpNone('qa1')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa1">
+
+    <span class="qa-cat">Arrays & Strings</span>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q1</span>What is a data structure? Why do we need different ones?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p>A data structure is a way of <strong>organizing and storing data</strong> so that it can be accessed and modified efficiently. Different problems need different structures because there is no single "best" structure — each has trade-offs:</p>
+        <ul>
+          <li><strong>Array</strong> — O(1) indexed access, but expensive to insert in the middle</li>
+          <li><strong>Hash Table</strong> — O(1) key lookup, but no ordering</li>
+          <li><strong>Queue</strong> — FIFO order guaranteed, but no random access</li>
+          <li><strong>Tree</strong> — hierarchical relationships, O(log n) ordered operations</li>
+        </ul>
+        <p>The right data structure can turn an O(n²) solution into an O(n log n) or even O(n) solution. Choosing poorly is often why code is slow in production.</p>
+        <div class="tip">💡 Interview answer structure: "A data structure organizes data for efficient access and modification. Different structures make different operations fast — for example, a hash table gives O(1) lookup, while a sorted array gives O(log n) search. The choice depends on which operations your problem needs most."</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q2</span>Difference between Array and Linked List — when to use which?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <table>
+          <tr><th>Property</th><th>Array</th><th>Linked List</th></tr>
+          <tr><td>Memory layout</td><td>Contiguous blocks</td><td>Scattered nodes connected by pointers</td></tr>
+          <tr><td>Access by index</td><td><span class="o1">O(1)</span> — direct calculation</td><td><span class="on">O(n)</span> — must traverse</td></tr>
+          <tr><td>Insert/Delete at head</td><td><span class="on">O(n)</span> — shift all elements</td><td><span class="o1">O(1)</span> — update pointer</td></tr>
+          <tr><td>Insert/Delete in middle</td><td><span class="on">O(n)</span> — shift needed</td><td><span class="o1">O(1)*</span> — update pointers</td></tr>
+          <tr><td>Size</td><td>Fixed (static) or resizes with copy</td><td>Dynamic — grows/shrinks freely</td></tr>
+          <tr><td>Cache-friendly?</td><td>✅ Yes — spatial locality</td><td>❌ No — scattered in memory</td></tr>
+          <tr><td>Memory overhead</td><td>None beyond elements</td><td>Extra pointer(s) per node</td></tr>
+        </table>
+        <p style="margin-top:10px;"><strong>Use arrays when:</strong> you need frequent random access by index, size is known and fixed, cache performance matters (numerical processing, image data).</p>
+        <p><strong>Use linked lists when:</strong> you need frequent insertion/deletion at the head or middle (given a pointer), size is unpredictable, or you're building other structures (queue, deque, adjacency list).</p>
+        <div class="crit">⚠ Common mistake: using a linked list when you need random access — O(n) traversal per access defeats the purpose. Also, linked lists have poor cache performance because nodes are scattered in memory — this matters more in practice than Big-O suggests.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q3</span>Types of Linked Lists — Singly, Doubly, Circular?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p><strong>Singly Linked List:</strong> each node has <code>data</code> + one <code>next</code> pointer. Forward traversal only. Memory efficient.</p>
+        <p><strong>Doubly Linked List:</strong> each node has <code>data</code> + <code>prev</code> + <code>next</code>. Bidirectional traversal. O(1) deletion given a node (no need to traverse to find predecessor). Extra memory per node. Used in: browser history, LRU cache implementation.</p>
+        <p><strong>Circular Linked List:</strong> the last node's <code>next</code> points back to the head (for singly) or the head's <code>prev</code> points to the last node (for doubly). Used in: round-robin scheduling, circular buffers, multiplayer game turn management.</p>
+        <div class="note">🧠 Doubly circular linked lists power the implementation of <code>collections.deque</code> in Python and <code>LinkedList</code> in Java — both O(1) at both ends.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q4</span>How do you reverse a linked list? Write the iterative code.<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p>The idea: change each node's <code>next</code> pointer to point to its predecessor. Maintain three pointers to avoid losing reference to the rest of the list.</p>
+        <pre>// Java — Iterative reversal
+Node reverse(Node head) {
+    Node prev = null;
+    Node curr = head;
+    Node next = null;
+
+    while (curr != null) {
+        next = curr.next;    // 1. Save the next node
+        curr.next = prev;    // 2. Reverse the pointer
+        prev = curr;         // 3. Advance prev
+        curr = next;         // 4. Advance curr
+    }
+    return prev; // prev is now the new head
+}
+
+// Time: O(n)  |  Space: O(1)</pre>
+        <p><strong>Trace through [1 → 2 → 3 → null]:</strong></p>
+        <p>Step 1: prev=null, curr=1. next=2, 1.next=null, prev=1, curr=2.<br>
+        Step 2: prev=1, curr=2. next=3, 2.next=1, prev=2, curr=3.<br>
+        Step 3: prev=2, curr=3. next=null, 3.next=2, prev=3, curr=null.<br>
+        Return prev=3 → new list: [3 → 2 → 1 → null] ✓</p>
+        <div class="tip">💡 Recursive version uses O(n) stack space — prefer iterative for large lists. The trick is always: save next, then reverse pointer, then advance both pointers.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q5</span>Detect a loop in a linked list — Floyd's Cycle Detection Algorithm?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p><strong>Floyd's "Tortoise and Hare" algorithm:</strong> use two pointers — <code>slow</code> moves 1 step per iteration, <code>fast</code> moves 2 steps. If there's a cycle, they will eventually meet. If <code>fast</code> reaches null, no cycle.</p>
+        <pre>// Java — Detect cycle
+boolean hasCycle(Node head) {
+    Node slow = head, fast = head;
+    while (fast != null && fast.next != null) {
+        slow = slow.next;        // move 1 step
+        fast = fast.next.next;   // move 2 steps
+        if (slow == fast) return true;  // they met → cycle
+    }
+    return false;
+}
+// Time: O(n)  |  Space: O(1)</pre>
+        <p><strong>Why do they always meet if a cycle exists?</strong> Because fast gains on slow at exactly 1 step per iteration. If they're k steps apart in the cycle, they'll meet in k more iterations.</p>
+        <p><strong>Finding the cycle start</strong> (bonus): after they meet, reset one pointer to head. Move both one step at a time. Where they meet again = the cycle start node.</p>
+        <div class="tip">💡 Without Floyd's algorithm, the naive approach is a HashSet — store each node's address, check for repeats. O(n) time but O(n) space. Floyd's achieves O(n) time with O(1) space — always prefer it.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q6</span>Find the middle of a linked list in one pass?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p>The same two-pointer technique: <code>slow</code> moves 1 step, <code>fast</code> moves 2. When <code>fast</code> reaches the end, <code>slow</code> is at the middle.</p>
+        <pre>// Java — Find middle node
+Node findMiddle(Node head) {
+    Node slow = head, fast = head;
+    while (fast != null && fast.next != null) {
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+    return slow; // middle node
+}
+// Time: O(n)  |  Space: O(1)</pre>
+        <p>For <strong>even-length lists</strong> [1,2,3,4]: this returns node 3 (the second middle). If you need the first middle (node 2), change the condition to <code>fast.next != null && fast.next.next != null</code>.</p>
+        <p>This is used in Merge Sort on linked lists — find the middle, split the list, sort each half, merge.</p>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q7</span>Time complexity of inserting into a sorted array vs sorted linked list?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p><strong>Sorted Array:</strong> Finding the insertion position = O(log n) via binary search. But shifting elements to make room = O(n). <strong>Total: O(n)</strong>. The shift dominates.</p>
+        <p><strong>Sorted Linked List:</strong> Finding the correct position by traversing = O(n) (can't binary search a linked list — no random access). The actual insertion after finding the position = O(1). <strong>Total: O(n)</strong>. Both are O(n), but for different reasons.</p>
+        <div class="note">🧠 To get O(log n) insertion into a sorted structure, you need a balanced BST (AVL, Red-Black tree) or a skip list — both allow finding the position in O(log n) time.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q8</span>Find duplicate elements in an array — multiple approaches?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p><strong>Approach 1 — HashSet (Most Common):</strong></p>
+        <pre>// O(n) time, O(n) space
+List&lt;Integer&gt; findDuplicates(int[] arr) {
+    Set&lt;Integer&gt; seen = new HashSet&lt;&gt;();
+    List&lt;Integer&gt; dupes = new ArrayList&lt;&gt;();
+    for (int x : arr) {
+        if (!seen.add(x)) dupes.add(x); // add() returns false if already present
+    }
+    return dupes;
+}</pre>
+        <p><strong>Approach 2 — Sort first (no extra space):</strong></p>
+        <pre>// O(n log n) time, O(1) extra space
+Arrays.sort(arr);
+for (int i = 0; i < arr.length - 1; i++) {
+    if (arr[i] == arr[i+1]) System.out.println(arr[i] + " is a duplicate");
+}</pre>
+        <p><strong>Approach 3 — Index marking (if values are 1..n):</strong></p>
+        <pre>// O(n) time, O(1) extra space — only works when values are in [1, n]
+for (int i = 0; i < arr.length; i++) {
+    int idx = Math.abs(arr[i]) - 1;
+    if (arr[idx] < 0) System.out.println(idx + 1 + " is a duplicate");
+    else arr[idx] = -arr[idx]; // mark as visited by negating
+}</pre>
+        <div class="tip">💡 In interviews, lead with the HashSet approach (O(n) time, O(n) space), then mention the sort approach as a trade-off (O(n log n) time, O(1) space). The index-marking trick is a bonus that impresses interviewers.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q9</span>What is the Two-Pointer technique? Give two examples?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p>Using two pointers that traverse data at different speeds or from different ends — often converts O(n²) naive solutions into O(n).</p>
+        <p><strong>Example 1 — Check if a string is a palindrome:</strong></p>
+        <pre>// O(n) time, O(1) space
+boolean isPalindrome(String s) {
+    int left = 0, right = s.length() - 1;
+    while (left < right) {
+        if (s.charAt(left) != s.charAt(right)) return false;
+        left++;
+        right--;
+    }
+    return true;
+}</pre>
+        <p><strong>Example 2 — Two-Sum in a sorted array:</strong></p>
+        <pre>// Find two numbers that sum to target in a sorted array
+// O(n) time, O(1) space
+int[] twoSum(int[] arr, int target) {
+    int left = 0, right = arr.length - 1;
+    while (left < right) {
+        int sum = arr[left] + arr[right];
+        if (sum == target) return new int[]{left, right};
+        else if (sum < target) left++;   // need larger sum
+        else right--;                    // need smaller sum
+    }
+    return new int[]{};
+}</pre>
+        <div class="note">🧠 Two-pointer patterns: (1) Converging — both ends toward center. (2) Fast/slow — different speeds on same sequence. (3) Sliding window — both move in same direction with a window between them.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- STACKS & QUEUES -->
+<section id="q-stack">
+  <div class="sh"><div class="sh-eye">Questions 10–12</div><h2>📦 Stacks & Queues</h2></div>
+
+  <div class="why">
+    <div class="why-label">⚡ Why Stacks and Queues Are in Every Interview</div>
+    <p>Stacks and queues appear everywhere in real engineering: the browser back button (stack), a printer queue (queue), function call management (call stack), and graph traversal (both). Understanding their properties — LIFO vs FIFO — and knowing their real-world applications is a fundamental competency that every interviewer checks.</p>
+  </div>
+
+  <div class="xp"><button class="xp-btn" onclick="xpAll('qa2')">Expand All</button><button class="xp-btn" onclick="xpNone('qa2')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa2">
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q10</span>Stack vs Queue — definitions, properties, and real-world uses?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p><strong>Stack (LIFO — Last In, First Out):</strong> think of a stack of plates. The last plate placed on top is the first one removed. Operations: <code>push</code> (add to top), <code>pop</code> (remove from top), <code>peek/top</code> (see top without removing). All O(1).</p>
+        <p><strong>Real-world uses of Stack:</strong></p>
+        <ul>
+          <li>Function call stack (recursion management)</li>
+          <li>Undo/redo operations in editors</li>
+          <li>Browser back button navigation</li>
+          <li>Balanced parentheses checker</li>
+          <li>Expression evaluation (infix → postfix conversion)</li>
+          <li>DFS graph traversal (iterative version)</li>
+        </ul>
+        <p><strong>Queue (FIFO — First In, First Out):</strong> think of a line at a ticket counter. The first person in line is served first. Operations: <code>enqueue</code> (add to rear), <code>dequeue</code> (remove from front), <code>peek/front</code> (see front without removing). All O(1).</p>
+        <p><strong>Real-world uses of Queue:</strong></p>
+        <ul>
+          <li>CPU process scheduling (Ready Queue)</li>
+          <li>BFS graph traversal</li>
+          <li>Print spoolers (printer queue)</li>
+          <li>Producer-consumer systems</li>
+          <li>Request handling in web servers</li>
+          <li>Breadth-first search in AI pathfinding</li>
+        </ul>
+        <div class="tip">💡 Both can be implemented using arrays or linked lists. Array-based stacks are very common — simply maintain a top index. For queues, use a circular array to avoid O(n) dequeue, or use a linked list with head/tail pointers.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q11</span>What is a circular queue? Why is it needed?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p><strong>Problem with a simple array-based queue:</strong> After several enqueue/dequeue operations, the <code>front</code> pointer moves forward, leaving empty slots at the beginning. Even if the queue has space at the front, you can't use it — the array appears "full" when it isn't. This is called <em>false overflow</em>.</p>
+        <p><strong>Circular Queue solution:</strong> Treat the array as circular using modular arithmetic. When <code>rear</code> reaches the end, it wraps around to position 0 if there's free space there.</p>
+        <pre>// Key operations
+enqueue(x):
+    if (size == capacity) → OVERFLOW
+    rear = (rear + 1) % capacity
+    arr[rear] = x
+    size++
+
+dequeue():
+    if (size == 0) → UNDERFLOW
+    int val = arr[front]
+    front = (front + 1) % capacity
+    size--
+    return val</pre>
+        <p><strong>Used in:</strong> real-time OS scheduling, audio/video streaming buffers (ring buffers), hardware interrupt handling queues.</p>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q12</span>What is a Priority Queue? How is it implemented?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p>A priority queue dequeues elements based on priority rather than insertion order — the highest (or lowest) priority element is always served first, regardless of when it was inserted.</p>
+        <p><strong>Naïve implementations:</strong></p>
+        <ul>
+          <li>Sorted array: insert O(n), remove max O(1) → too slow for inserts</li>
+          <li>Unsorted array: insert O(1), remove max O(n) → too slow for removes</li>
+        </ul>
+        <p><strong>Heap implementation (standard):</strong> insert O(log n), remove max/min O(log n), peek O(1). The best trade-off.</p>
+        <p><strong>In Java:</strong> <code>PriorityQueue&lt;Integer&gt; pq = new PriorityQueue&lt;&gt;();</code> — min-heap by default. For max-heap: <code>new PriorityQueue&lt;&gt;(Collections.reverseOrder())</code></p>
+        <p><strong>Real-world uses:</strong> Dijkstra's shortest path algorithm, OS process scheduling, A* pathfinding in games, Huffman encoding for data compression, hospital emergency triage systems.</p>
+        <div class="note">🧠 A heap is a complete binary tree stored as an array. Node at index <code>i</code> has children at <code>2i+1</code> and <code>2i+2</code>, and parent at <code>(i-1)/2</code>. No wasted space, excellent cache performance.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TREES -->
+<section id="q-trees">
+  <div class="sh"><div class="sh-eye">Questions 13–17</div><h2>🌳 Trees, BST & Heaps</h2></div>
+
+  <div class="why">
+    <div class="why-label">⚡ Why Trees Are the Heart of Technical Interviews</div>
+    <p>Trees appear in more interview questions than any other data structure. They're everywhere in real systems: file systems are trees, HTML/XML documents are trees (DOM), databases use B-trees for indexing, compilers use abstract syntax trees. Understanding tree traversals, BST properties, and balancing is non-negotiable for any technical interview.</p>
+  </div>
+
+  <div class="xp"><button class="xp-btn" onclick="xpAll('qa3')">Expand All</button><button class="xp-btn" onclick="xpNone('qa3')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa3">
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q13</span>Binary Tree vs Binary Search Tree (BST) — properties and operations?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p><strong>Binary Tree:</strong> each node has at most 2 children (left and right). No ordering constraint. A general-purpose hierarchical structure.</p>
+        <p><strong>Binary Search Tree (BST):</strong> a binary tree with the additional ordering property: for every node, <em>all values in the left subtree are less than the node's value</em>, and <em>all values in the right subtree are greater</em>. This ordering enables efficient search.</p>
+        <table>
+          <tr><th>Operation</th><th>Average (balanced BST)</th><th>Worst (skewed BST)</th></tr>
+          <tr><td>Search</td><td><span class="ologn">O(log n)</span></td><td><span class="on">O(n)</span></td></tr>
+          <tr><td>Insert</td><td><span class="ologn">O(log n)</span></td><td><span class="on">O(n)</span></td></tr>
+          <tr><td>Delete</td><td><span class="ologn">O(log n)</span></td><td><span class="on">O(n)</span></td></tr>
+        </table>
+        <p><strong>When does a BST degrade to O(n)?</strong> When elements are inserted in sorted order (1, 2, 3, 4, 5...) — the tree becomes a right-skewed linked list. <strong>Solution:</strong> self-balancing BSTs (AVL tree, Red-Black tree) maintain O(log n) in all cases.</p>
+        <p><strong>Key BST property:</strong> an inorder traversal (Left → Root → Right) of a BST produces elements in <em>sorted ascending order</em>. This is how you verify if a tree is a valid BST.</p>
+        <div class="crit">⚠ Common interview trap: "What is the time complexity of BST search?" — The correct answer is O(log n) <strong>average</strong>, O(n) worst. Always mention both.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q14</span>Tree traversal types — Inorder, Preorder, Postorder, Level-order. What is each used for?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p>For the tree: &nbsp; &nbsp; 1 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / &nbsp;\<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 &nbsp;&nbsp; 3<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / &nbsp;\<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 &nbsp;&nbsp; 5</p>
+        <table>
+          <tr><th>Traversal</th><th>Order</th><th>Output</th><th>Primary Use Case</th></tr>
+          <tr><td><strong>Inorder</strong></td><td>Left → Root → Right</td><td>4, 2, 5, 1, 3</td><td>BST: gives sorted ascending output; used to validate BST</td></tr>
+          <tr><td><strong>Preorder</strong></td><td>Root → Left → Right</td><td>1, 2, 4, 5, 3</td><td>Serialize/copy a tree; prefix expression; find prefix of expression trees</td></tr>
+          <tr><td><strong>Postorder</strong></td><td>Left → Right → Root</td><td>4, 5, 2, 3, 1</td><td>Delete a tree (children before parent); postfix expression; calculate directory sizes</td></tr>
+          <tr><td><strong>Level-order (BFS)</strong></td><td>Level by level, left to right</td><td>1, 2, 3, 4, 5</td><td>Shortest path in unweighted tree; print tree by levels; connect nodes at same level</td></tr>
+        </table>
+        <pre>// Inorder — Recursive
+void inorder(Node root) {
+    if (root == null) return;
+    inorder(root.left);
+    System.out.print(root.val + " ");
+    inorder(root.right);
+}
+
+// Level-order — Iterative (uses Queue)
+void levelOrder(Node root) {
+    if (root == null) return;
+    Queue&lt;Node&gt; q = new LinkedList&lt;&gt;();
+    q.offer(root);
+    while (!q.isEmpty()) {
+        Node node = q.poll();
+        System.out.print(node.val + " ");
+        if (node.left != null)  q.offer(node.left);
+        if (node.right != null) q.offer(node.right);
+    }
+}</pre>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q15</span>What is a balanced tree? Why does balance matter?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p>A <strong>balanced tree</strong> is one where the height difference between the left and right subtrees of any node is bounded — specifically ≤1 for AVL trees. The height of a balanced tree with n nodes is O(log n).</p>
+        <p><strong>Why it matters:</strong> tree operations (search, insert, delete) are O(height). In a balanced tree: height = O(log n) → operations are O(log n). In an unbalanced (skewed) tree: height = O(n) → operations degrade to O(n) — same as a linked list.</p>
+        <p><strong>Self-balancing BSTs:</strong></p>
+        <ul>
+          <li><strong>AVL Tree:</strong> strictly balanced (height diff ≤1). More rotations on insert/delete. Faster searches. Good for read-heavy workloads.</li>
+          <li><strong>Red-Black Tree:</strong> loosely balanced (approximately balanced). Fewer rotations. Used in: Java <code>TreeMap</code>/<code>TreeSet</code>, C++ <code>std::map</code>, Linux process scheduler.</li>
+        </ul>
+        <p><strong>B-Tree (used in databases):</strong> n-ary balanced tree optimized for disk storage. Each node holds multiple keys, minimizing disk I/O. MySQL's InnoDB uses B+ trees for indexes.</p>
+        <div class="tip">💡 In interviews, if asked why databases use B-trees instead of binary BSTs: "B-trees have high branching factor — each disk page stores many keys, minimizing the number of disk I/Os needed to find a record. A binary BST would require O(log₂n) disk reads vs O(log_Bn) for a B-tree with branching factor B."</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q16</span>What is a Heap? Max-heap vs Min-heap? How is it stored?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p>A heap is a <strong>complete binary tree</strong> (all levels filled except possibly the last, filled left to right) that satisfies the <em>heap property</em>:</p>
+        <ul>
+          <li><strong>Max-heap:</strong> every parent ≥ its children. Root = maximum element.</li>
+          <li><strong>Min-heap:</strong> every parent ≤ its children. Root = minimum element.</li>
+        </ul>
+        <p><strong>Array representation (no wasted space):</strong></p>
+        <div class="formula">
+          <span class="f-label">Heap Array Indexing</span>
+          <div class="f-body">Node at index  i  →  left child: 2i+1  |  right child: 2i+2  |  parent: (i-1)/2<br><br>
+Max-heap [10, 7, 8, 3, 4, 6, 2] represents:<br>
+          10<br>
+         /  \<br>
+        7    8<br>
+       / \  / \<br>
+      3   4 6   2</div>
+        </div>
+        <p><strong>Key operations:</strong></p>
+        <ul>
+          <li>Peek (get max/min): <span class="o1">O(1)</span> — always at index 0</li>
+          <li>Insert (heapify up): <span class="ologn">O(log n)</span> — add at end, bubble up</li>
+          <li>Remove max/min (heapify down): <span class="ologn">O(log n)</span> — swap root with last, remove last, sink root down</li>
+          <li>Build heap from array: <span class="on">O(n)</span> — not O(n log n) as you might expect</li>
+        </ul>
+        <p><strong>Uses:</strong> Priority Queue implementation, Heap Sort, Dijkstra's algorithm, finding the k-th largest/smallest element in O(n log k), median maintenance with two heaps.</p>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q17</span>What is a Trie (Prefix Tree)? When would you use it?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p>A trie is a tree-like data structure where each path from root to a node represents a prefix of a string. Each node has up to 26 children (for lowercase English letters). The end of a word is marked with a boolean flag <code>isEnd</code>.</p>
+        <pre>// Trie Node
+class TrieNode {
+    TrieNode[] children = new TrieNode[26];
+    boolean isEnd = false;
+}
+
+// Insert "cat" into trie:
+// root → c → a → t (isEnd=true)</pre>
+        <p><strong>Operations (all O(m) where m = word length):</strong></p>
+        <ul>
+          <li>Insert: traverse/create nodes for each character, mark end</li>
+          <li>Search: traverse nodes; return true only if last node has <code>isEnd=true</code></li>
+          <li>StartsWith: traverse nodes; return true if path exists (don't need isEnd)</li>
+        </ul>
+        <p><strong>Use when:</strong> autocomplete, spell-checking, prefix matching, IP routing tables, word games (Boggle, Scrabble), dictionary search. A trie is faster than a hash table for prefix queries.</p>
+        <p><strong>Trade-off:</strong> fast O(m) lookups but high memory usage — each node can have up to 26 child pointers. For memory efficiency: use HashMap for children instead of fixed array, or use a Ternary Search Tree.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- GRAPHS -->
+<section id="q-graphs">
+  <div class="sh"><div class="sh-eye">Questions 18–20</div><h2>🕸 Graphs & Traversals</h2></div>
+
+  <div class="why">
+    <div class="why-label">⚡ Why Graphs Are Tested Even in Fresher Interviews</div>
+    <p>Graphs model real-world relationships: social networks, maps (GPS navigation), web page links, dependency resolution (package managers), circuit design. BFS and DFS are the two fundamental graph algorithms — and understanding when to use each is a critical skill. Even if the interview question doesn't say "graph," many problems (shortest path, connected components, cycle detection) are secretly graph problems.</p>
+  </div>
+
+  <div class="xp"><button class="xp-btn" onclick="xpAll('qa4')">Expand All</button><button class="xp-btn" onclick="xpNone('qa4')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa4">
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q18</span>What is a graph? How is it represented? Directed vs undirected?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p>A graph G = (V, E) consists of a set of <strong>vertices</strong> (nodes) V and a set of <strong>edges</strong> E connecting pairs of vertices.</p>
+        <p><strong>Types:</strong></p>
+        <ul>
+          <li><strong>Directed (Digraph):</strong> edges have direction (A→B ≠ B→A). Example: web pages + hyperlinks, Twitter follow graph.</li>
+          <li><strong>Undirected:</strong> edges are bidirectional (A-B = B-A). Example: Facebook friendship graph, road map.</li>
+          <li><strong>Weighted:</strong> edges have numerical weights. Example: road distances, network bandwidth.</li>
+          <li><strong>Unweighted:</strong> edges have no weight (or weight = 1).</li>
+        </ul>
+        <p><strong>Representation 1 — Adjacency Matrix:</strong> V×V 2D array. <code>matrix[i][j] = 1</code> if edge exists. Space: O(V²). Edge lookup: O(1). Iteration over neighbors: O(V). Best for dense graphs.</p>
+        <p><strong>Representation 2 — Adjacency List:</strong> array of lists where <code>list[i]</code> contains all neighbors of vertex i. Space: O(V+E). Neighbor iteration: O(degree). Best for sparse graphs (most real-world graphs).</p>
+        <pre>// Adjacency List — Java
+List&lt;List&lt;Integer&gt;&gt; graph = new ArrayList&lt;&gt;();
+for (int i = 0; i < V; i++) graph.add(new ArrayList&lt;&gt;());
+// Add edge 0-1 (undirected)
+graph.get(0).add(1);
+graph.get(1).add(0);</pre>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q19</span>BFS vs DFS — explain both with code and use cases?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <table>
+          <tr><th>Property</th><th>BFS</th><th>DFS</th></tr>
+          <tr><td>Data structure</td><td>Queue</td><td>Stack (iterative) or Recursion</td></tr>
+          <tr><td>Explores</td><td>Level by level (wide first)</td><td>Branch by branch (deep first)</td></tr>
+          <tr><td>Space complexity</td><td>O(V) — stores a whole level</td><td>O(V) worst, O(h) best (h = max depth)</td></tr>
+          <tr><td>Completeness</td><td>Always finds a solution if one exists</td><td>May get stuck in deep/infinite branch</td></tr>
+          <tr><td>Shortest path?</td><td>✅ Yes, for unweighted graphs</td><td>❌ No (not guaranteed)</td></tr>
+        </table>
+        <pre>// BFS — Iterative (uses Queue)
+void bfs(List&lt;List&lt;Integer&gt;&gt; graph, int start) {
+    boolean[] visited = new boolean[graph.size()];
+    Queue&lt;Integer&gt; q = new LinkedList&lt;&gt;();
+    visited[start] = true;
+    q.offer(start);
+    while (!q.isEmpty()) {
+        int node = q.poll();
+        System.out.print(node + " ");
+        for (int neighbor : graph.get(node)) {
+            if (!visited[neighbor]) {
+                visited[neighbor] = true;
+                q.offer(neighbor);
+            }
+        }
+    }
+}
+
+// DFS — Recursive
+void dfs(List&lt;List&lt;Integer&gt;&gt; graph, boolean[] visited, int node) {
+    visited[node] = true;
+    System.out.print(node + " ");
+    for (int neighbor : graph.get(node)) {
+        if (!visited[neighbor]) dfs(graph, visited, neighbor);
+    }
+}</pre>
+        <p><strong>Use BFS when:</strong> shortest path in unweighted graph, finding all nodes within a distance, level-order tree traversal, connected components.</p>
+        <p><strong>Use DFS when:</strong> topological sorting, cycle detection in directed graphs, finding strongly connected components, backtracking problems, maze/path solving.</p>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q20</span>HashMap vs TreeMap — when to use each?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p><strong>HashMap (Java) / dict (Python):</strong></p>
+        <ul>
+          <li>Hash-based — computes a hash for each key</li>
+          <li>O(1) average for get, put, remove</li>
+          <li>Keys are <strong>unordered</strong> — iteration order not guaranteed (Java) or insertion order preserved (Python 3.7+)</li>
+          <li>Use when: you need fast lookup by key and don't care about ordering</li>
+        </ul>
+        <p><strong>TreeMap (Java) / SortedDict:</strong></p>
+        <ul>
+          <li>Red-Black tree based</li>
+          <li>O(log n) for all operations</li>
+          <li>Keys are <strong>sorted</strong> — always in ascending order</li>
+          <li>Supports range queries: <code>subMap(from, to)</code>, <code>floorKey(k)</code>, <code>ceilingKey(k)</code></li>
+          <li>Use when: you need keys in sorted order, or need range-based queries</li>
+        </ul>
+        <pre>// Java example
+// HashMap — O(1) lookup, unordered
+Map&lt;String, Integer&gt; freq = new HashMap&lt;&gt;();
+freq.put("apple", 3);
+freq.get("apple"); // O(1)
+
+// TreeMap — O(log n), sorted by key
+Map&lt;String, Integer&gt; sorted = new TreeMap&lt;&gt;();
+sorted.put("banana", 1);
+sorted.put("apple", 3);
+// Iteration: apple, banana (alphabetical)
+sorted.firstKey();  // "apple"
+sorted.lastKey();   // "banana"</pre>
+        <div class="note">🧠 Rule of thumb: start with HashMap (90% of use cases). Switch to TreeMap only when you need sorted keys or range queries. The 2.5x speed difference in simple lookups rarely matters but the sorted property does.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- HASHING & SEARCHING -->
+<section id="q-hash">
+  <div class="sh"><div class="sh-eye">Questions 21–24</div><h2>🔑 Hashing & Searching</h2></div>
+
+  <div class="why">
+    <div class="why-label">⚡ Why Hashing Is the Secret Weapon of Efficient Algorithms</div>
+    <p>A huge proportion of efficient algorithm solutions rely on hash tables to achieve O(n) where a naive solution would be O(n²). The pattern: "use a HashMap to trade space for time." Understanding hash collisions, load factor, and when to use HashMap vs TreeMap is directly tested. Binary search is the other foundational search technique — fast, elegant, and often overlooked by students who default to linear scan.</p>
+  </div>
+
+  <div class="xp"><button class="xp-btn" onclick="xpAll('qa5')">Expand All</button><button class="xp-btn" onclick="xpNone('qa5')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa5">
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q21</span>What is a hash table? How does it handle collisions?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p>A hash table (hash map) maps keys to values using a <strong>hash function</strong> that converts a key into an array index. This enables O(1) average-case lookup, insert, and delete.</p>
+        <p><strong>Hash function:</strong> <code>index = hashCode(key) % arrayCapacity</code>. A good hash function distributes keys uniformly to minimize collisions.</p>
+        <p><strong>Collision:</strong> two different keys hash to the same index. Two standard solutions:</p>
+        <p><strong>1. Chaining (Java HashMap uses this):</strong> each array slot holds a linked list (or balanced tree in Java 8+ when list gets long). Multiple keys at the same index are chained together. Worst case: all keys collide → O(n) operations. Average: O(1) with a good hash function.</p>
+        <p><strong>2. Open Addressing (linear probing, quadratic probing, double hashing):</strong> when a collision occurs, probe for the next empty slot in the array itself. Memory-compact but performance degrades badly with high load factor.</p>
+        <p><strong>Load Factor:</strong> n/capacity (number of entries / array size). Java's HashMap rehashes when load factor > 0.75 — doubles the array and re-inserts all entries (amortized O(1) for inserts).</p>
+        <pre>// How Java's HashMap works internally (simplified)
+// Stores: array of "buckets" (initially 16 slots)
+// Each bucket = linked list (or tree if >8 entries)
+// put("key", value):
+//   1. Compute hashCode("key")
+//   2. index = hashCode & (capacity-1)  // bitwise for power-of-2 sizes
+//   3. If bucket empty → store directly
+//   4. If collision → append to linked list, check for equals()
+//   5. If load factor exceeded → rehash (double capacity)</pre>
+        <div class="tip">💡 Always mention: "Average O(1), worst case O(n) due to collisions — but O(n) is rare with a good hash function and reasonable load factor."</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q22</span>Linear Search vs Binary Search — full comparison?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <table>
+          <tr><th>Property</th><th>Linear Search</th><th>Binary Search</th></tr>
+          <tr><td>Time complexity</td><td><span class="on">O(n)</span></td><td><span class="ologn">O(log n)</span></td></tr>
+          <tr><td>Space complexity</td><td><span class="o1">O(1)</span></td><td><span class="o1">O(1) iterative, O(log n) recursive</span></td></tr>
+          <tr><td>Requires sorted?</td><td>❌ No</td><td>✅ Yes — must be sorted</td></tr>
+          <tr><td>Works on</td><td>Any sequence</td><td>Random access arrays (not linked lists)</td></tr>
+          <tr><td>When to use</td><td>Small arrays, unsorted data</td><td>Large sorted arrays, repeated searches</td></tr>
+        </table>
+        <pre>// Binary Search — Iterative (preferred)
+int binarySearch(int[] arr, int target) {
+    int left = 0, right = arr.length - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2; // avoids integer overflow
+        if (arr[mid] == target) return mid;
+        else if (arr[mid] < target) left = mid + 1;
+        else right = mid - 1;
+    }
+    return -1; // not found
+}
+// Each iteration halves the search space
+// 10 steps can search 2^10 = 1,024 elements
+// 20 steps can search 2^20 = 1,048,576 elements</pre>
+        <div class="crit">⚠ Classic bug: use <code>mid = left + (right - left) / 2</code> NOT <code>mid = (left + right) / 2</code>. The latter overflows when left + right exceeds Integer.MAX_VALUE (a real bug found in Java's own JDK binary search implementation in 2006).</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q23</span>Two-Sum problem — explain 3 approaches?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p><em>Problem: Given an array and a target, find two numbers that add up to the target. Return their indices.</em></p>
+        <p><strong>Approach 1 — Brute Force: O(n²) time, O(1) space</strong></p>
+        <pre>// Check every pair
+for (int i = 0; i < n; i++)
+    for (int j = i+1; j < n; j++)
+        if (arr[i] + arr[j] == target) return new int[]{i, j};</pre>
+        <p><strong>Approach 2 — HashMap: O(n) time, O(n) space ← Best for unsorted</strong></p>
+        <pre>int[] twoSum(int[] nums, int target) {
+    Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+    for (int i = 0; i < nums.length; i++) {
+        int complement = target - nums[i];
+        if (map.containsKey(complement))
+            return new int[]{map.get(complement), i};
+        map.put(nums[i], i);
+    }
+    return new int[]{};
+}
+// For each element x, check if (target - x) is already in the map</pre>
+        <p><strong>Approach 3 — Two Pointers: O(n log n) time, O(1) space ← Best if sorted</strong></p>
+        <pre>// Sort the array first, then two pointers
+Arrays.sort(nums); // O(n log n)
+int left = 0, right = nums.length - 1;
+while (left < right) {
+    int sum = nums[left] + nums[right];
+    if (sum == target) return; // found
+    else if (sum < target) left++;
+    else right--;
+}</pre>
+        <div class="tip">💡 In interview: always present the HashMap approach first (O(n), works for unsorted). Then mention two-pointers as the optimal when sorted. This shows you understand the trade-off between time and space complexity.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q24</span>What is a sliding window? Give an example?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p>A sliding window maintains a contiguous "window" over an array/string, expanding and shrinking it to satisfy a condition. It converts many O(n²) problems into O(n) by avoiding recomputation.</p>
+        <p><strong>Fixed-size window — Maximum sum of subarray of size k:</strong></p>
+        <pre>int maxSumSubarray(int[] arr, int k) {
+    int windowSum = 0;
+    // Compute sum of first window
+    for (int i = 0; i < k; i++) windowSum += arr[i];
+    int maxSum = windowSum;
+
+    // Slide window: add next element, remove first element
+    for (int i = k; i < arr.length; i++) {
+        windowSum += arr[i] - arr[i - k]; // add new, drop old
+        maxSum = Math.max(maxSum, windowSum);
+    }
+    return maxSum;
+}
+// O(n) time, O(1) space — vs O(n*k) for brute force</pre>
+        <p><strong>Variable-size window — Longest substring without repeating characters:</strong></p>
+        <pre>int lengthOfLongestSubstring(String s) {
+    Map&lt;Character, Integer&gt; lastSeen = new HashMap&lt;&gt;();
+    int maxLen = 0, left = 0;
+    for (int right = 0; right < s.length(); right++) {
+        char c = s.charAt(right);
+        if (lastSeen.containsKey(c) && lastSeen.get(c) >= left)
+            left = lastSeen.get(c) + 1; // shrink window
+        lastSeen.put(c, right);
+        maxLen = Math.max(maxLen, right - left + 1);
+    }
+    return maxLen; // O(n) time, O(k) space where k = alphabet size
+}</pre>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SORTING -->
+<section id="q-sort">
+  <div class="sh"><div class="sh-eye">Questions 25–26</div><h2>↕ Sorting Algorithms</h2></div>
+
+  <div class="why">
+    <div class="why-label">⚡ Why Sorting Questions Are Classic and Persistent</div>
+    <p>Sorting questions have been in technical interviews for decades because they elegantly test: algorithm design, complexity analysis, recursion, and trade-offs. "Write merge sort on paper" tests all four simultaneously. You won't implement merge sort in production (standard library handles it), but the ability to implement and explain it demonstrates deep algorithmic thinking.</p>
+  </div>
+
+  <div class="xp"><button class="xp-btn" onclick="xpAll('qa6')">Expand All</button><button class="xp-btn" onclick="xpNone('qa6')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa6">
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q25</span>Merge Sort vs Quick Sort — deep comparison?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <table>
+          <tr><th>Property</th><th>Merge Sort</th><th>Quick Sort</th></tr>
+          <tr><td>Time — best</td><td><span class="onlogn">O(n log n)</span></td><td><span class="onlogn">O(n log n)</span></td></tr>
+          <tr><td>Time — average</td><td><span class="onlogn">O(n log n)</span></td><td><span class="onlogn">O(n log n)</span></td></tr>
+          <tr><td>Time — worst</td><td><span class="onlogn">O(n log n)</span></td><td><span class="on2">O(n²) — sorted input, naive pivot</span></td></tr>
+          <tr><td>Space</td><td><span class="on">O(n) — auxiliary array</span></td><td><span class="ologn">O(log n) — call stack</span></td></tr>
+          <tr><td>Stable?</td><td>✅ Yes</td><td>❌ No (typically)</td></tr>
+          <tr><td>Cache-friendly?</td><td>Moderate</td><td>✅ Excellent — in-place, good locality</td></tr>
+          <tr><td>Best for</td><td>Linked lists, external sort, stable sort required</td><td>Arrays, in-memory sorting (practical speed)</td></tr>
+        </table>
+        <pre>// Merge Sort — Divide and Conquer
+void mergeSort(int[] arr, int left, int right) {
+    if (left >= right) return;
+    int mid = left + (right - left) / 2;
+    mergeSort(arr, left, mid);
+    mergeSort(arr, mid + 1, right);
+    merge(arr, left, mid, right);
+}
+
+void merge(int[] arr, int l, int m, int r) {
+    int[] temp = new int[r - l + 1];
+    int i = l, j = m + 1, k = 0;
+    while (i <= m && j <= r)
+        temp[k++] = arr[i] <= arr[j] ? arr[i++] : arr[j++];
+    while (i <= m) temp[k++] = arr[i++];
+    while (j <= r) temp[k++] = arr[j++];
+    for (int x = 0; x < temp.length; x++) arr[l + x] = temp[x];
+}</pre>
+        <p><strong>Why Quick Sort is faster in practice despite same Big-O:</strong> better cache performance (in-place), smaller constant factor, avoidable worst case with randomized pivot. Most modern standard library sorts use introsort (Quick Sort + Heap Sort + Insertion Sort hybrid).</p>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q26</span>What is a stable sort? Why does it matter? Name stable and unstable sorts.<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p>A sort is <strong>stable</strong> if it preserves the relative order of equal elements — if two elements have the same key, the one that appears first in the input still appears first in the output.</p>
+        <p><strong>Why it matters:</strong> when sorting by multiple criteria. Example: sort employee records first by department, then by name. If you sort by name first (stable sort), then by department (stable sort), the name order within each department is preserved. With an unstable sort, this breaks.</p>
+        <pre>// Example: Sort [(Alice, Engineering), (Bob, Marketing), (Charlie, Engineering)]
+// By name: [(Alice, E), (Bob, M), (Charlie, E)]
+// Then stable sort by dept: [(Alice, E), (Charlie, E), (Bob, M)]
+// Alice comes before Charlie because stable sort preserved their original order
+// Unstable sort: Charlie might come before Alice — unpredictable</pre>
+        <p><strong>Stable sorts:</strong> Merge Sort ✅, Insertion Sort ✅, Bubble Sort ✅, Tim Sort (Python/Java default) ✅, Counting Sort ✅</p>
+        <p><strong>Unstable sorts:</strong> Quick Sort ❌, Heap Sort ❌, Selection Sort ❌</p>
+        <div class="note">🧠 Java's <code>Arrays.sort()</code> uses Dual-Pivot Quick Sort for primitives (unstable, fast) and Tim Sort for objects (stable, required by Java spec). Python's <code>sorted()</code> always uses Tim Sort (stable).</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- RECURSION -->
+<section id="q-recursion">
+  <div class="sh"><div class="sh-eye">Questions 27–29</div><h2>🔄 Recursion & Iteration</h2></div>
+
+  <div class="why">
+    <div class="why-label">⚡ Why Recursion Is a Mindset, Not Just a Syntax</div>
+    <p>Recursion is the mental model for divide-and-conquer, tree/graph traversal, dynamic programming, and backtracking. Many interview questions that seem complex become trivial once you identify the self-similar substructure. Interviewers test recursion to see if you can think in terms of "what's the base case? what's the recursive call? what do I return?" — three questions that unlock almost any recursive problem.</p>
+  </div>
+
+  <div class="xp"><button class="xp-btn" onclick="xpAll('qa7')">Expand All</button><button class="xp-btn" onclick="xpNone('qa7')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa7">
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q27</span>What is recursion? What is a base case? What happens without it?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p>Recursion is a technique where a function calls itself with a <strong>smaller version of the same problem</strong>, progressively breaking it down until reaching a trivially solvable case.</p>
+        <p>Every recursive function has two parts:</p>
+        <ul>
+          <li><strong>Base case:</strong> the terminating condition — the simplest version of the problem where the answer is known directly, requiring no further recursion.</li>
+          <li><strong>Recursive case:</strong> the function calls itself with a simpler/smaller input, moving toward the base case.</li>
+        </ul>
+        <pre>// Factorial — classic recursion
+int factorial(int n) {
+    // Base case: factorial of 0 or 1 is 1
+    if (n <= 1) return 1;
+    // Recursive case: n! = n × (n-1)!
+    return n * factorial(n - 1);
+}
+
+// Call stack for factorial(4):
+// factorial(4) → 4 * factorial(3)
+// factorial(3) → 3 * factorial(2)
+// factorial(2) → 2 * factorial(1)
+// factorial(1) → 1  ← BASE CASE — unwinds from here</pre>
+        <p><strong>Without the base case:</strong> the function calls itself indefinitely — <em>infinite recursion</em> → the call stack fills completely → <code>StackOverflowError</code> (Java) / <code>RecursionError</code> (Python).</p>
+        <p>Each recursive call uses a stack frame (stores return address, local variables, parameters). Java's default stack size allows ~500–10,000 frames depending on frame size. Deep recursion on large inputs can overflow even with a correct base case.</p>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q28</span>Recursion vs Iteration — when to use each? Trade-offs?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <table>
+          <tr><th>Aspect</th><th>Recursion</th><th>Iteration</th></tr>
+          <tr><td>Code clarity</td><td>Often more elegant for tree/graph/backtrack problems</td><td>More verbose but explicit control flow</td></tr>
+          <tr><td>Performance</td><td>Function call overhead per frame; slower</td><td>No overhead; faster</td></tr>
+          <tr><td>Space</td><td>O(depth) call stack; risk of StackOverflow</td><td>O(1) (or explicit stack if needed)</td></tr>
+          <tr><td>Best for</td><td>Tree traversal, DFS, divide-and-conquer, backtracking, subsets/permutations</td><td>Simple loops, tail-recursive conversions, large inputs</td></tr>
+        </table>
+        <pre>// Fibonacci — Recursion vs Iteration
+// Recursive: O(2^n) time — exponential! (without memoization)
+int fibR(int n) { return n <= 1 ? n : fibR(n-1) + fibR(n-2); }
+
+// Iterative: O(n) time, O(1) space — much better
+int fibI(int n) {
+    if (n <= 1) return n;
+    int a = 0, b = 1;
+    for (int i = 2; i <= n; i++) { int c = a+b; a = b; b = c; }
+    return b;
+}</pre>
+        <p><strong>Rule of thumb:</strong> Use recursion when it makes the solution significantly cleaner and the depth is bounded (e.g., tree traversal — depth is O(log n) for balanced trees). Use iteration for performance-critical code and large inputs where stack depth matters.</p>
+        <div class="tip">💡 Tree traversal is one of the few cases where recursive code (3 lines) is dramatically simpler than iterative (20+ lines using an explicit stack). This is the primary reason recursion survives in production code for tree/graph problems.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q29</span>Divide and Conquer — explain the paradigm with an example?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p>Divide and Conquer solves a problem by:</p>
+        <ol style="padding-left:18px;margin:8px 0;">
+          <li><strong>Divide:</strong> split the problem into smaller subproblems of the same type</li>
+          <li><strong>Conquer:</strong> solve each subproblem recursively (base case: subproblem small enough to solve directly)</li>
+          <li><strong>Combine:</strong> merge the solutions of subproblems into the solution of the original</li>
+        </ol>
+        <p><strong>Classic example — Merge Sort:</strong></p>
+        <ul>
+          <li>Divide: split array in half</li>
+          <li>Conquer: sort each half recursively</li>
+          <li>Combine: merge two sorted halves into one sorted array</li>
+        </ul>
+        <p><strong>Other D&C algorithms:</strong> Quick Sort, Binary Search, Strassen's Matrix Multiplication, Closest Pair of Points, Karatsuba Integer Multiplication.</p>
+        <p><strong>Time complexity (Master Theorem):</strong> For T(n) = aT(n/b) + f(n): T(n) = O(n log n) for Merge Sort (a=2, b=2, f(n)=O(n)).</p>
+        <div class="note">🧠 Key distinction: D&C subproblems don't overlap (each element goes to exactly one half). This separates it from Dynamic Programming where subproblems overlap and memoization is needed.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- DYNAMIC PROGRAMMING -->
+<section id="q-dp">
+  <div class="sh"><div class="sh-eye">Questions 30–32</div><h2>🧮 Dynamic Programming & Greedy</h2></div>
+
+  <div class="why">
+    <div class="why-label">⚡ Why DP Separates the Good from the Great</div>
+    <p>Dynamic programming is one of the most powerful algorithmic techniques — and one of the most feared. It transforms exponential-time solutions into polynomial-time ones by eliminating redundant computation. For fresher interviews, you need to understand the concept, the two conditions that make DP applicable, and at least two classic problems. You don't need to solve DP problems under pressure — you need to recognize when DP is the right tool.</p>
+  </div>
+
+  <div class="xp"><button class="xp-btn" onclick="xpAll('qa8')">Expand All</button><button class="xp-btn" onclick="xpNone('qa8')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa8">
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q30</span>What is Dynamic Programming? Two required conditions?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p>Dynamic Programming (DP) solves optimization problems by breaking them into overlapping subproblems, solving each <strong>exactly once</strong>, storing the result, and using it when the same subproblem appears again.</p>
+        <p><strong>Two necessary conditions:</strong></p>
+        <ul>
+          <li><strong>Optimal Substructure:</strong> the optimal solution to the problem can be constructed from optimal solutions of its subproblems. "The best way to solve the big problem comes from the best ways to solve the pieces."</li>
+          <li><strong>Overlapping Subproblems:</strong> the same subproblems are solved multiple times during the recursive computation. If subproblems never repeat, D&C suffices — no need for DP.</li>
+        </ul>
+        <p><strong>Fibonacci — why DP helps:</strong></p>
+        <pre>// Naive recursion: O(2^n) — subproblems repeat massively
+fib(5) calls fib(4) AND fib(3)
+fib(4) calls fib(3) AND fib(2)  ← fib(3) computed TWICE
+fib(3) calls fib(2) AND fib(1)  ← fib(2) computed MULTIPLE TIMES
+
+// Memoized (top-down DP): O(n) — compute each subproblem once
+int[] memo = new int[n+1];
+int fib(int n) {
+    if (n <= 1) return n;
+    if (memo[n] != 0) return memo[n]; // already computed
+    memo[n] = fib(n-1) + fib(n-2);
+    return memo[n];
+}
+
+// Tabulation (bottom-up DP): O(n) time, O(1) space
+int fib(int n) {
+    if (n <= 1) return n;
+    int a = 0, b = 1;
+    for (int i = 2; i <= n; i++) { int c = a+b; a = b; b = c; }
+    return b;
+}</pre>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q31</span>Memoization vs Tabulation — top-down vs bottom-up?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <table>
+          <tr><th>Aspect</th><th>Memoization (Top-Down)</th><th>Tabulation (Bottom-Up)</th></tr>
+          <tr><td>Approach</td><td>Recursive + cache results</td><td>Iterative, fill table from base cases</td></tr>
+          <tr><td>Subproblems computed</td><td>Only needed ones (lazy)</td><td>All subproblems (eager)</td></tr>
+          <tr><td>Code style</td><td>More natural from recursive formulation</td><td>More explicit, harder to conceptualize</td></tr>
+          <tr><td>Stack risk</td><td>Risk of StackOverflow for large n</td><td>No recursion → no stack risk</td></tr>
+          <tr><td>Performance</td><td>Function call overhead</td><td>Better constants, cache-friendly</td></tr>
+          <tr><td>Best for</td><td>When not all subproblems needed, easy to write</td><td>Production code, large inputs, tight performance needs</td></tr>
+        </table>
+        <pre>// Climbing Stairs — dp[i] = ways to climb i stairs (1 or 2 at a time)
+
+// Tabulation (bottom-up) — O(n) time, O(n) space
+int climbStairs(int n) {
+    int[] dp = new int[n+1];
+    dp[0] = 1; dp[1] = 1;
+    for (int i = 2; i <= n; i++)
+        dp[i] = dp[i-1] + dp[i-2];
+    return dp[n];
+}
+
+// Space-optimized — O(n) time, O(1) space
+int climbStairs(int n) {
+    int a = 1, b = 1;
+    for (int i = 2; i <= n; i++) { int c = a+b; a = b; b = c; }
+    return b;
+}</pre>
+        <div class="tip">💡 For interviews: start with memoization (easier to explain and write). Mention tabulation as the optimization. Mention space optimization when applicable. This three-step progression impresses interviewers.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q32</span>Greedy vs Dynamic Programming — how do you choose?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p><strong>Greedy:</strong> at each step, make the locally optimal choice (the best choice right now, without reconsidering past decisions). Fast — O(n) or O(n log n) typically. But only correct when the greedy choice always leads to a globally optimal solution.</p>
+        <p><strong>Dynamic Programming:</strong> considers all possible choices at each step via subproblems. Always correct for problems with optimal substructure. Slower — typically O(n²) or O(n·W) space and time.</p>
+        <table>
+          <tr><th>Problem</th><th>Algorithm</th><th>Why</th></tr>
+          <tr><td>Fractional Knapsack</td><td>Greedy ✅</td><td>Take highest value/weight ratio items first — always optimal</td></tr>
+          <tr><td>0/1 Knapsack</td><td>DP ✅</td><td>Greedy fails — taking the locally best item may miss a better combination</td></tr>
+          <tr><td>Activity Selection</td><td>Greedy ✅</td><td>Always select the activity that finishes earliest</td></tr>
+          <tr><td>Longest Common Subsequence</td><td>DP ✅</td><td>No greedy choice works — must try all options</td></tr>
+          <tr><td>Dijkstra's Shortest Path</td><td>Greedy ✅</td><td>Always expand the closest unvisited vertex — optimal for non-negative weights</td></tr>
+          <tr><td>Bellman-Ford Shortest Path</td><td>DP ✅</td><td>Handles negative weights — requires relaxing all edges V-1 times</td></tr>
+        </table>
+        <p><strong>How to decide:</strong> Ask "If I make the greedy choice, will it always be part of an optimal solution?" If yes and you can prove it, use greedy. If not sure or choices depend on future decisions, use DP.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- GREEDY & BACKTRACKING -->
+<section id="q-greedy">
+  <div class="sh"><div class="sh-eye">Questions 33–34</div><h2>♟ Backtracking</h2></div>
+
+  <div class="why">
+    <div class="why-label">⚡ Why Backtracking Is Pattern Recognition</div>
+    <p>Backtracking is brute-force search with pruning — try every possibility, but abandon a path as soon as it's clear it can't lead to a valid solution. It's the algorithm behind constraint satisfaction problems: Sudoku, N-Queens, generating combinations/permutations. Recognizing when to use backtracking is more important than being able to implement it from scratch in an interview.</p>
+  </div>
+
+  <div class="xp"><button class="xp-btn" onclick="xpAll('qa9')">Expand All</button><button class="xp-btn" onclick="xpNone('qa9')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa9">
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q33</span>What is Backtracking? Pattern and classic examples?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p>Backtracking explores a <strong>decision tree</strong> of choices. At each step, make a choice and recurse. If the choice leads to a dead end (constraint violated), <em>undo</em> the choice (backtrack) and try the next option.</p>
+        <p><strong>Template:</strong></p>
+        <pre>void backtrack(State current, List&lt;State&gt; result) {
+    // Base case: found a valid complete solution
+    if (isSolution(current)) {
+        result.add(copy(current));
+        return;
+    }
+    // Try all choices at this step
+    for (Choice c : getChoices(current)) {
+        if (isValid(current, c)) {
+            makeChoice(current, c);     // 1. Make the choice
+            backtrack(current, result); // 2. Recurse
+            undoChoice(current, c);     // 3. Undo (backtrack)
+        }
+    }
+}</pre>
+        <p><strong>Example — Generate all subsets of [1, 2, 3]:</strong></p>
+        <pre>void subsets(int[] nums, int start, List&lt;Integer&gt; current, List&lt;List&lt;Integer&gt;&gt; result) {
+    result.add(new ArrayList&lt;&gt;(current)); // every state is a valid subset
+    for (int i = start; i < nums.length; i++) {
+        current.add(nums[i]);            // choose nums[i]
+        subsets(nums, i+1, current, result); // recurse
+        current.remove(current.size()-1); // unchoose (backtrack)
+    }
+}
+// For [1,2,3]: generates [], [1], [1,2], [1,2,3], [1,3], [2], [2,3], [3]</pre>
+        <p><strong>Classic backtracking problems:</strong> N-Queens, Sudoku solver, all permutations, all subsets, word search in a grid, combination sum, letter combinations of phone number digits.</p>
+        <div class="note">🧠 Time complexity of backtracking is usually O(k^n) or O(n!) in the worst case — exponential. But pruning cuts off huge branches of the search tree, making it practical for constrained problems.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q34</span>Time vs Space complexity trade-off — give a real example?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p>The fundamental trade-off in algorithm design: you can often trade more memory for faster computation, or vice versa.</p>
+        <p><strong>Classic example — Fibonacci:</strong></p>
+        <table>
+          <tr><th>Approach</th><th>Time</th><th>Space</th></tr>
+          <tr><td>Naive recursion</td><td>O(2ⁿ)</td><td>O(n) call stack</td></tr>
+          <tr><td>Memoized recursion</td><td>O(n)</td><td>O(n) memo array + O(n) stack</td></tr>
+          <tr><td>Tabulation DP</td><td>O(n)</td><td>O(n) DP array</td></tr>
+          <tr><td>Space-optimized DP</td><td>O(n)</td><td>O(1) — only last 2 values</td></tr>
+        </table>
+        <p><strong>Two-Sum example:</strong></p>
+        <ul>
+          <li>Brute force (nested loops): O(n²) time, O(1) space</li>
+          <li>HashMap approach: O(n) time, O(n) space</li>
+          <li>Sorted + two pointers: O(n log n) time, O(1) space</li>
+        </ul>
+        <p><strong>Caching/memoization:</strong> almost every DP optimization trades O(n) or O(n²) space to reduce exponential time to polynomial.</p>
+        <p><strong>When space is the constraint:</strong> use the iterative, space-optimized approach (keep only what's needed). When time is the constraint: trade memory for speed via memoization, precomputation, or lookup tables.</p>
+        <div class="tip">💡 Always mention both time and space complexity for your solution. Then mention: "If memory is tight, I can use [space-optimized approach] at the cost of [trade-off]." This shows maturity beyond just "it works."</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CODING PROBLEMS -->
+<section id="q-coding">
+  <div class="sh"><div class="sh-eye">Question 35</div><h2>💻 Must-Know Coding Problem</h2></div>
+
+  <div class="why">
+    <div class="why-label">⚡ The One Problem Every Fresher Must Write on Paper</div>
+    <p>Infosys technical interviews frequently ask candidates to write simple algorithms on paper or in an online editor. The most common patterns: palindrome check, reverse string/number, prime check, Fibonacci, and array manipulation. Every fresher must be able to write these cleanly, from memory, under pressure. Practice writing code by hand — not just typing it.</p>
+  </div>
+
+  <div class="xp"><button class="xp-btn" onclick="xpAll('qa10')">Expand All</button><button class="xp-btn" onclick="xpNone('qa10')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa10">
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q35</span>Write code to check if a string is a palindrome — multiple approaches with analysis?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p>A palindrome reads the same forward and backward. "racecar", "madam", "level" are palindromes.</p>
+        <p><strong>Approach 1 — Two Pointers (Optimal):</strong></p>
+        <pre>// O(n) time, O(1) space — most efficient
+boolean isPalindrome(String s) {
+    int left = 0, right = s.length() - 1;
+    while (left < right) {
+        if (s.charAt(left) != s.charAt(right)) return false;
+        left++;
+        right--;
+    }
+    return true; // all characters matched
+}</pre>
+        <p><strong>Approach 2 — Reverse and Compare:</strong></p>
+        <pre>// O(n) time, O(n) space — simple but uses extra memory
+boolean isPalindrome(String s) {
+    String reversed = new StringBuilder(s).reverse().toString();
+    return s.equals(reversed);
+}</pre>
+        <p><strong>Approach 3 — Recursive:</strong></p>
+        <pre>// O(n) time, O(n) stack space
+boolean isPalindrome(String s, int left, int right) {
+    if (left >= right) return true; // base case
+    if (s.charAt(left) != s.charAt(right)) return false;
+    return isPalindrome(s, left + 1, right - 1);
+}</pre>
+        <p><strong>Extension — Case-insensitive, alphanumeric only (LeetCode 125):</strong></p>
+        <pre>// "A man, a plan, a canal: Panama" → true
+boolean isPalindrome(String s) {
+    int left = 0, right = s.length() - 1;
+    while (left < right) {
+        while (left < right && !Character.isLetterOrDigit(s.charAt(left))) left++;
+        while (left < right && !Character.isLetterOrDigit(s.charAt(right))) right--;
+        if (Character.toLowerCase(s.charAt(left)) != Character.toLowerCase(s.charAt(right)))
+            return false;
+        left++; right--;
+    }
+    return true;
+}</pre>
+        <p><strong>Check palindrome number (no string conversion):</strong></p>
+        <pre>// 121 → true, -121 → false, 10 → false
+boolean isPalindrome(int x) {
+    if (x < 0 || (x % 10 == 0 && x != 0)) return false;
+    int reversed = 0;
+    while (x > reversed) {
+        reversed = reversed * 10 + x % 10;
+        x /= 10;
+    }
+    // x == reversed (odd length) or x == reversed/10 (even length)
+    return x == reversed || x == reversed / 10;
+}</pre>
+        <div class="tip">💡 In an interview, always present the two-pointer approach first — it's optimal in both time and space. Then mention the reverse-and-compare approach as a simpler alternative at the cost of O(n) extra space. This shows you understand trade-offs.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="div">· · ·</div>
+
+<!-- DSA QUICK-REVIEW -->
+<section>
+  <div class="sh"><div class="sh-eye">Summary</div><h2>🗂 DSA Quick-Review Cheatsheet</h2></div>
+
+  <div class="qb">
+    <blockquote>"The most powerful algorithms are often the simplest. Complexity is the enemy of execution. Learn the patterns, not the problems."</blockquote>
+    <cite>— Knuth, paraphrased · Also: every competitive programmer who solved 1000 LeetCode problems</cite>
+  </div>
+
+  <div class="formula">
+    <span class="f-label">10 Things to Know Cold Before Any Technical Interview</span>
+    <div class="f-body">
+1.  Array operations: O(1) access, O(n) insert/delete (shifting)<br>
+2.  Linked list: O(1) insert/delete at head (with pointer), O(n) search<br>
+3.  Hash table: O(1) avg lookup/insert/delete; O(n) worst (collision)<br>
+4.  BST (balanced): O(log n) search/insert/delete; O(n) worst (skewed)<br>
+5.  BFS → shortest path (unweighted); DFS → connectivity, topological sort<br>
+6.  Merge Sort: O(n log n) always, O(n) space, stable<br>
+7.  Quick Sort: O(n log n) avg, O(n²) worst, O(log n) space, not stable<br>
+8.  Binary Search: O(log n), requires sorted array — use mid = l+(r-l)/2<br>
+9.  Two-pointer: turns O(n²) pair-finding into O(n) on sorted arrays<br>
+10. Dynamic Programming: optimal substructure + overlapping subproblems</div>
+  </div>
+
+  <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin:28px 0 12px;">The 5 Questions to Ask Yourself for Any DSA Problem</h3>
+  <ol style="line-height:2.2;font-size:16px;padding-left:22px;">
+    <li><strong>What is the input structure?</strong> (sorted? unsorted? linked list? string? graph?)</li>
+    <li><strong>What pattern does this match?</strong> (two pointers? sliding window? BFS? DP? backtracking?)</li>
+    <li><strong>What's my brute-force approach?</strong> (always start here to understand the problem)</li>
+    <li><strong>How can I optimize it?</strong> (trade space for time? sort first? use a HashMap?)</li>
+    <li><strong>What are the edge cases?</strong> (empty input? single element? all duplicates? negative numbers?)</li>
+  </ol>
+</section>
+
+<!-- NEXT PHASE -->
+<div class="next-bar">
+  <div>
+    <h3>Up Next: Phase 2 — SQL</h3>
+    <p>32 real SQL interview questions: JOINs, window functions, normalization, ACID, indexes, stored procedures — with every query written out and explained.</p>
+  </div>
+  <a href="./Phase2_sql.html" class="next-btn">Phase 2: SQL →</a>
+</div>
+
+</main>
+
+<footer class="footer">
+  <h2>The Tech Intel · Interview Mastery Series</h2>
+  <div class="footers">AI/ML & Tech Content | Built for engineers who build the future</div>
+  <div class="footer-links">
+    <a href="https://substack.com/@thetechintel">Substack</a>
+    <a href="https://www.linkedin.com/in/priyanshu-arya/">LinkedIn</a>
+    <a href="https://www.instagram.com/thetechintel/">Instagram</a>
+    <a href="https://www.instagram.com/thetechintel/">X (Twitter)</a>
+    <a href="https://github.com/priyanshu-arya">GitHub</a>
+  </div>
+  <p>Part 1 covers the human side. Part 2 Phase 1 is DSA. Five more technical phases follow — SQL, OOPs, DBMS, OS, and Networks + System Design + SDLC.</p>
+  <div class="footer-small">© 2025 The Tech Intel · Priyanshu · April 2025 · Not affiliated with Infosys Limited · All content is educational</div>
+</footer>
+
+<script>
+// Progress bar
+window.addEventListener('scroll', () => {
+  const d = document.documentElement;
+  document.getElementById('bar').style.width = (window.scrollY / (d.scrollHeight - d.clientHeight) * 100) + '%';
+});
+
+// Drawer
+function openD() {
+  document.getElementById('ov').style.display = 'block';
+  document.getElementById('drawer').classList.add('open');
+}
+function closeD() {
+  document.getElementById('ov').style.display = 'none';
+  document.getElementById('drawer').classList.remove('open');
+}
+
+// Toggle Q&A
+function tQ(btn) {
+  const body = btn.nextElementSibling;
+  const open = body.classList.contains('open');
+  btn.classList.toggle('open', !open);
+  body.classList.toggle('open', !open);
+}
+
+// Expand/collapse section
+function xpAll(id) {
+  document.querySelectorAll('#' + id + ' .qa-btn').forEach(b => {
+    b.classList.add('open');
+    b.nextElementSibling.classList.add('open');
+  });
+}
+function xpNone(id) {
+  document.querySelectorAll('#' + id + ' .qa-btn').forEach(b => {
+    b.classList.remove('open');
+    b.nextElementSibling.classList.remove('open');
+  });
+}
+
+// Self-assess score
+function upScore() {
+  const sliders = document.querySelectorAll('.s-range');
+  let total = 0;
+  sliders.forEach(s => {
+    const v = parseInt(s.value);
+    s.parentElement.querySelector('.s-val').textContent = v;
+    total += v;
+  });
+  document.getElementById('sc').textContent = total;
+  const msgs = [
+    [0, 39, '⚠ Needs serious work. Start from Q1 and don\'t skip.'],
+    [40, 59, 'Developing. Focus on your weakest 3 topics.'],
+    [60, 74, 'Good foundation. Need to sharpen with practice problems.'],
+    [75, 89, 'Strong. Mock interviews will close the gap.'],
+    [90, 100, '🎯 Interview-ready. Go dominate that technical round.']
+  ];
+  const m = msgs.find(([lo, hi]) => total >= lo && total <= hi);
+  document.getElementById('sc-msg').textContent = m ? m[2] : '';
+}
+upScore();
+
+// TOC active state
+const sections = document.querySelectorAll('section[id]');
+const links = document.querySelectorAll('#drawer a');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) cur = s.id; });
+  links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
+}, { passive: true });
+</script>
+</body>
+</html>

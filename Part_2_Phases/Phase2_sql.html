@@ -1,0 +1,1617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IT Interview 2025 — Part 2, Phase 2: SQL Mastery | 32 Real Questions | The Tech Intel</title>
+<meta name="description" content="32 real SQL interview questions with complete answers — JOINs, Normalization, ACID, Indexes, Window Functions, Stored Procedures, and every query pattern fresher interviews demand. Phase 2 of 6.">
+<meta name="keywords" content="SQL interview questions 2025, SQL joins interview, normalization interview questions, ACID properties interview, window functions SQL, stored procedure interview, SQL indexing interview, GROUP BY HAVING interview, SQL freshers Infosys, database interview questions 2025">
+<meta name="author" content="The Tech Intel — Priyanshu">
+<meta property="og:title" content="SQL Interview Mastery — 32 Real Questions with Answers | The Tech Intel">
+<meta property="og:description" content="Every SQL interview question answered with queries, diagrams, normalization rules, ACID deep-dives, and window functions.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0f0e0b;--paper:#faf9f5;--cream:#f0ebe0;
+  --teal:#1a6b72;--teal-pale:#e4f2f3;--teal-mid:#2a8a94;
+  --gold:#c48a28;--gold-pale:#f8edda;
+  --rust:#b44830;--rust-pale:#fdf0ec;
+  --slate:#383430;--muted:#7a746a;--border:#e0dbd0;
+  --white:#fff;
+  --green:#2d7a35;--green-pale:#edf7ee;--green-border:#a8d5b0;
+  --blue:#1a5a9a;--blue-pale:#e8f0fa;--blue-border:#90bde8;
+  --orange:#b06018;--orange-pale:#fdf3e8;
+  --purple:#5a2a9a;--purple-pale:#f0ebfc;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.8;font-size:17px}
+#bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--teal));width:0%;z-index:999;transition:width .08s}
+.nav{position:sticky;top:0;z-index:200;background:rgba(250,249,245,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:52px}
+.nav-logo{font-family:'Playfair Display',serif;font-weight:900;font-size:16px}
+.nav-phase{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.nav-toc{padding:6px 16px;border:1px solid var(--border);border-radius:20px;font-size:12px;cursor:pointer;background:none;color:var(--slate);font-family:'DM Sans',sans-serif;transition:all .2s}
+.nav-toc:hover{background:var(--ink);color:var(--white);border-color:var(--ink)}
+#ov{display:none;position:fixed;inset:0;background:rgba(15,14,11,.55);z-index:300}
+#drawer{position:fixed;right:-380px;top:0;bottom:0;width:360px;background:var(--white);z-index:400;padding:28px 22px;overflow-y:auto;transition:right .3s cubic-bezier(.4,0,.2,1);box-shadow:-8px 0 40px rgba(0,0,0,.14)}
+#drawer.open{right:0}
+.dr-close{position:absolute;top:18px;right:18px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted)}
+.dr-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin:6px 0 22px}
+.tg{margin-bottom:22px}
+.tg-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);display:block;font-family:'JetBrains Mono',monospace}
+.tg a{display:block;font-size:13.5px;color:var(--slate);text-decoration:none;padding:5px 8px;border-radius:5px;border-left:2px solid transparent;transition:all .2s}
+.tg a:hover,.tg a.active{color:var(--gold);border-left-color:var(--gold);background:var(--gold-pale)}
+.hero{background:var(--ink);color:var(--white);padding:80px 24px 60px;text-align:center;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 70%,rgba(196,138,40,.18) 0%,transparent 65%),radial-gradient(ellipse 60% 50% at 20% 20%,rgba(26,107,114,.12) 0%,transparent 65%);pointer-events:none}
+.hero-phase{display:inline-flex;align-items:center;gap:8px;background:rgba(196,138,40,.18);border:1px solid rgba(196,138,40,.35);color:var(--gold-pale);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:5px 16px;border-radius:20px;margin-bottom:28px;position:relative;z-index:1}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,58px);font-weight:900;line-height:1.08;margin-bottom:20px;position:relative;z-index:1}
+.hero h1 em{font-style:normal;color:var(--gold-pale)}
+.hero-sub{font-size:17px;color:rgba(250,249,245,.7);max-width:640px;margin:0 auto 32px;line-height:1.75;position:relative;z-index:1}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;position:relative;z-index:1}
+.chip{font-family:'JetBrains Mono',monospace;font-size:11.5px;padding:5px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:rgba(250,249,245,.75)}
+.chip.active{background:rgba(196,138,40,.25);border-color:rgba(196,138,40,.5);color:var(--gold-pale)}
+.hero-meta{display:flex;flex-wrap:wrap;gap:6px 20px;justify-content:center;font-size:13px;color:rgba(250,249,245,.4);margin-top:22px;position:relative;z-index:1}
+.phase-strip{background:var(--cream);border-bottom:1px solid var(--border);padding:12px 24px;overflow-x:auto;white-space:nowrap;display:flex;gap:8px;align-items:center}
+.ph-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-right:6px;flex-shrink:0}
+.ph-btn{font-family:'JetBrains Mono',monospace;font-size:11px;padding:5px 13px;border-radius:20px;border:1px solid var(--border);background:var(--white);color:var(--slate);cursor:pointer;white-space:nowrap;transition:all .2s;text-decoration:none;display:inline-block}
+.ph-btn.done{background:var(--teal-pale);border-color:var(--teal);color:var(--teal)}
+.ph-btn.now{background:var(--gold);color:var(--white);border-color:var(--gold)}
+.ph-btn:hover:not(.now):not(.done){background:var(--gold-pale);border-color:var(--gold);color:var(--gold)}
+.main{max-width:720px;margin:0 auto;padding:0 24px 100px}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin:36px 0 28px}
+.pill{font-size:11px;font-family:'JetBrains Mono',monospace;padding:5px 13px;border-radius:20px;border:1px solid var(--border);background:var(--cream);color:var(--slate);text-decoration:none;transition:all .2s}
+.pill:hover{background:var(--gold);color:var(--white);border-color:var(--gold)}
+.sh{margin:68px 0 26px;padding-bottom:14px;border-bottom:2px solid var(--border)}
+.sh-eye{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.sh h2{font-family:'Playfair Display',serif;font-size:clamp(24px,3.5vw,34px);font-weight:700;line-height:1.2}
+.why{border-left:4px solid var(--gold);background:var(--gold-pale);padding:18px 22px;border-radius:0 8px 8px 0;margin:26px 0}
+.why-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:6px}
+.why p{font-size:15px;color:#5a4010;margin:0;line-height:1.75}
+.qb{background:var(--ink);color:var(--white);padding:32px 38px;margin:32px 0;border-radius:6px;position:relative}
+.qb::before{content:'\201C';font-family:'Playfair Display',serif;font-size:96px;color:rgba(196,138,40,.2);position:absolute;top:4px;left:26px;line-height:1}
+.qb blockquote{font-family:'Playfair Display',serif;font-size:18px;font-style:italic;line-height:1.65;position:relative;margin-bottom:14px}
+.qb cite{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gold-pale);letter-spacing:.05em;font-style:normal}
+.info{border-left:4px solid var(--teal);background:var(--teal-pale);padding:15px 20px;border-radius:0 6px 6px 0;margin:20px 0}
+.info p{margin:0;font-size:15px;color:#1a4a50}
+.warn{border-left:4px solid var(--rust);background:var(--rust-pale);padding:15px 20px;border-radius:0 6px 6px 0;margin:20px 0}
+.warn-l{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--rust);font-weight:700;margin-bottom:5px}
+.warn p{margin:0;font-size:15px;color:#6b2a18}
+.formula{background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin:20px 0}
+.f-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:8px;display:block;font-family:'JetBrains Mono',monospace}
+.f-body{font-family:'JetBrains Mono',monospace;font-size:13px;line-height:2;color:var(--slate)}
+.tbl{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px}
+.tbl th{background:var(--ink);color:var(--white);padding:9px 13px;text-align:left;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.04em;font-weight:400}
+.tbl td{padding:9px 13px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.55}
+.tbl tr:nth-child(even) td{background:var(--cream)}
+.tbl td code{font-family:'JetBrains Mono',monospace;background:var(--cream);padding:1px 6px;border-radius:3px;font-size:12px;border:1px solid var(--border)}
+.tbl td strong{color:var(--ink)}
+/* JOIN visual cards */
+.join-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:20px 0}
+.join-card{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:16px;text-align:center}
+.join-card h4{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--gold);margin-bottom:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.join-venn{margin:8px auto;width:70px;height:45px;position:relative;display:flex;align-items:center;justify-content:center}
+.vc-l,.vc-r{width:36px;height:36px;border-radius:50%;position:absolute;opacity:.85}
+.vc-l{left:0;border:2px solid var(--teal);background:rgba(26,107,114,.15)}
+.vc-r{right:0;border:2px solid var(--gold);background:rgba(196,138,40,.15)}
+.vc-l.fill{background:rgba(26,107,114,.5)}
+.vc-r.fill{background:rgba(196,138,40,.5)}
+.vc-both{position:absolute;width:16px;height:36px;background:rgba(90,80,40,.5);left:50%;transform:translateX(-50%)}
+.vc-all-l{background:rgba(26,107,114,.5)}
+.vc-all-r{background:rgba(196,138,40,.5)}
+.join-card p{font-size:12px;color:var(--muted);margin:6px 0 0}
+/* Normalization visual */
+.norm-steps{display:flex;gap:10px;margin:20px 0;overflow-x:auto}
+.norm-step{flex:1;min-width:150px;background:var(--white);border:1px solid var(--border);border-radius:8px;padding:14px;border-top:3px solid var(--teal)}
+.norm-step h4{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--teal);margin-bottom:8px;font-weight:600}
+.norm-step p{font-size:13px;color:var(--slate);margin:0;line-height:1.6}
+/* Q&A */
+.qa-wrap{margin:18px 0}
+.qa-cat{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:14px 0 10px;border-top:1px solid var(--border);margin-top:20px;display:block}
+.qa-item{border-bottom:1px solid var(--border)}
+.qa-btn{width:100%;display:flex;align-items:flex-start;gap:12px;padding:14px 0;background:none;border:none;cursor:pointer;text-align:left;font-family:'DM Sans',sans-serif;font-size:15.5px;font-weight:600;color:var(--slate);transition:color .2s}
+.qa-btn:hover{color:var(--gold)}
+.qa-num{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gold);font-weight:600;min-width:28px;padding-top:3px;flex-shrink:0}
+.qa-icon{margin-left:auto;font-size:11px;color:var(--muted);transition:transform .3s;flex-shrink:0;padding-top:4px}
+.qa-btn.open .qa-icon{transform:rotate(180deg)}
+.qa-body{max-height:0;overflow:hidden;transition:max-height .45s ease;padding-left:40px}
+.qa-body.open{max-height:3500px;padding-bottom:18px}
+.qa-body p,.qa-body li{font-size:15px;color:var(--slate);line-height:1.78}
+.qa-body ul,.qa-body ol{padding-left:20px;margin:8px 0}
+.qa-body li{margin-bottom:5px}
+.qa-body strong{color:var(--ink)}
+.qa-body em{color:var(--slate);font-style:italic}
+.qa-body code{font-family:'JetBrains Mono',monospace;background:var(--cream);padding:1px 6px;border-radius:3px;font-size:12.5px;border:1px solid var(--border);color:var(--ink)}
+.qa-body pre{background:#1a1815;color:#ddd8ce;padding:18px 20px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.9;margin:12px 0;overflow-x:auto}
+.qa-body pre .cm{color:#7a9a70}
+.qa-body pre .kw{color:#6ab0d0}
+.qa-body pre .fn{color:#e0c060}
+.qa-body pre .str{color:#b0d080}
+.qa-body table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0}
+.qa-body th{background:var(--cream);padding:8px 11px;border:1px solid var(--border);text-align:left;font-weight:600;font-size:12px}
+.qa-body td{padding:8px 11px;border:1px solid var(--border);vertical-align:top;line-height:1.55}
+.qa-body .tip{background:var(--gold-pale);border-left:3px solid var(--gold);padding:10px 14px;margin-top:12px;font-size:14px;border-radius:0 5px 5px 0;color:#5a4010}
+.qa-body .note{background:var(--teal-pale);border-left:3px solid var(--teal);padding:10px 14px;margin-top:10px;font-size:14px;border-radius:0 5px 5px 0;color:#1a4a50}
+.qa-body .crit{background:var(--rust-pale);border-left:3px solid var(--rust);padding:10px 14px;margin-top:10px;font-size:14px;border-radius:0 5px 5px 0;color:#6b2a18}
+.xp{display:flex;gap:10px;margin:12px 0}
+.xp-btn{font-family:'JetBrains Mono',monospace;font-size:11px;padding:5px 13px;border:1px solid var(--border);border-radius:4px;cursor:pointer;background:none;color:var(--slate);transition:all .2s}
+.xp-btn:hover{background:var(--gold-pale);border-color:var(--gold);color:var(--gold)}
+/* Badge */
+.badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;padding:2px 10px;border-radius:12px;margin:2px}
+.b-green{background:var(--green-pale);color:var(--green);border:1px solid var(--green-border)}
+.b-blue{background:var(--blue-pale);color:var(--blue);border:1px solid var(--blue-border)}
+.b-gold{background:var(--gold-pale);color:var(--gold);border:1px solid #d4a84a}
+.b-red{background:var(--rust-pale);color:var(--rust);border:1px solid #d48070}
+.b-purple{background:var(--purple-pale);color:var(--purple);border:1px solid #b090dc}
+/* Self assess */
+.assess{background:var(--ink);color:var(--white);border-radius:10px;padding:30px;margin:32px 0}
+.assess h3{font-family:'Playfair Display',serif;font-size:21px;margin-bottom:6px}
+.assess-sub{font-size:13px;color:rgba(250,249,245,.5);margin-bottom:22px}
+.s-row{display:flex;align-items:center;gap:14px;margin-bottom:13px}
+.s-label{min-width:200px;font-size:13px;color:rgba(250,249,245,.8);flex-shrink:0}
+.s-range{flex:1;-webkit-appearance:none;height:3px;border-radius:2px;background:rgba(255,255,255,.15);outline:none;cursor:pointer}
+.s-range::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:var(--gold-pale);cursor:pointer}
+.s-val{min-width:22px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--gold-pale)}
+.s-total{border-top:1px solid rgba(255,255,255,.1);padding-top:16px;margin-top:6px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.s-score{font-family:'Playfair Display',serif;font-size:42px;font-weight:700;color:var(--gold-pale);line-height:1}
+.s-of{font-size:13px;color:rgba(250,249,245,.45)}
+.s-msg{font-size:13px;color:rgba(250,249,245,.6);max-width:220px;text-align:right}
+.div{text-align:center;margin:52px 0;font-size:22px;color:var(--border);letter-spacing:14px}
+.next-bar{background:linear-gradient(135deg,#3a3020,#1a1208);color:var(--white);padding:36px 28px;border-radius:10px;margin:52px 0;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;border:1px solid rgba(196,138,40,.3)}
+.next-bar h3{font-family:'Playfair Display',serif;font-size:22px;margin-bottom:6px;color:var(--gold-pale)}
+.next-bar p{font-size:14px;color:rgba(255,255,255,.7);margin:0}
+.next-btn{background:var(--gold);color:var(--ink);padding:12px 24px;border-radius:6px;font-weight:700;font-size:14px;text-decoration:none;white-space:nowrap;font-family:'DM Sans',sans-serif;transition:opacity .2s;flex-shrink:0}
+.next-btn:hover{opacity:.9}
+.footer{background:var(--ink);color:var(--white);text-align:center;padding:56px 24px 40px}
+.footer h2{font-family:'Playfair Display',serif;font-size:28px;margin-bottom:12px}
+.footer p{color:rgba(250,249,245,.55);font-size:15px;max-width:480px;margin:0 auto}
+.footer-small{font-size:12px;color:rgba(250,249,245,.22);margin-top:36px}
+p{margin-bottom:16px}
+strong{font-weight:600;color:var(--ink)}
+ul,ol{padding-left:22px;margin-bottom:14px}
+li{margin-bottom:5px}
+.lead{font-size:19px;line-height:1.85;color:#282420}
+@media(max-width:620px){
+  .hero{padding:54px 18px 46px}.nav-phase{display:none}
+  body{font-size:16px}#drawer{width:100%;right:-100%}
+  .s-label{min-width:130px}.join-grid{grid-template-columns:1fr 1fr}.norm-steps{flex-direction:column}
+}
+/* ── Footer ── */
+.footer { background: var(--ink); color: var(--paper); text-align: center; padding: 64px 24px 48px; }
+.footer h2 { font-family: 'Playfair Display', serif; font-size: 32px; margin-bottom: 14px; }
+.footer p { color: rgba(250,249,246,.6); margin-bottom: 28px; max-width: 520px; margin-left: auto; margin-right: auto; }
+.cta { display: inline-block; background: var(--gold); color: var(--ink); padding: 14px 34px; border-radius: 6px; font-weight: 700; font-size: 14px; letter-spacing: .04em; text-decoration: none; font-family: 'DM Sans', sans-serif; transition: opacity .2s; }
+.cta:hover { opacity: .88; }
+.footer-small { font-size: 12px; color: rgba(250,249,246,.25); margin-top: 40px; }
+.footer-links {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+
+  .footer-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<div id="bar"></div>
+
+<div id="ov" onclick="closeD()"></div>
+<div id="drawer">
+  <button class="dr-close" onclick="closeD()">✕</button>
+  <div class="dr-title">SQL — Table of Contents</div>
+  <div class="tg">
+    <span class="tg-label">Overview</span>
+    <a href="#overview">Why SQL Is Non-Negotiable</a>
+    <a href="#commands">SQL Command Categories</a>
+    <a href="#execorder">Execution Order</a>
+    <a href="#assess">Readiness Check</a>
+  </div>
+  <div class="tg">
+    <span class="tg-label">Core Concepts (Q1–Q9)</span>
+    <a href="#q-core">Basics, JOINs, Keys</a>
+  </div>
+  <div class="tg">
+    <span class="tg-label">Data Manipulation (Q10–Q14)</span>
+    <a href="#q-dml">DELETE, TRUNCATE, UNION</a>
+  </div>
+  <div class="tg">
+    <span class="tg-label">Aggregation (Q15–Q18)</span>
+    <a href="#q-agg">GROUP BY, COUNT, HAVING</a>
+  </div>
+  <div class="tg">
+    <span class="tg-label">Indexes & Performance (Q19–Q21)</span>
+    <a href="#q-index">Indexes, B-tree vs Hash</a>
+  </div>
+  <div class="tg">
+    <span class="tg-label">Normalization (Q22–Q25)</span>
+    <a href="#q-norm">1NF–BCNF, Anomalies</a>
+  </div>
+  <div class="tg">
+    <span class="tg-label">Transactions & ACID (Q26–Q28)</span>
+    <a href="#q-acid">ACID, Isolation Levels</a>
+  </div>
+  <div class="tg">
+    <span class="tg-label">Advanced SQL (Q29–Q32)</span>
+    <a href="#q-advanced">Window Functions, Views, Triggers</a>
+  </div>
+</div>
+
+<nav class="nav">
+  <span class="nav-logo">The Tech Intel</span>
+  <span class="nav-phase">Part 2 · Phase 2 of 6 · SQL</span>
+  <button class="nav-toc" onclick="openD()">Contents ↗</button>
+</nav>
+
+<div class="phase-strip">
+  <span class="ph-label">Part 2:</span>
+  <a href="./Phase1_dsa.html" class=""><span class="ph-btn now">① DSA ✓</span></a>
+  <a href="./Phase2_sql.html"><span class="ph-btn">② SQL</span></a>
+  <a href="./Phase1_dsa.html"><span class="ph-btn">③ OOPs</span></a>
+  <a href="./Phase1_dsa.html"><span class="ph-btn">④ DBMS</span></a>
+  <a href="./Phase1_dsa.html"><span class="ph-btn">⑤ OS</span></a>
+  <a href="./Phase1_dsa.html"><span class="ph-btn">⑥ Networks + System Design + SDLC</span></a>
+</div>
+
+<header class="hero">
+  <div class="hero-phase">🗄 Part 2 · Phase 2 of 6 · April 2025</div>
+  <h1>SQL Mastery<br><em>32 Real Interview Questions</em></h1>
+  <p class="hero-sub">Every SQL question you'll face in fresher IT interviews — fully answered with real queries, JOIN diagrams, normalization walkthroughs, ACID deep-dives, and window function examples. No fluff. All signal.</p>
+  <div class="hero-chips">
+    <span class="chip active">JOINs</span>
+    <span class="chip active">Normalization</span>
+    <span class="chip active">ACID</span>
+    <span class="chip active">Indexes</span>
+    <span class="chip active">Window Functions</span>
+    <span class="chip active">Subqueries</span>
+    <span class="chip active">Stored Procedures</span>
+    <span class="chip active">Views & Triggers</span>
+    <span class="chip active">Transactions</span>
+    <span class="chip active">GROUP BY / HAVING</span>
+  </div>
+  <div class="hero-meta">
+    <span>✍ The Tech Intel</span>
+    <span>⏱ ~40 min read</span>
+    <span>📋 32 Questions · All Answered</span>
+    <span>💻 Every Query Written Out</span>
+  </div>
+</header>
+
+<main class="main">
+
+<p class="lead" style="margin-top:48px;">SQL is the most universally tested technical skill at service companies like Infosys. Every project involves data. Data lives in databases. Infosys technical interviewers almost always ask at least 3–5 SQL questions — and those questions are predictable. <strong>This phase covers every single one of them.</strong></p>
+
+<p>SQL is also one of the few technical skills where knowing the <em>why</em> matters as much as the <em>how</em>. Why does WHERE filter before GROUP BY? Why does normalization reduce anomalies? Why does an index hurt writes? Understanding the reasoning behind the rules is what separates a candidate who memorized SQL from one who can actually use it in production.</p>
+
+<div class="pills">
+  <a class="pill" href="#overview">🧭 Why SQL</a>
+  <a class="pill" href="#commands">📋 Commands</a>
+  <a class="pill" href="#q-core">🔗 JOINs</a>
+  <a class="pill" href="#q-dml">✂ DML</a>
+  <a class="pill" href="#q-agg">📊 Aggregation</a>
+  <a class="pill" href="#q-index">🔍 Indexes</a>
+  <a class="pill" href="#q-norm">📐 Normalization</a>
+  <a class="pill" href="#q-acid">⚛ ACID</a>
+  <a class="pill" href="#q-advanced">🪟 Window Fns</a>
+</div>
+
+<!-- ================================================
+     OVERVIEW
+     ================================================ -->
+<section id="overview">
+  <div class="sh"><div class="sh-eye">Overview</div><h2>🧭 Why SQL Is a Fresher Non-Negotiable</h2></div>
+
+  <div class="why">
+    <div class="why-label">⚡ Why SQL Is Always Tested</div>
+    <p>SQL is the language of data — and data is the center of every enterprise application Infosys builds. A weak SQL answer signals: "I can't work with real data," which disqualifies you from 80% of IT service projects. Interviewers ask 3–5 SQL questions in every technical round. The good news: those questions are highly predictable. JOINs, normalization, GROUP BY/HAVING, indexes, and ACID appear in virtually every fresher SQL interview. Master these, and SQL becomes a guaranteed scoring section.</p>
+  </div>
+
+  <div class="qb">
+    <blockquote>"Data is the new oil. SQL is the refinery. Every application that touches a database — which is almost every application — runs on SQL at its core."</blockquote>
+    <cite>— Joe Celko · SQL Pioneer · Author of "SQL for Smarties" · ANSI SQL Committee Member</cite>
+  </div>
+</section>
+
+<!-- ================================================
+     COMMAND CATEGORIES
+     ================================================ -->
+<section id="commands">
+  <div class="sh"><div class="sh-eye">Reference</div><h2>📋 SQL Command Categories — Know All 5</h2></div>
+
+  <table class="tbl">
+    <thead><tr><th>Category</th><th>Full Name</th><th>Commands</th><th>Purpose</th><th>Auto-Commit?</th></tr></thead>
+    <tbody>
+      <tr><td><span class="badge b-blue">DDL</span></td><td>Data Definition Language</td><td><code>CREATE</code>, <code>ALTER</code>, <code>DROP</code>, <code>TRUNCATE</code>, <code>RENAME</code></td><td>Define and modify database schema structure</td><td>Yes — implicit commit</td></tr>
+      <tr><td><span class="badge b-green">DML</span></td><td>Data Manipulation Language</td><td><code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code></td><td>Add, change, or remove data in tables</td><td>No — requires explicit COMMIT</td></tr>
+      <tr><td><span class="badge b-gold">DQL</span></td><td>Data Query Language</td><td><code>SELECT</code></td><td>Retrieve data from tables</td><td>N/A — read-only</td></tr>
+      <tr><td><span class="badge b-purple">DCL</span></td><td>Data Control Language</td><td><code>GRANT</code>, <code>REVOKE</code></td><td>Manage permissions and access rights</td><td>Yes — implicit commit</td></tr>
+      <tr><td><span class="badge b-red">TCL</span></td><td>Transaction Control Language</td><td><code>COMMIT</code>, <code>ROLLBACK</code>, <code>SAVEPOINT</code>, <code>SET TRANSACTION</code></td><td>Control transaction boundaries</td><td>N/A — manages commits</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ================================================
+     EXECUTION ORDER
+     ================================================ -->
+<section id="execorder">
+  <div class="sh"><div class="sh-eye">Critical Reference</div><h2>⚙ SQL Execution Order — Written vs Executed</h2></div>
+
+  <div class="why">
+    <div class="why-label">⚡ Why Execution Order Is a Top Interview Topic</div>
+    <p>Most SQL bugs — and many interview mistakes — come from confusing <em>the order SQL is written</em> with <em>the order SQL is actually executed</em>. You can't use a SELECT alias in a WHERE clause because SELECT hasn't run yet when WHERE is processed. You can't filter aggregates with WHERE — that's what HAVING is for. The execution order explains why all these rules exist.</p>
+  </div>
+
+  <div class="formula">
+    <span class="f-label">SQL Logical Execution Order (different from written order)</span>
+    <div class="f-body">Written:   SELECT → FROM → WHERE → GROUP BY → HAVING → ORDER BY → LIMIT<br>
+<br>
+Executed:  ① FROM / JOIN   (identify source tables, perform joins)<br>
+           ② WHERE         (filter individual rows — before grouping)<br>
+           ③ GROUP BY      (group filtered rows into buckets)<br>
+           ④ HAVING        (filter groups — after aggregation)<br>
+           ⑤ SELECT        (compute expressions, apply aliases)<br>
+           ⑥ DISTINCT      (remove duplicate rows if requested)<br>
+           ⑦ ORDER BY      (sort the final result — aliases available here)<br>
+           ⑧ LIMIT/OFFSET  (return subset of rows)</div>
+  </div>
+
+  <p><strong>Practical consequences:</strong></p>
+  <ul style="line-height:2;">
+    <li>You <strong>cannot use a SELECT alias in WHERE</strong> — the alias doesn't exist yet when WHERE runs</li>
+    <li>You <strong>can use a SELECT alias in ORDER BY</strong> — ORDER BY runs after SELECT</li>
+    <li>Aggregates like <code>SUM()</code>, <code>COUNT()</code> go in <strong>HAVING, not WHERE</strong> — they're computed in GROUP BY phase</li>
+    <li>JOINs happen in the FROM phase — before filtering — so filter in ON or WHERE carefully</li>
+  </ul>
+</section>
+
+<!-- ================================================
+     SELF ASSESS
+     ================================================ -->
+<section id="assess">
+  <div class="assess">
+    <h3>📊 SQL Readiness Score</h3>
+    <p class="assess-sub">Rate yourself on each area. Target 8+ in every row before your interview. Revisit after finishing this article.</p>
+    <div class="s-row"><span class="s-label">SQL syntax & SELECT</span><input type="range" class="s-range" min="1" max="10" value="5" oninput="upScore()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-label">JOINs (all 6 types)</span><input type="range" class="s-range" min="1" max="10" value="5" oninput="upScore()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-label">GROUP BY / HAVING</span><input type="range" class="s-range" min="1" max="10" value="5" oninput="upScore()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-label">Subqueries & Correlated</span><input type="range" class="s-range" min="1" max="10" value="5" oninput="upScore()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-label">Normalization (1NF–BCNF)</span><input type="range" class="s-range" min="1" max="10" value="5" oninput="upScore()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-label">ACID properties</span><input type="range" class="s-range" min="1" max="10" value="5" oninput="upScore()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-label">Indexes (types & trade-offs)</span><input type="range" class="s-range" min="1" max="10" value="5" oninput="upScore()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-label">Window functions</span><input type="range" class="s-range" min="1" max="10" value="5" oninput="upScore()"><span class="s-val">5</span></div>
+    <div class="s-total">
+      <div><div class="s-score" id="sc">40</div><div class="s-of">/ 80 — Target: 64+</div></div>
+      <div class="s-msg" id="sc-msg"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================
+     SECTION 1: CORE CONCEPTS (Q1–Q9)
+     ================================================ -->
+<section id="q-core">
+  <div class="sh"><div class="sh-eye">Questions 1–9</div><h2>🔗 Core Concepts, JOINs & Keys</h2></div>
+
+  <div class="why">
+    <div class="why-label">⚡ Why JOINs Are Always the #1 SQL Question</div>
+    <p>JOINs are the heart of relational databases. The entire reason relational data is split into multiple tables — to reduce redundancy — means you need JOINs to bring it back together for queries. Every Infosys technical interview asks at least one JOIN question. The most common ask: "Explain the difference between INNER JOIN and LEFT JOIN," often followed by "Write a query to get all employees and their department names, including employees without a department."</p>
+  </div>
+
+  <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin:24px 0 14px;">The 6 JOIN Types — Visual Reference</h3>
+  <div class="join-grid">
+    <div class="join-card">
+      <h4>INNER JOIN</h4>
+      <div class="join-venn"><div class="vc-l"></div><div class="vc-both"></div><div class="vc-r"></div></div>
+      <p>Rows matching in both tables only</p>
+    </div>
+    <div class="join-card">
+      <h4>LEFT JOIN</h4>
+      <div class="join-venn"><div class="vc-l fill"></div><div class="vc-both"></div><div class="vc-r"></div></div>
+      <p>All left rows + matching right (NULLs if no match)</p>
+    </div>
+    <div class="join-card">
+      <h4>RIGHT JOIN</h4>
+      <div class="join-venn"><div class="vc-l"></div><div class="vc-both"></div><div class="vc-r fill"></div></div>
+      <p>All right rows + matching left (NULLs if no match)</p>
+    </div>
+    <div class="join-card">
+      <h4>FULL OUTER JOIN</h4>
+      <div class="join-venn"><div class="vc-l fill"></div><div class="vc-both"></div><div class="vc-r fill"></div></div>
+      <p>All rows from both, NULLs where no match</p>
+    </div>
+    <div class="join-card">
+      <h4>CROSS JOIN</h4>
+      <div class="join-venn" style="font-size:20px;">✕</div>
+      <p>Every row × every row (Cartesian product)</p>
+    </div>
+    <div class="join-card">
+      <h4>SELF JOIN</h4>
+      <div class="join-venn" style="font-size:20px;">↩</div>
+      <p>Table joined to itself using aliases</p>
+    </div>
+  </div>
+
+  <div class="xp"><button class="xp-btn" onclick="xpAll('qa-core')">Expand All</button><button class="xp-btn" onclick="xpNone('qa-core')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa-core">
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q1</span>What is SQL? Is it case-sensitive? DDL vs DML vs DQL?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p>SQL (Structured Query Language) is the standard language for managing and querying relational databases. <strong>SQL keywords are NOT case-sensitive</strong> — <code>SELECT</code>, <code>select</code>, and <code>Select</code> are identical. However, <em>data values inside rows may be case-sensitive</em> depending on the column's collation setting (e.g., <code>WHERE name = 'Alice'</code> vs <code>'alice'</code> may behave differently based on the DB configuration).</p>
+        <p><strong>Quick category recap:</strong></p>
+        <ul>
+          <li><strong>DDL</strong> (Data Definition Language): structures the database — <code>CREATE TABLE</code>, <code>ALTER TABLE</code>, <code>DROP TABLE</code>. These auto-commit; you can't roll them back in most databases.</li>
+          <li><strong>DML</strong> (Data Manipulation Language): changes data — <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>. These can be rolled back inside a transaction.</li>
+          <li><strong>DQL</strong> (Data Query Language): retrieves data — just <code>SELECT</code>. Read-only.</li>
+        </ul>
+        <div class="tip">💡 Common interview trap: "Is TRUNCATE DDL or DML?" — TRUNCATE is DDL (it auto-commits, resets identity, and doesn't log individual rows), even though it "removes data" like DML. Most interviewers accept either answer if you explain it clearly.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q2</span>Explain all types of JOINs with a real example scenario for each.<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p><em>Tables: <strong>Employees</strong> (emp_id, name, dept_id) and <strong>Departments</strong> (dept_id, dept_name)</em></p>
+        <pre><span class="cm">-- INNER JOIN: only employees who have a matching department</span>
+<span class="kw">SELECT</span> e.name, d.dept_name
+<span class="kw">FROM</span> employees e
+<span class="kw">INNER JOIN</span> departments d <span class="kw">ON</span> e.dept_id = d.dept_id;
+<span class="cm">-- Result: employees WITH a dept only. John (dept=NULL) excluded.</span>
+
+<span class="cm">-- LEFT JOIN: all employees, even those without a department</span>
+<span class="kw">SELECT</span> e.name, d.dept_name
+<span class="kw">FROM</span> employees e
+<span class="kw">LEFT JOIN</span> departments d <span class="kw">ON</span> e.dept_id = d.dept_id;
+<span class="cm">-- Result: John (no dept) appears with dept_name = NULL</span>
+
+<span class="cm">-- RIGHT JOIN: all departments, even those with no employees</span>
+<span class="kw">SELECT</span> e.name, d.dept_name
+<span class="kw">FROM</span> employees e
+<span class="kw">RIGHT JOIN</span> departments d <span class="kw">ON</span> e.dept_id = d.dept_id;
+<span class="cm">-- Result: "Research" dept (no employees yet) appears with name = NULL</span>
+
+<span class="cm">-- FULL OUTER JOIN: everything from both sides</span>
+<span class="kw">SELECT</span> e.name, d.dept_name
+<span class="kw">FROM</span> employees e
+<span class="kw">FULL OUTER JOIN</span> departments d <span class="kw">ON</span> e.dept_id = d.dept_id;
+<span class="cm">-- MySQL doesn't support FULL OUTER JOIN directly — use UNION:</span>
+<span class="kw">SELECT</span> e.name, d.dept_name <span class="kw">FROM</span> employees e <span class="kw">LEFT JOIN</span> departments d <span class="kw">ON</span> e.dept_id = d.dept_id
+<span class="kw">UNION</span>
+<span class="kw">SELECT</span> e.name, d.dept_name <span class="kw">FROM</span> employees e <span class="kw">RIGHT JOIN</span> departments d <span class="kw">ON</span> e.dept_id = d.dept_id;
+
+<span class="cm">-- CROSS JOIN: every employee paired with every department</span>
+<span class="kw">SELECT</span> e.name, d.dept_name <span class="kw">FROM</span> employees e <span class="kw">CROSS JOIN</span> departments d;
+<span class="cm">-- 5 employees × 4 departments = 20 rows. Rarely useful. Be careful!</span>
+
+<span class="cm">-- SELF JOIN: find employees and their manager (same table)</span>
+<span class="kw">SELECT</span> e.name <span class="kw">AS</span> employee, m.name <span class="kw">AS</span> manager
+<span class="kw">FROM</span> employees e
+<span class="kw">LEFT JOIN</span> employees m <span class="kw">ON</span> e.manager_id = m.emp_id;</pre>
+        <div class="crit">⚠ The most common interview mistake: writing LEFT JOIN but expecting INNER JOIN behavior — forgetting that NULL rows are included. Always ask: "Do I want unmatched rows?"</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q3</span>WHERE vs HAVING — what's the real difference?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p><strong>WHERE</strong> filters individual <em>rows</em> — it runs <strong>before</strong> GROUP BY, so it operates on raw table data. You cannot use aggregate functions in WHERE because the aggregates haven't been computed yet.</p>
+        <p><strong>HAVING</strong> filters <em>groups</em> — it runs <strong>after</strong> GROUP BY, so it operates on grouped/aggregated data. You must use HAVING for conditions on aggregate results.</p>
+        <pre><span class="cm">-- WRONG: cannot use aggregate in WHERE</span>
+<span class="kw">SELECT</span> dept_id, <span class="fn">COUNT</span>(*) <span class="kw">FROM</span> employees
+<span class="kw">WHERE</span> <span class="fn">COUNT</span>(*) > 3  <span class="cm">-- ❌ Error: WHERE can't see aggregates</span>
+<span class="kw">GROUP BY</span> dept_id;
+
+<span class="cm">-- CORRECT: filter groups after aggregation using HAVING</span>
+<span class="kw">SELECT</span> dept_id, <span class="fn">COUNT</span>(*) <span class="kw">AS</span> emp_count
+<span class="kw">FROM</span> employees
+<span class="kw">WHERE</span> salary > 30000          <span class="cm">-- filters rows BEFORE grouping</span>
+<span class="kw">GROUP BY</span> dept_id
+<span class="kw">HAVING</span> <span class="fn">COUNT</span>(*) > 3;          <span class="cm">-- filters GROUPS after aggregation</span>
+<span class="cm">-- "Find departments (with avg salary > 30k) having more than 3 employees"</span></pre>
+        <div class="tip">💡 Memory trick: <strong>WHERE = rows, HAVING = groups</strong>. Or: "WHERE comes before GROUP BY in execution, HAVING comes after." You can use both in the same query — WHERE filters first, then grouping, then HAVING filters groups.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q4</span>Primary Key vs Unique Key vs Foreign Key — full comparison?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <table>
+          <tr><th>Property</th><th>Primary Key</th><th>Unique Key</th><th>Foreign Key</th></tr>
+          <tr><td>Uniqueness</td><td>✅ Must be unique</td><td>✅ Must be unique</td><td>❌ Can repeat (references parent PK)</td></tr>
+          <tr><td>NULL allowed?</td><td>❌ Never NULL</td><td>✅ One NULL allowed (most DBs)</td><td>✅ Yes (if reference is optional)</td></tr>
+          <tr><td>Count per table</td><td>Exactly one</td><td>Multiple allowed</td><td>Multiple allowed</td></tr>
+          <tr><td>Index created?</td><td>Yes — clustered index (InnoDB)</td><td>Yes — non-clustered</td><td>Recommended but not auto-created everywhere</td></tr>
+          <tr><td>Purpose</td><td>Row identity — the "address" of a row</td><td>Alternate uniqueness (email, phone)</td><td>Relational link — reference another table</td></tr>
+        </table>
+        <pre><span class="kw">CREATE TABLE</span> employees (
+    emp_id    <span class="kw">INT</span> <span class="kw">PRIMARY KEY</span>,       <span class="cm">-- PK: unique + not null + clustered</span>
+    email     <span class="kw">VARCHAR</span>(100) <span class="kw">UNIQUE</span>,    <span class="cm">-- Unique key: unique but nullable</span>
+    dept_id   <span class="kw">INT</span>,
+    <span class="kw">FOREIGN KEY</span> (dept_id) <span class="kw">REFERENCES</span> departments(dept_id)
+        <span class="kw">ON DELETE</span> <span class="kw">SET NULL</span>             <span class="cm">-- if dept deleted, set to NULL</span>
+);</pre>
+        <div class="note">🧠 ON DELETE options for foreign keys: <strong>CASCADE</strong> (delete children when parent deleted), <strong>SET NULL</strong> (set FK to null), <strong>RESTRICT / NO ACTION</strong> (reject the parent deletion if children exist), <strong>SET DEFAULT</strong> (set FK to a default value).</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q5</span>What is a subquery? What is a correlated subquery?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p>A <strong>subquery</strong> (nested query) is a SELECT statement embedded inside another SQL statement. The inner query runs first; its result is used by the outer query.</p>
+        <pre><span class="cm">-- Regular subquery: find employees earning above average salary</span>
+<span class="kw">SELECT</span> name, salary
+<span class="kw">FROM</span> employees
+<span class="kw">WHERE</span> salary > (<span class="kw">SELECT</span> <span class="fn">AVG</span>(salary) <span class="kw">FROM</span> employees);
+<span class="cm">-- Inner query runs ONCE, returns 58000. Outer query uses that value.</span></pre>
+        <p>A <strong>correlated subquery</strong> references a column from the outer query — the inner query re-executes for <em>each row</em> of the outer query. This is powerful but often slow.</p>
+        <pre><span class="cm">-- Correlated subquery: employees earning more than avg in THEIR OWN dept</span>
+<span class="kw">SELECT</span> e.name, e.salary, e.dept_id
+<span class="kw">FROM</span> employees e
+<span class="kw">WHERE</span> e.salary > (
+    <span class="kw">SELECT</span> <span class="fn">AVG</span>(salary)
+    <span class="kw">FROM</span> employees
+    <span class="kw">WHERE</span> dept_id = e.dept_id  <span class="cm">-- references outer query's row</span>
+);
+<span class="cm">-- Inner query runs ONCE PER OUTER ROW — can be slow on large tables</span></pre>
+        <div class="tip">💡 Correlated subqueries are often replaceable with JOINs or window functions for much better performance. For the example above, use a window function: <code>AVG(salary) OVER (PARTITION BY dept_id)</code>.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q6</span>Find the second highest (and Nth highest) salary?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p>This is the single most commonly asked SQL query in fresher interviews. Know all three approaches:</p>
+        <pre><span class="cm">-- Method 1: Nested MAX (classic, easy to explain)</span>
+<span class="kw">SELECT</span> <span class="fn">MAX</span>(salary) <span class="kw">AS</span> second_highest
+<span class="kw">FROM</span> employees
+<span class="kw">WHERE</span> salary < (<span class="kw">SELECT</span> <span class="fn">MAX</span>(salary) <span class="kw">FROM</span> employees);
+
+<span class="cm">-- Method 2: LIMIT + OFFSET (simple, MySQL/PostgreSQL)</span>
+<span class="kw">SELECT DISTINCT</span> salary
+<span class="kw">FROM</span> employees
+<span class="kw">ORDER BY</span> salary <span class="kw">DESC</span>
+<span class="kw">LIMIT</span> 1 <span class="kw">OFFSET</span> 1;  <span class="cm">-- skip the highest, take next one</span>
+
+<span class="cm">-- Method 3: DENSE_RANK (best — handles Nth and ties gracefully)</span>
+<span class="kw">SELECT</span> salary
+<span class="kw">FROM</span> (
+    <span class="kw">SELECT</span> salary,
+           <span class="fn">DENSE_RANK</span>() <span class="kw">OVER</span> (<span class="kw">ORDER BY</span> salary <span class="kw">DESC</span>) <span class="kw">AS</span> rnk
+    <span class="kw">FROM</span> employees
+) ranked
+<span class="kw">WHERE</span> rnk = 2;  <span class="cm">-- change 2 to N for Nth highest</span>
+
+<span class="cm">-- Why DENSE_RANK is best: handles ties correctly
+-- If salaries are [100, 100, 80, 60]:
+-- Nested MAX gives 80 ✓ but LIMIT/OFFSET gives 100 (the tie) ✗
+-- DENSE_RANK gives 80 (correctly 2nd unique salary) ✓</span></pre>
+        <div class="crit">⚠ Always ask the interviewer: "Do you want the second highest unique salary value, or the second highest row?" The answer changes which method to use. DENSE_RANK handles unique values correctly; LIMIT/OFFSET gets the second row.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q7</span>Employees who earn more than their manager — self join?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p>This classic question tests self-join knowledge. The trick: join the employees table to itself — once as "employee", once as "manager."</p>
+        <pre><span class="cm">-- Table: employees(emp_id, name, salary, manager_id)</span>
+<span class="cm">-- manager_id references emp_id in the same table</span>
+
+<span class="kw">SELECT</span>
+    e.name   <span class="kw">AS</span> employee_name,
+    e.salary <span class="kw">AS</span> employee_salary,
+    m.name   <span class="kw">AS</span> manager_name,
+    m.salary <span class="kw">AS</span> manager_salary
+<span class="kw">FROM</span> employees e
+<span class="kw">JOIN</span> employees m <span class="kw">ON</span> e.manager_id = m.emp_id
+<span class="kw">WHERE</span> e.salary > m.salary;
+
+<span class="cm">-- We alias the same table twice: e = employee row, m = manager row
+-- JOIN matches each employee to their manager's record
+-- WHERE filters to only keep cases where employee earns more</span></pre>
+        <p><strong>Why LEFT JOIN instead of JOIN matters here:</strong> if you use <code>JOIN</code> (INNER), employees with no manager (CEO/top-level) are excluded — because they have no matching manager row. If the question asks to include all employees, use <code>LEFT JOIN</code>.</p>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q8</span>Find duplicate rows by email, then delete keeping one?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <pre><span class="cm">-- Step 1: Find which emails have duplicates</span>
+<span class="kw">SELECT</span> email, <span class="fn">COUNT</span>(*) <span class="kw">AS</span> cnt
+<span class="kw">FROM</span> users
+<span class="kw">GROUP BY</span> email
+<span class="kw">HAVING</span> <span class="fn">COUNT</span>(*) > 1;
+
+<span class="cm">-- Step 2: See all duplicate rows</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> users
+<span class="kw">WHERE</span> email <span class="kw">IN</span> (
+    <span class="kw">SELECT</span> email <span class="kw">FROM</span> users
+    <span class="kw">GROUP BY</span> email <span class="kw">HAVING</span> <span class="fn">COUNT</span>(*) > 1
+);
+
+<span class="cm">-- Step 3: Delete duplicates, keep the one with smallest id (MySQL)</span>
+<span class="kw">DELETE</span> u1 <span class="kw">FROM</span> users u1
+<span class="kw">INNER JOIN</span> users u2
+    <span class="kw">ON</span> u1.email = u2.email  <span class="cm">-- same email</span>
+    <span class="kw">AND</span> u1.id > u2.id;      <span class="cm">-- u1 has higher id → delete u1, keep u2</span>
+
+<span class="cm">-- Alternative: PostgreSQL / modern SQL using CTE + ROW_NUMBER</span>
+<span class="kw">WITH</span> ranked <span class="kw">AS</span> (
+    <span class="kw">SELECT</span> id, <span class="fn">ROW_NUMBER</span>() <span class="kw">OVER</span> (<span class="kw">PARTITION BY</span> email <span class="kw">ORDER BY</span> id) <span class="kw">AS</span> rn
+    <span class="kw">FROM</span> users
+)
+<span class="kw">DELETE FROM</span> users <span class="kw">WHERE</span> id <span class="kw">IN</span> (<span class="kw">SELECT</span> id <span class="kw">FROM</span> ranked <span class="kw">WHERE</span> rn > 1);</pre>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q9</span>CHAR vs VARCHAR — when to use each?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <table>
+          <tr><th>Property</th><th>CHAR(n)</th><th>VARCHAR(n)</th></tr>
+          <tr><td>Storage</td><td>Fixed — always stores exactly n bytes</td><td>Variable — stores actual length + 1-2 bytes overhead</td></tr>
+          <tr><td>Padding</td><td>Pads with spaces if shorter than n</td><td>No padding</td></tr>
+          <tr><td>Performance</td><td>Slightly faster for fixed-length data</td><td>Slightly slower due to length calculation</td></tr>
+          <tr><td>Max size</td><td>255 bytes (MySQL)</td><td>65,535 bytes (MySQL)</td></tr>
+          <tr><td>Best for</td><td>Truly fixed-length: country codes (US), status (Y/N), MD5 hashes, fixed-format codes</td><td>Everything else: names, emails, descriptions, user input</td></tr>
+        </table>
+        <pre><span class="cm">-- Use CHAR for fixed-length, predictable data</span>
+country_code <span class="kw">CHAR</span>(2)         <span class="cm">-- Always 2 chars: US, IN, UK</span>
+gender       <span class="kw">CHAR</span>(1)         <span class="cm">-- Always 1 char: M, F</span>
+md5_hash     <span class="kw">CHAR</span>(32)        <span class="cm">-- Always 32 hex chars</span>
+
+<span class="cm">-- Use VARCHAR for variable-length data</span>
+first_name   <span class="kw">VARCHAR</span>(50)     <span class="cm">-- Could be 2 chars or 50</span>
+email        <span class="kw">VARCHAR</span>(255)    <span class="cm">-- Highly variable</span>
+description  <span class="kw">VARCHAR</span>(1000)   <span class="cm">-- Could be empty or long</span></pre>
+        <div class="tip">💡 Rule of thumb: use VARCHAR for everything unless you're certain the length is always the same. The minor performance benefit of CHAR rarely justifies its usage for variable data.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================================================
+     SECTION 2: DML (Q10–Q14)
+     ================================================ -->
+<section id="q-dml">
+  <div class="sh"><div class="sh-eye">Questions 10–14</div><h2>✂ Data Manipulation — DELETE, TRUNCATE, UNION & Subqueries</h2></div>
+
+  <div class="why">
+    <div class="why-label">⚡ Why DML Questions Trip Up Freshers</div>
+    <p>The differences between DELETE, TRUNCATE, and DROP are among the most commonly asked SQL questions — and the most frequently answered incorrectly. Similarly, UNION vs UNION ALL and subquery types (correlated vs regular) are reliable interview topics. These aren't just theoretical — getting them wrong in production can cause data loss or severe performance problems.</p>
+  </div>
+
+  <div class="xp"><button class="xp-btn" onclick="xpAll('qa-dml')">Expand All</button><button class="xp-btn" onclick="xpNone('qa-dml')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa-dml">
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q10</span>DELETE vs TRUNCATE vs DROP — complete comparison?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <table>
+          <tr><th>Property</th><th>DELETE</th><th>TRUNCATE</th><th>DROP</th></tr>
+          <tr><td>What is removed?</td><td>Specific rows (with WHERE) or all rows</td><td>ALL rows in the table</td><td>Entire table including its structure</td></tr>
+          <tr><td>Table structure kept?</td><td>✅ Yes</td><td>✅ Yes — empty table remains</td><td>❌ No — table is gone</td></tr>
+          <tr><td>WHERE clause?</td><td>✅ Yes — conditional delete</td><td>❌ No — always all rows</td><td>❌ N/A</td></tr>
+          <tr><td>Transaction log</td><td>Logs each row deletion (fully logged)</td><td>Minimal logging (only page deallocation)</td><td>No row logging</td></tr>
+          <tr><td>Rollback possible?</td><td>✅ Yes — in a transaction</td><td>⚠ Depends on DB (MySQL: yes; some: no)</td><td>❌ No</td></tr>
+          <tr><td>Auto-increment reset?</td><td>❌ Counter continues</td><td>✅ Resets to 1</td><td>N/A</td></tr>
+          <tr><td>Speed (large tables)</td><td>Slow — row-by-row with logging</td><td>Fast — drops and recreates internally</td><td>Fastest</td></tr>
+          <tr><td>Triggers fired?</td><td>✅ Yes</td><td>❌ No</td><td>❌ No</td></tr>
+          <tr><td>Category</td><td>DML</td><td>DDL</td><td>DDL</td></tr>
+        </table>
+        <pre><span class="cm">-- DELETE: remove specific rows (rollbackable)</span>
+<span class="kw">DELETE FROM</span> employees <span class="kw">WHERE</span> dept_id = 5;
+<span class="kw">ROLLBACK</span>;  <span class="cm">-- ✅ Works — changes are undone</span>
+
+<span class="cm">-- TRUNCATE: remove all rows fast (structure remains)</span>
+<span class="kw">TRUNCATE TABLE</span> employees;
+<span class="cm">-- ✅ Table still exists, just empty. Auto-increment reset to 1.</span>
+
+<span class="cm">-- DROP: destroy the table entirely</span>
+<span class="kw">DROP TABLE</span> employees;
+<span class="cm">-- ❌ Cannot rollback in most databases. Table is gone.</span></pre>
+        <div class="crit">⚠ Critical production mistake: using TRUNCATE when you meant to DELETE a subset. TRUNCATE removes ALL rows and can't be filtered with WHERE. Always double-check your intent.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q11</span>UNION vs UNION ALL — when to use each?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <table>
+          <tr><th>Property</th><th>UNION</th><th>UNION ALL</th></tr>
+          <tr><td>Duplicates</td><td>Removes duplicates (applies DISTINCT internally)</td><td>Keeps all rows including duplicates</td></tr>
+          <tr><td>Performance</td><td>Slower — must sort/hash to find duplicates</td><td>Faster — no deduplication overhead</td></tr>
+          <tr><td>Result size</td><td>≤ sum of individual results</td><td>= exact sum of individual results</td></tr>
+          <tr><td>When to use</td><td>When you need unique combined results</td><td>When duplicates are OK (or impossible), or when performance matters</td></tr>
+        </table>
+        <pre><span class="cm">-- UNION: combine active and inactive customers (remove duplicates)</span>
+<span class="kw">SELECT</span> name, email <span class="kw">FROM</span> active_customers
+<span class="kw">UNION</span>
+<span class="kw">SELECT</span> name, email <span class="kw">FROM</span> inactive_customers;
+<span class="cm">-- If same person is in both tables, they appear ONCE</span>
+
+<span class="cm">-- UNION ALL: combine all sales records (duplicates fine — different dates)</span>
+<span class="kw">SELECT</span> sale_id, amount, 2023 <span class="kw">AS</span> year <span class="kw">FROM</span> sales_2023
+<span class="kw">UNION ALL</span>
+<span class="kw">SELECT</span> sale_id, amount, 2024 <span class="kw">AS</span> year <span class="kw">FROM</span> sales_2024;
+<span class="cm">-- All records kept. Faster because no deduplication needed.</span>
+
+<span class="cm">-- Requirements: both queries must have SAME number of columns
+-- and compatible data types in each position</span></pre>
+        <div class="tip">💡 Default to UNION ALL unless you specifically need deduplication. It's always at least as fast as UNION, often significantly faster on large result sets. Don't pay the performance cost of deduplication if you don't need it.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q12</span>UNION vs JOIN — fundamental conceptual difference?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p>This is a question interviewers ask to check whether you truly understand relational database design — not just syntax.</p>
+        <table>
+          <tr><th>Dimension</th><th>JOIN</th><th>UNION</th></tr>
+          <tr><td>Combining direction</td><td><strong>Horizontal</strong> — adds columns</td><td><strong>Vertical</strong> — adds rows</td></tr>
+          <tr><td>How it works</td><td>Merges related rows from multiple tables based on a key relationship</td><td>Stacks rows from multiple result sets on top of each other</td></tr>
+          <tr><td>Result shape</td><td>More columns than either input</td><td>Same columns, more rows</td></tr>
+          <tr><td>Requires key?</td><td>Yes — needs a matching condition (ON clause)</td><td>No — just needs matching column count and types</td></tr>
+          <tr><td>Real-world use</td><td>"Get each employee's department name" — merging related data</td><td>"Get all customers from 2023 and 2024" — combining similar data</td></tr>
+        </table>
+        <div class="note">🧠 Think of it visually: JOIN expands a table sideways (more columns). UNION stacks tables on top of each other (more rows). They solve completely different problems.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q13</span>SQL injection — what is it and how do you prevent it?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p>SQL injection is an attack where malicious user input is inserted into a SQL query string, causing the database to execute unintended commands — stealing data, deleting records, or bypassing authentication.</p>
+        <pre><span class="cm">-- VULNERABLE: string concatenation — NEVER DO THIS</span>
+String query = <span class="str">"SELECT * FROM users WHERE username='"</span> + username + <span class="str">"'"</span>;
+<span class="cm">-- If username = "admin' OR '1'='1"
+-- Query becomes: SELECT * FROM users WHERE username='admin' OR '1'='1'
+-- '1'='1' is always true → returns ALL users → attacker logs in as anyone</span>
+
+<span class="cm">-- EVEN WORSE: DROP TABLE injection</span>
+<span class="cm">-- username = "'; DROP TABLE users; --"
+-- Query: SELECT * FROM users WHERE username=''; DROP TABLE users; --'
+-- The users table is DELETED</span></pre>
+        <p><strong>Prevention (in order of importance):</strong></p>
+        <ol style="padding-left:18px;line-height:2;">
+          <li><strong>Parameterized queries / Prepared statements</strong> — always: the query structure is compiled separately from user input. Input can never change the query structure.</li>
+          <li><strong>Use an ORM</strong> — Hibernate, SQLAlchemy, Django ORM use parameterized queries by default.</li>
+          <li><strong>Input validation and sanitization</strong> — validate type, length, format. Reject unexpected characters.</li>
+          <li><strong>Principle of least privilege</strong> — DB user should only have SELECT on read-only operations, not DROP or ALTER.</li>
+          <li><strong>Web Application Firewall (WAF)</strong> — second line of defense (not a primary defense).</li>
+        </ol>
+        <pre><span class="cm">-- SAFE: Parameterized query (Java PreparedStatement)</span>
+PreparedStatement stmt = conn.prepareStatement(
+    <span class="str">"SELECT * FROM users WHERE username = ?"</span>);
+stmt.setString(1, username); <span class="cm">// user input is treated as DATA, not SQL code</span>
+ResultSet rs = stmt.executeQuery();</pre>
+        <div class="crit">⚠ OWASP consistently ranks SQL injection as a top-1 or top-3 web vulnerability year after year. Never interpolate user input directly into SQL strings — not even for "internal" applications.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q14</span>Find employees who joined in the last 30 days?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p>This tests date function knowledge — which varies slightly by database.</p>
+        <pre><span class="cm">-- MySQL</span>
+<span class="kw">SELECT</span> name, joining_date
+<span class="kw">FROM</span> employees
+<span class="kw">WHERE</span> joining_date >= <span class="fn">CURDATE</span>() - <span class="kw">INTERVAL</span> 30 <span class="kw">DAY</span>;
+
+<span class="cm">-- PostgreSQL</span>
+<span class="kw">SELECT</span> name, joining_date
+<span class="kw">FROM</span> employees
+<span class="kw">WHERE</span> joining_date >= <span class="fn">CURRENT_DATE</span> - <span class="kw">INTERVAL</span> <span class="str">'30 days'</span>;
+
+<span class="cm">-- SQL Server</span>
+<span class="kw">SELECT</span> name, joining_date
+<span class="kw">FROM</span> employees
+<span class="kw">WHERE</span> joining_date >= <span class="fn">DATEADD</span>(<span class="kw">DAY</span>, -30, <span class="fn">GETDATE</span>());
+
+<span class="cm">-- Oracle</span>
+<span class="kw">SELECT</span> name, joining_date
+<span class="kw">FROM</span> employees
+<span class="kw">WHERE</span> joining_date >= <span class="fn">SYSDATE</span> - 30;</pre>
+        <div class="tip">💡 In an interview, use MySQL syntax unless told otherwise (most Infosys questions assume MySQL). Always mention: "This depends on the database — MySQL uses CURDATE() while PostgreSQL uses CURRENT_DATE."</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================================================
+     SECTION 3: AGGREGATION (Q15–Q18)
+     ================================================ -->
+<section id="q-agg">
+  <div class="sh"><div class="sh-eye">Questions 15–18</div><h2>📊 Aggregation, GROUP BY & COUNT Variants</h2></div>
+
+  <div class="why">
+    <div class="why-label">⚡ Why Aggregation Is Tested in Every SQL Interview</div>
+    <p>Every business report, dashboard, and analytics feature relies on aggregation. "How many orders were placed per customer?" — GROUP BY. "Which departments have more than 5 employees?" — HAVING. "What's the total revenue by region?" — SUM + GROUP BY. These patterns appear in every real project. Interviewers test them because they're fundamental to data-driven work.</p>
+  </div>
+
+  <div class="xp"><button class="xp-btn" onclick="xpAll('qa-agg')">Expand All</button><button class="xp-btn" onclick="xpNone('qa-agg')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa-agg">
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q15</span>COUNT(*) vs COUNT(column) vs COUNT(DISTINCT column)?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <pre><span class="cm">-- Table: orders(order_id, customer_id, product_id, amount)
+-- Some rows: order_id=1, customer_id=NULL, product_id=101, amount=50
+--            order_id=2, customer_id=5,    product_id=101, amount=80
+--            order_id=3, customer_id=5,    product_id=202, amount=30</span>
+
+<span class="kw">SELECT</span>
+    <span class="fn">COUNT</span>(*)                    <span class="kw">AS</span> total_rows,       <span class="cm">-- 3 (counts ALL rows, including NULLs)</span>
+    <span class="fn">COUNT</span>(customer_id)          <span class="kw">AS</span> non_null_cust,    <span class="cm">-- 2 (row 1 has NULL customer_id, excluded)</span>
+    <span class="fn">COUNT</span>(<span class="kw">DISTINCT</span> customer_id) <span class="kw">AS</span> unique_customers, <span class="cm">-- 1 (customer_id=5 appears twice, counted once)</span>
+    <span class="fn">COUNT</span>(<span class="kw">DISTINCT</span> product_id)  <span class="kw">AS</span> unique_products   <span class="cm">-- 2 (products 101 and 202)</span>
+<span class="kw">FROM</span> orders;</pre>
+        <p><strong>Key rules:</strong></p>
+        <ul>
+          <li><code>COUNT(*)</code>: counts every row — NULLs included. Use to count total records.</li>
+          <li><code>COUNT(col)</code>: counts only non-NULL values in that column. Use to count how many rows have a value.</li>
+          <li><code>COUNT(DISTINCT col)</code>: counts unique non-NULL values. Use to count distinct customers, products, etc.</li>
+        </ul>
+        <div class="crit">⚠ Performance: <code>COUNT(*)</code> is optimized by most DBs (can use index metadata). <code>COUNT(DISTINCT col)</code> requires a full scan and sorting/hashing — much slower on large tables.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q16</span>All aggregate functions — SUM, AVG, MIN, MAX, with GROUP BY?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <pre><span class="cm">-- employees(emp_id, name, dept_id, salary, hire_date)</span>
+
+<span class="cm">-- Aggregates per department</span>
+<span class="kw">SELECT</span>
+    dept_id,
+    <span class="fn">COUNT</span>(*)          <span class="kw">AS</span> employee_count,
+    <span class="fn">SUM</span>(salary)       <span class="kw">AS</span> total_salary,
+    <span class="fn">AVG</span>(salary)       <span class="kw">AS</span> avg_salary,
+    <span class="fn">MIN</span>(salary)       <span class="kw">AS</span> min_salary,
+    <span class="fn">MAX</span>(salary)       <span class="kw">AS</span> max_salary,
+    <span class="fn">MIN</span>(hire_date)    <span class="kw">AS</span> earliest_hire,
+    <span class="fn">MAX</span>(hire_date)    <span class="kw">AS</span> latest_hire
+<span class="kw">FROM</span> employees
+<span class="kw">GROUP BY</span> dept_id
+<span class="kw">ORDER BY</span> avg_salary <span class="kw">DESC</span>;
+
+<span class="cm">-- Rule: every column in SELECT must either:
+-- 1. Be in the GROUP BY clause, OR
+-- 2. Be inside an aggregate function (COUNT, SUM, AVG, MIN, MAX)
+-- Violating this is an error in strict SQL (though MySQL allows it with caveats)</span></pre>
+        <p><strong>Combining WHERE and HAVING:</strong></p>
+        <pre><span class="cm">-- Departments with > 3 employees, excluding interns (salary < 20000)</span>
+<span class="kw">SELECT</span> dept_id, <span class="fn">COUNT</span>(*) <span class="kw">AS</span> emp_count, <span class="fn">AVG</span>(salary) <span class="kw">AS</span> avg_sal
+<span class="kw">FROM</span> employees
+<span class="kw">WHERE</span> salary >= 20000           <span class="cm">-- filter rows BEFORE grouping</span>
+<span class="kw">GROUP BY</span> dept_id
+<span class="kw">HAVING</span> <span class="fn">COUNT</span>(*) > 3             <span class="cm">-- filter GROUPS after aggregation</span>
+<span class="kw">ORDER BY</span> avg_sal <span class="kw">DESC</span>;</pre>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q17</span>What is a stored procedure? Difference from a function?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <table>
+          <tr><th>Property</th><th>Stored Procedure</th><th>Function</th></tr>
+          <tr><td>Returns</td><td>Can return 0 or more result sets or OUT parameters</td><td>Must return exactly one value</td></tr>
+          <tr><td>Used in SELECT?</td><td>❌ Cannot be used directly in SELECT/WHERE</td><td>✅ Can be used in SELECT, WHERE, HAVING</td></tr>
+          <tr><td>DML allowed?</td><td>✅ Can INSERT, UPDATE, DELETE</td><td>⚠ Restricted (deterministic functions only in MySQL)</td></tr>
+          <tr><td>Calling</td><td><code>CALL proc_name()</code> or <code>EXEC proc_name</code></td><td><code>SELECT func_name()</code></td></tr>
+          <tr><td>Transaction control</td><td>✅ Can include COMMIT/ROLLBACK</td><td>❌ Cannot manage transactions</td></tr>
+          <tr><td>Main purpose</td><td>Encapsulate complex multi-step business logic</td><td>Compute and return a single value</td></tr>
+        </table>
+        <pre><span class="cm">-- Stored Procedure: give a raise to all employees in a dept</span>
+<span class="kw">DELIMITER</span> //
+<span class="kw">CREATE PROCEDURE</span> give_raise(IN dept INT, IN pct <span class="kw">DECIMAL</span>(5,2))
+<span class="kw">BEGIN</span>
+    <span class="kw">UPDATE</span> employees
+    <span class="kw">SET</span> salary = salary * (1 + pct / 100)
+    <span class="kw">WHERE</span> dept_id = dept;
+<span class="kw">END</span> //
+<span class="kw">DELIMITER</span> ;
+
+<span class="kw">CALL</span> give_raise(3, 10.0);  <span class="cm">-- 10% raise for dept 3</span>
+
+<span class="cm">-- Function: calculate tax for a given salary</span>
+<span class="kw">CREATE FUNCTION</span> calc_tax(salary <span class="kw">DECIMAL</span>(10,2))
+<span class="kw">RETURNS DECIMAL</span>(10,2) <span class="kw">DETERMINISTIC</span>
+<span class="kw">RETURN</span> salary * 0.3;
+
+<span class="kw">SELECT</span> name, salary, <span class="fn">calc_tax</span>(salary) <span class="kw">AS</span> tax <span class="kw">FROM</span> employees;</pre>
+        <p><strong>Benefits of stored procedures:</strong> performance (cached execution plan), reduced network traffic (single CALL vs many SQL statements), centralized business logic, reusability.</p>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q18</span>What is a VIEW? What is a materialized view?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p>A <strong>view</strong> is a virtual table defined by a SELECT query. The data is <em>not physically stored</em> — it's recomputed from the underlying tables every time the view is queried.</p>
+        <pre><span class="cm">-- Create a view for frequently queried employee-department data</span>
+<span class="kw">CREATE VIEW</span> emp_dept_view <span class="kw">AS</span>
+<span class="kw">SELECT</span> e.emp_id, e.name, e.salary, d.dept_name
+<span class="kw">FROM</span> employees e
+<span class="kw">JOIN</span> departments d <span class="kw">ON</span> e.dept_id = d.dept_id;
+
+<span class="cm">-- Now query the view like a regular table</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> emp_dept_view <span class="kw">WHERE</span> dept_name = <span class="str">'Engineering'</span>;
+
+<span class="cm">-- The database internally rewrites this as the full JOIN query</span></pre>
+        <p><strong>Benefits of views:</strong></p>
+        <ul>
+          <li><strong>Security:</strong> expose only certain columns/rows to specific users without granting access to base tables</li>
+          <li><strong>Simplicity:</strong> hide complex JOIN logic behind a simple table-like interface</li>
+          <li><strong>Consistency:</strong> business logic defined once, used everywhere</li>
+        </ul>
+        <p>A <strong>materialized view</strong> physically stores the query result — it's a pre-computed snapshot. Much faster for complex aggregations. Needs explicit refresh when underlying data changes.</p>
+        <pre><span class="cm">-- PostgreSQL materialized view (pre-computes expensive aggregation)</span>
+<span class="kw">CREATE MATERIALIZED VIEW</span> monthly_sales_summary <span class="kw">AS</span>
+<span class="kw">SELECT</span> <span class="fn">DATE_TRUNC</span>(<span class="str">'month'</span>, order_date) <span class="kw">AS</span> month,
+       <span class="fn">SUM</span>(amount) <span class="kw">AS</span> total_sales
+<span class="kw">FROM</span> orders <span class="kw">GROUP BY</span> 1;
+
+<span class="cm">-- Refresh when data changes (manual or scheduled)</span>
+<span class="kw">REFRESH MATERIALIZED VIEW</span> monthly_sales_summary;</pre>
+        <div class="tip">💡 Use regular views for simplicity and security. Use materialized views when a query takes seconds to run and the data doesn't change frequently — for example, monthly aggregations on a large sales table.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================================================
+     SECTION 4: INDEXES (Q19–Q21)
+     ================================================ -->
+<section id="q-index">
+  <div class="sh"><div class="sh-eye">Questions 19–21</div><h2>🔍 Indexes & Query Performance</h2></div>
+
+  <div class="why">
+    <div class="why-label">⚡ Why Index Questions Appear in Every Senior-Ish Fresher Interview</div>
+    <p>Indexes are where theoretical database knowledge meets real-world performance engineering. Interviewers ask about indexes to gauge whether you understand the fundamental read/write trade-off. A candidate who says "just add an index on every column" reveals they don't understand databases. A candidate who explains B-tree structure, clustered vs non-clustered, and when NOT to index demonstrates production-level thinking.</p>
+  </div>
+
+  <div class="xp"><button class="xp-btn" onclick="xpAll('qa-idx')">Expand All</button><button class="xp-btn" onclick="xpNone('qa-idx')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa-idx">
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q19</span>What is an index? Advantages and disadvantages?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p>A database index is a separate data structure (typically a B-tree) that the database maintains alongside a table to speed up data retrieval on indexed columns — similar to how a book index lets you jump to a page without reading the whole book.</p>
+        <pre><span class="cm">-- Create an index on email column (frequently searched)</span>
+<span class="kw">CREATE INDEX</span> idx_employees_email <span class="kw">ON</span> employees(email);
+
+<span class="cm">-- Composite index: speeds up queries filtering by both columns together</span>
+<span class="kw">CREATE INDEX</span> idx_dept_salary <span class="kw">ON</span> employees(dept_id, salary);
+
+<span class="cm">-- Unique index: enforces uniqueness AND speeds up lookups</span>
+<span class="kw">CREATE UNIQUE INDEX</span> idx_unique_email <span class="kw">ON</span> employees(email);</pre>
+        <p><strong>Advantages:</strong></p>
+        <ul>
+          <li>Dramatically faster <code>SELECT</code> with <code>WHERE</code>, <code>JOIN</code>, <code>ORDER BY</code>, <code>GROUP BY</code> on indexed columns</li>
+          <li>Turns O(n) full table scan into O(log n) B-tree lookup</li>
+          <li>Unique indexes enforce data integrity at the database level</li>
+        </ul>
+        <p><strong>Disadvantages:</strong></p>
+        <ul>
+          <li><strong>Slower writes:</strong> every INSERT/UPDATE/DELETE must also update all affected indexes — can be 2–5x slower for write-heavy tables</li>
+          <li><strong>Extra disk space:</strong> each index is a copy of data in a different order — can be 10–50% of table size</li>
+          <li><strong>Maintenance overhead:</strong> index fragmentation over time requires periodic maintenance (REBUILD/REORGANIZE)</li>
+        </ul>
+        <div class="crit">⚠ "When should you NOT add an index?" — on small tables (full scan faster), on columns with very high write frequency, on low-cardinality columns (boolean, gender — only 2-3 distinct values, not selective enough), on columns never used in WHERE/JOIN/ORDER BY.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q20</span>Clustered vs Non-clustered index — deep explanation?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <table>
+          <tr><th>Property</th><th>Clustered Index</th><th>Non-Clustered Index</th></tr>
+          <tr><td>Data storage</td><td>Table rows are physically sorted and stored in key order</td><td>Separate B-tree with pointers to the actual row locations</td></tr>
+          <tr><td>Count per table</td><td>Only ONE — rows can only be sorted one way physically</td><td>Multiple allowed (up to 999 in SQL Server)</td></tr>
+          <tr><td>Default on</td><td>Primary key (in MySQL InnoDB)</td><td>All other indexes</td></tr>
+          <tr><td>Range queries</td><td>Very fast — consecutive rows are physically adjacent</td><td>Slower — may require many random disk seeks</td></tr>
+          <tr><td>Lookup cost</td><td>One hop — data IS the index leaf</td><td>Two hops — index leaf has a pointer to the data row</td></tr>
+        </table>
+        <p><strong>Visual analogy:</strong></p>
+        <ul>
+          <li><strong>Clustered index:</strong> like a physical dictionary — words are stored in alphabetical order ON THE PAGE ITSELF. Finding "algorithm" means opening to the A section; the definition is right there.</li>
+          <li><strong>Non-clustered index:</strong> like a book's index at the back — you look up "algorithm" in the index, which gives you a page number (pointer), then you flip to that page to read the content.</li>
+        </ul>
+        <pre><span class="cm">-- In MySQL InnoDB: Primary Key = Clustered Index</span>
+<span class="kw">CREATE TABLE</span> employees (
+    emp_id <span class="kw">INT PRIMARY KEY</span>,  <span class="cm">-- THIS is the clustered index</span>
+    name   <span class="kw">VARCHAR</span>(100),
+    email  <span class="kw">VARCHAR</span>(100)
+);
+<span class="cm">-- Rows are physically stored sorted by emp_id
+-- When you SELECT * FROM employees WHERE emp_id = 42:
+-- One B-tree traversal → directly at the row data</span>
+
+<span class="kw">CREATE INDEX</span> idx_email <span class="kw">ON</span> employees(email); <span class="cm">-- non-clustered</span>
+<span class="cm">-- SELECT * WHERE email = 'x@y.com':
+-- 1. Traverse email index B-tree → find pointer (emp_id=42)
+-- 2. Traverse PRIMARY KEY B-tree → find actual row data
+-- This second lookup is called a "bookmark lookup" or "index scan back"</span></pre>
+        <div class="note">🧠 Choosing the right clustering key matters enormously for performance. Use a monotonically increasing integer (like auto-increment id) as PK/clustered index — new rows always go to the end, no page splits. Never use UUIDs as clustered indexes — random ordering causes constant page splits and fragmentation.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q21</span>B-tree vs Hash index — when to use each?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <table>
+          <tr><th>Property</th><th>B-tree Index</th><th>Hash Index</th></tr>
+          <tr><td>Structure</td><td>Balanced tree — data sorted in leaf nodes</td><td>Hash table — data in hash buckets</td></tr>
+          <tr><td>Equality lookup</td><td>O(log n)</td><td>O(1) average</td></tr>
+          <tr><td>Range queries</td><td>✅ Excellent — data is ordered (BETWEEN, &lt;, &gt;, LIKE 'A%')</td><td>❌ Impossible — hash destroys ordering</td></tr>
+          <tr><td>ORDER BY acceleration</td><td>✅ Yes — already sorted</td><td>❌ No</td></tr>
+          <tr><td>Prefix matching (LIKE 'A%')</td><td>✅ Yes</td><td>❌ No</td></tr>
+          <tr><td>Memory usage</td><td>Higher — stores all key values in tree nodes</td><td>Lower per entry — just hash and pointer</td></tr>
+          <tr><td>Default in MySQL InnoDB</td><td>✅ Yes — all indexes are B-tree</td><td>❌ Not supported in InnoDB</td></tr>
+          <tr><td>When to use</td><td>Almost always — the safe default choice</td><td>Equality-only lookups where range is never needed (session lookup by ID, cache lookups)</td></tr>
+        </table>
+        <div class="tip">💡 In practice: always use B-tree (the default in MySQL, PostgreSQL, Oracle). Hash indexes only make sense in very specific in-memory use cases (like MEMORY engine in MySQL, or PostgreSQL's hash indexes for specific equality-only workloads). If you're not sure, use B-tree.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================================================
+     SECTION 5: NORMALIZATION (Q22–Q25)
+     ================================================ -->
+<section id="q-norm">
+  <div class="sh"><div class="sh-eye">Questions 22–25</div><h2>📐 Normalization — 1NF through BCNF</h2></div>
+
+  <div class="why">
+    <div class="why-label">⚡ Why Normalization Is a Core Design Skill</div>
+    <p>Normalization is the art of designing database schemas that don't lie to you — schemas where data is stored in exactly one place, with no hidden contradictions. A poorly normalized schema leads to update anomalies (updating one fact requires touching 50 rows), insertion anomalies (can't add data without unrelated data), and deletion anomalies (losing one fact deletes another). Every Infosys database project uses normalized schemas — knowing why and how to normalize is non-negotiable.</p>
+  </div>
+
+  <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin:24px 0 14px;">Normalization Progression — Visual Reference</h3>
+  <div class="norm-steps">
+    <div class="norm-step">
+      <h4>1NF</h4>
+      <p>Atomic values. Each cell = one value. No repeating groups. Each row uniquely identifiable.</p>
+    </div>
+    <div class="norm-step">
+      <h4>2NF</h4>
+      <p>1NF + No partial dependency. Every non-key attribute depends on the WHOLE composite primary key.</p>
+    </div>
+    <div class="norm-step">
+      <h4>3NF</h4>
+      <p>2NF + No transitive dependency. Non-key attributes must not depend on other non-key attributes.</p>
+    </div>
+    <div class="norm-step">
+      <h4>BCNF</h4>
+      <p>Stricter 3NF. Every determinant must be a candidate key. Eliminates remaining anomalies.</p>
+    </div>
+  </div>
+
+  <div class="xp"><button class="xp-btn" onclick="xpAll('qa-norm')">Expand All</button><button class="xp-btn" onclick="xpNone('qa-norm')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa-norm">
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q22</span>Explain 1NF, 2NF, and 3NF with a concrete step-by-step example?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p><strong>Starting point — un-normalized order data:</strong></p>
+        <pre>OrderID | CustomerName | CustomerCity | Products              | ProductPrices
+--------|--------------|--------------|------------------------|--------------
+1       | Alice        | Mumbai       | Laptop, Mouse          | 60000, 500
+2       | Bob          | Delhi        | Keyboard               | 800</pre>
+        <p><strong>Step 1 — Apply 1NF:</strong> Make all values atomic (one value per cell). No multi-valued attributes.</p>
+        <pre>OrderID | LineNum | CustomerName | CustomerCity | Product  | Price
+--------|---------|--------------|--------------|----------|-------
+1       | 1       | Alice        | Mumbai       | Laptop   | 60000
+1       | 2       | Alice        | Mumbai       | Mouse    | 500
+2       | 1       | Bob          | Delhi        | Keyboard | 800
+
+<span class="cm">-- PK = (OrderID, LineNum) — composite key</span>
+<span class="cm">-- All cells are atomic ✅ — 1NF satisfied</span>
+<span class="cm">-- Problem: CustomerName and CustomerCity only depend on OrderID (not on LineNum)
+-- This is a PARTIAL DEPENDENCY → violates 2NF</span></pre>
+        <p><strong>Step 2 — Apply 2NF:</strong> Remove partial dependencies. Split into Orders and OrderItems tables.</p>
+        <pre><span class="cm">-- Orders table: non-key attrs that depend ONLY on OrderID</span>
+Orders: (OrderID PK | CustomerName | CustomerCity)
+1       | Alice        | Mumbai
+2       | Bob          | Delhi
+
+<span class="cm">-- OrderItems table: non-key attrs that depend on (OrderID, LineNum)</span>
+OrderItems: (OrderID FK | LineNum | Product | Price)
+1           | 1       | Laptop   | 60000
+1           | 2       | Mouse    | 500
+2           | 1       | Keyboard | 800
+
+<span class="cm">-- 2NF satisfied: every non-key attribute depends on the WHOLE key ✅
+-- Problem: CustomerCity depends on CustomerName (not directly on OrderID)
+-- If Alice moves, ALL her orders need updating → UPDATE ANOMALY</span></pre>
+        <p><strong>Step 3 — Apply 3NF:</strong> Remove transitive dependencies (CustomerCity depends on CustomerName, not OrderID directly).</p>
+        <pre><span class="cm">-- Customers table: CustomerName determines CustomerCity</span>
+Customers: (CustomerID PK | CustomerName | CustomerCity)
+1          | Alice        | Mumbai
+2          | Bob          | Delhi
+
+<span class="cm">-- Orders table: reference Customer by ID</span>
+Orders: (OrderID PK | CustomerID FK)
+1       | 1
+2       | 2
+
+<span class="cm">-- 3NF satisfied: no transitive dependencies ✅
+-- Each fact is stored in exactly one place</span></pre>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q23</span>What is BCNF? How is it different from 3NF?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p>BCNF (Boyce-Codd Normal Form) is a stricter form of 3NF. The rule: <strong>for every functional dependency A → B, A must be a candidate key</strong> (or a superkey).</p>
+        <p>A table can be in 3NF but not BCNF if it has a functional dependency where the left-hand side is <em>not</em> a candidate key. This happens when there are overlapping candidate keys.</p>
+        <pre><span class="cm">-- Classic BCNF violation example:
+-- Table: CourseRegistration(Student, Course, Teacher)
+-- Functional dependencies:
+--   (Student, Course) → Teacher  [a student in a course has one teacher]
+--   Teacher → Course              [each teacher teaches only one course]
+
+<span class="cm">-- Candidate keys: (Student, Course) and (Student, Teacher)
+-- FD: Teacher → Course  violates BCNF because "Teacher" alone is not a candidate key
+-- Teacher determines Course but is not a candidate key
+
+-- BCNF fix: decompose into two tables:</span>
+TeacherCourse: (Teacher PK | Course)
+             → Teacher → Course dependency now has Teacher as PK ✅
+
+StudentTeacher: (Student | Teacher | FK references TeacherCourse)
+<span class="cm">-- Now both dependencies are preserved without BCNF violation</span></pre>
+        <div class="note">🧠 In practice: 3NF is usually sufficient for OLTP systems. BCNF is theoretically superior but decomposing into BCNF sometimes loses the ability to enforce certain constraints using only primary keys and foreign keys. Most textbooks and interviews only require explaining up to 3NF; BCNF is a bonus.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q24</span>Three database anomalies — insertion, update, deletion?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p>Anomalies are problems that arise from data redundancy in poorly designed (un-normalized) schemas. All three are prevented by proper normalization.</p>
+        <pre><span class="cm">-- Un-normalized table (violates 2NF):
+-- Orders(OrderID, CustomerName, CustomerCity, Product, Price)
+OrderID | CustomerName | CustomerCity | Product  | Price
+1       | Alice        | Mumbai       | Laptop   | 60000
+2       | Alice        | Mumbai       | Mouse    | 500
+3       | Bob          | Delhi        | Keyboard | 800</span></pre>
+        <p><strong>Insertion Anomaly:</strong> Cannot add a new customer until they place an order.</p>
+        <pre><span class="cm">-- Want to register Charlie from Kolkata as a customer (no orders yet)
+-- IMPOSSIBLE: OrderID is NOT NULL and there's no product to attach
+-- We can't store Charlie's city until he buys something ← ANOMALY</span></pre>
+        <p><strong>Update Anomaly:</strong> Changing Alice's city requires updating EVERY row with Alice's name.</p>
+        <pre><span class="cm">-- Alice moves from Mumbai to Pune
+UPDATE Orders SET CustomerCity = 'Pune' WHERE CustomerName = 'Alice';
+-- Must update rows 1 AND 2. If we miss row 2 → inconsistency
+-- Two rows say Alice lives in different cities ← DATA CORRUPTION</span></pre>
+        <p><strong>Deletion Anomaly:</strong> Deleting an order can accidentally delete customer information.</p>
+        <pre><span class="cm">-- Bob cancels his only order (OrderID=3)
+DELETE FROM Orders WHERE OrderID = 3;
+-- Bob's existence (name + city) is now GONE from the database
+-- We've lost information about a customer because he had no orders ← ANOMALY</span></pre>
+        <div class="tip">💡 All three anomalies are solved by normalization — specifically by storing each fact in exactly one place. Alice's city in a Customers table, updated once. Charlie can exist in Customers without any Orders. Bob persists in Customers even with no Orders.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q25</span>What is denormalization? When should you use it?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p>Denormalization is the intentional introduction of redundancy into a database schema to improve read performance. You're reversing normalization — combining tables, duplicating columns, storing derived values — to reduce the number of JOINs needed for frequently executed queries.</p>
+        <p><strong>When to denormalize:</strong></p>
+        <ul>
+          <li><strong>Data warehouses / analytics (OLAP):</strong> reports run complex queries over billions of rows. The cost of JOINs is prohibitive. Star/snowflake schemas deliberately denormalize for read performance.</li>
+          <li><strong>Read-heavy, write-light tables:</strong> if a table is read 10,000 times and written once a day, the redundancy cost is trivial versus the query speed gain.</li>
+          <li><strong>Caching pre-computed aggregates:</strong> storing <code>total_order_count</code> directly on the customer row instead of counting orders on each request.</li>
+        </ul>
+        <p><strong>When NOT to denormalize:</strong></p>
+        <ul>
+          <li>OLTP systems where data changes frequently — redundancy causes update anomalies</li>
+          <li>When you haven't profiled to confirm JOINs are the bottleneck — premature optimization</li>
+        </ul>
+        <div class="note">🧠 Denormalization should always be a <em>deliberate architectural decision</em>, not an accident of poor design. If you're denormalizing an OLTP system, you need a clear answer for "how do we keep the redundant data consistent when the source changes?" The answer is usually: a trigger, an application-level update, or an eventual consistency model.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================================================
+     SECTION 6: ACID & TRANSACTIONS (Q26–Q28)
+     ================================================ -->
+<section id="q-acid">
+  <div class="sh"><div class="sh-eye">Questions 26–28</div><h2>⚛ Transactions, ACID & Isolation Levels</h2></div>
+
+  <div class="why">
+    <div class="why-label">⚡ Why ACID Is a Non-Negotiable Interview Topic</div>
+    <p>ACID properties are what make databases trustworthy for critical operations — banking transactions, booking systems, inventory management. If you're building software at Infosys for financial or enterprise clients, you'll need to understand exactly what guarantees the database provides and when they can fail. "What is ACID?" is asked in virtually every Infosys technical interview for database-related roles.</p>
+  </div>
+
+  <div class="xp"><button class="xp-btn" onclick="xpAll('qa-acid')">Expand All</button><button class="xp-btn" onclick="xpNone('qa-acid')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa-acid">
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q26</span>ACID properties — explain each with a real-world example?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p><em>Scenario: transferring ₹1000 from Account A (balance: ₹5000) to Account B (balance: ₹2000)</em></p>
+        <pre><span class="kw">START TRANSACTION</span>;
+<span class="kw">UPDATE</span> accounts <span class="kw">SET</span> balance = balance - 1000 <span class="kw">WHERE</span> id = <span class="str">'A'</span>;
+<span class="kw">UPDATE</span> accounts <span class="kw">SET</span> balance = balance + 1000 <span class="kw">WHERE</span> id = <span class="str">'B'</span>;
+<span class="kw">COMMIT</span>;</pre>
+        <p><strong>A — Atomicity: "All or nothing"</strong><br>
+        If the system crashes after the first UPDATE (deducted from A) but before the second UPDATE (not yet added to B), the transaction is automatically rolled back. Neither UPDATE persists. The ₹1000 doesn't vanish into thin air. Implemented via: undo logs (for rollback).</p>
+        <p><strong>C — Consistency: "Valid state to valid state"</strong><br>
+        Before the transaction: A=5000, B=2000, total=7000. After: A=4000, B=3000, total=7000. The total always equals 7000 — money is conserved. The database enforces all constraints (NOT NULL, foreign keys, CHECK constraints) throughout. Implemented via: constraint checking.</p>
+        <p><strong>I — Isolation: "As if transactions ran one at a time"</strong><br>
+        If another transaction reads Account A's balance concurrently during the transfer, it either sees the original 5000 (before transfer) or 4000 (after commit) — never an inconsistent intermediate state like 5000 deducted but B not yet credited. Implemented via: locking or MVCC.</p>
+        <p><strong>D — Durability: "Committed data survives crashes"</strong><br>
+        Once COMMIT succeeds, the transfer is permanent. Even if the server loses power 1 millisecond after the COMMIT, the data is safe. Implemented via: redo logs (WAL — Write-Ahead Log), which persist changes to durable storage before confirming the commit.</p>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q27</span>Transaction: how to write one? States and what ROLLBACK does?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <pre><span class="cm">-- Complete transaction pattern</span>
+<span class="kw">START TRANSACTION</span>;  <span class="cm">-- or BEGIN / BEGIN TRANSACTION</span>
+
+<span class="kw">UPDATE</span> accounts <span class="kw">SET</span> balance = balance - 500 <span class="kw">WHERE</span> id = 1;
+<span class="kw">UPDATE</span> accounts <span class="kw">SET</span> balance = balance + 500 <span class="kw">WHERE</span> id = 2;
+
+<span class="cm">-- Check if business rule satisfied (application layer)</span>
+<span class="cm">-- IF error → ROLLBACK, otherwise → COMMIT</span>
+
+<span class="kw">COMMIT</span>;    <span class="cm">-- make all changes permanent (durable)</span>
+<span class="cm">-- or</span>
+<span class="kw">ROLLBACK</span>; <span class="cm">-- undo ALL changes since START TRANSACTION</span>
+
+<span class="cm">-- SAVEPOINT: partial rollback</span>
+<span class="kw">START TRANSACTION</span>;
+<span class="kw">INSERT INTO</span> orders VALUES (101, 5, 'pending');
+<span class="kw">SAVEPOINT</span> after_order;
+<span class="kw">INSERT INTO</span> payments VALUES (201, 101, 500);
+<span class="cm">-- Payment fails</span>
+<span class="kw">ROLLBACK TO</span> after_order;   <span class="cm">-- undo payment only, keep order</span>
+<span class="kw">COMMIT</span>;                    <span class="cm">-- order committed, payment rolled back</span></pre>
+        <p><strong>Transaction states:</strong></p>
+        <ul>
+          <li><strong>Active:</strong> transaction is executing</li>
+          <li><strong>Partially Committed:</strong> last statement executed, changes not yet written to disk</li>
+          <li><strong>Committed:</strong> changes durably written — cannot be rolled back</li>
+          <li><strong>Failed:</strong> an error occurred during execution</li>
+          <li><strong>Aborted:</strong> rolled back — database restored to pre-transaction state</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q28</span>SQL isolation levels — all 4 levels and the anomalies they prevent?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p>Isolation levels control how much concurrent transactions can "see" each other's in-progress changes. Higher isolation = fewer anomalies but lower concurrency and throughput.</p>
+        <p><strong>Three anomalies to know:</strong></p>
+        <ul>
+          <li><strong>Dirty Read:</strong> reading uncommitted data from another transaction (data that might still be rolled back)</li>
+          <li><strong>Non-Repeatable Read:</strong> reading the same row twice in a transaction and getting different values (another transaction committed a change between reads)</li>
+          <li><strong>Phantom Read:</strong> running the same query twice and getting different rows (another transaction inserted/deleted rows that match your WHERE clause)</li>
+        </ul>
+        <table>
+          <tr><th>Isolation Level</th><th>Dirty Read</th><th>Non-Repeatable Read</th><th>Phantom Read</th><th>Performance</th></tr>
+          <tr><td><strong>Read Uncommitted</strong></td><td>✅ Possible</td><td>✅ Possible</td><td>✅ Possible</td><td>Fastest</td></tr>
+          <tr><td><strong>Read Committed</strong></td><td>❌ Prevented</td><td>✅ Possible</td><td>✅ Possible</td><td>Fast</td></tr>
+          <tr><td><strong>Repeatable Read</strong></td><td>❌ Prevented</td><td>❌ Prevented</td><td>✅ Possible</td><td>Moderate</td></tr>
+          <tr><td><strong>Serializable</strong></td><td>❌ Prevented</td><td>❌ Prevented</td><td>❌ Prevented</td><td>Slowest</td></tr>
+        </table>
+        <pre><span class="cm">-- Set isolation level for current session</span>
+<span class="kw">SET SESSION TRANSACTION ISOLATION LEVEL</span> READ COMMITTED;
+
+<span class="cm">-- Default isolation levels:
+-- MySQL InnoDB: REPEATABLE READ (with snapshot isolation for reads)
+-- PostgreSQL: READ COMMITTED
+-- Oracle: READ COMMITTED
+-- SQL Server: READ COMMITTED</span></pre>
+        <div class="tip">💡 In practice: Read Committed is the right default for most OLTP systems — it prevents dirty reads while maintaining good concurrency. Use Serializable only for financial-critical operations (like inventory deduction) where phantom reads would cause real damage.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================================================
+     SECTION 7: ADVANCED SQL (Q29–Q32)
+     ================================================ -->
+<section id="q-advanced">
+  <div class="sh"><div class="sh-eye">Questions 29–32</div><h2>🪟 Advanced SQL — Window Functions, CTEs & Triggers</h2></div>
+
+  <div class="why">
+    <div class="why-label">⚡ Why Window Functions Are a Modern SQL Must-Know</div>
+    <p>Window functions were added in SQL:2003 and are now available in all major databases. They're the single biggest productivity boost in SQL for analytics. Before window functions: complex self-joins or correlated subqueries to compute running totals, rankings, or comparisons to group averages. With window functions: one clean query. Infosys interviews increasingly test these for DSE and SP roles. Know RANK, DENSE_RANK, ROW_NUMBER, LAG, LEAD, and SUM/AVG OVER.</p>
+  </div>
+
+  <div class="xp"><button class="xp-btn" onclick="xpAll('qa-adv')">Expand All</button><button class="xp-btn" onclick="xpNone('qa-adv')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa-adv">
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q29</span>What is a window function? Explain with a running total example?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p>A window function performs calculations across a set of related rows (a "window") <em>without collapsing them</em> into a single output row — unlike GROUP BY which collapses. The window is defined by the <code>OVER()</code> clause.</p>
+        <pre><span class="cm">-- employees(emp_id, dept_id, name, salary)</span>
+
+<span class="cm">-- Running total of salaries ordered by emp_id</span>
+<span class="kw">SELECT</span>
+    emp_id, name, salary,
+    <span class="fn">SUM</span>(salary) <span class="kw">OVER</span> (<span class="kw">ORDER BY</span> emp_id) <span class="kw">AS</span> running_total
+<span class="kw">FROM</span> employees;
+
+<span class="cm">-- Result:
+-- emp_id | name  | salary | running_total
+-- 1      | Alice | 60000  | 60000
+-- 2      | Bob   | 45000  | 105000
+-- 3      | Carol | 70000  | 175000   ← each row keeps its data + cumulative sum</span>
+
+<span class="cm">-- Salary vs department average (PARTITION BY)</span>
+<span class="kw">SELECT</span>
+    emp_id, name, dept_id, salary,
+    <span class="fn">AVG</span>(salary) <span class="kw">OVER</span> (<span class="kw">PARTITION BY</span> dept_id) <span class="kw">AS</span> dept_avg,
+    salary - <span class="fn">AVG</span>(salary) <span class="kw">OVER</span> (<span class="kw">PARTITION BY</span> dept_id) <span class="kw">AS</span> diff_from_avg
+<span class="kw">FROM</span> employees;
+<span class="cm">-- Without PARTITION BY: window is the entire table
+-- With PARTITION BY dept_id: separate window per department</span></pre>
+        <div class="note">🧠 The key insight: GROUP BY produces ONE row per group. Window functions produce ONE row per ORIGINAL row — each row keeps its data AND gains a computed value from its window. This is why they're so powerful for analytics.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q30</span>RANK vs DENSE_RANK vs ROW_NUMBER — when each is appropriate?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <pre><span class="cm">-- Scenario: 4 employees with salaries [90k, 85k, 85k, 70k]</span>
+<span class="kw">SELECT</span>
+    name, salary,
+    <span class="fn">ROW_NUMBER</span>() <span class="kw">OVER</span> (<span class="kw">ORDER BY</span> salary <span class="kw">DESC</span>) <span class="kw">AS</span> row_num,
+    <span class="fn">RANK</span>()       <span class="kw">OVER</span> (<span class="kw">ORDER BY</span> salary <span class="kw">DESC</span>) <span class="kw">AS</span> rnk,
+    <span class="fn">DENSE_RANK</span>() <span class="kw">OVER</span> (<span class="kw">ORDER BY</span> salary <span class="kw">DESC</span>) <span class="kw">AS</span> dense_rnk
+<span class="kw">FROM</span> employees;
+
+<span class="cm">-- Result:
+-- name  | salary | row_num | rnk | dense_rnk
+-- Alice | 90000  |    1    |  1  |     1
+-- Bob   | 85000  |    2    |  2  |     2    ← tie
+-- Carol | 85000  |    3    |  2  |     2    ← same dense_rnk as Bob
+-- Dave  | 70000  |    4    |  4  |     3    ← RANK skips 3, DENSE_RANK doesn't</span></pre>
+        <table>
+          <tr><th>Function</th><th>Tie behavior</th><th>Use when</th></tr>
+          <tr><td><code>ROW_NUMBER()</code></td><td>Arbitrary unique number — no ties</td><td>You need unique row identification, pagination, deduplication</td></tr>
+          <tr><td><code>RANK()</code></td><td>Ties get same rank; next rank skips</td><td>Sports rankings (tied 2nd place, no 3rd), leaderboards where gaps matter</td></tr>
+          <tr><td><code>DENSE_RANK()</code></td><td>Ties get same rank; no skipping</td><td>Finding Nth highest salary (no gaps), medal rankings where all should be accounted for</td></tr>
+        </table>
+        <pre><span class="cm">-- Classic use: top-3 salaries per department using DENSE_RANK</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> (
+    <span class="kw">SELECT</span> emp_id, name, dept_id, salary,
+           <span class="fn">DENSE_RANK</span>() <span class="kw">OVER</span> (<span class="kw">PARTITION BY</span> dept_id <span class="kw">ORDER BY</span> salary <span class="kw">DESC</span>) <span class="kw">AS</span> dr
+    <span class="kw">FROM</span> employees
+) ranked
+<span class="kw">WHERE</span> dr <= 3;  <span class="cm">-- top-3 salaries in each department</span></pre>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q31</span>LAG and LEAD window functions — what are they used for?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p><code>LAG()</code> and <code>LEAD()</code> access values from previous or subsequent rows within the same window — without a self-join.</p>
+        <pre><span class="cm">-- monthly_sales(month, total_sales)
+-- Calculate month-over-month sales change</span>
+<span class="kw">SELECT</span>
+    month,
+    total_sales,
+    <span class="fn">LAG</span>(total_sales, 1, 0)  <span class="kw">OVER</span> (<span class="kw">ORDER BY</span> month) <span class="kw">AS</span> prev_month_sales,
+    total_sales - <span class="fn">LAG</span>(total_sales, 1, 0) <span class="kw">OVER</span> (<span class="kw">ORDER BY</span> month) <span class="kw">AS</span> mom_change,
+    <span class="fn">LEAD</span>(total_sales, 1)    <span class="kw">OVER</span> (<span class="kw">ORDER BY</span> month) <span class="kw">AS</span> next_month_sales
+<span class="kw">FROM</span> monthly_sales;
+
+<span class="cm">-- LAG(col, offset, default): value from 'offset' rows BEFORE current row
+-- LEAD(col, offset, default): value from 'offset' rows AFTER current row
+-- The third arg is the default value when there's no previous/next row
+
+-- Result:
+-- month   | total_sales | prev_month | mom_change | next_month
+-- 2025-01 |   100000    |     0      |   100000   |   120000
+-- 2025-02 |   120000    |   100000   |    20000   |    95000
+-- 2025-03 |    95000    |   120000   |   -25000   |    NULL</span></pre>
+        <div class="tip">💡 LAG/LEAD replace complex self-joins for time-series analysis. Before window functions, this required joining the table to itself on month = prev_month — messy and slow. With LAG, it's one clean query.</div>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q32</span>What is a trigger? When to use it (and when to avoid it)?<span class="qa-icon">▾</span></button>
+      <div class="qa-body">
+        <p>A trigger is a stored program that automatically fires in response to a DML event (INSERT, UPDATE, or DELETE) on a specific table — BEFORE or AFTER the event.</p>
+        <pre><span class="cm">-- Audit trigger: log every salary change</span>
+<span class="kw">DELIMITER</span> //
+<span class="kw">CREATE TRIGGER</span> salary_audit
+<span class="kw">AFTER UPDATE ON</span> employees
+<span class="kw">FOR EACH ROW</span>
+<span class="kw">BEGIN</span>
+    <span class="kw">IF</span> NEW.salary != OLD.salary <span class="kw">THEN</span>
+        <span class="kw">INSERT INTO</span> salary_changes(emp_id, old_sal, new_sal, changed_at)
+        <span class="kw">VALUES</span>(OLD.emp_id, OLD.salary, NEW.salary, <span class="fn">NOW</span>());
+    <span class="kw">END IF</span>;
+<span class="kw">END</span> //
+<span class="kw">DELIMITER</span> ;
+
+<span class="cm">-- BEFORE trigger: validate data before inserting</span>
+<span class="kw">CREATE TRIGGER</span> validate_salary
+<span class="kw">BEFORE INSERT ON</span> employees
+<span class="kw">FOR EACH ROW</span>
+<span class="kw">BEGIN</span>
+    <span class="kw">IF</span> NEW.salary < 0 <span class="kw">THEN</span>
+        <span class="kw">SIGNAL SQLSTATE</span> <span class="str">'45000'</span>
+        <span class="kw">SET MESSAGE_TEXT</span> = <span class="str">'Salary cannot be negative'</span>;
+    <span class="kw">END IF</span>;
+<span class="kw">END</span> //</pre>
+        <p><strong>Good uses of triggers:</strong></p>
+        <ul>
+          <li>Audit logging (who changed what and when)</li>
+          <li>Enforcing complex business rules that CHECK constraints can't handle</li>
+          <li>Automatically maintaining derived/summary columns</li>
+          <li>Preventing invalid operations with BEFORE triggers</li>
+        </ul>
+        <p><strong>When to avoid triggers:</strong></p>
+        <ul>
+          <li>Complex business logic — triggers are invisible to application developers, making debugging nightmarish</li>
+          <li>Performance-critical paths — triggers add overhead to every DML operation</li>
+          <li>Cascading triggers (trigger calls trigger calls trigger) — virtually impossible to reason about</li>
+          <li>When application-layer logic would serve just as well</li>
+        </ul>
+        <div class="crit">⚠ "Hidden logic" problem: a developer runs UPDATE employees SET salary = 50000 — and doesn't realize a trigger is quietly running 3 other queries behind the scenes. This makes triggers a debugging and maintenance hazard. Use them sparingly and document them explicitly.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="div">· · ·</div>
+
+<!-- SQL QUICK REVIEW -->
+<section>
+  <div class="sh"><div class="sh-eye">Summary</div><h2>📋 SQL Quick-Review Cheatsheet</h2></div>
+
+  <div class="formula">
+    <span class="f-label">12 SQL Rules to Know Cold</span>
+    <div class="f-body">
+1.  SQL execution order: FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY → LIMIT<br>
+2.  WHERE filters ROWS (before grouping); HAVING filters GROUPS (after aggregation)<br>
+3.  Cannot use SELECT aliases in WHERE (not computed yet); CAN use in ORDER BY<br>
+4.  INNER JOIN: only matched rows · LEFT JOIN: all left + nulls for unmatched right<br>
+5.  UNION removes duplicates (slow); UNION ALL keeps all rows (fast) — default to UNION ALL<br>
+6.  JOIN = horizontal (more columns) · UNION = vertical (more rows)<br>
+7.  Primary Key: unique + NOT NULL + one per table · Unique Key: unique but nullable<br>
+8.  DELETE: logged, rollbackable, WHERE allowed · TRUNCATE: fast, DDL, resets identity<br>
+9.  Clustered index: physical row order (one per table) · Non-clustered: separate B-tree (many allowed)<br>
+10. Index speeds reads but slows writes (must be maintained on every INSERT/UPDATE/DELETE)<br>
+11. Normalization: 1NF (atomic) → 2NF (no partial dep) → 3NF (no transitive dep) → BCNF<br>
+12. ACID: Atomicity (all-or-nothing), Consistency (valid states), Isolation (concurrent), Durability (persists)</div>
+  </div>
+
+  <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin:28px 0 12px;">Window Functions Quick Reference</h3>
+  <table class="tbl">
+    <thead><tr><th>Function</th><th>What It Computes</th><th>Classic Use Case</th></tr></thead>
+    <tbody>
+      <tr><td><code>ROW_NUMBER()</code></td><td>Unique sequential number per row in window</td><td>Pagination, deduplication (keep row 1 per group)</td></tr>
+      <tr><td><code>RANK()</code></td><td>Rank with gaps after ties (1,1,3,4)</td><td>Leaderboards where gaps matter</td></tr>
+      <tr><td><code>DENSE_RANK()</code></td><td>Rank without gaps after ties (1,1,2,3)</td><td>Nth highest salary, medal rankings</td></tr>
+      <tr><td><code>SUM() OVER</code></td><td>Running total or group total</td><td>Cumulative sales, group subtotals</td></tr>
+      <tr><td><code>AVG() OVER</code></td><td>Moving average or group average</td><td>Compare each row to group average</td></tr>
+      <tr><td><code>LAG(col, n)</code></td><td>Value from n rows before current</td><td>Month-over-month change, previous value</td></tr>
+      <tr><td><code>LEAD(col, n)</code></td><td>Value from n rows after current</td><td>Next period preview, lookahead analysis</td></tr>
+      <tr><td><code>FIRST_VALUE()</code></td><td>First value in the window</td><td>Days since first purchase, starting value</td></tr>
+      <tr><td><code>NTILE(n)</code></td><td>Divides rows into n equal buckets</td><td>Quartiles (NTILE 4), percentiles (NTILE 100)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<div class="next-bar">
+  <div>
+    <h3>Up Next: Phase 3 — OOPs</h3>
+    <p>32 OOPs interview questions — 4 pillars with code, abstract vs interface, SOLID principles, design patterns, and every Java-specific question Infosys asks.</p>
+  </div>
+  <a href="#" class="next-btn">Phase 3: OOPs →</a>
+</div>
+
+</main>
+
+<footer class="footer">
+  <h2>The Tech Intel · Interview Mastery Series</h2>
+  <div class="footers">AI/ML & Tech Content | Built for engineers who build the future</div>
+  <div class="footer-links">
+    <a href="https://substack.com/@thetechintel">Substack</a>
+    <a href="https://www.linkedin.com/in/priyanshu-arya/">LinkedIn</a>
+    <a href="https://www.instagram.com/thetechintel/">Instagram</a>
+    <a href="https://www.instagram.com/thetechintel/">X (Twitter)</a>
+    <a href="https://github.com/priyanshu-arya">GitHub</a>
+  </div>
+  <p>Phase 2 complete. SQL mastered. Four technical phases left — OOPs, DBMS, OS, and Networks + System Design + SDLC.</p>
+  <div class="footer-small">© 2025 The Tech Intel · Priyanshu · April 2025 · Not affiliated with Infosys Limited · All content is educational</div>
+</footer>
+
+<script>
+// Progress bar
+window.addEventListener('scroll', () => {
+  const d = document.documentElement;
+  document.getElementById('bar').style.width = (window.scrollY / (d.scrollHeight - d.clientHeight) * 100) + '%';
+}, { passive: true });
+
+// Drawer
+function openD() {
+  document.getElementById('ov').style.display = 'block';
+  document.getElementById('drawer').classList.add('open');
+}
+function closeD() {
+  document.getElementById('ov').style.display = 'none';
+  document.getElementById('drawer').classList.remove('open');
+}
+
+// Q&A toggle
+function tQ(btn) {
+  const body = btn.nextElementSibling;
+  const open = body.classList.contains('open');
+  btn.classList.toggle('open', !open);
+  body.classList.toggle('open', !open);
+}
+
+// Expand / collapse
+function xpAll(id) {
+  document.querySelectorAll('#' + id + ' .qa-btn').forEach(b => {
+    b.classList.add('open');
+    b.nextElementSibling.classList.add('open');
+  });
+}
+function xpNone(id) {
+  document.querySelectorAll('#' + id + ' .qa-btn').forEach(b => {
+    b.classList.remove('open');
+    b.nextElementSibling.classList.remove('open');
+  });
+}
+
+// Self-assess
+function upScore() {
+  const sliders = document.querySelectorAll('.s-range');
+  let total = 0;
+  sliders.forEach(s => {
+    const v = parseInt(s.value);
+    s.parentElement.querySelector('.s-val').textContent = v;
+    total += v;
+  });
+  document.getElementById('sc').textContent = total;
+  const msgs = [
+    [0, 31, '⚠ Needs serious work. Start from Q1 — don\'t skip.'],
+    [32, 47, 'Developing. Focus on JOINs, ACID, and normalization.'],
+    [48, 59, 'Good foundation. Practice writing queries by hand.'],
+    [60, 71, 'Strong. Mock with real SQL problems now.'],
+    [72, 80, '🎯 Interview-ready. You own SQL.']
+  ];
+  const m = msgs.find(([lo, hi]) => total >= lo && total <= hi);
+  document.getElementById('sc-msg').textContent = m ? m[2] : '';
+}
+upScore();
+
+// TOC active state
+const sections = document.querySelectorAll('section[id]');
+const links = document.querySelectorAll('#drawer a');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) cur = s.id; });
+  links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
+}, { passive: true });
+</script>
+</body>
+</html>
