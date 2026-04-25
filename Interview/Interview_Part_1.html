@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Crack Your First IT Interview in 2025 — Part 1: The Human Side | The Tech Intel</title>
+<meta name="description" content="The complete guide to self-introduction, project explanation, Infosys HR, 50+ behavioral questions, and the frameworks that separate offers from rejections. Part 1 of 2.">
+<meta name="keywords" content="Infosys interview 2025, fresher IT interview preparation, how to introduce yourself interview, STAR method behavioral questions, HR interview questions freshers, software engineer interview guide, Infosys HR questions, behavioral interview answers, tell me about yourself answer, projects interview questions">
+<meta name="author" content="The Tech Intel — Priyanshu">
+<meta property="og:title" content="Crack Your First IT Interview 2025 — Part 1: The Human Side | The Tech Intel">
+<meta property="og:description" content="Master self-intro, project walkthroughs, and 50+ HR questions with expert-backed frameworks and ready scripts.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Tech Intel">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #111009;
+  --paper: #faf9f6;
+  --cream: #f2ede3;
+  --gold: #c8912f;
+  --gold-pale: #f7edda;
+  --teal: #1f6b72;
+  --teal-pale: #e6f3f4;
+  --rust: #b34830;
+  --rust-pale: #fdf0ec;
+  --slate: #3a3630;
+  --muted: #7d776d;
+  --border: #e2ddd4;
+  --white: #ffffff;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--paper); color: var(--ink); line-height: 1.8; font-size: 17px; }
+
+/* ── Progress bar ── */
+#progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--gold) 0%, var(--rust) 100%); width: 0%; z-index: 1000; transition: width .08s; }
+
+/* ── Nav ── */
+.nav { position: sticky; top: 0; z-index: 200; background: rgba(250,249,246,.96); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 28px; height: 52px; }
+.nav-brand { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 17px; color: var(--ink); }
+.nav-center { font-size: 12px; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; }
+.nav-btn { padding: 6px 16px; border: 1px solid var(--border); border-radius: 20px; font-size: 12px; cursor: pointer; background: none; color: var(--slate); font-family: 'DM Sans', sans-serif; transition: all .2s; }
+.nav-btn:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+/* ── TOC Drawer ── */
+#overlay { display: none; position: fixed; inset: 0; background: rgba(17,16,9,.55); z-index: 300; }
+#drawer { position: fixed; right: -360px; top: 0; bottom: 0; width: 340px; background: var(--white); z-index: 400; padding: 28px 24px; overflow-y: auto; transition: right .3s cubic-bezier(.4,0,.2,1); box-shadow: -8px 0 32px rgba(0,0,0,.12); }
+#drawer.open { right: 0; }
+.drawer-close { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 22px; cursor: pointer; color: var(--muted); }
+.drawer-head { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin: 8px 0 24px; }
+.toc-group { margin-bottom: 24px; }
+.toc-group-label { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid var(--border); display: block; }
+.toc-group a { display: block; font-size: 14px; color: var(--slate); text-decoration: none; padding: 5px 8px; border-radius: 4px; border-left: 2px solid transparent; transition: all .2s; }
+.toc-group a:hover, .toc-group a.active { color: var(--gold); border-left-color: var(--gold); background: var(--gold-pale); }
+
+/* ── Hero ── */
+.hero { background: var(--ink); color: var(--paper); padding: 80px 24px 64px; text-align: center; position: relative; overflow: hidden; }
+.hero::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 60% at 30% 70%, rgba(200,145,47,.13) 0%, transparent 70%), radial-gradient(ellipse 50% 40% at 80% 20%, rgba(31,107,114,.1) 0%, transparent 70%); pointer-events: none; }
+.hero-label { display: inline-flex; align-items: center; gap: 8px; background: rgba(200,145,47,.15); border: 1px solid rgba(200,145,47,.3); color: var(--gold); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; margin-bottom: 28px; font-family: 'JetBrains Mono', monospace; position: relative; z-index: 1; }
+.hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(34px, 5.5vw, 62px); font-weight: 900; line-height: 1.08; margin-bottom: 22px; position: relative; z-index: 1; }
+.hero h1 em { font-style: normal; color: var(--gold); }
+.hero-sub { font-size: 17px; color: rgba(250,249,246,.72); max-width: 620px; margin: 0 auto 36px; line-height: 1.7; position: relative; z-index: 1; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 6px 20px; justify-content: center; font-size: 13px; color: rgba(250,249,246,.45); position: relative; z-index: 1; }
+.hero-meta span { display: flex; align-items: center; gap: 5px; }
+
+/* ── Main ── */
+.main { max-width: 720px; margin: 0 auto; padding: 0 24px 80px; }
+
+/* ── Quick nav pills ── */
+.pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 40px 0 32px; }
+.pill { font-size: 12px; font-family: 'JetBrains Mono', monospace; padding: 5px 14px; border-radius: 20px; border: 1px solid var(--border); background: var(--cream); color: var(--slate); text-decoration: none; transition: all .2s; white-space: nowrap; }
+.pill:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+/* ── Section header ── */
+.sec-head { margin: 72px 0 28px; padding-bottom: 16px; border-bottom: 2px solid var(--border); }
+.sec-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.sec-head h2 { font-family: 'Playfair Display', serif; font-size: clamp(26px, 4vw, 36px); font-weight: 700; line-height: 1.2; color: var(--ink); }
+
+/* ── Why box ── */
+.why { border-left: 4px solid var(--gold); background: var(--gold-pale); padding: 18px 22px; border-radius: 0 8px 8px 0; margin: 28px 0; }
+.why-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); font-weight: 700; margin-bottom: 6px; }
+.why p { font-size: 15px; color: #5a4a20; margin: 0; line-height: 1.7; }
+
+/* ── Expert quote ── */
+.quote-block { background: var(--ink); color: var(--paper); padding: 36px 40px; margin: 36px 0; border-radius: 6px; position: relative; }
+.quote-block::before { content: '\201C'; font-family: 'Playfair Display', serif; font-size: 100px; color: rgba(200,145,47,.25); position: absolute; top: 4px; left: 28px; line-height: 1; }
+.quote-block blockquote { font-family: 'Playfair Display', serif; font-size: 19px; font-style: italic; line-height: 1.65; position: relative; margin-bottom: 16px; }
+.quote-src { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gold); letter-spacing: .05em; }
+
+/* ── Info / teal box ── */
+.info { border-left: 4px solid var(--teal); background: var(--teal-pale); padding: 16px 20px; border-radius: 0 6px 6px 0; margin: 22px 0; }
+.info p { margin: 0; font-size: 15px; color: #1a4a50; }
+
+/* ── Warning box ── */
+.warn { border-left: 4px solid var(--rust); background: var(--rust-pale); padding: 16px 20px; border-radius: 0 6px 6px 0; margin: 22px 0; }
+.warn-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--rust); font-weight: 700; margin-bottom: 6px; }
+.warn p { margin: 0; font-size: 15px; color: #6b2a18; }
+
+/* ── Formula box ── */
+.formula { background: var(--cream); border: 1px solid var(--border); border-radius: 8px; padding: 22px 26px; margin: 22px 0; }
+.formula-label { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-bottom: 10px; display: block; }
+.formula-body { font-family: 'JetBrains Mono', monospace; font-size: 13.5px; line-height: 2; color: var(--slate); }
+
+/* ── Sample answer ── */
+.sample { background: #f0faf1; border: 1px solid #b6d9b9; border-left: 4px solid #3d9b47; padding: 18px 22px; border-radius: 0 8px 8px 0; margin: 18px 0; }
+.sample-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #2d7a35; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; margin-bottom: 8px; }
+.sample p { margin: 0; font-size: 15px; font-style: italic; color: #274d2b; line-height: 1.75; }
+
+/* ── Framework grid ── */
+.fw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 22px 0; }
+.fw-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
+.fw-letter { font-family: 'Playfair Display', serif; font-size: 52px; font-weight: 900; color: var(--gold); line-height: 1; margin-bottom: 6px; }
+.fw-card h4 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+.fw-card p { font-size: 13px; color: var(--muted); margin: 0; }
+
+/* ── Table ── */
+.tbl { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
+.tbl th { background: var(--ink); color: var(--paper); padding: 10px 14px; text-align: left; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .05em; font-weight: 400; }
+.tbl td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.55; }
+.tbl tr:nth-child(even) td { background: var(--cream); }
+.tbl td strong { color: var(--ink); }
+
+/* ── Tags ── */
+.tag { display: inline-block; background: var(--cream); color: var(--slate); font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 3px 10px; border-radius: 3px; border: 1px solid var(--border); margin: 2px; }
+
+/* ── Q&A accordion ── */
+.qa-wrap { margin: 20px 0; }
+.qa-cat { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); padding: 14px 0 10px; border-top: 1px solid var(--border); margin-top: 20px; display: block; }
+.qa-item { border-bottom: 1px solid var(--border); }
+.qa-btn { width: 100%; display: flex; align-items: flex-start; gap: 12px; padding: 14px 0; background: none; border: none; cursor: pointer; text-align: left; font-family: 'DM Sans', sans-serif; font-size: 15.5px; font-weight: 600; color: var(--slate); transition: color .2s; }
+.qa-btn:hover { color: var(--teal); }
+.qa-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gold); font-weight: 600; min-width: 28px; padding-top: 2px; flex-shrink: 0; }
+.qa-icon { margin-left: auto; font-size: 11px; color: var(--muted); transition: transform .3s; flex-shrink: 0; padding-top: 4px; }
+.qa-btn.open .qa-icon { transform: rotate(180deg); }
+.qa-body { max-height: 0; overflow: hidden; transition: max-height .4s ease; padding-left: 40px; }
+.qa-body.open { max-height: 2000px; padding-bottom: 16px; }
+.qa-body p, .qa-body li { font-size: 15px; color: var(--slate); line-height: 1.75; }
+.qa-body ul { padding-left: 18px; margin: 6px 0; }
+.qa-body .tip { background: var(--gold-pale); border-left: 3px solid var(--gold); padding: 10px 14px; margin-top: 12px; font-size: 14px; border-radius: 0 4px 4px 0; color: #5a4010; }
+.qa-body .note { background: var(--teal-pale); border-left: 3px solid var(--teal); padding: 10px 14px; margin-top: 10px; font-size: 14px; border-radius: 0 4px 4px 0; color: #1a4a50; }
+.qa-body table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 10px 0; }
+.qa-body th { background: var(--cream); padding: 7px 11px; border: 1px solid var(--border); text-align: left; font-weight: 600; }
+.qa-body td { padding: 7px 11px; border: 1px solid var(--border); vertical-align: top; }
+
+/* ── Expand controls ── */
+.xp { display: flex; gap: 10px; margin: 12px 0; }
+.xp-btn { font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 5px 12px; border: 1px solid var(--border); border-radius: 4px; cursor: pointer; background: none; color: var(--slate); transition: all .2s; }
+.xp-btn:hover { background: var(--cream); }
+
+/* ── Checklist ── */
+.ck { list-style: none; margin: 14px 0; }
+.ck li { display: flex; align-items: flex-start; gap: 12px; padding: 9px 0; border-bottom: 1px dashed rgba(0,0,0,.06); font-size: 15px; cursor: pointer; }
+.ck li::before { content: '☐'; font-size: 18px; color: var(--gold); flex-shrink: 0; margin-top: 1px; }
+.ck li.done::before { content: '☑'; color: var(--teal); }
+.ck li.done span { text-decoration: line-through; color: var(--muted); }
+.ck-group { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; font-weight: 600; color: var(--muted); margin: 20px 0 6px; }
+
+/* ── Self-assess ── */
+.assess { background: var(--ink); color: var(--paper); border-radius: 10px; padding: 32px; margin: 36px 0; }
+.assess h3 { font-family: 'Playfair Display', serif; font-size: 22px; margin-bottom: 8px; }
+.assess-sub { font-size: 13px; color: rgba(250,249,246,.55); margin-bottom: 24px; }
+.s-row { display: flex; align-items: center; gap: 14px; margin-bottom: 13px; }
+.s-label { min-width: 170px; font-size: 13.5px; color: rgba(250,249,246,.8); flex-shrink: 0; }
+.s-slider { flex: 1; -webkit-appearance: none; height: 3px; border-radius: 2px; background: rgba(255,255,255,.18); outline: none; cursor: pointer; }
+.s-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 15px; height: 15px; border-radius: 50%; background: var(--gold); cursor: pointer; }
+.s-val { min-width: 24px; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--gold); }
+.s-total { border-top: 1px solid rgba(255,255,255,.12); padding-top: 16px; margin-top: 6px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.s-score { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 700; color: var(--gold); line-height: 1; }
+.s-of { font-size: 13px; color: rgba(250,249,246,.5); }
+.s-msg { font-size: 13px; color: rgba(250,249,246,.6); max-width: 200px; text-align: right; }
+
+/* ── Divider ── */
+.div { text-align: center; margin: 52px 0; font-size: 22px; color: var(--border); letter-spacing: 14px; }
+
+/* ── Footer ── */
+.footer { background: var(--ink); color: var(--paper); text-align: center; padding: 64px 24px 48px; }
+.footer h2 { font-family: 'Playfair Display', serif; font-size: 32px; margin-bottom: 14px; }
+.footer p { color: rgba(250,249,246,.6); margin-bottom: 28px; max-width: 520px; margin-left: auto; margin-right: auto; }
+.cta { display: inline-block; background: var(--gold); color: var(--ink); padding: 14px 34px; border-radius: 6px; font-weight: 700; font-size: 14px; letter-spacing: .04em; text-decoration: none; font-family: 'DM Sans', sans-serif; transition: opacity .2s; }
+.cta:hover { opacity: .88; }
+.footer-small { font-size: 12px; color: rgba(250,249,246,.25); margin-top: 40px; }
+.footer-links {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+
+  .footer-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--accent); }
+
+/* ── Prose ── */
+p { margin-bottom: 18px; }
+strong { color: var(--ink); font-weight: 600; }
+ul, ol { padding-left: 22px; margin-bottom: 14px; }
+li { margin-bottom: 5px; }
+.lead { font-size: 19px; line-height: 1.85; color: #2a2620; }
+
+@media (max-width: 620px) {
+  .fw-grid { grid-template-columns: 1fr; }
+  .hero { padding: 56px 20px 48px; }
+  .nav-center { display: none; }
+  body { font-size: 16px; }
+  #drawer { width: 100%; right: -100%; }
+  .s-label { min-width: 120px; font-size: 13px; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- Drawer -->
+<div id="overlay" onclick="closeDrawer()"></div>
+<div id="drawer">
+  <button class="drawer-close" onclick="closeDrawer()">✕</button>
+  <div class="drawer-head">Contents — Part 1</div>
+  <div class="toc-group">
+    <span class="toc-group-label">Foundations</span>
+    <a href="#intro">01 · Self-Introduction</a>
+    <a href="#projects">02 · Mastering Projects</a>
+    <a href="#experience">03 · Experience & Internship</a>
+    <a href="#skills">04 · Technical & Soft Skills</a>
+    <a href="#cocurr">05 · Co-curricular</a>
+  </div>
+  <div class="toc-group">
+    <span class="toc-group-label">Infosys Specific</span>
+    <a href="#infosys">06 · Know Infosys Cold</a>
+    <a href="#infosys-hr">07 · Infosys HR — 32 Qs</a>
+  </div>
+  <div class="toc-group">
+    <span class="toc-group-label">HR & Behavioral</span>
+    <a href="#hr50">08 · General HR — 50+ Qs</a>
+    <a href="#ask">09 · Questions to Ask Back</a>
+    <a href="#dos">10 · Do's & Don'ts</a>
+    <a href="#frameworks">11 · Unknown Question Framework</a>
+    <a href="#mindset">12 · Final Mindset</a>
+  </div>
+</div>
+
+<!-- Nav -->
+<nav class="nav">
+  <span class="nav-brand">The Tech Intel</span>
+  <span class="nav-center">Interview Mastery · Part 1 of 2</span>
+  <button class="nav-btn" onclick="openDrawer()">Contents ↗</button>
+</nav>
+
+<!-- Hero -->
+<header class="hero">
+  <div class="hero-label">✦ Part 1 of 2 · The Human Side · April 2025</div>
+  <h1>How to Crack Your First IT Interview in 2025<br><em>The Human Side</em></h1>
+  <p class="hero-sub">Master self-introduction, project walk-throughs, Infosys HR, and 50+ behavioral questions — with expert frameworks, ready-to-use scripts, and every question you'll face.</p>
+  <div class="hero-meta">
+    <span>✍ The Tech Intel</span>
+    <span>⏱ ~45 min read</span>
+    <span>🎯 Infosys · IT Freshers 2025</span>
+    <span>📋 300+ Questions Total</span>
+  </div>
+</header>
+
+<!-- Main -->
+<main class="main">
+
+<p class="lead" style="margin-top:48px;">Every year, hundreds of thousands of freshers walk into IT company interviews armed with knowledge — and walk out empty-handed. Not because they didn't know enough. Because they didn't know how to <strong>show</strong> what they knew.</p>
+
+<p>This is Part 1 of a two-part interview bible built for freshers targeting Infosys and peer IT companies in 2025. Part 1 covers the <strong>human side</strong> — how you present yourself, explain your work, and answer every behavioral question. Part 2 covers the technical core: DSA, SQL, OOPs, DBMS, OS, CN, and System Design.</p>
+
+<div class="pill-row">
+  <a class="pill" href="#intro">📢 Self-Intro</a>
+  <a class="pill" href="#projects">📁 Projects</a>
+  <a class="pill" href="#experience">💼 Experience</a>
+  <a class="pill" href="#skills">🛠 Skills</a>
+  <a class="pill" href="#infosys">🏢 Infosys</a>
+  <a class="pill" href="#infosys-hr">💬 HR 32 Qs</a>
+  <a class="pill" href="#hr50">🎯 Behavioral 50+</a>
+  <a class="pill" href="#ask">🤔 Ask Back</a>
+  <a class="pill" href="#dos">✅ Dos/Don'ts</a>
+  <a class="pill" href="#mindset">🌟 Mindset</a>
+</div>
+
+<!-- SELF-ASSESS -->
+<div class="assess">
+  <h3>🎯 Your Human-Side Readiness Score</h3>
+  <p class="assess-sub">Rate yourself honestly before reading. Revisit after. Target: 48+ before your first interview.</p>
+  <div class="s-row"><span class="s-label">Self-introduction</span><input type="range" class="s-slider" min="1" max="10" value="5" oninput="updateScore()"><span class="s-val">5</span></div>
+  <div class="s-row"><span class="s-label">Project explanation</span><input type="range" class="s-slider" min="1" max="10" value="5" oninput="updateScore()"><span class="s-val">5</span></div>
+  <div class="s-row"><span class="s-label">HR question fluency</span><input type="range" class="s-slider" min="1" max="10" value="5" oninput="updateScore()"><span class="s-val">5</span></div>
+  <div class="s-row"><span class="s-label">Body language/confidence</span><input type="range" class="s-slider" min="1" max="10" value="5" oninput="updateScore()"><span class="s-val">5</span></div>
+  <div class="s-row"><span class="s-label">Company research</span><input type="range" class="s-slider" min="1" max="10" value="5" oninput="updateScore()"><span class="s-val">5</span></div>
+  <div class="s-row"><span class="s-label">STAR story bank</span><input type="range" class="s-slider" min="1" max="10" value="5" oninput="updateScore()"><span class="s-val">5</span></div>
+  <div class="s-total">
+    <div><div class="s-score" id="s-total">30</div><div class="s-of">/ 60 — Target: 48+</div></div>
+    <div class="s-msg" id="s-msg"></div>
+  </div>
+</div>
+
+<!-- ====================================================
+     SECTION 1: SELF-INTRODUCTION
+     ==================================================== -->
+<section id="intro">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Section 01</div>
+    <h2>🎤 How to Introduce Yourself</h2>
+  </div>
+
+  <div class="why"><div class="why-label">⚡ Why This Is the #1 Skill</div><p>The first 60 seconds of any interview set the emotional tone for everything that follows. A crisp, confident intro signals: "I know who I am and why I'm here." Interviewers form preliminary judgments within 90 seconds. Your opener is your resume's live trailer. Get this wrong and you spend the rest of the interview recovering. Get it right and every other question becomes easier.</p></div>
+
+  <div class="quote-block">
+    <blockquote>"Tell me about yourself is not a question — it's an invitation to pitch. Candidates who treat it as casual conversation lose it in the first 20 seconds."</blockquote>
+    <div class="quote-src">— Laszlo Bock · Former SVP People Operations, Google · Author, "Work Rules!"</div>
+  </div>
+
+  <h3 style="font-family:'Playfair Display',serif;font-size:22px;margin:28px 0 16px;">The Formula: Present → Past → Future → Value</h3>
+
+  <div class="fw-grid">
+    <div class="fw-card"><div class="fw-letter">P</div><h4>Present</h4><p>Who you are today — name, degree, current focus or final-year status</p></div>
+    <div class="fw-card"><div class="fw-letter">P</div><h4>Past</h4><p>Relevant background — your strongest project, internship, or achievement</p></div>
+    <div class="fw-card"><div class="fw-letter">F</div><h4>Future</h4><p>What you want — the role, the domain, your growth goal</p></div>
+    <div class="fw-card"><div class="fw-letter">V</div><h4>Value</h4><p>Why you're a fit — one bridge sentence connecting you to this company specifically</p></div>
+  </div>
+
+  <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin:28px 0 10px;">Format 1 — 30-Second Elevator Pitch</h3>
+  <p><span class="tag">Networking Events</span> <span class="tag">HR Small-Talk</span> <span class="tag">LinkedIn Videos</span></p>
+  <div class="formula"><span class="formula-label">Template</span><div class="formula-body">Hi, I'm [Name], a [year] [Degree] graduate from [College].<br>I've built [1 project — 5 words] and I'm strong in [2 skills].<br>I'm looking to start my career as a [role] where I can apply what I've learned and grow fast.</div></div>
+  <div class="sample"><div class="sample-label">✅ Sample (Filled)</div><p>"Hi, I'm Ananya Sharma, a 2025 CSE graduate from VIT. I've built a full-stack library management system using Java and MySQL, and I'm strong in DSA and SQL. I'm looking to start my career as a Software Engineer at Infosys where I can apply my skills on real enterprise systems and grow into a specialist role."</p></div>
+
+  <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin:28px 0 10px;">Format 2 — 1-Minute Default (Most Used)</h3>
+  <p><span class="tag">Technical Round</span> <span class="tag">HR Round</span> <span class="tag">Virtual Interviews</span></p>
+  <div class="formula"><span class="formula-label">7-Line Blueprint</span><div class="formula-body">[LINE 1]  Good morning/afternoon, I'm [Name], a [year] graduate in [Degree] from [College] with a [CGPA] CGPA.<br>[LINES 2-3] During my degree, I built strong foundations in [subject 1], [subject 2], [subject 3]. I'm particularly strong in [primary skill].<br>[LINES 4-5] I've applied these in projects like [Project 1 — one-line impact] and [Project 2]. My [best project] taught me how to [specific concrete learning].<br>[LINE 6]  Outside academics, I [1 line — club / hackathon / teaching].<br>[LINE 7]  I'm excited about [Company] because [1 specific reason], and I'm confident I can contribute as a [role].</div></div>
+
+  <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin:28px 0 10px;">Format 3 — 2-Minute Extended ("Walk Me Through Your Journey")</h3>
+  <p>Structure: <strong>Education → Technical Skills → 1 Deep Project → 1 Soft Skill Story → Career Goals → Why This Company</strong></p>
+  <div class="sample"><div class="sample-label">✅ Infosys-Optimized Sample (2 Minutes)</div><p>"Good morning, my name is Rohan Verma. I completed my B.Tech in Computer Science from IIIT Lucknow in 2025 with a CGPA of 8.4. I picked computer science because I've always been curious about how software scales — how a single line of code can serve millions of users. Through my degree I built strong foundations in Data Structures, DBMS, Operating Systems, and Computer Networks, and I work comfortably in Java and Python.<br><br>My most meaningful project was a Real-Time Bus Tracking System. My team built a React Native app backed by a Node.js server that pulled GPS coordinates every 15 seconds over WebSockets. I owned the backend. The hardest challenge: our naive polling design was draining batteries. I rewrote it to push-only updates, cutting battery use by ~40%. That taught me good engineering isn't just 'does it work' — it's 'does it work responsibly at scale.'<br><br>Beyond academics, I mentored junior batches in our coding club for two semesters — teaching me patience and how to explain hard things simply.<br><br>Looking forward, I want to start my career at a company that trains me in enterprise-grade systems and gives me real global client exposure. Infosys fits exactly — the Mysuru training, the Topaz AI platform, and the Digital Specialist growth tracks are the environment where I'll grow fastest. That's why I'm here."</p></div>
+
+  <div class="warn"><div class="warn-label">⚠ Common Intro Mistakes — Never Do These</div><p>Reading memorized lines with zero eye contact (sounds robotic). Listing every skill the interviewer already has on your resume. Starting with hobbies before technical identity. Using empty adjectives ("I'm hardworking, passionate, dedicated…"). Speaking 3+ minutes and losing the interviewer. Ending with "that's all about me" — end with a value line instead.</p></div>
+
+  <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin:28px 0 10px;">Introduction — All 6 Interview Questions</h3>
+  <div class="xp"><button class="xp-btn" onclick="xpAll('q-intro')">Expand All</button><button class="xp-btn" onclick="xpNone('q-intro')">Collapse All</button></div>
+  <div class="qa-wrap" id="q-intro">
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q1</span>Tell me about yourself.<span class="qa-icon">▾</span></button><div class="qa-body"><p>Use Present → Past → Future → Value. For 1 minute: name + degree + college → top 2 technical strengths → best project in one impactful line → one soft-skill proof → close with why you're excited about this company. Never list skills the interviewer already has on paper — tell a story.</p><div class="tip">💡 Infosys angle: end with a specific reference to Mysuru training, global client exposure, or Topaz / Cobalt growth tracks.</div></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q2</span>Walk me through your resume.<span class="qa-icon">▾</span></button><div class="qa-body"><p>Don't read it — tell the story. Structure chronologically: Education → most impactful project → internship (if any) → co-curricular highlights → aspirations. Take 90–120 seconds. Pause at your most interesting point to invite follow-up questions.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q3</span>Describe yourself in 3 words.<span class="qa-icon">▾</span></button><div class="qa-body"><p>Pick 3 you can back up instantly with a one-liner proof. "Curious, methodical, reliable." Then: "Curious — I learn a new concept every weekend. Methodical — I always sketch the design before writing a line of code. Reliable — in my final-year project, I was the only member who never missed a milestone."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q4</span>How would your friends describe you?<span class="qa-icon">▾</span></button><div class="qa-body"><p>2–3 traits + a concrete anonymized story backing each. Show the human side genuinely. "My friends call me the one who actually ships side projects — they've seen me launch 4 things in the past year while most ideas stay ideas."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q5</span>What makes you unique?<span class="qa-icon">▾</span></button><div class="qa-body"><p>One real differentiator — not "I work hard." Something like: "I've been writing a weekly tech newsletter for 8 months to 400 subscribers. Explaining complex AI concepts in plain English makes me better at code reviews, documentation, and eventually at client communication."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q6</span>What is your biggest achievement?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Not necessarily award-based. "My biggest achievement is consistency — I've maintained a daily coding practice for 400 days, which is why I'm confident answering any DSA question here. Discipline is a skill, and I've proven I have it." If you have a specific measurable win (hackathon placement, open-source PR, research paper), lead with that.</p></div></div>
+  </div>
+</section>
+
+<!-- ====================================================
+     SECTION 2: PROJECTS
+     ==================================================== -->
+<section id="projects">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Section 02</div>
+    <h2>📁 Mastering Your Projects</h2>
+  </div>
+
+  <div class="why"><div class="why-label">⚡ Why Projects Win or Lose Technical Interviews</div><p>Your project section is where most technical interviews are won or lost. Interviewers will drill into one project for 15–20 minutes — testing depth, not breadth. If you can't explain your own design decisions, debugging story, or trade-offs, you lose credibility on everything else. One well-explained project beats five half-understood ones every single time.</p></div>
+
+  <div class="quote-block">
+    <blockquote>"The best engineers I've interviewed could explain every trade-off in their own projects. They didn't just build things — they understood exactly why."</blockquote>
+    <div class="quote-src">— Gayle Laakmann McDowell · Author, "Cracking the Coding Interview" · Former Engineer at Google, Microsoft, Apple</div>
+  </div>
+
+  <h3 style="font-family:'Playfair Display',serif;font-size:22px;margin:28px 0 14px;">The STAR Method — Universal Project Framework</h3>
+  <table class="tbl">
+    <thead><tr><th>Letter</th><th>Means</th><th>Ask Yourself</th></tr></thead>
+    <tbody>
+      <tr><td><strong>S — Situation</strong></td><td>Why did this project exist?</td><td>What problem were you solving?</td></tr>
+      <tr><td><strong>T — Task</strong></td><td>What was your specific role?</td><td>What were YOU responsible for?</td></tr>
+      <tr><td><strong>A — Action</strong></td><td>What did you build?</td><td>Tech choices, architecture, decisions?</td></tr>
+      <tr><td><strong>R — Result</strong></td><td>What was the outcome?</td><td>Measurable impact + what you learned?</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin:28px 0 10px;">Project Explanation Canvas — Fill Before Every Interview</h3>
+  <div class="formula"><span class="formula-label">For Each Resume Project</span><div class="formula-body">1. ONE-LINE PITCH (what it does in plain English)<br>2. PROBLEM / SITUATION (why it needed to exist)<br>3. MY ROLE (specific — not "I did everything")<br>4. TECH STACK & WHY (Frontend / Backend / DB — reason for each choice)<br>5. ARCHITECTURE (how the pieces connect — 1 paragraph or sketch)<br>6. HARDEST CHALLENGE + HOW I SOLVED IT<br>7. MEASURABLE OUTCOME (speed, accuracy, users, score, time saved)<br>8. WHAT I LEARNED<br>9. WHAT I'D DO DIFFERENTLY</div></div>
+
+  <div class="info"><p>📌 <strong>Max 2–3 projects on your resume.</strong> Interviewers will dig into the weakest one. Quality beats quantity — go deep on 2, not shallow on 8.</p></div>
+
+  <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin:28px 0 10px;">20 Project-Based Interview Questions — With Answer Angles</h3>
+  <div class="xp"><button class="xp-btn" onclick="xpAll('q-proj')">Expand All</button><button class="xp-btn" onclick="xpNone('q-proj')">Collapse All</button></div>
+  <div class="qa-wrap" id="q-proj">
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q1</span>Walk me through your most complex project end-to-end.<span class="qa-icon">▾</span></button><div class="qa-body"><p>Use full STAR. Start with the problem (Situation), your specific ownership (Task), technical choices and challenges (Action), close with quantified result + what you learned. Keep it to 3 minutes. The interviewer will interrupt to drill deeper — that's a great sign.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q2</span>Why did you choose [specific tech / framework]?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Never "because everyone uses it." Always: "I evaluated X vs Y. I chose X because [specific reason — performance, ecosystem, constraint, team familiarity]." Example: "I chose MongoDB over MySQL because our product schema was highly variable across categories. A flexible schema eliminated schema migration overhead at our early stage."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q3</span>What was the hardest bug you faced and how did you debug it?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Pick a real, concrete debugging story: what the symptom was → what you tried first → what didn't work → how you finally traced it → what you learned about debugging discipline. Mention a specific tool or technique — logs, binary search debugging, step-through debugger, rubber duck method.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q4</span>How did your team divide work?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Be specific about YOUR ownership — don't claim "I did everything." "I owned the backend API and database schema. [Name] handled the React frontend. I wrote the API contract both sides agreed to before building independently. I was also the integrator — I merged all branches before each demo."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q5</span>What would you change if you rebuilt this today?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Intellectual honesty wins points. "I'd add structured logging from day one — debugging blind was painful. I'd write the API contract before building frontend and backend separately — coupling caused a week of rework. I'd containerize with Docker — manual deployment was fragile and non-reproducible."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q6</span>How would this project behave with 1 million users?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Scale thinking test. Identify your current bottlenecks clearly: "Currently the database is the first bottleneck — all reads/writes hit a single MySQL instance. I'd add Redis cache for frequently read data, read replicas for the DB, and horizontally scale the backend behind a load balancer. The WebSocket server is stateful, so I'd use sticky sessions or move session state to Redis."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q7</span>What's the database schema? Can you draw it?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Sketch confidently. Mention: entity names, primary keys, foreign keys, relationships (1:many, many:many), normalization decisions. "I had 4 tables: Users (id, name, email), Products (id, name, price, category_id), Orders (id, user_id, created_at), OrderItems (order_id, product_id, quantity, unit_price)."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q8</span>How did you handle authentication?<span class="qa-icon">▾</span></button><div class="qa-body"><p>"JWT-based. On login, server validates credentials, generates a signed JWT with 24-hour expiry, returns it. Client stores in localStorage and sends in the Authorization header on each request. Server validates via middleware on every protected route." If you used sessions or OAuth, describe those specifically.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q9</span>What tests did you write?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Be honest. If you didn't: "I didn't write automated tests — that's a gap I'd fix first. Going forward: unit tests for core business logic with JUnit, integration tests for API endpoints, aiming for 80%+ coverage on the service layer."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q10</span>Did you use version control? What was your branch strategy?<span class="qa-icon">▾</span></button><div class="qa-body"><p>"Yes, Git with GitHub. Feature branches off main — one branch per feature. Before merging, we opened a pull request and at least one teammate reviewed it. Three main branches: main (production), develop (integration), feature branches for individual work."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q11</span>How did you deploy it?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Name the platform specifically. "Frontend on Vercel (auto-deploys from GitHub main). Backend on Render via Dockerfile. Database on PlanetScale (serverless MySQL)." If manual: "I'd now add CI/CD via GitHub Actions to automate builds, tests, and deploys on every push."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q12</span>What's the biggest weakness in your project?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Intellectual honesty scores points here. "No observability — no structured logging, no monitoring, no alerting. If something breaks in production I'd be debugging blind. First improvements: Winston logging, Sentry for error tracking, and an uptime monitor with alert integration."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q13</span>How did you handle errors / edge cases?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Name specific cases: "Empty search results (graceful 'no results' UI). API rate limits (429 retry with exponential backoff). Invalid city inputs (client-side validation before API call). Network failures (try-catch with user-facing error toast). Known gap: auth token expiry isn't handled gracefully — I'd add a refresh token mechanism next."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q14</span>If I asked you to add [feature X], where would you start?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Show structured thinking: "I'd first clarify the requirements — what exactly does [feature X] need to do? Then check if it needs a new DB table or just a new API endpoint. I'd write the API spec first, then unit tests for the new logic, then the implementation. Estimate: [X] days."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q15</span>What's the time and space complexity of your core algorithm?<span class="qa-icon">▾</span></button><div class="qa-body"><p>You must know this for your primary algorithm. State in Big-O. "Linear search on products is O(n) time, O(1) space. After I added a database index on the search column, it became O(log n) for indexed DB lookups via a B-tree."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q16</span>What APIs did you use? What if one went down?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Name the API and its purpose. For resilience: "I'd add a circuit breaker — if the API fails more than N times in M seconds, stop calling it and serve a cached fallback or degraded UI. I'd set up an uptime monitor and alert on failures with a backup provider ready."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q17</span>How did you secure the app against SQL injection, XSS, CSRF?<span class="qa-icon">▾</span></button><div class="qa-body"><p><strong>SQL injection:</strong> parameterized queries / prepared statements — never concatenate user input into SQL strings. <strong>XSS:</strong> escape all user-provided HTML; React does this by default. Add Content-Security-Policy headers. <strong>CSRF:</strong> SameSite cookies or CSRF tokens for state-changing operations. <strong>General:</strong> HTTPS always, input validation both client and server, principle of least privilege for DB accounts.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q18</span>Did you ever feel like giving up? What got you through?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Human honesty wins here. "Yes — when the WebSocket connection kept dropping under load and I couldn't figure out why for 3 days. I broke it down: isolated the problem to a single server, then worked backward through logs. I posted in a Discord community and got a hint about connection limits. The fix was 4 lines of code. The persistence taught me more than the code did."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q19</span>What did your teammate do that you disagreed with?<span class="qa-icon">▾</span></button><div class="qa-body"><p>"My teammate wanted to store the entire user object in the JWT. I disagreed — JWTs can't be invalidated before expiry, and a large payload means bigger headers on every request. I showed him specific security examples. We moved to storing only user ID in the token. He thanked me a month later when we needed to rotate permissions."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q20</span>What's one thing you're genuinely proud of in this project?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Be specific — not generic. "I'm most proud of the battery optimization fix. I found the bottleneck myself through profiling, proposed the architectural change, implemented it, and measured the improvement end-to-end. That felt like real engineering — not following a tutorial."</p></div></div>
+  </div>
+
+  <div class="warn"><div class="warn-label">⚠ Project Red Flags — Never Do These</div><p>Listing 8 projects on your resume (they'll dig into the weakest one). Claiming team projects as solo work. Using tech you can't explain when probed. Copying a YouTube tutorial verbatim. No GitHub link or broken demo link. Not being able to run the project live during the interview.</p></div>
+</section>
+
+<!-- ====================================================
+     SECTION 3: EXPERIENCE
+     ==================================================== -->
+<section id="experience">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Section 03</div>
+    <h2>💼 Experience & Internship</h2>
+  </div>
+
+  <div class="why"><div class="why-label">⚡ Why No Internship Isn't a Dealbreaker</div><p>Most freshers don't have formal internships — and that's completely fine. What interviewers are really measuring is: can you demonstrate real-world application of your knowledge? A personal project, open-source contribution, hackathon win, or mentoring experience all qualify. The absence of an internship is only a weakness if you have nothing to substitute it with.</p></div>
+
+  <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin:0 0 14px;">If You Have NO Internship — Template Answer</h3>
+  <div class="sample"><div class="sample-label">✅ Template</div><p>"I haven't done a formal internship yet — I chose to invest that time in [specific alternative]: I built [project], contributed to [open-source/hackathon], and completed [certifications]. For example, on [project] I handled [specific responsibility], which taught me [real lesson]. I'm now looking to apply this self-built foundation in a professional team environment."</p></div>
+
+  <table class="tbl">
+    <thead><tr><th>Alternative</th><th>How to Frame It</th></tr></thead>
+    <tbody>
+      <tr><td>Personal projects</td><td>"I built X end-to-end, including [specific hard engineering challenge]"</td></tr>
+      <tr><td>Open-source contributions</td><td>"I contributed to [repo] — merged PRs on [specific feature]"</td></tr>
+      <tr><td>Hackathons</td><td>"At [hackathon], in 36 hours we built [X] and placed [rank]"</td></tr>
+      <tr><td>Teaching / mentoring</td><td>"I mentored 20 juniors in DSA — taught me to explain complex ideas at scale"</td></tr>
+      <tr><td>Certifications</td><td>"Completed Andrew Ng's ML Specialization / DeepLearning.AI GenAI / NPTEL"</td></tr>
+      <tr><td>Research / papers</td><td>"Co-authored a paper on [topic] under Prof. [name]"</td></tr>
+      <tr><td>Freelance work</td><td>"Built a website for a local business — increased their online inquiries by [X%]"</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin:28px 0 10px;">If You Have an Internship — How to Explain It</h3>
+  <p>Structure: <strong>Company + Duration + Team + Your Role + Concrete Achievement + Learning</strong></p>
+  <div class="sample"><div class="sample-label">✅ Sample (Strong Internship Answer)</div><p>"I interned at XYZ Technologies for 8 weeks in summer 2024 as a Software Engineering Intern on their Data Platform team (5 engineers). My role: improve the internal ETL monitoring dashboard. I built a lag-detection feature — the pipeline processed ~10 million rows nightly and sometimes fell behind silently. I added a Python + Airflow monitoring job that compared expected vs actual row counts per stage and posted Slack alerts when deviation exceeded 5%. The team caught 3 pipeline failures in my second month that would have gone unnoticed for days. Biggest learning: engineering at scale is as much about observability as about features."</p></div>
+</section>
+
+<!-- ====================================================
+     SECTION 4: SKILLS
+     ==================================================== -->
+<section id="skills">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Section 04</div>
+    <h2>🛠 Technical & Soft Skills</h2>
+  </div>
+
+  <div class="why"><div class="why-label">⚡ The Golden Rule of Skills</div><p>Every skill on your resume is fair game for a question. The iron rule: <strong>never list a skill you can't defend with a project, a live code example, and three technical pitfalls in under two minutes.</strong> Lying about skills is the fastest path to rejection — and it destroys your credibility on everything else the moment you're caught.</p></div>
+
+  <div class="formula"><span class="formula-label">4-Question Skill Audit — Run Before Every Interview</span><div class="formula-body">1. Can I explain this to a non-technical person in 30 seconds?<br>2. Can I write 20 lines of code in this right now, without Google?<br>3. Can I name 3 pitfalls / gotchas / common mistakes in this?<br>4. Do I have a project or real use case I can point to?<br><br>If any answer is "no" — remove it from the resume, or skill up before applying.</div></div>
+
+  <div class="quote-block">
+    <blockquote>"The best predictor of future job performance is past behavior in similar situations. Every soft-skill claim needs a story to back it up."</blockquote>
+    <div class="quote-src">— Jeff Weiner · Former CEO of LinkedIn · Executive Chairman, LinkedIn</div>
+  </div>
+
+  <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin:28px 0 12px;">Soft Skills — Never Claim, Always Prove</h3>
+  <table class="tbl">
+    <thead><tr><th>Soft Skill</th><th>Weak Claim ❌</th><th>Strong Proof ✅</th></tr></thead>
+    <tbody>
+      <tr><td>Communication</td><td>"I communicate well"</td><td>"Mentored 20 juniors in DSA — explained recursion 40 different ways until each person got it"</td></tr>
+      <tr><td>Teamwork</td><td>"I work well in teams"</td><td>"Architecture disagreement → I ran a 1-hour spike on both options; we picked with data, not opinions"</td></tr>
+      <tr><td>Leadership</td><td>"I'm a natural leader"</td><td>"Tech Lead of coding club — organized 4 workshops for 150+ students, grew club 40→120 members"</td></tr>
+      <tr><td>Adaptability</td><td>"I learn fast"</td><td>"Learned React Native in 10 days for a hackathon; shipped a working demo on time"</td></tr>
+      <tr><td>Time management</td><td>"I manage time well"</td><td>"24 credits + internship + club in 6th sem — 3-block daily schedule, maintained 8.5 CGPA"</td></tr>
+      <tr><td>Problem-solving</td><td>"I'm good at solving problems"</td><td>"Traced a silent data-drift bug through 3 services using logs alone — fixed it in 2 days, saved a week of bad reports"</td></tr>
+      <tr><td>Attention to detail</td><td>"I'm detail-oriented"</td><td>"Caught a wrong date filter 15 minutes before hackathon deadline during my always-run final end-to-end test"</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ====================================================
+     SECTION 5: CO-CURRICULAR
+     ==================================================== -->
+<section id="cocurr">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Section 05</div>
+    <h2>🏆 Co-curricular & Achievements</h2>
+  </div>
+
+  <div class="why"><div class="why-label">⚡ Why Co-curriculars Matter Beyond CGPA</div><p>Co-curriculars prove you're more than marks. They signal leadership, initiative, consistency, and curiosity — qualities no grade can capture. Interviewers look for 2–3 strong activities with measurable impact. Depth beats breadth every time. Ten "participated in" events lose to one "led 300 students" story.</p></div>
+
+  <div class="formula"><span class="formula-label">Achievement Bullet Formula: Strong Verb + Scope + Outcome + Metric</span><div class="formula-body">❌ "Participated in Smart India Hackathon"<br>✅ "Led 4-member team in SIH 2024; built crop-disease classifier (82% accuracy) in 36 hrs; placed top 20 of 400 teams — learned to scope ruthlessly under time pressure."<br><br>❌ "Member of Coding Club"<br>✅ "Tech Lead, Coding Club — organized 5 workshops for 300+ students; grew membership from 40 to 120 over 2 semesters."<br><br>❌ "Taught juniors"<br>✅ "Mentored 30 juniors in DSA over 2 semesters; 22 of them cleared their first placement interviews."</div></div>
+
+  <p>Frame every achievement as: <strong>What I did → What happened (measurable) → What I learned (transferable skill)</strong></p>
+</section>
+
+<!-- ====================================================
+     SECTION 6: INFOSYS COMPANY KNOWLEDGE
+     ==================================================== -->
+<section id="infosys">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Section 06</div>
+    <h2>🏢 Know Infosys Cold</h2>
+  </div>
+
+  <div class="why"><div class="why-label">⚡ Why Company Research Is Non-Negotiable</div><p>Infosys HR explicitly tests whether you've researched the company. "Why Infosys?" answered with "It's a big company with good pay" is an instant red flag. The interviewers are proud of what Infosys has built — Mysuru campus, Topaz AI, C-LIFE values. Show you know it, and you signal: I want <em>this</em> company, not just any company.</p></div>
+
+  <div class="quote-block">
+    <blockquote>"We look for people who align with our values — Client value, Leadership, Integrity, Fairness, Excellence. These aren't words on a wall. They're how we make every decision."</blockquote>
+    <div class="quote-src">— N.R. Narayana Murthy · Founder, Infosys · Padma Vibhushan Recipient · One of India's greatest entrepreneurs</div>
+  </div>
+
+  <table class="tbl">
+    <thead><tr><th>Fact</th><th>Detail — Know Before You Walk In</th></tr></thead>
+    <tbody>
+      <tr><td>Founded</td><td>1981 by N.R. Narayana Murthy + 6 co-founders</td></tr>
+      <tr><td>HQ</td><td>Bengaluru, Karnataka, India</td></tr>
+      <tr><td>Current CEO</td><td>Salil Parekh (always verify before your interview date)</td></tr>
+      <tr><td>Employees</td><td>300,000+ across 50+ countries</td></tr>
+      <tr><td>Business</td><td>IT consulting, outsourcing, digital transformation, BPM</td></tr>
+      <tr><td>Listed</td><td>NSE &amp; BSE (India) · NYSE as INFY (ADS)</td></tr>
+      <tr><td>Core Values</td><td><strong>C-LIFE:</strong> Client value · Leadership · Integrity &amp; Transparency · Fairness · Excellence</td></tr>
+      <tr><td>Flagship Training</td><td>Mysuru campus — one of the world's largest corporate training facilities</td></tr>
+      <tr><td>AI Platform</td><td>Infosys <strong>Topaz</strong> — AI-first services</td></tr>
+      <tr><td>Cloud Platform</td><td>Infosys <strong>Cobalt</strong> — cloud services</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="font-family:'Playfair Display',serif;font-size:18px;margin:24px 0 10px;">Fresher Hiring Roles &amp; Packages (2025–26)</h3>
+  <table class="tbl">
+    <thead><tr><th>Role</th><th>Package (Approx.)</th><th>Route</th></tr></thead>
+    <tbody>
+      <tr><td>Systems Engineer (SE)</td><td>₹3.6 LPA</td><td>Standard campus / off-campus assessment</td></tr>
+      <tr><td>Digital Specialist Engineer (DSE)</td><td>₹6.2–7.5 LPA</td><td>Higher aptitude cutoff in OA</td></tr>
+      <tr><td>Specialist Programmer L1</td><td>~₹11 LPA</td><td>HackWithInfy competition</td></tr>
+      <tr><td>Specialist Programmer L2</td><td>~₹16 LPA</td><td>HackWithInfy — advanced round</td></tr>
+      <tr><td>Specialist Programmer L3</td><td>~₹21 LPA</td><td>HackWithInfy — national finals</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="font-family:'Playfair Display',serif;font-size:18px;margin:24px 0 10px;">The 3-Stage Infosys Process</h3>
+  <table class="tbl">
+    <thead><tr><th>Stage</th><th>What's Tested</th><th>Elimination</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Stage 1</strong> — Online Assessment</td><td>Quant, Logical Reasoning, Verbal English, Pseudocode / Coding</td><td>~70%</td></tr>
+      <tr><td><strong>Stage 2</strong> — Technical Interview</td><td>Core CS (DSA, DBMS, OS, CN, OOPs), project walkthrough, coding</td><td>~30%</td></tr>
+      <tr><td><strong>Stage 3</strong> — HR Interview</td><td>Communication, motivation, behavioral fit, relocation, bond</td><td>~10%</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ====================================================
+     SECTION 7: INFOSYS HR — 32 QUESTIONS
+     ==================================================== -->
+<section id="infosys-hr">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Section 07</div>
+    <h2>💬 Infosys HR — 32 Real Questions + Answer Angles</h2>
+  </div>
+
+  <div class="why"><div class="why-label">⚡ Why Infosys HR Needs Specific Preparation</div><p>Infosys HR rounds filter for communication quality, cultural alignment, and genuine commitment. They specifically check: Will this person thrive in Mysuru training? Are they flexible with tech allocation? Are they a C-LIFE cultural fit? Generic answers fail here. Infosys-specific answers win.</p></div>
+
+  <div class="xp"><button class="xp-btn" onclick="xpAll('q-infosys-hr')">Expand All</button><button class="xp-btn" onclick="xpNone('q-infosys-hr')">Collapse All</button></div>
+  <div class="qa-wrap" id="q-infosys-hr">
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q1</span>Tell me about yourself.<span class="qa-icon">▾</span></button><div class="qa-body"><p>Use 1-minute blueprint from Section 1. Infosys angle: end with a specific reference to the Mysuru training program, global client exposure, or Topaz/Cobalt growth tracks. Never say "Infosys is a top company" — say something specific about what Infosys uniquely offers that aligns with your own goals.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q2</span>Why Infosys?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Structure: (1) What you admire — Mysuru campus, global client exposure, Topaz AI initiative, C-LIFE values; (2) What you want — structured learning + specialist growth tracks; (3) Bridge — connect your specific 5-year goal to what Infosys uniquely offers. Avoid generic "big brand" answers at all costs.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q3</span>What do you know about Infosys?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Mention: Founded 1981 by Narayana Murthy + 6 co-founders. HQ Bengaluru. ~300K+ employees across 50+ countries. Services: IT consulting, digital transformation, BPM, AI (Topaz platform), cloud (Cobalt platform). Flagship Mysuru training campus. Core values C-LIFE. Listed on NSE, BSE, and NYSE as INFY.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q4</span>What are your strengths?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Name 2–3 with specific proof each. "Strong problem-solving — 400+ DSA problems solved, can articulate time/space trade-offs on demand. Quick learner — picked up React Native in 10 days for a hackathon. Reliable — in my final-year project, I was the only member who never missed a milestone across 8 months."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q5</span>What are your weaknesses?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Never say "perfectionist" — it's a cliché that signals self-awareness avoidance. Give a real, non-disqualifying weakness + active remediation. "I tend to over-prepare presentations — spending 4 hours on slides that need 2. I now set a strict 2-hour timebox and ship the 80% version."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q6</span>Where do you see yourself in 5 years?<span class="qa-icon">▾</span></button><div class="qa-body"><p>"Strong individual contributor in [cloud/data/security], having delivered 2–3 impactful client projects, ideally mentoring 1–2 juniors. I'd also explore the specialist or tech lead track. And Infosys's learning culture makes pursuing a relevant certification along the way very achievable."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q7</span>Why should we hire you?<span class="qa-icon">▾</span></button><div class="qa-body"><p>"I bring strong CS fundamentals, hands-on project experience, and the learning mindset that Infosys's training culture rewards. I'm hire-able today and will be productive faster than the average fresher because I've already solved real engineering problems — not just coursework."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q8</span>Are you willing to relocate?<span class="qa-icon">▾</span></button><div class="qa-body"><p>"Yes, fully. I actually look forward to the Mysuru experience — from everything I've read, it's one of the best onboarding programs in the Indian IT industry." If you have a real constraint: be honest but name specific cities you're open to (Mysuru, Pune, Chennai, Hyderabad, Bengaluru).</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q9</span>Are you comfortable with night shifts / rotational shifts?<span class="qa-icon">▾</span></button><div class="qa-body"><p>"Yes. I understand global clients sometimes need non-standard hours, and I'm prepared to adapt. Delivering for global clients is part of what makes Infosys's reputation what it is, and I want to be part of that."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q10</span>Why should we prefer you over a candidate with a higher CGPA?<span class="qa-icon">▾</span></button><div class="qa-body"><p>"CGPA is one data point. What I bring beyond it is [X project / Y measurable outcome]. I'm confident in my fundamentals — test me on anything on my resume. A number says what I scored; a conversation shows what I can actually do."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q11</span>What motivates you?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Be genuine. Good authentic answers: "Solving problems that affect real users — when I see someone use something I built, that's the real reward." / "The moment I understand something I didn't before — that's genuinely exciting." / "Being in a team where I'm always learning from people better than me."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q12</span>What demotivates you?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Be diplomatic. "Repetitive work with no learning — though I recognize every role has some routine, and I find meaning in the craft. What truly demotivates me is ambiguity with no path forward — I've learned to address that by asking better clarifying questions earlier."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q13</span>How do you handle pressure / tight deadlines?<span class="qa-icon">▾</span></button><div class="qa-body"><p>STAR. "Final project deadline moved up 1 week. I called a team meeting immediately, we prioritized by impact, cut the least-critical feature (analytics dashboard), and shipped core functionality on time. Key: ruthless prioritization and early communication — not a 24-hour crunch."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q14</span>Tell me about a time you failed.<span class="qa-icon">▾</span></button><div class="qa-body"><p>Never say "I've never failed." Pick a real, low-stakes failure + genuine reflection. "First hackathon: spent 10 hours perfecting a non-core feature. We didn't finish the MVP. I learned to always ask 'what's the smallest thing that proves the idea works?' before building anything else."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q15</span>Tell me about a conflict and how you handled it.<span class="qa-icon">▾</span></button><div class="qa-body"><p>STAR. "My teammate kept missing standups without warning. Instead of escalating, I had a private 1:1. He was dealing with a family issue. We redistributed 2 tasks for 2 weeks. He returned fully and delivered strongly in the final sprint. I learned: escalation is almost always the wrong first step."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q16</span>How do you handle criticism?<span class="qa-icon">▾</span></button><div class="qa-body"><p>"I take it seriously — critical feedback is where I grow fastest. My professor called my code 'clever but unreadable.' Instead of defending it, I spent a weekend refactoring with cleaner names and explicit comments, then asked for a second review. Now readable-by-default is a habit."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q17</span>What are your hobbies?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Pick real ones that signal a professional quality: chess (strategic thinking), writing/blogging (communication + depth), sports (teamwork + discipline), competitive programming (problem-solving). Be ready to talk about it for 30 seconds with genuine enthusiasm.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q18</span>If you had to teach us something in 5 minutes, what would it be?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Tests communication + passion. Great picks: "How HTTPS actually works," "Why merge sort is always O(n log n)," "The difference between concurrency and parallelism," "How a neural network updates its weights." Pick what you can make genuinely interesting for a non-expert.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q19</span>Who is your role model and why?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Signal good values: your professor (patience in explaining hard things), an engineer you follow (open-source contributions, public learning journey), or a figure exemplifying C-LIFE values. Avoid controversial political figures. Be genuine — they'll ask follow-up questions.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q20</span>How do you stay updated with technology?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Show genuine habits, not just "I Google things." "I follow CS newsletters like TLDR and Hacker Newsletter. I build small side projects to try new tools — built a CLI tool last month just to learn Rust. I'm in a Discord community of ML engineers where we share papers weekly."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q21</span>How will you contribute to Infosys from day one?<span class="qa-icon">▾</span></button><div class="qa-body"><p>"From day one: strong CS fundamentals, a fast-learning mindset, and the discipline to ask good specific questions instead of fumbling silently. I'll use Mysuru training intensively, find a senior engineer to shadow in my first month, and aim to contribute to a real feature by month 3."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q22</span>What if you get a better offer from another company?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Don't say "I'll take it." "I'd be honest and have that conversation transparently. But I've applied here intentionally — if I accept an Infosys offer, it means I've committed. I don't accept offers I don't intend to honor."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q23</span>What do you expect from Infosys?<span class="qa-icon">▾</span></button><div class="qa-body"><p>"Structured learning — the Mysuru training program. Quality mentorship from experienced engineers. Exposure to enterprise-scale systems and real global clients. A clear growth path — whether into a specialist track or a leadership role — over the first 3–5 years."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q24</span>What are your salary expectations?<span class="qa-icon">▾</span></button><div class="qa-body"><p>"I understand Infosys has standard pay grades for fresher roles, and I'm comfortable with the company's norms. I'm more focused on the learning and growth opportunity at this stage of my career than the exact number."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q25</span>Do you have any backlogs?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Be absolutely honest. Infosys may require zero active backlogs at joining. If cleared: state clearly + when you cleared them. If active: state clearly + your plan to clear. Never lie — they verify with your university.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q26</span>Why is there a gap in your education / career?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Honest explanations are always accepted: health, family, exam preparation, building skills, certifications. Show how you used the time productively: "During the gap, I completed [certification], built [project], and contributed to [open-source]."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q27</span>How do you define success?<span class="qa-icon">▾</span></button><div class="qa-body"><p>"Success, for me, is when the work I do leaves a measurable impact — something is better because I worked on it. I've grown meaningfully as an engineer. And the people I worked with would want to work with me again. All three together."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q28</span>Can you work in a team?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Yes + proof — never just claim it. "Absolutely. Final-year project, 4-person team. When we hit a DB schema disagreement, I suggested a 1-hour spike where each person prototyped their preferred approach. We picked the fastest one with data. Teams need both autonomy and alignment — I know how to provide both."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q29</span>Are you flexible with technology / domain allocation?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Infosys-critical: freshers get allocated to Java, .NET, Testing, Mainframe, etc. based on business need. "Yes — I trust the allocation process. Fundamentals transfer across technologies. Whether Java, Python, or Mainframe, the core engineering thinking is the same. I'm here to grow, not to dictate terms."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q30</span>Why should we NOT reject you?<span class="qa-icon">▾</span></button><div class="qa-body"><p>"Because I've shown up prepared. I can answer any question on my resume. And the three things that actually determine long-term performance — strong CS fundamentals, clear communication, genuine learning attitude — are the ones I've specifically invested in. Give me the bond period and I'll prove the ROI."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q31</span>Do you have any questions for us?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Always say yes. Ask 1–2 smart questions from Section 9. Never say "No, I think you covered everything" — it signals disinterest. Use this moment to show curiosity about the role, the team, or the growth path.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q32</span>Are you ready to sign the service agreement / bond?<span class="qa-icon">▾</span></button><div class="qa-body"><p>"Yes. I've reviewed the typical terms and I'm comfortable committing to the duration. I'm coming here to build my career, not to use Infosys as a stepping stone — so the commitment period aligns with my own goals."</p></div></div>
+  </div>
+</section>
+
+<!-- ====================================================
+     SECTION 8: 50+ HR BEHAVIORAL
+     ==================================================== -->
+<section id="hr50">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Section 08</div>
+    <h2>🎯 General HR &amp; Behavioral — 50+ Questions</h2>
+  </div>
+
+  <div class="why"><div class="why-label">⚡ Why Behavioral Rounds Are Deceptively Hard</div><p>Most candidates overprepare technical topics and underprepare behavioral ones — then get eliminated in HR. Behavioral questions predict future behavior from past behavior. Every answer needs a concrete story. "I handle pressure well" is worthless. "In my hackathon, the API went down 2 hours before judging and here's exactly what I did" is everything.</p></div>
+
+  <div class="quote-block">
+    <blockquote>"People who are consistently curious are also consistently learning. And consistently learning people are the ones who end up consistently leading."</blockquote>
+    <div class="quote-src">— Adam Grant · Organizational Psychologist, Wharton · Author, "Think Again"</div>
+  </div>
+
+  <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin:0 0 12px;">Prepare 5 Versatile STAR Stories Before Every Interview</h3>
+  <table class="tbl">
+    <thead><tr><th>#</th><th>Story Topic</th><th>Use For Questions About</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Hardest technical problem you solved</td><td>Problem-solving, initiative, depth, critical thinking</td></tr>
+      <tr><td>2</td><td>Time you worked on a team project</td><td>Teamwork, collaboration, communication</td></tr>
+      <tr><td>3</td><td>Time you handled a conflict</td><td>Conflict resolution, maturity, emotional intelligence</td></tr>
+      <tr><td>4</td><td>Time you failed or made a mistake</td><td>Resilience, learning mindset, humility</td></tr>
+      <tr><td>5</td><td>Time you led or took initiative</td><td>Leadership, ownership, proactiveness</td></tr>
+    </tbody>
+  </table>
+  <p>For each story: 5 sentences — 1 Situation, 1 Task, 2 Actions, 1 Result. Target 60–90 seconds per answer.</p>
+
+  <div class="xp"><button class="xp-btn" onclick="xpAll('q-hr-all')">Expand All</button><button class="xp-btn" onclick="xpNone('q-hr-all')">Collapse All</button></div>
+  <div class="qa-wrap" id="q-hr-all">
+    <span class="qa-cat">A — About You</span>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q1</span>Tell me about yourself.<span class="qa-icon">▾</span></button><div class="qa-body"><p>See Section 1. Present → Past → Future → Value. 60–90 seconds. End with why you're excited about this company specifically.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q2</span>Walk me through your resume.<span class="qa-icon">▾</span></button><div class="qa-body"><p>Chronological story: Education → most impactful project → internship → co-curricular → aspirations. Don't read the resume — tell the story. 90–120 seconds with natural pauses to invite follow-up.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q3</span>What are your strengths?<span class="qa-icon">▾</span></button><div class="qa-body"><p>2–3 strengths with specific proof for each. Anchor each to a real example. Avoid generic adjectives with no evidence.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q4</span>What are your weaknesses?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Real, non-disqualifying weakness + active remediation. Show the growth arc, not just the gap. Never say "perfectionist."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q5</span>What are you passionate about?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Something authentic. A tech domain (ML, systems, web) works, but showing one non-tech passion (writing, music, fitness, chess) humanizes you and makes you memorable.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q6</span>What are your hobbies?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Real ones that demonstrate a soft skill. Be ready to talk about it for 30 seconds with genuine energy.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q7</span>Describe yourself in 3 words.<span class="qa-icon">▾</span></button><div class="qa-body"><p>3 words you can instantly back up with a one-liner proof each. "Curious, methodical, reliable" — then explain each in one sentence.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q8</span>What makes you unique?<span class="qa-icon">▾</span></button><div class="qa-body"><p>One genuine differentiator backed by specifics. Not "I work hard." Something like: "I've written a tech newsletter for 8 months — it's made me better at documentation and client communication."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q9</span>How would your friends describe you?<span class="qa-icon">▾</span></button><div class="qa-body"><p>2–3 traits + a concrete story backing each. Show the human side genuinely.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q10</span>What's your biggest achievement?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Not necessarily award-based. Measurable impact + what it took. "My biggest achievement is consistency — 400 days of daily coding practice." Or a specific win: hackathon rank, open-source contribution, research publication.</p></div></div>
+
+    <span class="qa-cat">B — About the Role &amp; Company</span>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q11</span>Why Infosys (or this company)?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Specific reasons — not "it's a top company." Reference training programs, global client exposure, growth tracks, or a specific Infosys initiative (Topaz AI, Cobalt Cloud). Show you researched.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q12</span>Why did you apply for this role?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Align the role's specific responsibilities with your skills and interests. Be concrete about which part excites you most — not "it's a good opportunity."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q13</span>What do you know about our company?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Founding, leadership, business lines, recent news (Topaz launch, latest quarterly), values (C-LIFE), flagship programs. Show genuine interest, not just Googled facts.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q14</span>What interests you most about this job?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Mention a specific project, technology, client industry, or challenge you'd encounter — based on actual research. Generic enthusiasm is easy to see through.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q15</span>Why now — what's driving your job search?<span class="qa-icon">▾</span></button><div class="qa-body"><p>For freshers: "I've spent 4 years investing in fundamentals. Now I want to apply them in a real-world environment at scale. This is the natural next step."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q16</span>What can you bring to this company?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Skills + attitude + specific value. "I bring [specific skill], [specific project proof], and the learning mindset that makes me productive faster than average." Avoid generic "I'm a hard worker."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q17</span>Do you think you're a good fit here?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Yes + 3 reasons: cultural fit (C-LIFE aligns with how I work), skill fit (my technical background fits the role), growth alignment (Infosys's specialist tracks match my 5-year goal).</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q18</span>How did you hear about this role?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Be honest: campus placement, career portal, LinkedIn, referral. If you actively sought it out — say so. It signals intentional motivation, not passive application.</p></div></div>
+
+    <span class="qa-cat">C — Behavioral / Situational</span>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q19</span>Tell me about a time you had to learn something quickly.<span class="qa-icon">▾</span></button><div class="qa-body"><p>STAR. "At a hackathon, the team needed Android development and I'd never built a mobile app. 36 hours. I picked Kotlin + Jetpack Compose based on 30 minutes of research, built by reading docs, and shipped a working prototype. I learned that fast learning is really about strong fundamentals — syntax is just syntax."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q20</span>Tell me about a time you disagreed with a teammate.<span class="qa-icon">▾</span></button><div class="qa-body"><p>STAR. Show maturity — disagreement is professional, escalation is a last resort. Show you made your case with reasoning, listened to counter-arguments, and resolved it respectfully.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q21</span>Describe a situation where you worked under pressure.<span class="qa-icon">▾</span></button><div class="qa-body"><p>STAR. Focus on what you actually did to manage the pressure — not just that you survived it. Show a specific tactic: prioritization, communication, scope-cutting, asking for help.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q22</span>Tell me about a time you showed leadership.<span class="qa-icon">▾</span></button><div class="qa-body"><p>Leadership ≠ manager title. It's ownership. "I noticed no one was tracking bugs in our hackathon — context was being lost between sessions. I started a shared Notion doc with a bug list and status. Within a day it became our single source of truth. I didn't have a title — I saw a gap and filled it."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q23</span>Tell me about a time you failed.<span class="qa-icon">▾</span></button><div class="qa-body"><p>Real failure + genuine reflection + behavioral change after. The failure itself is less important than the growth arc you show.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q24</span>Tell me about a time you had to give bad news.<span class="qa-icon">▾</span></button><div class="qa-body"><p>Maturity check. "I told my team we'd underestimated a feature by 3 days with a demo in 4. I framed it as: here's the data, here are the options, here's my recommendation. We cut scope and demoed the core cleanly. Bad news with options is manageable; a surprise is a crisis."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q25</span>Describe making a decision with limited information.<span class="qa-icon">▾</span></button><div class="qa-body"><p>Show the method: list assumptions explicitly, pick the most reversible option, commit, set a review checkpoint. "I had to choose a DB before finalizing all features. I listed my top 3 unknowns, picked PostgreSQL as the safest default, noted we'd revisit at week 3. We never needed to."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q26</span>Tell me about a time you disagreed with your professor / mentor.<span class="qa-icon">▾</span></button><div class="qa-body"><p>Show respectful pushback — you made your case with reasoning, listened to theirs, and resolved it professionally. Never make the mentor look bad.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q27</span>Tell me about a time you dealt with ambiguity.<span class="qa-icon">▾</span></button><div class="qa-body"><p>Pick a project with unclear requirements. You asked clarifying questions, made assumptions explicit and documented, shipped an MVP, then gathered feedback. Show the process, not just the outcome.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q28</span>Describe a situation where you went above and beyond.<span class="qa-icon">▾</span></button><div class="qa-body"><p>Specific and concrete. "The demo was 2 days away and the live API was unreliable — timeouts at random. I built a mock server over a weekend that returned deterministic sample data so the team could practice the full demo flow without the external dependency. We demoed flawlessly."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q29</span>Tell me about a project you're most proud of.<span class="qa-icon">▾</span></button><div class="qa-body"><p>Full STAR with depth — see Section 2. Pick the one with the best combination of: clear problem, meaningful challenge, measurable outcome, and genuine learning.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q30</span>Tell me about a time you received harsh feedback.<span class="qa-icon">▾</span></button><div class="qa-body"><p>"My professor called my code 'clever but unreadable.' Instead of defending it, I asked what was specifically unclear. He pointed to 3 things. I spent a weekend refactoring. My next code review had zero readability comments. Now readable-by-default is a standard, not an afterthought."</p></div></div>
+
+    <span class="qa-cat">D — Hypotheticals &amp; Soft Skills</span>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q31</span>How would you handle a difficult teammate?<span class="qa-icon">▾</span></button><div class="qa-body"><p>1:1 first → understand the root cause → find common ground → escalate only if repeated with no resolution. Never begin with manager escalation.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q32</span>What would you do if you didn't know how to solve a work problem?<span class="qa-icon">▾</span></button><div class="qa-body"><p>1. Break it into smaller parts. 2. Check official docs + Google. 3. Search for similar solved problems. 4. Ask a senior with a specific question: "I tried X, got Y, expected Z — any pointers?" Never ask "how do I do [the entire problem]?"</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q33</span>How do you manage your time?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Concrete system: "I plan the next day the previous night — write 3 priority tasks. I time-block focus work in 90-minute sessions. I batch meetings and check email at set times instead of reacting to every notification."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q34</span>How do you handle multiple deadlines?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Prioritize by impact, communicate early when overloaded, say "not now" honestly rather than over-promising. "I'd rather tell you on Day 1 I can't hit both than surprise you on Day 5."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q35</span>How do you handle stress?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Practical techniques: "Walk away from the screen for 10 minutes. Write everything in my head onto paper — stress often comes from holding too many open loops mentally. Then tackle the smallest win first to rebuild momentum."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q36</span>How do you define good code?<span class="qa-icon">▾</span></button><div class="qa-body"><p>"Works correctly. Readable by my future self 6 months later without comments. Changes safely — when I modify one part, unrelated parts don't break. Elegant code scores zero if it fails those three tests."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q37</span>What do you do if you disagree with the majority?<span class="qa-icon">▾</span></button><div class="qa-body"><p>State my view clearly with reasoning. Listen to counter-arguments genuinely. If still outvoted, disagree and commit — execute the team's decision fully without half-heartedly sabotaging what I lost.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q38</span>What if your manager asked you to do something unethical?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Refuse, and raise through the appropriate channel (HR, ethics hotline, skip-level). Document the request. Infosys values Integrity as a core C-LIFE value — this is the right answer in their culture specifically.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q39</span>How would you deliver bad news to a client?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Direct, empathetic, solution-focused. Don't hide, don't sugarcoat. Always come with options: "Here's what happened, here are 3 paths forward, here's what I recommend." A surprise without a plan is a crisis. Bad news with options is manageable.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q40</span>Describe your ideal work environment.<span class="qa-icon">▾</span></button><div class="qa-body"><p>"Collaborative enough to learn from teammates, with focused time for deep work. Code reviews that are constructive, not political. Clear goals, honest feedback, and room to grow into harder problems over time."</p></div></div>
+
+    <span class="qa-cat">E — Motivation &amp; Future</span>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q41</span>Where do you see yourself in 5 years?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Ambition + realism + company alignment. "Strong individual contributor in [domain], having delivered 2–3 impactful client projects, ideally mentoring 1–2 juniors. If the growth path exists, I'd pursue a specialist or tech lead track. Infosys's specialist tracks make that a realistic goal."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q42</span>What are your short-term goals?<span class="qa-icon">▾</span></button><div class="qa-body"><p>"Clear Mysuru training strongly. Master the allocated tech stack. Build one impactful feature for a real client in year 1. Get a positive first performance review with specific, actionable feedback."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q43</span>What are your long-term goals?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Honest + company-aligned. "Senior engineer → specialist or tech lead track over 3–5 years. I'm also interested in pursuing an MS or M.Tech eventually — Infosys's learning support programs would be valuable for that."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q44</span>Are you open to working in a service-based company?<span class="qa-icon">▾</span></button><div class="qa-body"><p>"Yes — service companies like Infosys offer something product companies rarely give freshers: exposure to 5–10 different industries in the first few years. That breadth builds a rare adaptive problem-solving skill that I genuinely want."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q45</span>Would you prefer a product company over a service company?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Don't say "yes, but I'm applying here anyway." "Both have advantages. Service companies offer breadth, learning velocity, and structured growth early on. At this stage of my career, that structured exposure and onboarding is genuinely what I'm looking for."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q46</span>What do you do outside of technical work?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Show a full human: "I play [sport] regularly — keeps me disciplined. I write a tech newsletter — forces clarity of thinking. I read [genre] books. I mentor 2 juniors through an online community." Balance authentic technical and personal interests.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q47</span>Why are you interested in this particular domain?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Connect to genuine curiosity or a specific project/experience. "My final-year project required building a data pipeline — that showed me how much impact clean, reliable data has on every downstream decision. That's why I'm excited about data engineering specifically."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q48</span>How do you handle too much work?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Communicate early. Prioritize by impact. Negotiate deadlines proactively. "I'd go to my manager on Day 1 with a prioritized list and ask which ones can move. I'd rather have that conversation early than apologize late."</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q49</span>What would you do if you had to miss a deadline?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Communicate the moment you know you're at risk — never after the deadline passes. Come with a revised plan, root cause explanation, and a new realistic commitment with a buffer built in.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q50</span>Is there anything you want to add before we wrap up?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Use this moment. "Yes — I want to say I've genuinely prepared for this interview, not just technically but in understanding what Infosys does and why I want to be here. I'm excited about this opportunity, and I'm confident I'll be a positive contribution to the team from day one."</p></div></div>
+  </div>
+</section>
+
+<!-- ====================================================
+     SECTION 9: QUESTIONS TO ASK
+     ==================================================== -->
+<section id="ask">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Section 09</div>
+    <h2>🤔 20 Smart Questions to Ask the Interviewer</h2>
+  </div>
+
+  <div class="why"><div class="why-label">⚡ Why This Section Is Underrated</div><p>Saying "No, I don't have any questions" signals you're not curious, not prepared, and don't know what you want. Strong candidates always ask 2–3 smart questions. It demonstrates active engagement, shows you've researched, and — the underrated part — lets you evaluate whether the role is actually right for you.</p></div>
+
+  <div class="xp"><button class="xp-btn" onclick="xpAll('q-ask')">Expand All</button><button class="xp-btn" onclick="xpNone('q-ask')">Collapse All</button></div>
+  <div class="qa-wrap" id="q-ask">
+    <span class="qa-cat">About the Role &amp; Team</span>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q1</span>What does a typical first 30 days look like for a new joiner in this role?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Shows you're already thinking about how to contribute quickly — not just whether you'll get the offer. Also gives you a realistic picture of the ramp-up so you can prepare.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q2</span>What does the team I'd be joining work on day-to-day?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Shows interest in the actual work, not just the title. Helps you understand if it aligns with your skills and interests.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q3</span>What's the most challenging aspect of this role for most new joiners?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Demonstrates self-awareness and a preparation mindset. The answer tells you exactly where to invest time before joining.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q4</span>How does the team handle knowledge sharing between seniors and freshers?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Signals you care about learning and growth, not just executing tasks blindly.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q5</span>What technologies or tools does the team currently use most?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Practical question that helps you prepare and start learning before day one. Shows technical curiosity.</p></div></div>
+
+    <span class="qa-cat">About Growth &amp; Career</span>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q6</span>What career tracks are available for engineers who join in this role after 2–3 years?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Shows long-term thinking and ambition — exactly what Infosys wants in a fresher they're investing in through Mysuru training.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q7</span>How are high performers typically recognized and rewarded here?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Signals you intend to be a top performer, not just a compliant one. Gives you insight into the performance culture.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q8</span>What does a successful engineer at Infosys look like 3 years in?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Helps you understand the benchmark you're measured against. Shows you're thinking beyond just getting the job.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q9</span>Is there a mentoring or buddy program for new engineers?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Shows you're serious about learning, not just collecting a paycheck. Practical information for your first month.</p></div></div>
+
+    <span class="qa-cat">About Mysuru Training</span>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q10</span>What's been the most valuable part of the Mysuru training from engineers you've seen go through it?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Shows you've specifically researched Infosys's onboarding. Gets you a genuine, useful answer about what to focus on before and during training.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q11</span>How does the technology allocation process work after training?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Practical question that helps you understand what happens after Mysuru. Shows maturity and planning ahead.</p></div></div>
+
+    <span class="qa-cat">About the Interviewer</span>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q12</span>What's your favorite part about working here?<span class="qa-icon">▾</span></button><div class="qa-body"><p>People love talking about what they love. Gets you genuine insight past rehearsed answers. Builds human rapport with the interviewer.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q13</span>What has surprised you most about working at Infosys?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Gets past the glossy version to real experience. Often gets you the most honest and interesting answer of the whole conversation.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q14</span>What's the biggest technical challenge your team has faced recently?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Shows curiosity about real problems, not just the company brochure version. The answer tells you a lot about the team's culture and what matters to them.</p></div></div>
+
+    <span class="qa-cat">Wrap-Up Questions</span>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q15</span>Based on our conversation, is there anything you'd want me to elaborate on before you make your decision?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Powerful closing move. Gives you a chance to address any concern the interviewer has. Most candidates never ask this. It's a professional move that senior candidates use.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q16</span>What are the next steps in the process from here?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Practical and professional. Shows you're ready to move forward and take the next step seriously.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q17</span>What does the onboarding process look like beyond Mysuru training?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Shows forward thinking and genuine interest in succeeding from day one, not just clearing the interview.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q18</span>How would you describe the team culture — collaborative or more independent?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Helps you understand the working environment and signals self-awareness about how you work best.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q19</span>What's a recent win the team is proud of?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Gets you genuine insight into the team's values and what "good work" looks like to the people you'd be working with.</p></div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="toggleQ(this)"><span class="qa-num">Q20</span>Does Infosys support engineers who want to pursue postgraduate education while working?<span class="qa-icon">▾</span></button><div class="qa-body"><p>Only ask if this is genuinely relevant to your goals. Shows long-term commitment and ambition — a positive signal in most contexts.</p></div></div>
+  </div>
+</section>
+
+<!-- ====================================================
+     SECTION 10: DO'S & DON'TS
+     ==================================================== -->
+<section id="dos">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Section 10</div>
+    <h2>✅ Do's &amp; Don'ts — The 20 Most Costly Mistakes</h2>
+  </div>
+
+  <div class="why"><div class="why-label">⚡ The Painful Truth About Rejections</div><p>Most rejections in technical interviews aren't because the candidate lacked knowledge — they're because of fixable behavioral mistakes. Every single mistake below has eliminated otherwise-qualified candidates. Read this list twice. The ones that hurt most are the ones you wouldn't think to prepare for.</p></div>
+
+  <table class="tbl">
+    <thead><tr><th>#</th><th>Mistake</th><th>The Fix</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Not researching the company at all</td><td>Know 5 Infosys facts cold — founding, CEO, C-LIFE, Mysuru, Topaz/Cobalt</td></tr>
+      <tr><td>2</td><td>Weak or robotic "Tell me about yourself"</td><td>Practice 1-minute intro 20+ times until it sounds natural, never memorized</td></tr>
+      <tr><td>3</td><td>Generic "Why this company?" (fame / salary)</td><td>Give a specific reason about culture, training, growth tracks, or a real project</td></tr>
+      <tr><td>4</td><td>Vague project explanation — no STAR</td><td>Fill the Project Canvas for each project before every interview</td></tr>
+      <tr><td>5</td><td>Can't write basic code on paper</td><td>Practice bubble sort, palindrome, factorial, reverse string by hand on paper</td></tr>
+      <tr><td>6</td><td>Lying about skills on the resume</td><td>Never list what you can't explain with a code example in 2 minutes</td></tr>
+      <tr><td>7</td><td>Heavy filler words (um, like, basically)</td><td>Record yourself, count the fillers, reduce deliberately over 2 weeks</td></tr>
+      <tr><td>8</td><td>Badmouthing your college or professors</td><td>Always reframe negatives as learning opportunities with a positive outcome</td></tr>
+      <tr><td>9</td><td>No smart questions for the interviewer</td><td>Prepare 5+ questions from Section 9; use 2 per interview</td></tr>
+      <tr><td>10</td><td>Poor body language — slouched, no eye contact</td><td>Mock interview on camera; look at the camera in virtual interviews, not the screen</td></tr>
+      <tr><td>11</td><td>Weak SQL or shaky OOPs knowledge</td><td>These are fresher non-negotiables — master 4 pillars + core SQL operations cold</td></tr>
+      <tr><td>12</td><td>Unrealistic salary expectations</td><td>Research CTC ranges; for Infosys SE know it's ₹3.6 LPA; give a band, not a number</td></tr>
+      <tr><td>13</td><td>Resistance to relocation or the bond</td><td>Address positively and show genuine openness, or state honest constraints early</td></tr>
+      <tr><td>14</td><td>Bluffing with jargon on unknown topics</td><td>Say "I don't know, but here's how I'd approach learning it" — honesty is respected</td></tr>
+      <tr><td>15</td><td>Late, unprepared, no resume copy</td><td>Arrive 20 minutes early; bring 3 resume copies; log in 15 min early for virtual</td></tr>
+      <tr><td>16</td><td>Overconfidence or arrogance</td><td>Be curious, humble, collaborative in tone — confidence ≠ arrogance</td></tr>
+      <tr><td>17</td><td>Badmouthing previous interviewers or companies</td><td>Always professional, always positive, always diplomatic</td></tr>
+      <tr><td>18</td><td>Phone buzzing during the interview</td><td>Airplane mode before entering the interview room — not just vibrate</td></tr>
+      <tr><td>19</td><td>Generic behavioral stories with no STAR structure</td><td>Prepare 5 specific STAR stories in advance; practice each until smooth</td></tr>
+      <tr><td>20</td><td>Ghosting HR after the interview</td><td>Reply to every HR email within 24 hours; send a thank-you note after each round</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ====================================================
+     SECTION 11: UNKNOWN QUESTION FRAMEWORK
+     ==================================================== -->
+<section id="frameworks">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Section 11</div>
+    <h2>🗣 How to Handle Unknown Questions</h2>
+  </div>
+
+  <div class="why"><div class="why-label">⚡ What Interviewers Actually Evaluate When You Don't Know</div><p>Interviewers know freshers won't know everything. What they're actually testing: Do you handle uncertainty gracefully? Do you reason out loud or just memorize answers? Are you honest when you don't know? Can you bridge from the unknown to what you do know? "I don't know, but here's how I'd approach it" often scores higher than a memorized robotic answer to a question you've actually heard before.</p></div>
+
+  <div class="quote-block">
+    <blockquote>"I have no special talents. I am only passionately curious. And that curiosity — that honest, relentless curiosity — is what separates the great from the merely competent."</blockquote>
+    <div class="quote-src">— Attributed to Albert Einstein · Also the philosophy of every great engineer</div>
+  </div>
+
+  <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin:28px 0 12px;">The 7-Step Honest Roadmap</h3>
+  <div class="formula"><span class="formula-label">When You Don't Know Something</span><div class="formula-body">1. Breathe — a 1-second pause is professional, not awkward<br>2. Clarify if needed ("When you say X, do you mean Y?")<br>3. Be honest ("I haven't used that directly, but...")<br>4. Bridge to what you DO know ("It sounds similar to ___")<br>5. Reason out loud — show your thinking process explicitly<br>6. Commit to a best-guess answer with a stated confidence level<br>7. Invite correction ("Would love to know the right approach")</div></div>
+
+  <h3 style="font-family:'Playfair Display',serif;font-size:18px;margin:24px 0 12px;">Ready-to-Use Scripts — 5 Scenarios</h3>
+  <div class="sample"><div class="sample-label">🔵 When You've Never Heard of It</div><p>"I haven't come across this specifically — could you give me a short context? If it relates to [X area], I can reason about it from first principles and give you my best answer."</p></div>
+  <div class="sample"><div class="sample-label">🔵 When You've Heard of It But Never Used It</div><p>"I've read about [X] — my understanding is that it's used for [brief description]. I haven't built anything with it yet, but given a week, I'd be confident — it overlaps significantly with [Y that I do know]."</p></div>
+  <div class="sample"><div class="sample-label">🔵 When You Know Part of the Answer</div><p>"I can speak to [part A] confidently — [give answer]. For [part B], I'm less sure, but my best guess would be [reasoned guess], and I'd verify by [specific method]."</p></div>
+  <div class="sample"><div class="sample-label">🔵 When You Completely Blank Out</div><p>"Honestly, I'm drawing a blank on this right now — could I come back to it later, or would you like me to reason through it aloud? I'd rather think clearly than guess badly."</p></div>
+  <div class="sample"><div class="sample-label">🔵 When Asked for a Metric You Don't Recall</div><p>"I don't remember the exact number — directionally, I believe it's around [range], and in practice what matters most is [the underlying concept]. Happy to be corrected."</p></div>
+</section>
+
+<!-- ====================================================
+     SECTION 12: MINDSET
+     ==================================================== -->
+<section id="mindset">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Section 12</div>
+    <h2>🌟 Final Mindset Principles</h2>
+  </div>
+
+  <div class="quote-block">
+    <blockquote>"The students who succeed aren't always the smartest. They're the most prepared, the most structured, and the most consistent."</blockquote>
+    <div class="quote-src">— Andrew Ng · Founder, DeepLearning.AI · Adjunct Professor, Stanford University · One of AI's most respected educators</div>
+  </div>
+
+  <ol style="padding-left:22px;line-height:2.2;font-size:17px;margin:24px 0;">
+    <li><strong>The interviewer is not your enemy.</strong> They want to hire someone — they're looking for reasons to say yes, not no.</li>
+    <li><strong>Confidence ≠ arrogance.</strong> Speak with conviction; admit what you don't know with equal conviction.</li>
+    <li><strong>It's a conversation, not an interrogation.</strong> Ask questions, be curious, be human.</li>
+    <li><strong>You've prepared 30 days for this moment.</strong> Trust the process. Don't cram the night before.</li>
+    <li><strong>One rejection is not your story.</strong> Learn, iterate, reapply. Every "no" is data — not a verdict.</li>
+    <li><strong>Every interview is practice for the next one.</strong> Even the ones you "fail" teach you the most.</li>
+    <li><strong>Authenticity outperforms performance.</strong> Be yourself with preparation — not a completely different person.</li>
+  </ol>
+
+  <div class="div">· · ·</div>
+
+  <h2 style="font-family:'Playfair Display',serif;font-size:26px;margin-bottom:20px;">📋 Pre-Interview Checklist</h2>
+  <div class="ck-group">1 WEEK BEFORE</div>
+  <ul class="ck">
+    <li onclick="toggleCk(this)"><span>Built a polished 60-second self-introduction (tested on camera)</span></li>
+    <li onclick="toggleCk(this)"><span>All resume projects have STAR explanations ready</span></li>
+    <li onclick="toggleCk(this)"><span>5 STAR behavioral stories written and practiced aloud</span></li>
+    <li onclick="toggleCk(this)"><span>3 "Why Infosys" reasons researched and memorized</span></li>
+    <li onclick="toggleCk(this)"><span>Company news from last 30 days read</span></li>
+    <li onclick="toggleCk(this)"><span>At least 1 mock interview completed (video, with a peer)</span></li>
+    <li onclick="toggleCk(this)"><span>5+ smart questions for the interviewer ready</span></li>
+  </ul>
+  <div class="ck-group">1 DAY BEFORE</div>
+  <ul class="ck">
+    <li onclick="toggleCk(this)"><span>Outfit ready — clean, ironed, formal (white/light shirt + dark trousers)</span></li>
+    <li onclick="toggleCk(this)"><span>3 printed copies of resume</span></li>
+    <li onclick="toggleCk(this)"><span>Govt ID, college documents, certificates (originals + photocopies)</span></li>
+    <li onclick="toggleCk(this)"><span>Interview location / link confirmed; travel time tested</span></li>
+    <li onclick="toggleCk(this)"><span>8 hours of sleep — phone on airplane mode from 10 PM</span></li>
+  </ul>
+  <div class="ck-group">DAY OF INTERVIEW</div>
+  <ul class="ck">
+    <li onclick="toggleCk(this)"><span>Light breakfast — protein + complex carbs (avoid sugar crash)</span></li>
+    <li onclick="toggleCk(this)"><span>Review 1-minute intro ONCE (no deep studying today)</span></li>
+    <li onclick="toggleCk(this)"><span>10 minutes of stretching / deep breathing</span></li>
+    <li onclick="toggleCk(this)"><span>Phone on SILENT + FLIPPED before entering interview</span></li>
+    <li onclick="toggleCk(this)"><span>3 deep breaths right before: 4 sec in · 4 hold · 4 out</span></li>
+    <li onclick="toggleCk(this)"><span>First impression: warm smile, confident greeting, eye contact</span></li>
+  </ul>
+  <div class="ck-group">POST-INTERVIEW (WITHIN 24 HOURS)</div>
+  <ul class="ck">
+    <li onclick="toggleCk(this)"><span>Send a thank-you email to each interviewer (if contact available)</span></li>
+    <li onclick="toggleCk(this)"><span>Write a debrief: 3 things that went well, 3 to improve</span></li>
+    <li onclick="toggleCk(this)"><span>Add any new questions asked to your personal question bank</span></li>
+    <li onclick="toggleCk(this)"><span>Don't obsess or over-analyze — move on to the next preparation</span></li>
+  </ul>
+</section>
+
+<div class="div">· · ·</div>
+
+</main>
+
+<footer class="footer">
+  <h2>Ready for Part 2? The Technical Blueprint Awaits.</h2>
+  <div class="footers">AI/ML & Tech Content | Built for engineers who build the future</div>
+  <div class="footer-links">
+    <a href="https://substack.com/@thetechintel">Substack</a>
+    <a href="https://www.linkedin.com/in/priyanshu-arya/">LinkedIn</a>
+    <a href="https://www.instagram.com/thetechintel/">Instagram</a>
+    <a href="https://www.instagram.com/thetechintel/">X (Twitter)</a>
+    <a href="https://github.com/priyanshu-arya">GitHub</a>
+  </div>
+  <p>Part 1 covered the human side. Part 2 goes deep on every technical topic: DSA (35 Qs), SQL (32 Qs), OOPs (32 Qs), DBMS (32 Qs), Operating Systems (33 Qs), Computer Networks (33 Qs), System Design (32 Qs), and SDLC (32 Qs) — with every question answered and expert context at every section.</p>
+  <a href="#" class="cta">Read Part 2: The Technical Blueprint →</a>
+  <div class="footer-small">© 2025 The Tech Intel · Priyanshu · Last updated: April 2025<br>Not affiliated with Infosys Limited. All content is educational.</div>
+</footer>
+
+<script>
+// Progress bar
+window.addEventListener('scroll', () => {
+  const d = document.documentElement;
+  const pct = (window.scrollY / (d.scrollHeight - d.clientHeight)) * 100;
+  document.getElementById('progress').style.width = pct + '%';
+});
+
+// Drawer
+function openDrawer() {
+  document.getElementById('overlay').style.display = 'block';
+  document.getElementById('drawer').classList.add('open');
+}
+function closeDrawer() {
+  document.getElementById('overlay').style.display = 'none';
+  document.getElementById('drawer').classList.remove('open');
+}
+
+// Q&A toggle
+function toggleQ(btn) {
+  const body = btn.nextElementSibling;
+  const isOpen = body.classList.contains('open');
+  btn.classList.toggle('open', !isOpen);
+  body.classList.toggle('open', !isOpen);
+}
+
+// Expand / collapse section
+function xpAll(id) {
+  document.querySelectorAll('#' + id + ' .qa-btn').forEach(b => {
+    b.classList.add('open');
+    b.nextElementSibling.classList.add('open');
+  });
+}
+function xpNone(id) {
+  document.querySelectorAll('#' + id + ' .qa-btn').forEach(b => {
+    b.classList.remove('open');
+    b.nextElementSibling.classList.remove('open');
+  });
+}
+
+// Checklist
+function toggleCk(li) {
+  li.classList.toggle('done');
+}
+
+// Self-assess
+function updateScore() {
+  const sliders = document.querySelectorAll('.s-slider');
+  let total = 0;
+  sliders.forEach(s => {
+    const v = parseInt(s.value);
+    s.parentElement.querySelector('.s-val').textContent = v;
+    total += v;
+  });
+  document.getElementById('s-total').textContent = total;
+  let msg = '';
+  if (total < 30) msg = 'Significant preparation needed. Focus on your weakest 2 areas first.';
+  else if (total < 42) msg = 'Good foundation. Identify the top 2 gaps and drill them with mocks.';
+  else if (total < 51) msg = 'Strong preparation. Refine with 2–3 more mock interviews.';
+  else msg = '🎯 Interview-ready. Go land that offer.';
+  document.getElementById('s-msg').textContent = msg;
+}
+updateScore();
+
+// TOC active state
+const secs = document.querySelectorAll('section[id]');
+const links = document.querySelectorAll('#drawer a');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  secs.forEach(s => { if (window.scrollY >= s.offsetTop - 80) cur = s.id; });
+  links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
+});
+</script>
+</body>
+</html>
