@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IT Interview 2025 — Part 2, Phase 6: Networks + System Design + SDLC | The Tech Intel</title>
+<meta name="description" content="The final phase: Computer Networks (OSI, TCP/UDP, HTTP/HTTPS, DNS), System Design for freshers, and SDLC/Agile — every question answered with depth. Phase 6 of 6.">
+<meta name="keywords" content="computer networks interview questions 2025, OSI model interview, TCP vs UDP interview, HTTP HTTPS interview, DNS interview questions, system design fresher interview, URL shortener design interview, SDLC Agile interview questions, Scrum interview questions, Infosys networks questions freshers">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0f0e0b;--paper:#faf9f5;--cream:#f0ebe0;
+  --a:#1a5a9a;--ap:#e8f0fa;--am:#2472c0;
+  --gold:#c48a28;--gp:#f8edda;
+  --teal:#1a6b72;--tp:#e4f2f3;
+  --rust:#b44830;--rp:#fdf0ec;
+  --v:#5a2d8a;--vp:#f0ebfc;
+  --green:#2d7a35;--greenp:#edf7ee;
+  --slate:#383430;--muted:#7a746a;--border:#e0dbd0;--wh:#fff;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"DM Sans",system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.8;font-size:17px}
+#bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--a),var(--am),var(--gold));width:0%;z-index:999;transition:width .08s}
+.nav{position:sticky;top:0;z-index:200;background:rgba(250,249,245,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:52px}
+.nav-brand{font-family:"Playfair Display",serif;font-weight:900;font-size:16px}
+.nav-center{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.nav-btn{padding:6px 16px;border:1px solid var(--border);border-radius:20px;font-size:12px;cursor:pointer;background:none;color:var(--slate);font-family:"DM Sans",sans-serif;transition:all .2s}
+.nav-btn:hover{background:var(--ink);color:var(--wh);border-color:var(--ink)}
+#ov{display:none;position:fixed;inset:0;background:rgba(15,14,11,.55);z-index:300}
+#drawer{position:fixed;right:-380px;top:0;bottom:0;width:360px;background:var(--wh);z-index:400;padding:28px 22px;overflow-y:auto;transition:right .3s cubic-bezier(.4,0,.2,1);box-shadow:-8px 0 40px rgba(0,0,0,.14)}
+#drawer.open{right:0}
+.dr-close{position:absolute;top:18px;right:18px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted)}
+.dr-title{font-family:"Playfair Display",serif;font-size:20px;font-weight:700;margin:6px 0 22px}
+.tg{margin-bottom:22px}
+.tg-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);display:block;font-family:"JetBrains Mono",monospace}
+.tg a{display:block;font-size:13.5px;color:var(--slate);text-decoration:none;padding:5px 8px;border-radius:5px;border-left:2px solid transparent;transition:all .2s}
+.tg a:hover,.tg a.active{color:var(--a);border-left-color:var(--a);background:var(--ap)}
+.hero{background:var(--ink);color:var(--wh);padding:80px 24px 60px;text-align:center;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 20% 70%,rgba(26,90,154,.28) 0%,transparent 65%),radial-gradient(ellipse 60% 50% at 80% 20%,rgba(196,138,40,.14) 0%,transparent 65%);pointer-events:none}
+.hero-ph{display:inline-flex;align-items:center;gap:8px;background:rgba(26,90,154,.22);border:1px solid rgba(26,90,154,.4);color:#80b8f0;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:5px 16px;border-radius:20px;margin-bottom:28px;position:relative;z-index:1}
+.hero h1{font-family:"Playfair Display",serif;font-size:clamp(30px,4.5vw,54px);font-weight:900;line-height:1.08;margin-bottom:20px;position:relative;z-index:1}
+.hero h1 em{font-style:normal;color:#80b8f0}
+.hero-sub{font-size:17px;color:rgba(250,249,245,.7);max-width:660px;margin:0 auto 32px;line-height:1.75;position:relative;z-index:1}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;position:relative;z-index:1}
+.chip{font-family:"JetBrains Mono",monospace;font-size:11px;padding:5px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:rgba(250,249,245,.75)}
+.chip.on{background:rgba(26,90,154,.25);border-color:rgba(26,90,154,.45);color:#80b8f0}
+.hero-meta{display:flex;flex-wrap:wrap;gap:6px 20px;justify-content:center;font-size:13px;color:rgba(250,249,245,.4);margin-top:22px;position:relative;z-index:1}
+.pstrip{background:var(--cream);border-bottom:1px solid var(--border);padding:12px 24px;overflow-x:auto;white-space:nowrap;display:flex;gap:8px;align-items:center}
+.pl{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-right:6px;flex-shrink:0}
+.pb{font-family:"JetBrains Mono",monospace;font-size:11px;padding:5px 13px;border-radius:20px;border:1px solid var(--border);background:var(--wh);color:var(--slate);white-space:nowrap;transition:all .2s;text-decoration:none;display:inline-block}
+.pb.done{background:var(--tp);border-color:var(--teal);color:var(--teal)}
+.pb.now{background:var(--a);color:var(--wh);border-color:var(--a)}
+.main{max-width:720px;margin:0 auto;padding:0 24px 100px}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin:36px 0 28px}
+.pill{font-size:11px;font-family:"JetBrains Mono",monospace;padding:5px 13px;border-radius:20px;border:1px solid var(--border);background:var(--cream);color:var(--slate);text-decoration:none;transition:all .2s}
+.pill:hover{background:var(--a);color:var(--wh);border-color:var(--a)}
+.sh{margin:68px 0 26px;padding-bottom:14px;border-bottom:2px solid var(--border)}
+.sh-eye{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.sh h2{font-family:"Playfair Display",serif;font-size:clamp(24px,3.5vw,34px);font-weight:700;line-height:1.2}
+.why{border-left:4px solid var(--a);background:var(--ap);padding:18px 22px;border-radius:0 8px 8px 0;margin:26px 0}
+.why-l{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--a);font-weight:700;margin-bottom:6px}
+.why p{font-size:15px;color:#1a3a6a;margin:0;line-height:1.75}
+.qb{background:var(--ink);color:var(--wh);padding:32px 38px;margin:32px 0;border-radius:6px;position:relative}
+.qb::before{content:"\201C";font-family:"Playfair Display",serif;font-size:96px;color:rgba(26,90,154,.22);position:absolute;top:4px;left:26px;line-height:1}
+.qb blockquote{font-family:"Playfair Display",serif;font-size:18px;font-style:italic;line-height:1.65;position:relative;margin-bottom:14px}
+.qb cite{font-family:"JetBrains Mono",monospace;font-size:11px;color:#80b8f0;letter-spacing:.05em;font-style:normal}
+.formula{background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin:20px 0}
+.f-l{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:8px;display:block;font-family:"JetBrains Mono",monospace}
+.f-b{font-family:"JetBrains Mono",monospace;font-size:13px;line-height:2;color:var(--slate)}
+.tbl{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px}
+.tbl th{background:var(--ink);color:var(--wh);padding:9px 13px;text-align:left;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.04em;font-weight:400}
+.tbl td{padding:9px 13px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.55}
+.tbl tr:nth-child(even) td{background:var(--cream)}
+.tbl td code{font-family:"JetBrains Mono",monospace;background:var(--cream);padding:1px 6px;border-radius:3px;font-size:12px;border:1px solid var(--border)}
+.osi-table{width:100%;border-collapse:collapse;margin:18px 0;font-size:13.5px}
+.osi-table th{background:var(--ink);color:var(--wh);padding:9px 13px;font-family:"JetBrains Mono",monospace;font-size:11px;text-align:left}
+.osi-table td{padding:10px 13px;border-bottom:1px solid var(--border);vertical-align:middle}
+.osi-table .L7{background:#e8f4ea}.osi-table .L6{background:#e8f0ea}.osi-table .L5{background:#eef0e8}
+.osi-table .L4{background:#f8edda}.osi-table .L3{background:#fdf2e8}.osi-table .L2{background:#fdeaea}.osi-table .L1{background:#fde8e8}
+.osi-num{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:16px;color:var(--a)}
+.sd-steps{display:flex;flex-direction:column;gap:10px;margin:20px 0}
+.sd-step{display:flex;gap:16px;align-items:flex-start;background:var(--wh);border:1px solid var(--border);border-radius:8px;padding:14px 18px;border-left:4px solid var(--a)}
+.sd-step:nth-child(2){border-left-color:var(--gold)}
+.sd-step:nth-child(3){border-left-color:var(--teal)}
+.sd-step:nth-child(4){border-left-color:var(--v)}
+.sd-step:nth-child(5){border-left-color:var(--rust)}
+.sd-num{font-family:"JetBrains Mono",monospace;font-size:22px;font-weight:700;color:var(--a);line-height:1;flex-shrink:0;width:28px}
+.sd-step:nth-child(2) .sd-num{color:var(--gold)}
+.sd-step:nth-child(3) .sd-num{color:var(--teal)}
+.sd-step:nth-child(4) .sd-num{color:var(--v)}
+.sd-step:nth-child(5) .sd-num{color:var(--rust)}
+.sd-c h4{font-size:15px;font-weight:600;margin-bottom:3px}
+.sd-c p{font-size:13px;color:var(--muted);margin:0}
+.sdlc-phases{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin:20px 0}
+.sp{background:var(--wh);border:1px solid var(--border);border-radius:8px;padding:14px;border-top:3px solid var(--a);text-align:center}
+.sp:nth-child(2){border-top-color:var(--gold)}
+.sp:nth-child(3){border-top-color:var(--teal)}
+.sp:nth-child(4){border-top-color:var(--v)}
+.sp:nth-child(5){border-top-color:var(--rust)}
+.sp:nth-child(6){border-top-color:var(--a)}
+.sp:nth-child(7){border-top-color:var(--gold)}
+.sp h4{font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:600;color:var(--a);margin-bottom:5px}
+.sp:nth-child(2) h4{color:var(--gold)}.sp:nth-child(3) h4{color:var(--teal)}.sp:nth-child(4) h4{color:var(--v)}.sp:nth-child(5) h4{color:var(--rust)}
+.sp p{font-size:12px;color:var(--muted);margin:0}
+.qa-wrap{margin:18px 0}
+.qa-cat{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:14px 0 10px;border-top:1px solid var(--border);margin-top:20px;display:block}
+.qa-item{border-bottom:1px solid var(--border)}
+.qa-btn{width:100%;display:flex;align-items:flex-start;gap:12px;padding:14px 0;background:none;border:none;cursor:pointer;text-align:left;font-family:"DM Sans",sans-serif;font-size:15.5px;font-weight:600;color:var(--slate);transition:color .2s}
+.qa-btn:hover{color:var(--a)}
+.qa-num{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--a);font-weight:600;min-width:28px;padding-top:3px;flex-shrink:0}
+.qa-icon{margin-left:auto;font-size:11px;color:var(--muted);transition:transform .3s;flex-shrink:0;padding-top:4px}
+.qa-btn.open .qa-icon{transform:rotate(180deg)}
+.qa-body{max-height:0;overflow:hidden;transition:max-height .45s ease;padding-left:40px}
+.qa-body.open{max-height:3500px;padding-bottom:18px}
+.qa-body p,.qa-body li{font-size:15px;color:var(--slate);line-height:1.78}
+.qa-body ul,.qa-body ol{padding-left:20px;margin:8px 0}
+.qa-body li{margin-bottom:5px}
+.qa-body strong{color:var(--ink)}
+.qa-body code{font-family:"JetBrains Mono",monospace;background:var(--cream);padding:1px 6px;border-radius:3px;font-size:12.5px;border:1px solid var(--border);color:var(--ink)}
+.qa-body pre{background:#1a1815;color:#ddd8ce;padding:18px 20px;border-radius:8px;font-family:"JetBrains Mono",monospace;font-size:12.5px;line-height:1.9;margin:12px 0;overflow-x:auto}
+.qa-body table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0}
+.qa-body th{background:var(--cream);padding:8px 11px;border:1px solid var(--border);text-align:left;font-weight:600;font-size:12px}
+.qa-body td{padding:8px 11px;border:1px solid var(--border);vertical-align:top;line-height:1.55}
+.qa-body .tip{background:var(--ap);border-left:3px solid var(--a);padding:10px 14px;margin-top:12px;font-size:14px;border-radius:0 5px 5px 0;color:#1a3a6a}
+.qa-body .note{background:var(--gp);border-left:3px solid var(--gold);padding:10px 14px;margin-top:10px;font-size:14px;border-radius:0 5px 5px 0;color:#5a4010}
+.qa-body .crit{background:var(--rp);border-left:3px solid var(--rust);padding:10px 14px;margin-top:10px;font-size:14px;border-radius:0 5px 5px 0;color:#6b2a18}
+.qa-body .pur{background:var(--vp);border-left:3px solid var(--v);padding:10px 14px;margin-top:10px;font-size:14px;border-radius:0 5px 5px 0;color:#3a1a6a}
+.qa-body .teal{background:var(--tp);border-left:3px solid var(--teal);padding:10px 14px;margin-top:10px;font-size:14px;border-radius:0 5px 5px 0;color:#1a4a50}
+.qa-body .green{background:var(--greenp);border-left:3px solid var(--green);padding:10px 14px;margin-top:10px;font-size:14px;border-radius:0 5px 5px 0;color:#1a4a20}
+.xp{display:flex;gap:10px;margin:12px 0}
+.xp-btn{font-family:"JetBrains Mono",monospace;font-size:11px;padding:5px 13px;border:1px solid var(--border);border-radius:4px;cursor:pointer;background:none;color:var(--slate);transition:all .2s}
+.xp-btn:hover{background:var(--ap);border-color:var(--a);color:var(--a)}
+.assess{background:var(--ink);color:var(--wh);border-radius:10px;padding:30px;margin:32px 0}
+.assess h3{font-family:"Playfair Display",serif;font-size:21px;margin-bottom:6px}
+.a-sub{font-size:13px;color:rgba(250,249,245,.5);margin-bottom:22px}
+.s-row{display:flex;align-items:center;gap:14px;margin-bottom:13px}
+.s-lbl{min-width:200px;font-size:13px;color:rgba(250,249,245,.8);flex-shrink:0}
+.s-rng{flex:1;-webkit-appearance:none;height:3px;border-radius:2px;background:rgba(255,255,255,.15);outline:none;cursor:pointer}
+.s-rng::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:#80b8f0;cursor:pointer}
+.s-val{min-width:22px;text-align:center;font-family:"JetBrains Mono",monospace;font-size:13px;color:#80b8f0}
+.s-tot{border-top:1px solid rgba(255,255,255,.1);padding-top:16px;margin-top:6px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.s-sc{font-family:"Playfair Display",serif;font-size:42px;font-weight:700;color:#80b8f0;line-height:1}
+.s-of{font-size:13px;color:rgba(250,249,245,.45)}
+.s-msg{font-size:13px;color:rgba(250,249,245,.6);max-width:220px;text-align:right}
+.div{text-align:center;margin:52px 0;font-size:22px;color:var(--border);letter-spacing:14px}
+.series-complete{background:linear-gradient(135deg,#0a0c14,#121828);color:var(--wh);padding:48px 36px;border-radius:12px;margin:52px 0;text-align:center;border:1px solid rgba(26,90,154,.35)}
+.series-complete h2{font-family:"Playfair Display",serif;font-size:34px;margin-bottom:16px;color:#80b8f0}
+.series-complete p{font-size:16px;color:rgba(250,249,245,.7);max-width:540px;margin:0 auto 24px}
+.phase-badges{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:20px}
+.badge{font-family:"JetBrains Mono",monospace;font-size:12px;padding:8px 18px;border-radius:20px;border:1px solid rgba(26,90,154,.4);background:rgba(26,90,154,.15);color:#80b8f0}
+.badge.done{border-color:rgba(26,107,114,.5);background:rgba(26,107,114,.18);color:#5ac8d0}
+.footer{background:var(--ink);color:var(--wh);text-align:center;padding:56px 24px 40px}
+.footer h2{font-family:"Playfair Display",serif;font-size:28px;margin-bottom:12px}
+.footer p{color:rgba(250,249,245,.55);font-size:15px;max-width:480px;margin:0 auto}
+.footer-small{font-size:12px;color:rgba(250,249,245,.22);margin-top:36px}
+.footer-links{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin-bottom:2rem}
+.footer-links a{color:rgba(250,249,245,.55);text-decoration:none;font-size:0.85rem;transition:color 0.2s}
+.footer-links a:hover{color:var(--gold)}
+/* Section strip */
+.sec-strip{background:#fff;border-bottom:1px solid var(--border);padding:9px 24px;overflow-x:auto;white-space:nowrap;display:flex;gap:6px;align-items:center;scrollbar-width:none}
+.sec-strip::-webkit-scrollbar{display:none}
+.ss-lbl{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-right:4px;flex-shrink:0}
+.ss-btn{font-family:"JetBrains Mono",monospace;font-size:10.5px;padding:4px 11px;border-radius:4px;border:1px solid var(--border);background:transparent;color:var(--slate);white-space:nowrap;transition:all .18s;text-decoration:none;display:inline-block}
+.ss-btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+p{margin-bottom:16px}strong{font-weight:600;color:var(--ink)}ul,ol{padding-left:22px;margin-bottom:14px}li{margin-bottom:5px}.lead{font-size:19px;line-height:1.85;color:#282420}
+@media(max-width:620px){.hero{padding:54px 18px 46px}.nav-phase{display:none}body{font-size:16px}#drawer{width:100%;right:-100%}.sdlc-phases{grid-template-columns:1fr 1fr}.s-lbl{min-width:130px}}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+<div id="ov" onclick="closeDrawer()"></div>
+<div id="drawer">
+  <button class="dr-close" onclick="closeDrawer()">&#x2715;</button>
+  <div class="dr-title">Phase 6 &#8212; Contents</div>
+  <div class="tg"><span class="tg-label">Overview</span>
+    <a href="#overview">Why This Phase Completes You</a>
+    <a href="#assess">Readiness Check</a></div>
+  <div class="tg"><span class="tg-label">Computer Networks (Q1&#8211;Q22)</span>
+    <a href="#q-osi">OSI Model &amp; TCP/IP</a>
+    <a href="#q-tcp">TCP vs UDP &amp; Protocols</a>
+    <a href="#q-http">HTTP, HTTPS &amp; DNS</a>
+    <a href="#q-net-adv">Subnets, Firewalls, CDN</a></div>
+  <div class="tg"><span class="tg-label">System Design (Q23&#8211;Q42)</span>
+    <a href="#q-sd-basics">Scalability Fundamentals</a>
+    <a href="#q-sd-design">Design Problems</a></div>
+  <div class="tg"><span class="tg-label">SDLC &amp; Agile (Q43&#8211;Q58)</span>
+    <a href="#q-sdlc">SDLC Models</a>
+    <a href="#q-agile">Agile &amp; Scrum</a>
+    <a href="#q-testing">Testing &amp; DevOps</a></div>
+</div>
+
+<nav class="nav">
+  <span class="nav-brand">The Tech Intel</span>
+  <span class="nav-center">Part 2 &middot; Phase 6 of 6 &middot; Final Phase</span>
+  <button class="nav-btn" onclick="openDrawer()">Contents &#x2197;</button>
+</nav>
+<div class="pstrip">
+  <a href="../index.html" class="pb">&#8592; Part 1</a>
+  <span class="pl">Part 2:</span>
+  <a href="./Phase1_dsa.html" class="pb done">&#9312; DSA &#x2713;</a>
+  <a href="./Phase2_sql.html" class="pb done">&#9313; SQL &#x2713;</a>
+  <a href="./Phase3_oops.html" class="pb done">&#9314; OOPs &#x2713;</a>
+  <a href="./Phase4_dbms.html" class="pb done">&#9315; DBMS &#x2713;</a>
+  <a href="./Phase5_os.html" class="pb done">&#9316; OS &#x2713;</a>
+  <a href="./Phase6_final.html" class="pb now">&#9317; Networks + SD + SDLC</a>
+</div>
+<!-- Section strip -->
+<div class="sec-strip">
+  <span class="ss-lbl">Jump to:</span>
+  <a class="ss-btn" href="#overview">Overview</a>
+  <a class="ss-btn" href="#assess">Readiness</a>
+  <a class="ss-btn" href="#q-osi">OSI/TCP-IP</a>
+  <a class="ss-btn" href="#q-tcp">TCP/UDP</a>
+  <a class="ss-btn" href="#q-http">HTTP/HTTPS</a>
+  <a class="ss-btn" href="#q-net-adv">Networks Adv</a>
+  <a class="ss-btn" href="#q-sd-basics">SD Basics</a>
+  <a class="ss-btn" href="#q-sd-design">SD Design</a>
+  <a class="ss-btn" href="#q-sdlc">SDLC</a>
+  <a class="ss-btn" href="#q-agile">Agile</a>
+  <a class="ss-btn" href="#q-testing">Testing</a>
+</div>
+
+<header class="hero">
+  <div class="hero-ph">&#127760; Part 2 &middot; Phase 6 of 6 &middot; Final Phase &middot; April 2025</div>
+  <h1>Computer Networks + System Design + SDLC<br><em>The Final Phase</em></h1>
+  <p class="hero-sub">The complete closer. Networks from OSI to WebSockets, System Design for freshers from URL shorteners to rate limiters, and every SDLC and Agile question Infosys asks. 58 questions. Series complete.</p>
+  <div class="hero-chips">
+    <span class="chip on">OSI Model</span><span class="chip on">TCP vs UDP</span><span class="chip on">HTTP/HTTPS</span>
+    <span class="chip on">DNS</span><span class="chip on">Scalability</span><span class="chip on">Caching</span>
+    <span class="chip on">Load Balancing</span><span class="chip on">System Design</span>
+    <span class="chip on">Waterfall vs Agile</span><span class="chip on">Scrum</span><span class="chip on">CI/CD</span>
+  </div>
+  <div class="hero-meta">
+    <span>&#9998; The Tech Intel</span><span>&#9200; ~55 min read</span>
+    <span>&#128203; 58 Questions &middot; All Answered</span><span>&#127760; Series Complete</span>
+  </div>
+</header>
+<main class="main">
+<p class="lead" style="margin-top:48px;">This is the final phase. Networks, System Design, and SDLC complete the technical picture. Every application you build runs over networks. Every application that needs to scale requires system design thinking. Every project you join follows an SDLC model. <strong>These three topics appear in every Infosys interview, across every role.</strong></p>
+<div class="pills">
+  <a class="pill" href="#q-osi">&#128270; OSI</a>
+  <a class="pill" href="#q-tcp">&#128246; TCP/UDP</a>
+  <a class="pill" href="#q-http">&#127760; HTTP</a>
+  <a class="pill" href="#q-net-adv">&#128274; Security</a>
+  <a class="pill" href="#q-sd-basics">&#127759; Scalability</a>
+  <a class="pill" href="#q-sd-design">&#127963; Design</a>
+  <a class="pill" href="#q-sdlc">&#128203; SDLC</a>
+  <a class="pill" href="#q-agile">&#9881; Agile</a>
+  <a class="pill" href="#q-testing">&#9989; Testing</a>
+</div>
+
+<section id="assess">
+  <div class="assess">
+    <h3>&#127760; Final Phase Readiness Score</h3>
+    <p class="a-sub">Target 8+ in every row. This is your last check before interviews.</p>
+    <div class="s-row"><span class="s-lbl">OSI model (all 7 layers)</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-lbl">TCP vs UDP, 3-way handshake</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-lbl">HTTP methods, HTTPS, TLS</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-lbl">Scalability, caching, load balancing</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-lbl">System design (URL shortener, chat)</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-lbl">SDLC models (Waterfall, Agile)</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-lbl">Scrum (roles, events, artifacts)</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-lbl">Testing types, CI/CD, DevOps</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
+    <div class="s-tot"><div><div class="s-sc" id="sc">40</div><div class="s-of">/ 80 &#8212; Target: 64+</div></div><div class="s-msg" id="sc-msg"></div></div>
+  </div>
+</section>
+<section id="overview">
+  <div class="sh"><div class="sh-eye">Overview</div><h2>&#127760; Why This Phase Completes the Picture</h2></div>
+  <div class="why"><div class="why-l">&#9889; The Three Pillars of Applied Engineering</div><p>Networks explain how data moves. System Design explains how large systems are structured. SDLC/Agile explains how teams build them. Together these three topics transform a candidate who can write code into one who can reason about distributed systems, communicate requirements, and deliver software in a professional team.</p></div>
+  <div class="qb"><blockquote>"The internet is not a thing you can hold in your hand. It is a set of agreements &#8212; protocols &#8212; between machines. Understanding those agreements is what makes you a network engineer, not just a user."</blockquote><cite>&#8212; Vint Cerf &middot; Co-creator of TCP/IP &middot; "Father of the Internet" &middot; Google VP</cite></div>
+</section>
+
+<section id="q-osi">
+  <div class="sh"><div class="sh-eye">Questions 1&#8211;5</div><h2>&#128270; OSI Model &amp; TCP/IP Architecture</h2></div>
+  <div class="why"><div class="why-l">&#9889; Why OSI Is the Foundation of Every Network Question</div><p>The OSI model is the universal language of networking interviews. Every network question is answered with OSI knowledge. Know all 7 layers, their functions, real protocols at each, and the two classic mnemonics cold.</p></div>
+  <table class="osi-table">
+    <tr><th>Layer</th><th>Name</th><th>Function</th><th>Real Protocols / Devices</th></tr>
+    <tr class="L7"><td class="osi-num">7</td><td><strong>Application</strong></td><td>User-facing services, data formatting for apps</td><td>HTTP, HTTPS, FTP, SMTP, DNS, SSH, WebSocket</td></tr>
+    <tr class="L6"><td class="osi-num">6</td><td><strong>Presentation</strong></td><td>Encryption, compression, encoding/decoding</td><td>TLS/SSL, JPEG, MP3, ASCII, UTF-8</td></tr>
+    <tr class="L5"><td class="osi-num">5</td><td><strong>Session</strong></td><td>Manage sessions: open, maintain, close connections</td><td>NetBIOS, RPC, SIP</td></tr>
+    <tr class="L4"><td class="osi-num">4</td><td><strong>Transport</strong></td><td>End-to-end delivery, segmentation, flow control, error recovery</td><td>TCP, UDP &#8212; ports live here</td></tr>
+    <tr class="L3"><td class="osi-num">3</td><td><strong>Network</strong></td><td>Logical addressing and routing between networks</td><td>IP, ICMP, ARP, Router</td></tr>
+    <tr class="L2"><td class="osi-num">2</td><td><strong>Data Link</strong></td><td>Frame delivery within same network, MAC addressing, error detection</td><td>Ethernet, Wi-Fi (802.11), Switch, MAC</td></tr>
+    <tr class="L1"><td class="osi-num">1</td><td><strong>Physical</strong></td><td>Raw bit transmission over physical medium</td><td>Cables, Fiber, Radio waves, Hubs, NIC</td></tr>
+  </table>
+  <div class="formula"><span class="f-l">Two Mnemonics to Memorise</span><div class="f-b">Top-Down (7&#8594;1): All People Seem To Need Data Processing&#10;Bottom-Up (1&#8594;7): Please Do Not Throw Sausage Pizza Away</div></div>
+  <div class="xp"><button class="xp-btn" onclick="xA('qa-osi')">Expand All</button><button class="xp-btn" onclick="xN('qa-osi')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa-osi">
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q1</span>OSI vs TCP/IP model &#8212; how do the layers map to each other?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>The <strong>TCP/IP model</strong> (Internet model) is the practical 4-layer model governing the internet. OSI is the 7-layer theoretical reference model used for understanding and troubleshooting.</p>
+      <table>
+        <tr><th>TCP/IP Layer</th><th>OSI Layers Covered</th><th>Key Protocols</th></tr>
+        <tr><td>Application</td><td>7 + 6 + 5 (Application + Presentation + Session)</td><td>HTTP, HTTPS, FTP, SMTP, DNS, SSH, WebSocket</td></tr>
+        <tr><td>Transport</td><td>4 (Transport)</td><td>TCP, UDP</td></tr>
+        <tr><td>Internet</td><td>3 (Network)</td><td>IP, ICMP, ARP</td></tr>
+        <tr><td>Network Access / Link</td><td>2 + 1 (Data Link + Physical)</td><td>Ethernet, Wi-Fi, MAC, cables, fiber</td></tr>
+      </table>
+      <pre>-- Data encapsulation going DOWN the stack (sending):
+Application: "GET /index.html HTTP/1.1"         (HTTP message)
+Transport:   [TCP header | HTTP message]         (segment: adds port numbers)
+Internet:    [IP header | TCP segment]           (packet: adds IP addresses)
+Link:        [MAC header | IP packet | FCS]      (frame: adds MAC addresses)
+Physical:    10101010110101...                   (raw bits on wire)
+
+-- Going UP the stack (receiving): each layer strips its header
+-- Encapsulation going down, Decapsulation going up</pre>
+      <div class="tip">&#128161; OSI is for understanding and troubleshooting. TCP/IP is what actually runs the internet. In interviews: use OSI layer numbers/names, but reference TCP/IP when discussing real protocols.</div>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q2</span>What happens step by step when you type www.google.com in a browser?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>This is the most comprehensive network question &#8212; it tests OSI, DNS, TCP, TLS, and HTTP all at once.</p>
+      <pre>1. BROWSER CACHE CHECK: Does browser have cached IP for google.com? If yes, skip DNS.
+
+2. DNS RESOLUTION (Application layer):
+   Browser asks OS resolver -> checks /etc/hosts
+   OS asks recursive DNS resolver (ISP or 8.8.8.8)
+   Resolver queries: Root NS -> .com TLD NS -> google.com authoritative NS
+   Returns: 142.250.190.46 (Google IP)
+
+3. TCP 3-WAY HANDSHAKE (Transport + Network layers):
+   Browser -> Google: SYN (seq=x)
+   Google -> Browser: SYN-ACK (seq=y, ack=x+1)
+   Browser -> Google: ACK (ack=y+1)  -- Connected!
+
+4. TLS HANDSHAKE (HTTPS -- Presentation layer):
+   Client Hello: supported ciphers + random nonce
+   Server Hello: chosen cipher + certificate (public key)
+   Client verifies cert against trusted CAs
+   Key exchange: Diffie-Hellman -> shared session key
+   Encrypted communication begins
+
+5. HTTP REQUEST (Application layer):
+   GET / HTTP/1.1
+   Host: www.google.com
+
+6. SERVER RESPONSE:
+   HTTP/1.1 200 OK
+   [HTML body]
+
+7. BROWSER RENDERS HTML, fetches CSS/JS/images (additional requests)</pre>
+      <div class="tip">&#128161; Practice walking through this in under 2 minutes. It covers DNS, TCP handshake, TLS, HTTP, IP routing, and MAC addressing all in one answer. This single question can take 5-10 minutes in a strong interview.</div>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q3</span>Hub vs Switch vs Router &#8212; OSI layer and forwarding logic?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table>
+        <tr><th>Device</th><th>OSI Layer</th><th>Address Used</th><th>How it forwards</th><th>Use case</th></tr>
+        <tr><td>Hub</td><td>Layer 1 (Physical)</td><td>None</td><td>Broadcasts ALL frames to ALL ports. No intelligence.</td><td>Obsolete. Created collision domains.</td></tr>
+        <tr><td>Switch</td><td>Layer 2 (Data Link)</td><td>MAC address</td><td>Learns which MAC is on which port. Sends frame ONLY to destination port.</td><td>Connect devices within a LAN. Efficient.</td></tr>
+        <tr><td>Router</td><td>Layer 3 (Network)</td><td>IP address</td><td>Routes packets between DIFFERENT networks using routing table.</td><td>Connect your LAN to the internet. Connect offices.</td></tr>
+      </table>
+      <pre>-- Switch MAC address table (learned dynamically by watching traffic):
+Port 1: 00:1A:2B:3C:4D:5E  (laptop)
+Port 2: 00:AA:BB:CC:DD:EE  (printer)
+Port 3: 00:11:22:33:44:55  (NAS)
+
+-- When laptop sends to printer:
+Switch: dest MAC = 00:AA:BB:CC:DD:EE -> send ONLY to Port 2
+-- Printer receives. Laptop and NAS do NOT see this frame.</pre>
+      <div class="note">&#128203; A switch creates a separate collision domain per port. A router creates a separate broadcast domain per interface, preventing broadcast storms from spreading across networks.</div>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q4</span>MAC address vs IP address &#8212; why do we need both?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table>
+        <tr><th>Property</th><th>MAC Address</th><th>IP Address</th></tr>
+        <tr><td>Layer</td><td>Data Link (Layer 2)</td><td>Network (Layer 3)</td></tr>
+        <tr><td>Scope</td><td>Local network only (same subnet)</td><td>Global (identifies host anywhere on internet)</td></tr>
+        <tr><td>Format</td><td>48-bit hex: 00:1A:2B:3C:4D:5E</td><td>32-bit IPv4: 192.168.1.1 or 128-bit IPv6</td></tr>
+        <tr><td>Assignment</td><td>Burned into NIC by manufacturer (can be spoofed)</td><td>DHCP (dynamic) or manual (static)</td></tr>
+        <tr><td>Changes per hop?</td><td>YES -- changes at every router hop</td><td>NO -- stays same end-to-end</td></tr>
+        <tr><td>Used by</td><td>Switches (within LAN)</td><td>Routers (between networks)</td></tr>
+      </table>
+      <pre>-- Packet from laptop to google.com:
+IP header:  Source=192.168.1.5 (your IP)     Dest=142.250.190.46 (Google)
+MAC header: Source=laptop_MAC                 Dest=router_MAC
+
+-- At your router (first hop):
+IP header:  Source=192.168.1.5 (unchanged)   Dest=142.250.190.46 (unchanged)
+MAC header: Source=router_MAC (changed)       Dest=next_isp_router_MAC (changed)
+
+-- IP stays the same end-to-end. MAC changes at EVERY hop.
+-- ARP maps IP -> MAC within each local network segment.</pre>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q5</span>What is ARP and how does it work? What is ARP spoofing?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <pre>-- ARP: resolves IP address to MAC address within a local network
+-- Needed because switches forward by MAC, but apps use IP
+
+-- Example: laptop (192.168.1.5) wants to reach printer (192.168.1.10)
+-- Laptop does not know printer MAC
+
+1. ARP REQUEST (BROADCAST to all devices):
+   "Who has 192.168.1.10? Tell 192.168.1.5"
+   Sent to: FF:FF:FF:FF:FF:FF (broadcast -- all devices receive)
+
+2. ARP REPLY (UNICAST from printer):
+   "192.168.1.10 is at AA:BB:CC:DD:EE:FF"
+   Sent only to laptop MAC
+
+3. Laptop caches mapping in ARP table (TTL ~20 min):
+   192.168.1.10 -> AA:BB:CC:DD:EE:FF
+
+-- View your ARP table:
+-- Windows/Linux: arp -a
+-- 192.168.1.1   00-14-22-01-23-45  (router)
+-- 192.168.1.10  AA-BB-CC-DD-EE-FF  (printer)</pre>
+      <div class="crit">&#9888; ARP Spoofing: attacker sends fake ARP replies poisoning other devices ARP caches, making their traffic go through the attacker machine (Man-in-the-Middle). Mitigation: Dynamic ARP Inspection (DAI) on managed switches, 802.1X port authentication.</div>
+    </div></div>
+  </div>
+</section>
+<section id="q-tcp">
+  <div class="sh"><div class="sh-eye">Questions 6&#8211;11</div><h2>&#128246; TCP vs UDP &amp; Transport Protocols</h2></div>
+  <div class="why"><div class="why-l">&#9889; Why TCP vs UDP Is Asked in Every Technical Round</div><p>TCP vs UDP is the transport layer equivalent of Process vs Thread &#8212; a fundamental trade-off question. Every real-time system, streaming service, and game makes this choice. Know it cold: what TCP guarantees, how it achieves them, what UDP sacrifices and why.</p></div>
+  <div class="xp"><button class="xp-btn" onclick="xA('qa-tcp')">Expand All</button><button class="xp-btn" onclick="xN('qa-tcp')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa-tcp">
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q6</span>TCP vs UDP &#8212; complete comparison with when to use each?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table>
+        <tr><th>Property</th><th>TCP</th><th>UDP</th></tr>
+        <tr><td>Connection</td><td>Connection-oriented: 3-way handshake</td><td>Connectionless: fire and forget</td></tr>
+        <tr><td>Reliability</td><td>Guaranteed delivery: ACKs, retransmission on loss</td><td>No guarantee: packets may be lost, duplicated, reordered</td></tr>
+        <tr><td>Ordering</td><td>Guaranteed in-order delivery</td><td>No ordering guarantee</td></tr>
+        <tr><td>Flow control</td><td>Yes (sliding window)</td><td>No</td></tr>
+        <tr><td>Congestion control</td><td>Yes (slow start, AIMD)</td><td>No</td></tr>
+        <tr><td>Speed</td><td>Slower &#8212; overhead of connection + reliability</td><td>Faster &#8212; minimal overhead (8-byte header)</td></tr>
+        <tr><td>Header size</td><td>20 bytes minimum</td><td>8 bytes</td></tr>
+        <tr><td>Use when</td><td>Accuracy critical: web, email, file transfer, DB</td><td>Speed critical: gaming, video streaming, VoIP, DNS</td></tr>
+        <tr><td>Examples</td><td>HTTP/HTTPS, FTP, SMTP, SSH, MySQL</td><td>DNS, DHCP, video calls, online gaming, live streaming</td></tr>
+      </table>
+      <div class="tip">&#128161; Real-world: Netflix uses TCP (HTTP) for video delivery &#8212; buffering is acceptable, reliability matters. Online gaming uses UDP &#8212; a late position update is useless, so a dropped packet is better than a delayed one. DNS uses UDP for speed with TCP fallback for large responses.</div>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q7</span>TCP 3-way handshake &#8212; step by step, and why 3 steps not 2?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <pre>-- TCP 3-Way Handshake: establishing a reliable connection
+
+Client                              Server
+  |                                    |
+  |------ SYN (seq=x) --------------->|  "I want to connect, my seq starts at x"
+  |                                    |
+  |<----- SYN-ACK (seq=y, ack=x+1) --|  "OK, my seq starts at y, got your x"
+  |                                    |
+  |------ ACK (ack=y+1) ------------->|  "Got your y. Connection established!"
+  |                                    |
+  |<======= DATA TRANSFER ============>|
+
+-- Sequence numbers are random (ISN: Initial Sequence Number)
+-- This prevents old packets from previous connections being mistakenly accepted
+
+-- 4-Way Connection Termination:
+Client -> Server: FIN          "I am done sending"
+Server -> Client: ACK          "Got it"
+Server -> Client: FIN          "I am done sending too"
+Client -> Server: ACK          "Got it. Closing."
+-- Client waits in TIME_WAIT state (2 x MSL) before fully closing</pre>
+      <p><strong>Why 3 steps and not 2?</strong> Two steps would let the server know the client is ready, but the client would have no confirmation the server received its sequence number. The third step (client ACK) confirms to the server that the client received the server sequence number. Both sides must confirm they can send AND receive &#8212; 3 steps is the minimum.</p>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q8</span>TCP flow control and congestion control &#8212; how does TCP prevent overwhelming receivers and networks?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>Flow Control:</strong> Prevents sender from overwhelming the RECEIVER. Uses sliding window.</p>
+      <pre>-- Receiver advertises its window size (rwnd) in every ACK
+-- Sender cannot have more than rwnd bytes "in flight" (sent but not ACKed)
+-- When receiver buffer fills: Window Size = 0 (sender must pause)
+-- When buffer drains: receiver sends Window Update
+
+TCP Header: Window Size = 65535  (receiver has 65535 bytes of buffer available)</pre>
+      <p><strong>Congestion Control:</strong> Prevents overwhelming the NETWORK. TCP infers congestion from packet loss.</p>
+      <pre>-- Slow Start: begin with cwnd (congestion window) = 1 MSS
+-- Double cwnd every RTT until ssthresh (exponential growth)
+-- Congestion Avoidance: grow linearly (+1 MSS per RTT) above ssthresh
+-- On packet loss (timeout): ssthresh = cwnd/2, restart slow start
+-- On 3 duplicate ACKs (Fast Retransmit): ssthresh = cwnd/2, cwnd = ssthresh
+
+-- Effective send rate = min(rwnd, cwnd) / RTT</pre>
+      <div class="tip">&#128161; HTTP/3 runs over QUIC (UDP-based) which implements its own faster congestion control, reducing latency especially during connection establishment. QUIC also solves head-of-line blocking that exists in HTTP/2 over TCP.</div>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q9</span>What are port numbers? Well-known ports to memorise?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <pre>-- Port: 16-bit number (0-65535) identifying a specific application/service
+-- Together with IP: (IP, Port, Protocol) = socket = unique endpoint
+
+-- Port ranges:
+-- 0-1023:     Well-known / System ports (require root/admin to bind)
+-- 1024-49151: Registered ports (application services)
+-- 49152-65535: Ephemeral / Dynamic ports (clients use these for outgoing)
+
+-- Well-known ports (MUST know for interviews):
+-- 20/21  FTP (data/control)
+-- 22     SSH (Secure Shell)
+-- 23     Telnet (insecure, avoid)
+-- 25     SMTP (email sending)
+-- 53     DNS
+-- 80     HTTP
+-- 110    POP3 (email retrieval)
+-- 143    IMAP (email retrieval)
+-- 443    HTTPS
+-- 3306   MySQL
+-- 5432   PostgreSQL
+-- 6379   Redis
+-- 27017  MongoDB
+-- 8080   HTTP alternate (common for dev servers)</pre>
+      <div class="note">&#128203; netstat -tulnp (Linux) or netstat -ano (Windows) shows which processes are listening on which ports. Useful for debugging port conflicts or verifying a server started correctly.</div>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q10</span>IPv4 vs IPv6 &#8212; key differences and why IPv6 was needed?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table>
+        <tr><th>Property</th><th>IPv4</th><th>IPv6</th></tr>
+        <tr><td>Address size</td><td>32-bit (4 bytes)</td><td>128-bit (16 bytes)</td></tr>
+        <tr><td>Format</td><td>Dotted decimal: 192.168.1.1</td><td>Colon-hex: 2001:0db8:85a3::8a2e:0370:7334</td></tr>
+        <tr><td>Address space</td><td>~4.3 billion (exhausted in 2011)</td><td>~340 undecillion &#8212; effectively unlimited</td></tr>
+        <tr><td>NAT required?</td><td>Yes &#8212; NAT extends addresses</td><td>No &#8212; every device gets globally unique address</td></tr>
+        <tr><td>Header</td><td>20 bytes (variable with options)</td><td>40 bytes (fixed, simpler processing)</td></tr>
+        <tr><td>Broadcast</td><td>Yes</td><td>No &#8212; replaced by multicast and anycast</td></tr>
+        <tr><td>Configuration</td><td>Manual or DHCP</td><td>Auto-config (SLAAC) + DHCPv6</td></tr>
+        <tr><td>Security</td><td>IPSec optional</td><td>IPSec built-in (mandatory in spec)</td></tr>
+        <tr><td>Adoption</td><td>~96% of traffic</td><td>~36% and growing (dual-stack common)</td></tr>
+      </table>
+      <div class="tip">&#128161; IPv4 exhaustion is real &#8212; IANA allocated the last /8 blocks in 2011. Most ISPs use NAT to let many devices share one public IPv4 address. IPv6 eliminates the need for NAT by giving every device a globally routable address.</div>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q11</span>Common network attack types and mitigations?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table>
+        <tr><th>Attack</th><th>How it works</th><th>Mitigation</th></tr>
+        <tr><td>DDoS</td><td>Flood server with traffic from many sources until unavailable</td><td>Rate limiting, CDN absorption, traffic scrubbing, anycast</td></tr>
+        <tr><td>Man-in-the-Middle</td><td>Intercept communication between two parties (ARP spoofing, rogue AP)</td><td>TLS/HTTPS, certificate pinning, HSTS, VPN</td></tr>
+        <tr><td>DNS Spoofing</td><td>Inject fake DNS records to redirect users to malicious IP</td><td>DNSSEC, DNS over HTTPS (DoH), DNS over TLS (DoT)</td></tr>
+        <tr><td>Packet Sniffing</td><td>Capture unencrypted packets on shared network</td><td>Encrypt all traffic (TLS), use switched networks, VPN</td></tr>
+        <tr><td>SYN Flood</td><td>Send many SYNs but never complete handshake, exhausting server connection table</td><td>SYN cookies, firewall rate limits</td></tr>
+        <tr><td>IP Spoofing</td><td>Forge source IP to impersonate another host</td><td>Ingress filtering at ISPs, TLS mutual authentication</td></tr>
+      </table>
+    </div></div>
+  </div>
+</section>
+<section id="q-http">
+  <div class="sh"><div class="sh-eye">Questions 12&#8211;16</div><h2>&#127760; HTTP, HTTPS &amp; DNS</h2></div>
+  <div class="why"><div class="why-l">&#9889; Why HTTP and DNS Are Daily Engineering Knowledge</div><p>HTTP is the protocol of the web and most APIs. DNS is the internet phone book. Every backend developer needs both. Understanding status codes, HTTP methods, and the HTTP/1.1 vs HTTP/2 vs HTTP/3 progression sets you apart from candidates who only know that HTTP exists.</p></div>
+  <div class="xp"><button class="xp-btn" onclick="xA('qa-http')">Expand All</button><button class="xp-btn" onclick="xN('qa-http')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa-http">
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q12</span>HTTP methods &#8212; GET, POST, PUT, PATCH, DELETE, OPTIONS, HEAD?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table>
+        <tr><th>Method</th><th>Purpose</th><th>Body?</th><th>Idempotent?</th><th>Safe?</th><th>Use case</th></tr>
+        <tr><td>GET</td><td>Retrieve resource</td><td>No</td><td>Yes</td><td>Yes</td><td>Fetch user profile, search results</td></tr>
+        <tr><td>POST</td><td>Create new resource</td><td>Yes</td><td>No</td><td>No</td><td>Submit form, create new order</td></tr>
+        <tr><td>PUT</td><td>Replace entire resource</td><td>Yes</td><td>Yes</td><td>No</td><td>Update entire user object</td></tr>
+        <tr><td>PATCH</td><td>Partial update of resource</td><td>Yes</td><td>No</td><td>No</td><td>Change only email field</td></tr>
+        <tr><td>DELETE</td><td>Remove resource</td><td>Optional</td><td>Yes</td><td>No</td><td>Delete a post</td></tr>
+        <tr><td>HEAD</td><td>Like GET but headers only</td><td>No</td><td>Yes</td><td>Yes</td><td>Check resource exists, get content-length</td></tr>
+        <tr><td>OPTIONS</td><td>List supported methods</td><td>No</td><td>Yes</td><td>Yes</td><td>CORS preflight request</td></tr>
+      </table>
+      <p><strong>Idempotent:</strong> calling same request N times produces same result as calling once. GET/PUT/DELETE idempotent. POST is not &#8212; two identical POSTs create two resources.</p>
+      <p><strong>Safe:</strong> does not modify server state. GET/HEAD/OPTIONS are safe.</p>
+      <div class="tip">&#128161; REST convention: GET /users (list), POST /users (create), GET /users/42 (fetch one), PUT /users/42 (replace), PATCH /users/42 (partial update), DELETE /users/42 (delete). This resource-oriented design is what Infosys projects use daily.</div>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q13</span>HTTP status codes &#8212; all 5 classes with key examples?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table>
+        <tr><th>Class</th><th>Meaning</th><th>Key Codes</th></tr>
+        <tr><td>1xx Informational</td><td>Request received, processing</td><td>100 Continue, 101 Switching Protocols (WebSocket upgrade)</td></tr>
+        <tr><td>2xx Success</td><td>Request succeeded</td><td>200 OK, 201 Created (POST success), 204 No Content (DELETE success)</td></tr>
+        <tr><td>3xx Redirection</td><td>Further action needed</td><td>301 Moved Permanently, 302 Found (temp redirect), 304 Not Modified (cached)</td></tr>
+        <tr><td>4xx Client Error</td><td>Request has client-side error</td><td>400 Bad Request, 401 Unauthorized, 403 Forbidden, 404 Not Found, 429 Too Many Requests</td></tr>
+        <tr><td>5xx Server Error</td><td>Server failed on valid request</td><td>500 Internal Server Error, 502 Bad Gateway, 503 Service Unavailable, 504 Gateway Timeout</td></tr>
+      </table>
+      <div class="crit">&#9888; 401 vs 403: 401 = I do not know who you are (authentication failed). 403 = I know who you are but you cannot do this (authorization failed). 301 vs 302: 301 = permanent redirect (browser caches forever). 302 = temporary (browser checks every time &#8212; use for analytics).</div>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q14</span>HTTP/1.1 vs HTTP/2 vs HTTP/3 &#8212; what each generation fixed?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table>
+        <tr><th>Property</th><th>HTTP/1.1</th><th>HTTP/2</th><th>HTTP/3</th></tr>
+        <tr><td>Transport</td><td>TCP</td><td>TCP</td><td>QUIC (UDP-based)</td></tr>
+        <tr><td>Connections</td><td>Multiple per domain (6-8)</td><td>Single multiplexed TCP connection</td><td>Single QUIC connection</td></tr>
+        <tr><td>HOL Blocking</td><td>Yes (request queue)</td><td>TCP level still. Request level solved.</td><td>Solved at both levels</td></tr>
+        <tr><td>Headers</td><td>Plain text, repeated</td><td>HPACK binary compression</td><td>QPACK compression</td></tr>
+        <tr><td>Server Push</td><td>No</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>TLS</td><td>Optional</td><td>Practically required</td><td>Built-in (0-RTT resumption)</td></tr>
+        <tr><td>Adoption</td><td>Universal</td><td>~50%</td><td>~30% and growing</td></tr>
+      </table>
+      <div class="tip">&#128161; HTTP/2 multiplexing: one TCP connection carries many parallel requests/responses as independent streams. HTTP/3 QUIC: a lost UDP packet only blocks the stream it belongs to, not all streams &#8212; solving the remaining TCP head-of-line blocking.</div>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q15</span>HTTPS and TLS &#8212; how does the TLS handshake work?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>HTTPS</strong> = HTTP + TLS. TLS provides: encryption (no eavesdropping), authentication (talking to real server), integrity (no tampering).</p>
+      <pre>-- TLS 1.3 Handshake:
+
+Client -> Server: ClientHello
+  - TLS version 1.3
+  - Supported cipher suites (e.g., AES-256-GCM-SHA384)
+  - Client random nonce
+  - DH public key share
+
+Server -> Client: ServerHello + Certificate + Finished
+  - Chosen cipher suite
+  - Server DH public key
+  - Digital certificate (contains server public key + CA signature)
+  - Already encrypted (TLS 1.3 = 1-RTT handshake)
+
+Client: verifies certificate chain against trusted CAs
+  - Checks: domain matches, not expired, signed by trusted CA
+  - Derives shared session key via Diffie-Hellman:
+    Both sides compute same secret without ever transmitting it!
+
+Client -> Server: Finished (encrypted)
+=> Encrypted data exchange begins
+
+-- Why DH (Diffie-Hellman)?
+-- Client has: client_private + server_public -> shared_secret
+-- Server has: server_private + client_public -> SAME shared_secret
+-- Eavesdropper has: only public keys (cannot derive shared_secret)
+-- This provides Forward Secrecy: past sessions cannot be decrypted</pre>
+      <div class="note">&#128203; TLS 1.3 removed all weak cipher suites, mandated forward secrecy, and reduced handshake to 1-RTT (vs 2-RTT in TLS 1.2). 0-RTT resumption allows known sessions to send data immediately &#8212; though with replay attack trade-offs.</div>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q16</span>DNS &#8212; full recursive lookup step by step and key record types?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <pre>-- DNS Resolution: browser types "api.infosys.com"
+
+1. CHECK LOCAL CACHE: Browser cache -> OS cache -> /etc/hosts
+   If found and not expired -> done! (sub-millisecond)
+
+2. RECURSIVE RESOLVER (ISP DNS or 8.8.8.8):
+   Your system asks the configured resolver
+
+3. ROOT NAMESERVER (13 root server clusters globally):
+   Resolver: "Where is .com?"
+   Root NS: "Ask .com TLD server at 192.5.6.30"
+
+4. TLD NAMESERVER (.com):
+   Resolver: "Where is infosys.com?"
+   TLD NS: "Ask ns1.infosys.com (their authoritative NS)"
+
+5. AUTHORITATIVE NAMESERVER (infosys.com):
+   Resolver: "What is api.infosys.com?"
+   Auth NS: "api.infosys.com = 103.22.14.5, TTL=300"
+
+6. Resolver caches result for TTL=300 seconds, returns to browser
+
+7. Browser connects to 103.22.14.5
+
+-- Cost: ~50-100ms cold. ~1ms cached.
+
+-- DNS Record Types (must know):
+-- A:     hostname -> IPv4 address  (api.infosys.com -> 103.22.14.5)
+-- AAAA:  hostname -> IPv6 address
+-- CNAME: alias -> canonical name   (www -> infosys.com)
+-- MX:    mail server for domain    (infosys.com -> mail.infosys.com)
+-- TXT:   arbitrary text            (SPF, DKIM, domain verification)
+-- NS:    authoritative nameservers for domain
+-- SOA:   start of authority (zone metadata, TTL policies)</pre>
+      <div class="tip">&#128161; DNS TTL is critical: low TTL (60s) = fast failover but high query load. High TTL (86400s) = less load but slow propagation. Migration strategy: lower TTL a week before, make change, wait TTL duration, raise TTL again.</div>
+    </div></div>
+  </div>
+</section>
+<section id="q-net-adv">
+  <div class="sh"><div class="sh-eye">Questions 17&#8211;22</div><h2>&#128274; Subnets, NAT, Firewalls &amp; Advanced Networking</h2></div>
+  <div class="why"><div class="why-l">&#9889; Why Advanced Networking Rounds Out Interview Readiness</div><p>CORS, WebSockets, CDNs, and firewalls appear constantly in real Infosys project work. CORS is something every frontend-backend integration developer hits immediately. WebSockets are in every real-time system. CDNs are in every large-scale deployment.</p></div>
+  <div class="xp"><button class="xp-btn" onclick="xA('qa-na')">Expand All</button><button class="xp-btn" onclick="xN('qa-na')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa-na">
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q17</span>Subnetting and CIDR &#8212; what does 192.168.1.0/24 mean?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <pre>-- CIDR notation: IP/prefix_length
+-- /24 means first 24 bits are NETWORK portion
+-- Remaining 8 bits (32-24) are HOST portion
+
+-- 192.168.1.0/24:
+-- Network:  192.168.1   (24 bits, fixed for all devices in this subnet)
+-- Hosts:    .0 to .255  (8 bits, 256 values)
+-- Usable:   .1 to .254  (254 hosts -- .0=network address, .255=broadcast)
+-- Subnet mask: 255.255.255.0
+
+-- Common CIDR blocks:
+-- /32  = 1 IP         (single host, firewall rules)
+-- /30  = 4 IPs        (2 usable, point-to-point links)
+-- /28  = 16 IPs       (14 usable)
+-- /24  = 256 IPs      (254 usable, typical LAN)
+-- /16  = 65,536 IPs   (large corporate network)
+-- /8   = 16M IPs      (ISP or cloud region)
+
+-- Private ranges (RFC 1918 -- NOT routable on public internet):
+-- 10.0.0.0/8          (10.x.x.x)
+-- 172.16.0.0/12       (172.16.x.x to 172.31.x.x)
+-- 192.168.0.0/16      (192.168.x.x -- your home router)</pre>
+      <div class="tip">&#128161; Quick subnet size: /24=256, /25=128, /26=64, /27=32, /28=16. Each step up halves, each step down doubles. Cloud VPC design uses these daily.</div>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q18</span>What is NAT and why does it exist?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <pre>-- NAT (Network Address Translation):
+-- Maps multiple private IPs to one public IP
+-- Exists because IPv4 exhausted (4.3B addresses not enough for every device)
+
+-- Home router NAT example:
+-- Laptop:  192.168.1.5:54321  (private, not routable on internet)
+-- Router:  203.0.113.10        (one public IP from ISP)
+
+-- Outgoing (laptop -> Google):
+-- Original: src=192.168.1.5:54321  dst=142.250.190.46:443
+-- Router rewrites: src=203.0.113.10:40001  dst=142.250.190.46:443
+-- Router stores mapping: port 40001 -> 192.168.1.5:54321
+
+-- Reply (Google -> router):
+-- Google sends to: 203.0.113.10:40001
+-- Router looks up: 40001 -> 192.168.1.5:54321
+-- Router rewrites dst, delivers to laptop</pre>
+      <p><strong>NAT limitation:</strong> devices behind NAT cannot be directly reached from the internet &#8212; complicates P2P (VoIP, gaming). IPv6 eliminates NAT by giving every device a globally routable address.</p>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q19</span>What is a firewall? Types and what each inspects?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table>
+        <tr><th>Firewall Type</th><th>Inspects</th><th>Intelligence</th><th>Example use</th></tr>
+        <tr><td>Packet Filter (Stateless)</td><td>IP, port, protocol in each packet</td><td>Low &#8212; no session awareness</td><td>Block all traffic except ports 80/443</td></tr>
+        <tr><td>Stateful Inspection</td><td>Packet + tracks connection state</td><td>Medium &#8212; knows if packet is part of established session</td><td>Allow responses to outgoing; block unsolicited inbound</td></tr>
+        <tr><td>Application Layer (WAF)</td><td>Full HTTP payload up to Layer 7</td><td>High &#8212; understands HTTP, SQL, JavaScript</td><td>Block SQL injection, XSS, CSRF in HTTP bodies</td></tr>
+        <tr><td>Next-Gen (NGFW)</td><td>All above + deep packet inspection + IDS/IPS</td><td>Very high &#8212; identifies apps not just ports</td><td>Block specific apps, detect malware, threat intelligence</td></tr>
+      </table>
+      <div class="note">&#128203; A WAF (Web Application Firewall) specifically protects web APIs by filtering HTTP traffic. AWS WAF, Cloudflare WAF, and ModSecurity are common examples. They sit in front of your API and block OWASP Top 10 threats before they reach your application code.</div>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q20</span>What is CORS and why does the browser enforce it?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <pre>-- CORS: Cross-Origin Resource Sharing
+-- Same-Origin Policy: JavaScript on site-A cannot read responses from site-B
+-- UNLESS site-B explicitly allows it via CORS headers
+-- Origin = protocol + domain + port
+-- Same: https://app.com/api and https://app.com/data (same origin)
+-- Different: https://app.com and https://api.app.com (different subdomain!)
+
+-- Simple GET request flow:
+Browser -> api.infosys.com:
+  GET /data
+  Origin: https://myapp.com     (browser adds automatically)
+
+Server responds if allowed:
+  HTTP 200 OK
+  Access-Control-Allow-Origin: https://myapp.com
+  Access-Control-Allow-Methods: GET, POST
+  Access-Control-Allow-Headers: Content-Type, Authorization
+
+-- Preflight (for POST/PUT/DELETE with custom headers):
+Browser -> Server: OPTIONS request first
+  Origin: https://myapp.com
+  Access-Control-Request-Method: POST
+  Access-Control-Request-Headers: Content-Type
+
+Server approves -> browser sends actual POST</pre>
+      <div class="crit">&#9888; CORS is enforced by the BROWSER, not the server. A server without CORS headers still RECEIVES and processes the request &#8212; but the browser refuses to let JavaScript READ the response. CORS errors appear in browser console, not server logs. Access-Control-Allow-Origin: * allows any origin but CANNOT be combined with credentials (cookies/Authorization headers).</div>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q21</span>WebSockets vs HTTP &#8212; what problem do WebSockets solve?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <pre>-- HTTP (request-response): client MUST ask first. Server cannot push.
+-- Problem: real-time apps (chat, live scores, trading) need server to push data
+
+-- Without WebSockets (painful alternatives):
+-- Short Polling: client asks every 1 second -> 99% empty responses, wasteful
+-- Long Polling: client asks, server holds open until data -> one response per TCP connection
+
+-- WebSocket: full-duplex persistent connection over single TCP
+-- Starts as HTTP then upgrades:
+GET /chat HTTP/1.1
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==
+
+Server:
+HTTP/1.1 101 Switching Protocols
+Upgrade: websocket
+Connection: Upgrade
+-- Now it is a raw TCP connection, no more HTTP overhead
+
+-- After upgrade: EITHER side can send frames ANYTIME:
+Server -> Client: {"type":"message","text":"Hello!","user":"Alice"}
+Client -> Server: {"type":"typing","user":"Bob"}
+
+-- Frame overhead: 2-14 bytes (vs 800+ bytes HTTP headers per message)
+-- Used in: chat (WhatsApp Web), dashboards, multiplayer games, stock tickers</pre>
+      <div class="tip">&#128161; WebSockets pass through HTTP-aware firewalls (initial HTTP upgrade looks normal) but then bypass HTTP overhead for all subsequent messages. Libraries: Socket.io (Node.js with fallback), Spring WebSocket (Java), Django Channels (Python).</div>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q22</span>What is a CDN and how does it work?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <pre>-- CDN (Content Delivery Network): globally distributed servers (PoPs)
+-- cache and serve content from the location closest to the user
+
+-- Without CDN (origin in Mumbai only):
+-- User in New York: Mumbai and back  ~200ms
+-- User in London:   Mumbai and back  ~150ms
+
+-- With CDN (Cloudflare: 300+ PoPs worldwide):
+-- User in New York:  Newark PoP      ~5ms
+-- User in London:    London PoP      ~3ms
+
+-- Cache HIT: CDN returns cached copy (no origin contact)
+-- Cache MISS: CDN fetches from origin, caches it, returns to user
+
+-- What CDNs provide:
+-- Static asset caching (JS, CSS, images, video, fonts)
+-- TLS termination at the edge (encryption closer to user)
+-- DDoS mitigation (absorb traffic at edge before it hits origin)
+-- HTTP/3 and HTTP/2 at edge even if origin uses HTTP/1.1
+-- WAF and bot detection (Cloudflare WAF)
+
+-- Cache-Control headers:
+Cache-Control: public, max-age=31536000  (1 year -- immutable static assets)
+Cache-Control: no-cache                  (revalidate with server each time)
+Cache-Control: private                   (user-specific, CDN must NOT cache)
+ETag: "abc123"                           (content hash for conditional requests)</pre>
+    </div></div>
+  </div>
+</section>
+<section id="q-sd-basics">
+  <div class="sh"><div class="sh-eye">Questions 23&#8211;32</div><h2>&#127759; System Design &#8212; Scalability Fundamentals</h2></div>
+  <div class="why"><div class="why-l">&#9889; Why System Design Is Now Asked at Fresher Level</div><p>Infosys now asks freshers basic system design questions &#8212; not 'design WhatsApp' but 'what is horizontal scaling' and 'how does caching work'. These test whether you think about systems at scale, not just code correctness. The 5-step framework below is what every strong fresher answer uses.</p></div>
+  <div class="sd-steps">
+    <div class="sd-step"><div class="sd-num">1</div><div class="sd-c"><h4>Clarify Requirements</h4><p>Functional (what it does) + Non-functional (scale, latency, availability). Never design before understanding these.</p></div></div>
+    <div class="sd-step"><div class="sd-num">2</div><div class="sd-c"><h4>Estimate Scale</h4><p>Users, requests/sec, data volume. Back-of-envelope math determines if you need caching, sharding, CDN.</p></div></div>
+    <div class="sd-step"><div class="sd-num">3</div><div class="sd-c"><h4>High-Level Design</h4><p>Draw: client -> load balancer -> app servers -> cache -> DB. Identify major components.</p></div></div>
+    <div class="sd-step"><div class="sd-num">4</div><div class="sd-c"><h4>Deep Dive</h4><p>Pick 2-3 critical components, explain them in detail. Show trade-offs you considered.</p></div></div>
+    <div class="sd-step"><div class="sd-num">5</div><div class="sd-c"><h4>Identify Bottlenecks</h4><p>SPOF, hot spots, scaling limits. What breaks first at 10x load? How do you fix it?</p></div></div>
+  </div>
+  <div class="xp"><button class="xp-btn" onclick="xA('qa-sdb')">Expand All</button><button class="xp-btn" onclick="xN('qa-sdb')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa-sdb">
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q23</span>Vertical vs Horizontal scaling &#8212; when to use each?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table>
+        <tr><th>Dimension</th><th>Vertical (Scale Up)</th><th>Horizontal (Scale Out)</th></tr>
+        <tr><td>What it means</td><td>Bigger machine: more CPU, RAM, disk</td><td>More machines: add servers to a pool</td></tr>
+        <tr><td>Code changes</td><td>None needed</td><td>Stateless design required</td></tr>
+        <tr><td>Cost</td><td>Expensive at high end (diminishing returns)</td><td>Cheaper: commodity hardware</td></tr>
+        <tr><td>Hard limit</td><td>Yes &#8212; biggest server available</td><td>No &#8212; add servers indefinitely</td></tr>
+        <tr><td>Downtime for scaling</td><td>Usually requires restart</td><td>No &#8212; add while running</td></tr>
+        <tr><td>State handling</td><td>Easy &#8212; all state on one machine</td><td>Hard &#8212; shared state needs Redis/DB</td></tr>
+        <tr><td>Failure</td><td>Single point of failure</td><td>Redundant: losing one server is OK</td></tr>
+        <tr><td>Best for</td><td>Databases (hard to shard), quick wins</td><td>Web/app servers, stateless microservices</td></tr>
+      </table>
+      <div class="tip">&#128161; Best practice: vertically scale the database (defer sharding complexity), horizontally scale the application tier (stateless = trivial). App servers: horizontal from day one. DB: vertical first, then read replicas, then sharding only when absolutely needed.</div>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q24</span>Load balancing &#8212; algorithms and Layer 4 vs Layer 7?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table>
+        <tr><th>Algorithm</th><th>How it works</th><th>Best for</th></tr>
+        <tr><td>Round Robin</td><td>Rotate through servers in order</td><td>Servers with similar capacity, uniform request duration</td></tr>
+        <tr><td>Weighted Round Robin</td><td>Proportional traffic (Server1=70%, Server2=30%)</td><td>Servers with different capacities</td></tr>
+        <tr><td>Least Connections</td><td>Route to server with fewest active connections</td><td>Long-lived connections, variable request duration</td></tr>
+        <tr><td>IP Hash</td><td>Hash(client IP) -> always same server</td><td>Session affinity (sticky sessions)</td></tr>
+        <tr><td>Least Response Time</td><td>Route to fastest responding server</td><td>Latency-sensitive applications</td></tr>
+      </table>
+      <p><strong>Layer 4 vs Layer 7 Load Balancing:</strong> L4 (TCP level): routes by IP/port, very fast, cannot inspect content. L7 (HTTP level): routes by URL path, headers, cookies &#8212; smarter routing. Examples: L4 = AWS NLB. L7 = AWS ALB, nginx, HAProxy. Use L7 to route /api/* to API servers and /static/* to CDN origin.</p>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q25</span>Caching &#8212; strategies and eviction policies?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <pre>-- CACHE-ASIDE (Lazy Loading) -- most common:
+result = cache.get("user:42")
+if result is None:
+    result = db.query("SELECT * FROM users WHERE id=42")
+    cache.set("user:42", result, ttl=300)
+return result
+-- Only caches what is actually requested
+-- Cache miss = 3 trips (check cache + hit DB + write cache)
+
+-- WRITE-THROUGH: write to cache AND DB simultaneously
+cache.set("user:42", data)
+db.update(data)
+-- Always in sync. Every write hits both cache and DB.
+
+-- WRITE-BACK (Write-Behind): write to cache only, flush DB async
+cache.set("user:42", data)
+# background worker: flush to DB every N seconds
+-- Fastest writes. Risk: data loss if cache crashes before flush.</pre>
+      <table>
+        <tr><th>Eviction Policy</th><th>What gets evicted</th><th>Best for</th></tr>
+        <tr><td>LRU (Least Recently Used)</td><td>Item not accessed for longest time</td><td>General purpose (Redis default)</td></tr>
+        <tr><td>LFU (Least Frequently Used)</td><td>Item accessed fewest times</td><td>When access frequency matters more than recency</td></tr>
+        <tr><td>TTL (Time To Live)</td><td>Items after fixed expiration</td><td>Stale data: DNS, sessions, rate limits</td></tr>
+        <tr><td>Random</td><td>Random item</td><td>Simple, surprisingly effective</td></tr>
+      </table>
+      <div class="tip">&#128161; Cache invalidation strategy: delete the cache entry whenever the DB is updated (do NOT update cache directly &#8212; avoids race conditions). Let the next read repopulate from DB. This is safer than trying to keep cache and DB in sync on every write.</div>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q26</span>Database sharding &#8212; types and trade-offs?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <pre>-- Sharding: split data across multiple DB instances (each = a shard)
+-- Required when: single DB cannot handle write volume or storage
+
+-- HASH-BASED: shard = hash(user_id) % num_shards
+-- user_id=1001: hash % 4 = 1 -> Shard 1
+-- user_id=1002: hash % 4 = 2 -> Shard 2
+-- Pros: even distribution. Cons: resharding moves most data!
+
+-- RANGE-BASED: user_id 1-1M on Shard1, 1M-2M on Shard2
+-- Pros: simple, easy range queries. Cons: hot spots (newest users on last shard)
+
+-- DIRECTORY-BASED: lookup table: user_id -> shard_id
+-- Pros: flexible, easy resharding. Cons: lookup table is a bottleneck</pre>
+      <div class="crit">&#9888; Cross-shard operations are painful: JOINs across shards must be done in application code, transactions spanning shards require distributed transactions (complex), resharding requires massive data migration. Always try read replicas and caching before sharding. Defer sharding as long as possible.</div>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q27</span>Message queues &#8212; when to use them and Kafka vs RabbitMQ?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <pre>-- Message Queue: async communication between services
+-- Producer puts message in queue, Consumer processes independently
+
+-- WITHOUT queue (synchronous):
+User: "Send password reset email"
+App: calls email service -> waits 500ms -> responds to user
+-- User blocked waiting for email!
+
+-- WITH queue (asynchronous):
+User: "Send password reset email"
+App: puts {email_task} in queue -> responds "Check your inbox!" immediately
+Email worker: picks task from queue -> sends email 500ms later
+-- User gets instant response!
+
+-- Queue benefits:
+-- 1. Decoupling: producer and consumer scale independently
+-- 2. Buffering: absorbs traffic spikes without losing requests
+-- 3. Reliability: messages persist if consumer crashes (reprocessed)
+-- 4. Load leveling: 10,000 req/sec burst -> queue absorbs -> process at 100/sec</pre>
+      <table>
+        <tr><th>Property</th><th>RabbitMQ</th><th>Kafka</th></tr>
+        <tr><td>Model</td><td>Traditional message broker (push)</td><td>Distributed event log (pull)</td></tr>
+        <tr><td>Message retention</td><td>Deleted after consumption</td><td>Retained for configurable time (replay!)</td></tr>
+        <tr><td>Throughput</td><td>High</td><td>Very high (millions/sec)</td></tr>
+        <tr><td>Use case</td><td>Task queues, notifications, RPC</td><td>Event streaming, audit logs, real-time analytics, microservice event bus</td></tr>
+        <tr><td>Ordering</td><td>Per-queue FIFO</td><td>Per-partition ordering</td></tr>
+        <tr><td>Examples</td><td>Email jobs, payment processing</td><td>Clickstream, CDC, activity feeds</td></tr>
+      </table>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q28</span>Rate limiting &#8212; algorithms and Redis implementation?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <pre>-- Rate Limiter: limits requests per client per time window
+-- Prevents: API abuse, DDoS, resource exhaustion
+
+-- TOKEN BUCKET (most common, allows bursts):
+-- Bucket holds N tokens. 1 request = 1 token consumed.
+-- Tokens refill at fixed rate (e.g., 10/second, max 100)
+-- Request: if tokens > 0, consume and allow. Else: 429 Too Many Requests.
+
+-- SLIDING WINDOW COUNTER (accurate):
+-- Track request timestamps. Count in last 60 seconds.
+-- Memory-intensive but no edge-case at window boundary.
+
+-- FIXED WINDOW COUNTER (simple but flawed):
+-- Count per minute. Edge case: 100 at 00:59 + 100 at 01:01 = 200 in 2 sec!
+
+-- Redis implementation (atomic, distributed):
+def is_allowed(user_id):
+    key = f"rate:{user_id}:{current_minute()}"
+    count = redis.incr(key)        # atomic increment, returns new value
+    if count == 1:
+        redis.expire(key, 60)      # set TTL on first request
+    return count <= 1000           # True=allow, False=reject (429)
+
+-- Response headers:
+X-RateLimit-Limit:     1000
+X-RateLimit-Remaining: 847
+X-RateLimit-Reset:     1714140000
+Retry-After:           60   (on 429: seconds to wait)</pre>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q29</span>Microservices vs Monolith &#8212; trade-offs and when to choose each?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table>
+        <tr><th>Dimension</th><th>Monolith</th><th>Microservices</th></tr>
+        <tr><td>Structure</td><td>Single deployable unit</td><td>Many small independent services</td></tr>
+        <tr><td>Deployment</td><td>Deploy entire app for any change</td><td>Deploy only the changed service</td></tr>
+        <tr><td>Scaling</td><td>Scale entire app (even unused parts)</td><td>Scale only services that need it</td></tr>
+        <tr><td>Communication</td><td>In-process function calls (fast)</td><td>Network calls HTTP/gRPC (latency + failure points)</td></tr>
+        <tr><td>Data</td><td>Shared DB (simple joins)</td><td>Each service owns its DB (distributed transactions hard)</td></tr>
+        <tr><td>Complexity</td><td>Simple to dev, test, debug</td><td>Complex: service discovery, distributed tracing, network partitions</td></tr>
+        <tr><td>Best for</td><td>Startups, small teams, early product</td><td>Large orgs, many independent teams (Netflix, Uber)</td></tr>
+      </table>
+      <div class="crit">&#9888; Do not jump to microservices prematurely. Martin Fowler's rule: 'Don't start with microservices.' Start monolith. Extract services when: specific parts need different scaling, team size grows beyond 10 per service, or independent deployment becomes critical. Microservices first causes operational complexity before the benefits materialize.</div>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q30</span>What is an API Gateway and what does it handle?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>An API Gateway is a single entry point for all client requests to backend microservices. It handles: (1) Request routing (URL path to correct service), (2) Authentication (verify JWT once, not in every service), (3) Rate limiting at the edge, (4) SSL termination (HTTPS at gateway, HTTP internally), (5) Load balancing across service instances, (6) Response transformation and aggregation, (7) Centralized logging and monitoring, (8) Circuit breaking for unhealthy services. Popular options: AWS API Gateway, Kong, NGINX, Traefik, Apigee, Netflix Zuul.</p>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q31</span>What is consistent hashing and why do distributed caches use it?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>With simple hashing (hash(key) % N servers): adding/removing one server invalidates (N-1)/N of all cached keys &#8212; causing a thundering herd on the DB. Consistent hashing: place servers and keys on a circular ring (0 to 2&#x2032;). Each key is stored on the first server clockwise from its hash position. Adding a server: only keys between its predecessor and itself migrate. Removing: only that server keys move to the next. Result: only 1/N of keys migrate (vs nearly all with modulo hashing). Virtual nodes (each physical server placed at K positions) provide better load distribution. Used in: Cassandra, Amazon DynamoDB, Redis Cluster.</p>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q32</span>SQL vs NoSQL &#8212; the decision framework for system design?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>Use <strong>SQL</strong> when: complex relationships and joins needed, ACID transactions required (payments, booking, inventory deduction), schema is stable and well-defined, or reporting with GROUP BY/aggregations. Use <strong>NoSQL</strong> when: massive write throughput needed (Cassandra: IoT, clickstream), schema varies per document (product catalog), simple key-based access with no complex joins, or extreme read speed (Redis: sessions, leaderboards, caches). Real examples: Bank ledger &#8594; PostgreSQL. User sessions &#8594; Redis. Product catalog with varied fields &#8594; MongoDB. Social feed &#8594; Cassandra. Most large systems use BOTH: PostgreSQL for transactional data + Redis for caching + Elasticsearch for search.</p>
+    </div></div>
+  </div>
+</section>
+<section id="q-sd-design">
+  <div class="sh"><div class="sh-eye">Questions 33&#8211;42</div><h2>&#127963; System Design Problems</h2></div>
+  <div class="why"><div class="why-l">&#9889; How to Answer Fresher System Design Problems</div><p>For freshers, system design tests structured thinking, not deep expertise. Use the 5-step framework. Think out loud, ask clarifying questions, acknowledge trade-offs. The interviewer wants to see reasoning, not a perfect architecture.</p></div>
+  <div class="xp"><button class="xp-btn" onclick="xA('qa-sdp')">Expand All</button><button class="xp-btn" onclick="xN('qa-sdp')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa-sdp">
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q33</span>Design a URL Shortener (like bit.ly) &#8212; complete walkthrough?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <pre>-- REQUIREMENTS:
+-- Functional: shorten URL, redirect short -> long, optional analytics
+-- Non-functional: 100M URLs, 10:1 read:write, <100ms redirect latency
+
+-- SCALE ESTIMATE:
+-- Write: 100M / 30days = ~40 URLs/sec
+-- Read:  ~400 redirects/sec (10:1 ratio)
+-- Storage: 100M * 500 bytes = 50GB (manageable)
+
+-- HIGH-LEVEL DESIGN:
+Client -> Load Balancer -> API Servers -> Redis cache
+                                       -> PostgreSQL
+
+-- SHORT CODE GENERATION (base62):
+-- 62 chars: a-z (26) + A-Z (26) + 0-9 (10)
+-- 6 chars: 62^6 = 56 billion unique codes
+-- Generate random 6-char string, check DB for collision, retry if collision
+
+-- DB SCHEMA:
+CREATE TABLE urls (
+    short_code  VARCHAR(8) PRIMARY KEY,
+    long_url    TEXT NOT NULL,
+    created_at  TIMESTAMP,
+    expires_at  TIMESTAMP,
+    user_id     INT
+);
+
+-- REDIRECT FLOW (cache-aside):
+GET /{short_code}
+1. Redis.get(short_code) -> HIT: return 301/302 redirect immediately
+2. MISS: PostgreSQL query -> cache result (TTL=3600s) -> return redirect
+
+-- 301 vs 302: 301=permanent (browser caches, no analytics). 302=temporary (every click tracked)
+-- For analytics use 302.</pre>
+      <div class="tip">&#128161; Why base62 not base64? Base64 uses + and / which are URL-unsafe characters. Base62 uses only alphanumeric &#8212; safe in URLs without encoding.</div>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q34</span>Design a Chat Application (like WhatsApp) &#8212; key components?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <pre>-- REQUIREMENTS:
+-- 1:1 messaging, group chat, online status, message history
+-- 50M DAU, real-time delivery, 5-year message storage
+
+-- HIGH-LEVEL:
+Client -> Load Balancer -> Chat Servers (WebSocket)
+                        -> Kafka (message queue)
+                        -> Cassandra (message storage)
+                        -> Redis (presence/online status)
+
+-- REAL-TIME: WebSocket (persistent bidirectional connection)
+-- Each user: persistent WebSocket to a Chat Server
+-- Chat Server maintains: {user_id -> WebSocket} in-memory map
+
+-- MESSAGE DELIVERY:
+-- Alice sends to Bob:
+-- 1. Alice -> Alice's Chat Server -> Kafka topic
+-- 2. Message consumer: is Bob connected? Check Redis.
+-- 3a. Bob online: find Bob's Chat Server -> push via WebSocket
+-- 3b. Bob offline: store in DB, send push notification, deliver when online
+
+-- CASSANDRA SCHEMA (time-series):
+CREATE TABLE messages (
+    conversation_id UUID,
+    message_id      TIMEUUID,   -- encodes timestamp, enables time-sorting
+    sender_id       UUID,
+    content         TEXT,
+    PRIMARY KEY (conversation_id, message_id)
+) WITH CLUSTERING ORDER BY (message_id DESC);
+-- Fetch last 50: SELECT ... LIMIT 50 -- one partition read
+
+-- ONLINE PRESENCE (Redis):
+-- User connects: redis.setex("online:{user_id}", 30, "1")
+-- Heartbeat every 20s: renew TTL
+-- Check: redis.get("online:bob") -> not None means online</pre>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q35</span>What is the key design decision for a Notification System?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>A notification system decouples event producers from notification delivery. Core components: (1) API to receive events (order placed, payment done), (2) Message queue (Kafka) to absorb events, (3) Notification workers per channel (email worker, SMS worker, push worker), (4) Template engine (render notification body from event data), (5) Delivery providers (SendGrid for email, Twilio for SMS, FCM/APNs for push). Key decisions: retry logic with exponential backoff for failed deliveries, idempotency (deduplicate notifications using event ID to prevent double-sending on retry), user preferences (respect opt-outs per channel), rate limiting per user (no spam). Use Kafka for durability &#8212; if the email service is down, notifications queue up and deliver when it recovers.</p>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q36</span>How would you design a Ride-Booking system (like Ola/Uber)?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>Core components: (1) Rider App -> API Gateway -> Booking Service (match rider to driver), (2) Driver Location Service (drivers send GPS every 5s -> stored in Redis with geospatial index), (3) Matching Service (find nearest available drivers within radius using geospatial query), (4) Pricing Service (surge pricing = demand/supply ratio), (5) Real-time tracking (WebSocket for live map updates). Key tech choices: Redis GEOADD/GEORADIUS for driver location (O(n) radius search), Kafka for trip events, PostgreSQL for trip history + billing, WebSocket for live location streaming. The hardest part: exactly-once driver assignment (prevent two riders from booking same driver simultaneously) &#8212; use Redis atomic SETNX or DB row-level locking.</p>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q37</span>What is a microservices API Gateway pattern?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>See Q30 for the complete API Gateway answer. In design problems: always add an API Gateway when you have multiple microservices. It prevents the client from knowing about individual service URLs, handles cross-cutting concerns (auth, rate limiting, logging) in one place, and provides a stable contract to clients even when backend services are refactored. Without a gateway: every client must know every service URL, every service must implement auth and rate limiting redundantly, and changing a service URL breaks all clients.</p>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q38</span>Design a simple Key-Value store (like Redis)?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>Core: in-memory hash map (O(1) GET/SET/DELETE). Persistence: WAL (append-only log) + periodic snapshots. Replication: primary accepts writes, replicas stream WAL. Expiration: store TTL with each key, background thread sweeps expired keys. Eviction: when memory full, use LRU to evict least recently used keys. Cluster: consistent hashing to distribute keys across nodes. Why in-memory? RAM access ~100ns vs disk ~1ms (10,000x faster). The core data structure is just a HashMap &#8212; Redis uses hash tables with open addressing and incremental rehashing to avoid pauses.</p>
+    </div></div>
+  </div>
+</section>
+<section id="q-sdlc">
+  <div class="sh"><div class="sh-eye">Questions 39&#8211;47</div><h2>&#128203; SDLC Models</h2></div>
+  <div class="why"><div class="why-l">&#9889; Why SDLC Questions Are Universal at Infosys</div><p>Infosys is a large software services company. Every project follows an SDLC model. You will work in teams using Agile, deliver via Scrum, and be evaluated partly on process understanding. SDLC questions appear in HR rounds, technical rounds, AND manager rounds.</p></div>
+  <div class="sdlc-phases">
+    <div class="sp"><h4>Planning</h4><p>Feasibility, scope, timeline, budget</p></div>
+    <div class="sp"><h4>Requirements</h4><p>Functional + non-functional, stakeholder input</p></div>
+    <div class="sp"><h4>Design</h4><p>System architecture, DB schema, UI wireframes</p></div>
+    <div class="sp"><h4>Implementation</h4><p>Coding, unit testing, code review</p></div>
+    <div class="sp"><h4>Testing</h4><p>Integration, system, UAT, performance</p></div>
+    <div class="sp"><h4>Deployment</h4><p>Release to production, CI/CD pipeline</p></div>
+    <div class="sp"><h4>Maintenance</h4><p>Bug fixes, enhancements, monitoring</p></div>
+  </div>
+  <div class="xp"><button class="xp-btn" onclick="xA('qa-sdlc')">Expand All</button><button class="xp-btn" onclick="xN('qa-sdlc')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa-sdlc">
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q39</span>Waterfall vs Agile &#8212; complete comparison with when to use each?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table>
+        <tr><th>Dimension</th><th>Waterfall</th><th>Agile</th></tr>
+        <tr><td>Structure</td><td>Sequential phases. Cannot return to previous phase.</td><td>Iterative sprints (1-4 weeks). All phases each sprint.</td></tr>
+        <tr><td>Requirements</td><td>Fixed upfront. Changes are expensive.</td><td>Evolve throughout project. Change is embraced.</td></tr>
+        <tr><td>Customer involvement</td><td>Start (requirements) and end (delivery).</td><td>Continuous &#8212; every Sprint Review.</td></tr>
+        <tr><td>Delivery</td><td>One big release at the very end.</td><td>Working software every sprint.</td></tr>
+        <tr><td>Documentation</td><td>Heavy &#8212; every phase documented.</td><td>Light &#8212; working software over docs.</td></tr>
+        <tr><td>Testing</td><td>After coding phase completes.</td><td>Throughout &#8212; every sprint.</td></tr>
+        <tr><td>Risk</td><td>High &#8212; problems discovered late (expensive).</td><td>Low &#8212; problems discovered early (cheap to fix).</td></tr>
+        <tr><td>Best for</td><td>Fixed requirements, regulated industries (defense, medical).</td><td>Evolving requirements, software products, startups.</td></tr>
+      </table>
+      <div class="tip">&#128161; Infosys uses both. Internal products and client app development: Agile/Scrum. Government/defense contracts with fixed scope and price: Waterfall or hybrid. Know both cold &#8212; you may work on either depending on the client.</div>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q40</span>SDLC models compared &#8212; V-Model, Spiral, RAD, Iterative?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table>
+        <tr><th>Model</th><th>Key Idea</th><th>Pros</th><th>Cons</th><th>Best for</th></tr>
+        <tr><td>Waterfall</td><td>Linear sequential phases</td><td>Simple, documented</td><td>Late defect discovery, no flexibility</td><td>Fixed requirements, regulatory</td></tr>
+        <tr><td>V-Model</td><td>Each dev phase paired with test phase</td><td>Testing planned early, high quality</td><td>Rigid, expensive to change</td><td>Safety-critical: military, medical</td></tr>
+        <tr><td>Spiral</td><td>Risk-driven iterations: plan/risk/prototype/evaluate</td><td>Excellent risk management</td><td>Complex, expensive, needs risk expertise</td><td>Large high-risk, research-heavy projects</td></tr>
+        <tr><td>RAD (Rapid Application Development)</td><td>Fast prototyping, user feedback, parallel teams</td><td>Very fast delivery, user-centric</td><td>Needs skilled team, limited scalability</td><td>Small-medium projects, fast delivery</td></tr>
+        <tr><td>Iterative</td><td>Develop subset of features, refine each iteration</td><td>Early partial delivery, accommodates change</td><td>May not address architecture upfront</td><td>Evolving requirements</td></tr>
+        <tr><td>Agile (Scrum)</td><td>Short sprints + empirical process</td><td>Fastest adaptation, continuous delivery</td><td>Needs discipline, scope creep risk</td><td>Most modern software products</td></tr>
+      </table>
+      <div class="note">&#128203; V-Model mnemonic: Left side (development): Requirements -> System Design -> Architecture -> Module Design -> Coding. Right side (testing): Unit Test -> Integration Test -> System Test -> Acceptance Test. Each left phase is verified by its paired right phase.</div>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q41</span>What is an SRS (Software Requirement Specification)?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table>
+        <tr><th>SRS Section</th><th>Content</th></tr>
+        <tr><td>Introduction</td><td>Purpose, scope, definitions, document conventions</td></tr>
+        <tr><td>Overall Description</td><td>Product functions, user classes, constraints, assumptions</td></tr>
+        <tr><td>Functional Requirements</td><td>WHAT the system does. Use cases / user stories. Each: unique ID, description, priority, acceptance criteria.</td></tr>
+        <tr><td>Non-Functional Requirements</td><td>HOW WELL it does it. Performance (&lt;200ms), Scalability (10K concurrent), Security (AES-256), Availability (99.9%)</td></tr>
+        <tr><td>External Interfaces</td><td>UI wireframes, hardware interfaces, API contracts (external systems)</td></tr>
+        <tr><td>Constraints</td><td>Technology constraints (must use Java), budget, timeline, legal/regulatory</td></tr>
+        <tr><td>Appendices</td><td>Glossary, use case diagrams, data flow diagrams, entity-relationship diagrams</td></tr>
+      </table>
+      <p><strong>Functional vs Non-Functional:</strong> Functional = WHAT ("user can log in with email + password"). Non-Functional = HOW WELL ("login completes within 2 seconds at P95 for up to 10,000 concurrent users"). Both must be testable &#8212; "the system shall be fast" is NOT a valid requirement.</p>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q42</span>Feasibility study &#8212; types and why it comes first?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table>
+        <tr><th>Feasibility Type</th><th>What it checks</th><th>Key questions</th></tr>
+        <tr><td>Technical</td><td>Can we build it with available technology and team skills?</td><td>Do we have the required tech stack? Can we acquire the skills?</td></tr>
+        <tr><td>Economic</td><td>Is the cost justified by the benefit?</td><td>ROI, cost-benefit analysis, NPV, development cost vs revenue</td></tr>
+        <tr><td>Operational</td><td>Will users and the organization actually use and support it?</td><td>Will users adopt it? Does it fit existing workflows and processes?</td></tr>
+        <tr><td>Legal</td><td>Are there legal or compliance issues?</td><td>Data privacy (GDPR, PDPB), IP rights, licensing, accessibility laws</td></tr>
+        <tr><td>Scheduling</td><td>Can it be completed in the required timeframe?</td><td>Is the deadline realistic given scope and team size?</td></tr>
+      </table>
+      <p>Feasibility study is done BEFORE committing resources. It is much cheaper to discover "we cannot technically build this" at the feasibility stage than after 6 months of development. Output: feasibility report recommending go/no-go decision to stakeholders.</p>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q43</span>Software testing types &#8212; full taxonomy?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table>
+        <tr><th>Testing Type</th><th>What it checks</th><th>Who</th><th>Tools</th></tr>
+        <tr><td>Unit Testing</td><td>Individual function/class in isolation. Mock dependencies.</td><td>Developer</td><td>JUnit, TestNG, Mockito, pytest</td></tr>
+        <tr><td>Integration Testing</td><td>How modules interact when combined.</td><td>Dev / QA</td><td>Postman, REST Assured, JUnit</td></tr>
+        <tr><td>System Testing</td><td>Complete end-to-end application against requirements.</td><td>QA</td><td>Selenium, Katalon, Cypress</td></tr>
+        <tr><td>UAT (User Acceptance)</td><td>Does it meet actual business needs? Real users.</td><td>Client / end users</td><td>Manual, exploratory</td></tr>
+        <tr><td>Regression Testing</td><td>New changes did not break existing features.</td><td>QA / Automated</td><td>Selenium, Cypress, JUnit suite</td></tr>
+        <tr><td>Smoke Testing</td><td>Basic sanity after new build: "does it start?"</td><td>QA / DevOps</td><td>Manual or automated health check</td></tr>
+        <tr><td>Performance Testing</td><td>System under load: response time, throughput.</td><td>QA / DevOps</td><td>JMeter, k6, Gatling</td></tr>
+        <tr><td>Security Testing</td><td>Vulnerabilities: SQL injection, XSS, CSRF.</td><td>Security QA</td><td>OWASP ZAP, Burp Suite, Snyk</td></tr>
+        <tr><td>Exploratory Testing</td><td>Unscripted investigation to find unexpected issues.</td><td>QA</td><td>Manual, creative</td></tr>
+      </table>
+      <p><strong>Testing pyramid:</strong> Many unit tests (fast, cheap, isolated) + moderate integration tests + few E2E tests (slow, brittle, expensive). Inverting the pyramid (many E2E, few unit) creates slow, fragile test suites that slow down CI/CD.</p>
+    </div></div>
+  </div>
+</section>
+<section id="q-agile">
+  <div class="sh"><div class="sh-eye">Questions 44&#8211;50</div><h2>&#9881; Agile &amp; Scrum</h2></div>
+  <div class="why"><div class="why-l">&#9889; Why Scrum Knowledge Is Non-Negotiable at Infosys</div><p>Infosys uses Agile and Scrum on the majority of its delivery projects. Understanding Scrum roles, events, and artifacts is not optional &#8212; it is baseline professional knowledge expected on day one.</p></div>
+  <div class="xp"><button class="xp-btn" onclick="xA('qa-ag')">Expand All</button><button class="xp-btn" onclick="xN('qa-ag')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa-ag">
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q44</span>The 4 Agile Manifesto values &#8212; word for word?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>The <strong>Agile Manifesto (2001)</strong> states four core values:</p>
+      <ol style="padding-left:20px;line-height:2.1">
+        <li><strong>Individuals and interactions</strong> over processes and tools</li>
+        <li><strong>Working software</strong> over comprehensive documentation</li>
+        <li><strong>Customer collaboration</strong> over contract negotiation</li>
+        <li><strong>Responding to change</strong> over following a plan</li>
+      </ol>
+      <p>"While there is value in the items on the right, we value the items on the left more." Agile does NOT eliminate documentation or contracts &#8212; it prioritizes the left when there is a conflict between the two.</p>
+      <div class="tip">&#128161; Memorize all 4 values word-for-word. Being able to quote the manifesto precisely signals professional preparation. Interviewers notice when a candidate knows it exactly vs paraphrases loosely.</div>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q45</span>Scrum roles &#8212; Product Owner, Scrum Master, Development Team?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table>
+        <tr><th>Role</th><th>Responsibilities</th><th>What they own</th></tr>
+        <tr><td>Product Owner (PO)</td><td>Maintains and prioritizes Product Backlog. Defines user stories + acceptance criteria. Represents stakeholders. Only person who can reprioritize backlog.</td><td>Product VALUE &#8212; ensuring team builds the RIGHT thing</td></tr>
+        <tr><td>Scrum Master (SM)</td><td>Facilitates all Scrum events. Removes impediments. Coaches team on Scrum. Protects team from external interruptions. Servant-leader, NOT a manager.</td><td>PROCESS &#8212; ensuring team works effectively with Scrum</td></tr>
+        <tr><td>Development Team</td><td>Self-organizing, cross-functional (dev, QA, design). Decides HOW to do the work. Collectively responsible for Sprint Goal.</td><td>DELIVERY &#8212; building the product increment each sprint</td></tr>
+      </table>
+      <div class="crit">&#9888; Scrum Master is NOT a project manager (no command authority). PO is NOT a business analyst (active, decision-making). Dev Team is NOT a resource pool (self-organizing, collectively responsible). The Dev Team decides HOW; the PO decides WHAT priority; the SM ensures the process works.</div>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q46</span>Scrum events &#8212; all 5 with duration and purpose?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table>
+        <tr><th>Event</th><th>Purpose</th><th>Duration (2-wk sprint)</th><th>Who</th></tr>
+        <tr><td>Sprint</td><td>Container event. Fixed time-box producing a Done increment.</td><td>1-4 weeks (typically 2)</td><td>All</td></tr>
+        <tr><td>Sprint Planning</td><td>Select backlog items + create Sprint Goal + plan HOW to deliver.</td><td>Max 4 hours</td><td>All</td></tr>
+        <tr><td>Daily Scrum</td><td>Inspect Sprint Goal progress. Identify impediments. Plan next 24h.</td><td>15 minutes daily</td><td>Dev Team (SM/PO may attend)</td></tr>
+        <tr><td>Sprint Review</td><td>Inspect increment. Stakeholder feedback. Update backlog.</td><td>Max 2 hours</td><td>All + stakeholders</td></tr>
+        <tr><td>Sprint Retrospective</td><td>Inspect team PROCESS. Create actionable improvement plan.</td><td>Max 1.5 hours</td><td>Dev Team + SM (PO optional)</td></tr>
+      </table>
+      <div class="note">&#128203; Daily Scrum 3 questions: "What did I do yesterday toward Sprint Goal? What will I do today? Any impediments?" Keep to 15 minutes &#8212; detailed problem-solving discussions happen separately after standup in sub-groups.</div>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q47</span>Scrum artifacts &#8212; Product Backlog, Sprint Backlog, Increment + Definition of Done?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table>
+        <tr><th>Artifact</th><th>Contents</th><th>Owned by</th><th>Changes when</th></tr>
+        <tr><td>Product Backlog</td><td>ALL work to be done: user stories, bugs, tech debt, experiments. Ordered by value. Never "complete."</td><td>Product Owner</td><td>PO reprioritizes anytime based on value, risk, learning</td></tr>
+        <tr><td>Sprint Backlog</td><td>Selected PB items for current sprint + plan to deliver them + Sprint Goal.</td><td>Development Team</td><td>Team can adjust during sprint; PO cannot add new items mid-sprint</td></tr>
+        <tr><td>Increment</td><td>All completed PB items from current + all previous sprints. Must meet Definition of Done. Potentially shippable.</td><td>Development Team</td><td>After each sprint</td></tr>
+      </table>
+      <p><strong>Definition of Done (DoD):</strong> Shared team agreement on what "Done" means. Example: Code written + reviewed, unit tests passing (>80% coverage), integration tests passing, deployed to staging, documentation updated, no critical bugs. Without DoD, "Done" means different things to different people &#8212; Scrum requires a formal shared DoD.</p>
+      <p><strong>User Story format:</strong> "As a [type of user], I want [goal] so that [reason]." Must have testable Acceptance Criteria. Example: As a registered user, I want to reset my password via email so that I can recover my account. AC: email arrives within 2 min, link expires in 24h, used link shows clear error.</p>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q48</span>Kanban vs Scrum &#8212; key differences?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table>
+        <tr><th>Dimension</th><th>Scrum</th><th>Kanban</th></tr>
+        <tr><td>Iterations</td><td>Fixed sprints (1-4 weeks)</td><td>Continuous flow, no time-boxes</td></tr>
+        <tr><td>Roles</td><td>PO, SM, Dev Team</td><td>No prescribed roles</td></tr>
+        <tr><td>WIP Limits</td><td>Implicit (sprint capacity)</td><td>Explicit WIP limits per column (the key discipline)</td></tr>
+        <tr><td>Change</td><td>No changes during sprint</td><td>Change anytime (respecting WIP limits)</td></tr>
+        <tr><td>Metrics</td><td>Velocity (story points/sprint)</td><td>Lead time, cycle time, throughput</td></tr>
+        <tr><td>Best for</td><td>Product development, planned feature work</td><td>Operations, support, maintenance, unpredictable incoming work</td></tr>
+      </table>
+      <div class="note">&#128203; Many teams use Scrumban &#8212; a hybrid taking sprint structure from Scrum with Kanban explicit WIP limits. Common in teams handling both planned features and unplanned support work simultaneously.</div>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q49</span>Agile estimation &#8212; story points, planning poker, velocity?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <pre>-- STORY POINTS: relative measure of effort + complexity + uncertainty
+-- NOT hours! A 3-point story is roughly 3x harder than a 1-point story
+-- Common scales: Fibonacci (1,2,3,5,8,13,21) or T-shirt (XS,S,M,L,XL)
+
+-- PLANNING POKER:
+-- Facilitator reads user story
+-- Each team member privately picks a card (story point value)
+-- All reveal SIMULTANEOUSLY (prevents anchoring bias)
+-- Outliers explain their reasoning (1 vs 13 = valuable discussion!)
+-- Re-estimate until consensus or average
+
+-- VELOCITY: average story points completed per sprint
+-- Sprint 1: 34, Sprint 2: 28, Sprint 3: 32 -> velocity = 31
+-- Used for: 200 points of backlog / 31 = ~6.5 sprints = ~13 weeks
+
+-- Why Fibonacci? Gaps grow with size, reflecting uncertainty:
+-- "1 or 2?" = small, easy to estimate
+-- "13 or 21?" = large uncertainty, probably needs to be split!
+-- Rule: story > 13 points -> SPLIT it (too big, too uncertain)
+
+-- ANTI-PATTERNS:
+-- Management using velocity as KPI -> teams inflate estimates
+-- Comparing velocity between teams -> meaningless (different baseline)
+-- Velocity as commitment -> it is a planning tool, not a contract</pre>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q50</span>What is a Sprint Retrospective and how should it result in action?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <ol style="padding-left:20px;line-height:2.1">
+        <li><strong>Set the stage:</strong> Check-in question. Create psychological safety (what happens in retro stays in retro).</li>
+        <li><strong>Gather data:</strong> What went well? What was painful? Concrete, specific observations.</li>
+        <li><strong>Generate insights:</strong> Why did problems occur? Root cause (5 Whys technique).</li>
+        <li><strong>Decide what to do:</strong> Select 1-3 improvement actions MAX. Specific, assigned to person, measurable.</li>
+        <li><strong>Close:</strong> Each person shares one word about the retro itself.</li>
+      </ol>
+      <p><strong>Most common failure mode:</strong> Teams discuss problems but leave with no action items. Or create 20 items and do zero. The SM tracks previous retro actions in the next retro &#8212; were they completed? A retro without action is a waste of time.</p>
+      <div class="tip">&#128161; The most effective retros have psychological safety: people feel safe raising problems without fear of blame. Blame-free, system-focused retrospectives find real improvement opportunities. Blame-focused ones cause defensiveness and silence. The SM creates this environment.</div>
+    </div></div>
+  </div>
+</section>
+<section id="q-testing">
+  <div class="sh"><div class="sh-eye">Questions 51&#8211;58</div><h2>&#9989; Testing, CI/CD &amp; DevOps</h2></div>
+  <div class="why"><div class="why-l">&#9889; Why Testing and CI/CD Complete the SDLC Picture</div><p>Modern software teams do not separate development from testing. TDD, CI/CD, and DevOps are not optional extras &#8212; they are professional expectations. Infosys projects use CI/CD pipelines and automated testing. Understanding these shows you are ready for modern delivery.</p></div>
+  <div class="xp"><button class="xp-btn" onclick="xA('qa-test')">Expand All</button><button class="xp-btn" onclick="xN('qa-test')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa-test">
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q51</span>What is TDD (Test-Driven Development)? The Red-Green-Refactor cycle?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <pre>-- TDD: write the TEST FIRST, then write code to make it pass
+
+-- RED: write a failing test (feature does not exist yet)
+@Test
+void testCalculateTax_standardRate() {
+    double tax = TaxCalculator.calculate(1000, "standard");
+    assertEquals(180.0, tax);  // FAILS: method does not exist
+}
+
+-- GREEN: write MINIMUM code to pass the test
+class TaxCalculator {
+    static double calculate(double amount, String type) {
+        return amount * 0.18;  // just enough to pass
+    }
+}
+// Test NOW PASSES
+
+-- REFACTOR: improve code quality, tests must still pass
+class TaxCalculator {
+    private static final Map<String, Double> RATES = Map.of(
+        "standard", 0.18, "reduced", 0.05, "zero", 0.0
+    );
+    static double calculate(double amount, String type) {
+        return amount * RATES.getOrDefault(type, 0.18);
+    }
+}
+// All tests still PASS. Code is cleaner and extensible.</pre>
+      <p><strong>TDD benefits:</strong> Tests serve as executable documentation. No code without a test (prevents untested code). Forces modular design (untestable code = bad design signal). Enables fearless refactoring (tests catch regressions instantly).</p>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q52</span>CI/CD pipeline &#8212; all stages explained?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <pre>-- CI (Continuous Integration): merge code frequently, automated build+test every time
+-- CD (Continuous Delivery): code always in deployable state, one-click release
+-- CD (Continuous Deployment): automatic deploy on every successful CI run
+
+-- TYPICAL 8-STAGE PIPELINE:
+Developer pushes code to GitHub
+        |
+[1. SOURCE TRIGGER] -- webhook fires
+        |
+[2. BUILD]
+   Compile: mvn package / gradle build
+   Resolve dependencies
+        |
+[3. UNIT TESTS]
+   Run all unit tests
+   Fail fast: stop pipeline if any test fails
+        |
+[4. CODE QUALITY]
+   Static analysis: SonarQube, Checkstyle
+   Coverage gate: must be > 80%
+   Security scan (SAST): Snyk, Checkmarx
+        |
+[5. BUILD ARTIFACT]
+   Create Docker image
+   Push to container registry (AWS ECR, JFrog)
+        |
+[6. DEPLOY TO STAGING]
+   Automatic deploy to staging environment
+        |
+[7. INTEGRATION / E2E TESTS]
+   API tests (Postman/Newman)
+   Selenium E2E tests against staging
+        |
+[8. DEPLOY TO PRODUCTION]
+   Manual approval (CD) or automatic (CDeployment)
+   Blue-green or rolling deployment strategy
+   Smoke tests post-deploy
+   Monitor: error rate spike -> automatic rollback</pre>
+      <div class="tip">&#128161; Popular CI/CD tools: Jenkins (self-hosted, most flexible), GitHub Actions (in GitHub, easy setup), GitLab CI (in GitLab), Azure DevOps (common at Infosys for enterprise clients), AWS CodePipeline. At Infosys: Jenkins + Azure DevOps are most common.</div>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q53</span>What is DevOps? Key practices and the DORA metrics?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table>
+        <tr><th>DevOps Practice</th><th>What it means</th><th>Tools</th></tr>
+        <tr><td>Continuous Integration</td><td>Frequent merges + automated build/test</td><td>Jenkins, GitHub Actions, GitLab CI</td></tr>
+        <tr><td>Continuous Delivery</td><td>Automated, reliable releases</td><td>Spinnaker, AWS CodeDeploy, ArgoCD</td></tr>
+        <tr><td>Infrastructure as Code</td><td>Manage servers with code, not manual steps</td><td>Terraform, CloudFormation, Ansible</td></tr>
+        <tr><td>Containerization</td><td>Package app + dependencies into portable containers</td><td>Docker, containerd</td></tr>
+        <tr><td>Container Orchestration</td><td>Manage many containers at scale</td><td>Kubernetes, AWS ECS</td></tr>
+        <tr><td>Monitoring / Observability</td><td>Metrics, logs, traces for production visibility</td><td>Prometheus + Grafana, Datadog, ELK Stack</td></tr>
+        <tr><td>Secret Management</td><td>Secure handling of API keys, passwords, certs</td><td>HashiCorp Vault, AWS Secrets Manager</td></tr>
+      </table>
+      <p><strong>DORA Metrics</strong> (measure DevOps maturity): Deployment Frequency (how often you deploy), Lead Time for Changes (commit to production time), Change Failure Rate (% of deployments causing incidents), Mean Time to Recovery (how fast you recover). Elite teams: multiple deployments per day, &lt;1hr lead time, &lt;15% failure rate, &lt;1hr recovery.</p>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q54</span>Bug life cycle and Severity vs Priority?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <pre>-- Bug Life Cycle:
+New -> Assigned -> Open (investigating) -> Fixed
+                                             |
+                               Retest: PASS -> Closed
+                               Retest: FAIL -> Reopened -> Open again
+-- Other states: Deferred (next release), Rejected (not a bug), Duplicate</pre>
+      <table>
+        <tr><th>Dimension</th><th>Severity</th><th>Priority</th></tr>
+        <tr><td>Definition</td><td>Impact on system functionality</td><td>Business urgency to fix it</td></tr>
+        <tr><td>Who sets it</td><td>QA team (technical judgment)</td><td>Product Owner / Business</td></tr>
+        <tr><td>High sev, Low pri</td><td>System crashes only in rare admin edge case</td><td>Can wait for next sprint</td></tr>
+        <tr><td>Low sev, High pri</td><td>Company name misspelled on public homepage</td><td>Fix today for brand reasons, even though no functional impact</td></tr>
+        <tr><td>P1-S1</td><td>Production down for all users</td><td>Fix immediately &#8212; drop everything</td></tr>
+        <tr><td>P4-S4</td><td>Minor cosmetic issue in rarely-used admin screen</td><td>Backlog for later sprint</td></tr>
+      </table>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q55</span>What is Continuous Testing and shift-left testing?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>Shift-Left Testing:</strong> Moving testing activities earlier (to the left) in the SDLC, rather than testing only at the end. Instead of: code &#8594; code &#8594; code &#8594; TEST, do: code+test &#8594; code+test &#8594; code+test.</p>
+      <p><strong>Benefits:</strong> Defects found early are 10-100x cheaper to fix. A bug found in requirements costs 1x. In design: 5x. In coding: 10x. In testing: 15x. In production: 100x. Shift-left prevents the expensive production defects.</p>
+      <p><strong>Continuous Testing in CI/CD:</strong> Every code commit triggers automated tests. Unit tests on every commit (fast: &lt;1 min). Integration tests on every merge to main (medium: 5-15 min). Full E2E suite on every release candidate (slow: 30-60 min). No manual testing gates before deployment &#8212; automation provides the confidence.</p>
+      <p><strong>TDD + BDD:</strong> TDD (unit level) + BDD (Behavior Driven Development, using Gherkin: Given/When/Then scenarios) combine to create a full automated test suite that serves as living documentation of system behavior.</p>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q56</span>What is software quality? The ISO 25010 model?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table>
+        <tr><th>Quality Characteristic</th><th>What it measures</th><th>Example metric</th></tr>
+        <tr><td>Functional Suitability</td><td>Does it do what it is supposed to?</td><td>All use cases pass acceptance tests</td></tr>
+        <tr><td>Performance Efficiency</td><td>Response time, resource usage under load</td><td>P95 API response &lt; 200ms at 1000 concurrent users</td></tr>
+        <tr><td>Compatibility</td><td>Works with other systems, browsers, OS</td><td>Tests pass on Chrome, Firefox, Safari, Edge</td></tr>
+        <tr><td>Usability</td><td>How easily can users achieve their goals?</td><td>Task completion rate &gt; 90% in user testing</td></tr>
+        <tr><td>Reliability</td><td>Works correctly for a specified period</td><td>99.9% uptime, MTBF &gt; 1000 hours</td></tr>
+        <tr><td>Security</td><td>Protects data, prevents unauthorized access</td><td>0 critical OWASP Top 10 vulnerabilities</td></tr>
+        <tr><td>Maintainability</td><td>How easily can it be modified?</td><td>Code coverage &gt; 80%, cyclomatic complexity &lt; 10</td></tr>
+        <tr><td>Portability</td><td>Transfer to another environment</td><td>Runs in Docker on AWS/Azure/GCP</td></tr>
+      </table>
+      <p><strong>Technical Debt:</strong> The cost of shortcuts during development that make future changes harder. Like financial debt: manageable in small amounts, crippling if accumulated. Fix it during dedicated refactoring sprints or "boy scout rule" &#8212; always leave code cleaner than you found it.</p>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q57</span>What is the difference between Verification and Validation (V&V)?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>Verification:</strong> "Are we building the product RIGHT?" &#8212; checking that the work products conform to specifications. Did we implement the design correctly? Static analysis: code review, inspections, walkthroughs. Example: verify code matches the design document. <strong>Validation:</strong> "Are we building the RIGHT product?" &#8212; checking that the product meets actual user needs. Dynamic testing with real execution. Example: UAT where actual users confirm the system solves their real problem. V&V together ensure both correctness (verification) and fitness for purpose (validation). A system can be perfectly verified (matches specs exactly) but fail validation (specs did not capture actual user needs &#8212; the requirements gathering failed).</p>
+    </div></div>
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q58</span>What is a test case? Key components?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>A <strong>test case</strong> is a specific set of inputs, preconditions, execution steps, and expected results designed to verify a particular aspect of a system. Key components: (1) Test Case ID (unique identifier), (2) Test Case Name (descriptive), (3) Preconditions (what must be true before executing), (4) Test Steps (numbered actions to perform), (5) Test Data (specific inputs to use), (6) Expected Result (what should happen), (7) Actual Result (filled during execution), (8) Status (Pass/Fail/Blocked). Example: Test ID: TC-LOGIN-001, Name: Valid login with correct credentials, Precondition: User registered with email test@example.com password Test123!, Steps: 1. Go to /login 2. Enter email 3. Enter password 4. Click Submit, Expected: Redirected to /dashboard, welcome message shown.</p>
+    </div></div>
+  </div>
+</section>
+<div class="div">&#183; &#183; &#183;</div>
+<section>
+  <div class="sh"><div class="sh-eye">Summary</div><h2>&#128448; Phase 6 Quick-Review Cheatsheet</h2></div>
+  <div class="formula"><span class="f-l">Networks &#8212; 10 Things to Know Cold</span><div class="f-b">1.  OSI 7 layers (bottom-up): Physical, Data Link, Network, Transport, Session, Presentation, Application&#10;2.  TCP/IP 4 layers: Link, Internet, Transport, Application (maps to OSI 1-2, 3, 4, 5-7)&#10;3.  TCP: reliable, ordered, connection-oriented (3-way handshake). UDP: fast, connectionless, no guarantee.&#10;4.  HTTP methods: GET (safe+idempotent), POST (neither), PUT (idempotent), PATCH, DELETE (idempotent).&#10;5.  Status: 2xx=success, 3xx=redirect, 401=unauthorized, 403=forbidden, 404=not found, 5xx=server error.&#10;6.  DNS: recursive resolver -> root NS -> TLD NS -> authoritative NS -> returns IP.&#10;7.  TLS: DH key exchange -> shared session key. Certificate proves server identity via trusted CA.&#10;8.  CORS: browser enforces. Server allows via Access-Control-Allow-Origin header.&#10;9.  WebSocket: HTTP Upgrade -> persistent bidirectional TCP. 2-14 byte frames vs 800+ byte HTTP headers.&#10;10. CDN: geographic cache. Reduces latency, absorbs DDoS, TLS at edge.</div></div>
+  <div class="formula"><span class="f-l">System Design &#8212; 10 Things to Know Cold</span><div class="f-b">1.  5-step framework: Requirements -> Scale estimate -> High-level -> Deep dive -> Bottlenecks.&#10;2.  Horizontal scaling: stateless app servers. Vertical: DB first, then replicas, then sharding.&#10;3.  Load balancing: Round Robin, Least Connections, IP Hash. L4 (TCP) vs L7 (HTTP).&#10;4.  Caching: Cache-Aside most common. LRU eviction. Invalidate on write (delete, not update).&#10;5.  Sharding: Hash (even), Range (hot spots), Directory (flexible). Cross-shard JOINs are application-level.&#10;6.  Message queues: decouple, buffer, retry. Kafka=streaming+replay. RabbitMQ=task queues.&#10;7.  Rate limiting: Token Bucket (allows bursts). Redis INCR for distributed atomic counting.&#10;8.  Consistent hashing: only 1/N keys migrate when adding/removing a node (vs N-1/N with modulo).&#10;9.  Microservices: each owns its DB. Communicate via HTTP/gRPC/queue. Circuit breaker prevents cascades.&#10;10. CAP: pick C or A during partition. CP=reject requests. AP=serve stale data.</div></div>
+  <div class="formula"><span class="f-l">SDLC &amp; Agile &#8212; 10 Things to Know Cold</span><div class="f-b">1.  Waterfall: sequential, fixed. Agile: iterative, adaptive. Infosys uses both depending on client.&#10;2.  Agile Manifesto: Individuals, Working Software, Customer Collaboration, Responding to Change.&#10;3.  Scrum roles: PO (WHAT priority), SM (process health), Dev Team (HOW to build).&#10;4.  Scrum events: Sprint, Planning, Daily Scrum (15 min), Review, Retrospective.&#10;5.  Artifacts: Product Backlog (PO-owned), Sprint Backlog (team-owned), Increment (meets DoD).&#10;6.  User story: "As a [user], I want [goal] so that [reason]." AC must be testable.&#10;7.  Story points: relative effort. Fibonacci scale. Velocity = average points per sprint.&#10;8.  Testing pyramid: many unit -> moderate integration -> few E2E. Shift-left = test early.&#10;9.  CI/CD: commit -> build -> test -> quality -> artifact -> staging -> E2E -> production.&#10;10. TDD: Red (failing test) -> Green (minimum code to pass) -> Refactor (improve, still passes).</div></div>
+</section>
+<div class="series-complete">
+  <h2>&#127881; Series Complete</h2>
+  <p>You have covered every technical topic Infosys interviewers test &#8212; all 6 phases. Every HR question, every DSA pattern, every SQL nuance, every OOPs concept, every DBMS internal, every OS mechanism, every networking principle, every system design building block, and every SDLC practice. The preparation is done.</p>
+  <p style="margin-bottom:0;font-size:14px;color:rgba(250,249,245,.5)">Now: mock interviews. Code every day. Stay calm on the day. You are ready.</p>
+  <div class="phase-badges">
+    <span class="badge done">&#10003; Part 1 &#8212; The Human Side</span>
+    <span class="badge done">&#10003; Phase 1 &#8212; DSA (35 Qs)</span>
+    <span class="badge done">&#10003; Phase 2 &#8212; SQL (32 Qs)</span>
+    <span class="badge done">&#10003; Phase 3 &#8212; OOPs (32 Qs)</span>
+    <span class="badge done">&#10003; Phase 4 &#8212; DBMS (32 Qs)</span>
+    <span class="badge done">&#10003; Phase 5 &#8212; OS (33 Qs)</span>
+    <span class="badge done">&#10003; Phase 6 &#8212; Networks + SD + SDLC (58 Qs)</span>
+  </div>
+</div>
+</main>
+<footer class="footer">
+  <h2>The Tech Intel &middot; Interview Mastery Series</h2>
+  <p>All 6 phases complete. 222+ questions answered. One series. Total preparation.</p>
+  <div class="footers">AI/ML & Tech Content | Built for engineers who build the future</div>
+  <div class="footer-links">
+    <a href="https://substack.com/@thetechintel">Substack</a>
+    <a href="https://www.linkedin.com/in/priyanshu-arya/">LinkedIn</a>
+    <a href="https://www.instagram.com/thetechintel/">Instagram</a>
+    <a href="https://www.instagram.com/thetechintel/">X (Twitter)</a>
+    <a href="https://github.com/priyanshu-arya">GitHub</a>
+  </div>
+  <div class="footer-small">&copy; 2025 The Tech Intel &middot; Priyanshu &middot; April 2025 &middot; Not affiliated with Infosys &middot; Educational content only</div>
+</footer>
+<script>
+window.addEventListener("scroll",()=>{const d=document.documentElement;document.getElementById("bar").style.width=(window.scrollY/(d.scrollHeight-d.clientHeight)*100)+"%";},{passive:true});
+function openDrawer(){document.getElementById("ov").style.display="block";document.getElementById("drawer").classList.add("open");}
+function closeDrawer(){document.getElementById("ov").style.display="none";document.getElementById("drawer").classList.remove("open");}
+function tQ(btn){const b=btn.nextElementSibling,o=b.classList.contains("open");btn.classList.toggle("open",!o);b.classList.toggle("open",!o);}
+function xA(id){document.querySelectorAll("#"+id+" .qa-btn").forEach(b=>{b.classList.add("open");b.nextElementSibling.classList.add("open");});}
+function xN(id){document.querySelectorAll("#"+id+" .qa-btn").forEach(b=>{b.classList.remove("open");b.nextElementSibling.classList.remove("open");});}
+function upS(){const sl=document.querySelectorAll(".s-rng");let t=0;sl.forEach(s=>{const v=parseInt(s.value);s.parentElement.querySelector(".s-val").textContent=v;t+=v;});document.getElementById("sc").textContent=t;const m=[[0,31,"Keep going. Start with OSI and TCP."],[32,47,"Developing. Focus on HTTP, system design basics, and Scrum."],[48,59,"Good. Sharpen CI/CD, CAP theorem, and SDLC models."],[60,71,"Strong. Practice system design out loud."],[72,80,"Interview-ready. The preparation is complete."]].find(([l,h])=>t>=l&&t<=h);document.getElementById("sc-msg").textContent=m?m[2]:"";}
+upS();
+const secs=document.querySelectorAll("section[id]"),lnks=document.querySelectorAll("#drawer a");
+window.addEventListener("scroll",()=>{let c="";secs.forEach(s=>{if(window.scrollY>=s.offsetTop-80)c=s.id;});lnks.forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+c));},{passive:true});
+</script>
+</body>
+</html>

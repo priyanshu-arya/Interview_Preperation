@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IT Interview 2025 — Part 2, Phase 4: DBMS Mastery | 32 Real Questions | The Tech Intel</title>
+<meta name="description" content="32 real DBMS interview questions — beyond SQL into how databases work internally: ACID, transactions, deadlocks, B-trees, MVCC, indexing, normalization, NoSQL vs SQL, CAP theorem, connection pools. Phase 4 of 6.">
+<meta name="keywords" content="DBMS interview questions 2025, database interview questions freshers, ACID properties interview, normalization interview, B-tree index interview, deadlock DBMS interview, MVCC database interview, NoSQL vs SQL interview, CAP theorem interview, Infosys DBMS questions">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0f0e0b;--paper:#faf9f5;--cream:#f0ebe0;--a:#1a6b72;--ap:#e4f2f3;--am:#2a8a94;--gold:#c48a28;--gp:#f8edda;--v:#5a2d8a;--vp:#f0ebfc;--rust:#b44830;--rp:#fdf0ec;--slate:#383430;--muted:#7a746a;--border:#e0dbd0;--wh:#fff}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"DM Sans",system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.8;font-size:17px}
+#bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--a),var(--am),var(--gold));width:0%;z-index:999;transition:width .08s}
+.nav{position:sticky;top:0;z-index:200;background:rgba(250,249,245,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:52px}
+.nav-brand{font-family:"Playfair Display",serif;font-weight:900;font-size:16px}
+.nav-center{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.nav-btn{padding:6px 16px;border:1px solid var(--border);border-radius:20px;font-size:12px;cursor:pointer;background:none;color:var(--slate);font-family:"DM Sans",sans-serif;transition:all .2s}
+.nav-btn:hover{background:var(--ink);color:var(--wh);border-color:var(--ink)}
+#ov{display:none;position:fixed;inset:0;background:rgba(15,14,11,.55);z-index:300}
+#drawer{position:fixed;right:-380px;top:0;bottom:0;width:360px;background:var(--wh);z-index:400;padding:28px 22px;overflow-y:auto;transition:right .3s cubic-bezier(.4,0,.2,1);box-shadow:-8px 0 40px rgba(0,0,0,.14)}
+#drawer.open{right:0}
+.dr-close{position:absolute;top:18px;right:18px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted)}
+.dr-title{font-family:"Playfair Display",serif;font-size:20px;font-weight:700;margin:6px 0 22px}
+.tg{margin-bottom:22px}
+.tg-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);display:block;font-family:"JetBrains Mono",monospace}
+.tg a{display:block;font-size:13.5px;color:var(--slate);text-decoration:none;padding:5px 8px;border-radius:5px;border-left:2px solid transparent;transition:all .2s}
+.tg a:hover,.tg a.active{color:var(--a);border-left-color:var(--a);background:var(--ap)}
+.hero{background:var(--ink);color:var(--wh);padding:80px 24px 60px;text-align:center;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 25% 70%,rgba(26,107,114,.25) 0%,transparent 65%),radial-gradient(ellipse 60% 50% at 80% 20%,rgba(42,138,148,.15) 0%,transparent 65%);pointer-events:none}
+.hero-ph{display:inline-flex;align-items:center;gap:8px;background:rgba(26,107,114,.22);border:1px solid rgba(26,107,114,.4);color:#5ac8d0;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:5px 16px;border-radius:20px;margin-bottom:28px;position:relative;z-index:1}
+.hero h1{font-family:"Playfair Display",serif;font-size:clamp(32px,5vw,58px);font-weight:900;line-height:1.08;margin-bottom:20px;position:relative;z-index:1}
+.hero h1 em{font-style:normal;color:#5ac8d0}
+.hero-sub{font-size:17px;color:rgba(250,249,245,.7);max-width:640px;margin:0 auto 32px;line-height:1.75;position:relative;z-index:1}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;position:relative;z-index:1}
+.chip{font-family:"JetBrains Mono",monospace;font-size:11.5px;padding:5px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:rgba(250,249,245,.75)}
+.chip.on{background:rgba(26,107,114,.28);border-color:rgba(26,107,114,.5);color:#5ac8d0}
+.hero-meta{display:flex;flex-wrap:wrap;gap:6px 20px;justify-content:center;font-size:13px;color:rgba(250,249,245,.4);margin-top:22px;position:relative;z-index:1}
+.pstrip{background:var(--cream);border-bottom:1px solid var(--border);padding:12px 24px;overflow-x:auto;white-space:nowrap;display:flex;gap:8px;align-items:center}
+.pl{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-right:6px;flex-shrink:0}
+.pb{font-family:"JetBrains Mono",monospace;font-size:11px;padding:5px 13px;border-radius:20px;border:1px solid var(--border);background:var(--wh);color:var(--slate);white-space:nowrap;transition:all .2s;text-decoration:none;display:inline-block}
+.pb.done{background:var(--ap);border-color:var(--a);color:var(--a)}
+.pb.now{background:var(--a);color:var(--wh);border-color:var(--a)}
+.main{max-width:720px;margin:0 auto;padding:0 24px 100px}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin:36px 0 28px}
+.pill{font-size:11px;font-family:"JetBrains Mono",monospace;padding:5px 13px;border-radius:20px;border:1px solid var(--border);background:var(--cream);color:var(--slate);text-decoration:none;transition:all .2s}
+.pill:hover{background:var(--a);color:var(--wh);border-color:var(--a)}
+.sh{margin:68px 0 26px;padding-bottom:14px;border-bottom:2px solid var(--border)}
+.sh-eye{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.sh h2{font-family:"Playfair Display",serif;font-size:clamp(24px,3.5vw,34px);font-weight:700;line-height:1.2}
+.why{border-left:4px solid var(--a);background:var(--ap);padding:18px 22px;border-radius:0 8px 8px 0;margin:26px 0}
+.why-l{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--a);font-weight:700;margin-bottom:6px}
+.why p{font-size:15px;color:#1a4a50;margin:0;line-height:1.75}
+.qb{background:var(--ink);color:var(--wh);padding:32px 38px;margin:32px 0;border-radius:6px;position:relative}
+.qb::before{content:"\201C";font-family:"Playfair Display",serif;font-size:96px;color:rgba(26,107,114,.22);position:absolute;top:4px;left:26px;line-height:1}
+.qb blockquote{font-family:"Playfair Display",serif;font-size:18px;font-style:italic;line-height:1.65;position:relative;margin-bottom:14px}
+.qb cite{font-family:"JetBrains Mono",monospace;font-size:11px;color:#5ac8d0;letter-spacing:.05em;font-style:normal}
+.formula{background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin:20px 0}
+.f-l{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:8px;display:block;font-family:"JetBrains Mono",monospace}
+.f-b{font-family:"JetBrains Mono",monospace;font-size:13px;line-height:2;color:var(--slate)}
+.tbl{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px}
+.tbl th{background:var(--ink);color:var(--wh);padding:9px 13px;text-align:left;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.04em;font-weight:400}
+.tbl td{padding:9px 13px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.55}
+.tbl tr:nth-child(even) td{background:var(--cream)}
+.tbl td code{font-family:"JetBrains Mono",monospace;background:var(--cream);padding:1px 6px;border-radius:3px;font-size:12px;border:1px solid var(--border)}
+.acid-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:22px 0}
+.acid-card{background:var(--wh);border:1px solid var(--border);border-radius:10px;padding:20px;border-top:4px solid var(--a)}
+.acid-card:nth-child(2){border-top-color:var(--gold)}
+.acid-card:nth-child(3){border-top-color:var(--v)}
+.acid-card:nth-child(4){border-top-color:var(--rust)}
+.acid-letter{font-family:"Playfair Display",serif;font-size:46px;font-weight:900;line-height:1;margin-bottom:6px;color:var(--a)}
+.acid-card:nth-child(2) .acid-letter{color:var(--gold)}
+.acid-card:nth-child(3) .acid-letter{color:var(--v)}
+.acid-card:nth-child(4) .acid-letter{color:var(--rust)}
+.acid-card h4{font-size:15px;font-weight:600;margin-bottom:4px}
+.acid-card p{font-size:13px;color:var(--muted);margin:0}
+.qa-wrap{margin:18px 0}
+.qa-cat{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:14px 0 10px;border-top:1px solid var(--border);margin-top:20px;display:block}
+.qa-item{border-bottom:1px solid var(--border)}
+.qa-btn{width:100%;display:flex;align-items:flex-start;gap:12px;padding:14px 0;background:none;border:none;cursor:pointer;text-align:left;font-family:"DM Sans",sans-serif;font-size:15.5px;font-weight:600;color:var(--slate);transition:color .2s}
+.qa-btn:hover{color:var(--a)}
+.qa-num{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--a);font-weight:600;min-width:28px;padding-top:3px;flex-shrink:0}
+.qa-icon{margin-left:auto;font-size:11px;color:var(--muted);transition:transform .3s;flex-shrink:0;padding-top:4px}
+.qa-btn.open .qa-icon{transform:rotate(180deg)}
+.qa-body{max-height:0;overflow:hidden;transition:max-height .45s ease;padding-left:40px}
+.qa-body.open{max-height:3500px;padding-bottom:18px}
+.qa-body p,.qa-body li{font-size:15px;color:var(--slate);line-height:1.78}
+.qa-body ul,.qa-body ol{padding-left:20px;margin:8px 0}
+.qa-body li{margin-bottom:5px}
+.qa-body strong{color:var(--ink)}
+.qa-body code{font-family:"JetBrains Mono",monospace;background:var(--cream);padding:1px 6px;border-radius:3px;font-size:12.5px;border:1px solid var(--border);color:var(--ink)}
+.qa-body pre{background:#1a1815;color:#ddd8ce;padding:18px 20px;border-radius:8px;font-family:"JetBrains Mono",monospace;font-size:12.5px;line-height:1.9;margin:12px 0;overflow-x:auto}
+.qa-body table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0}
+.qa-body th{background:var(--cream);padding:8px 11px;border:1px solid var(--border);text-align:left;font-weight:600;font-size:12px}
+.qa-body td{padding:8px 11px;border:1px solid var(--border);vertical-align:top;line-height:1.55}
+.qa-body .tip{background:var(--ap);border-left:3px solid var(--a);padding:10px 14px;margin-top:12px;font-size:14px;border-radius:0 5px 5px 0;color:#1a4a50}
+.qa-body .note{background:var(--gp);border-left:3px solid var(--gold);padding:10px 14px;margin-top:10px;font-size:14px;border-radius:0 5px 5px 0;color:#5a4010}
+.qa-body .crit{background:var(--rp);border-left:3px solid var(--rust);padding:10px 14px;margin-top:10px;font-size:14px;border-radius:0 5px 5px 0;color:#6b2a18}
+.qa-body .pur{background:var(--vp);border-left:3px solid var(--v);padding:10px 14px;margin-top:10px;font-size:14px;border-radius:0 5px 5px 0;color:#3a1a6a}
+.xp{display:flex;gap:10px;margin:12px 0}
+.xp-btn{font-family:"JetBrains Mono",monospace;font-size:11px;padding:5px 13px;border:1px solid var(--border);border-radius:4px;cursor:pointer;background:none;color:var(--slate);transition:all .2s}
+.xp-btn:hover{background:var(--ap);border-color:var(--a);color:var(--a)}
+.assess{background:var(--ink);color:var(--wh);border-radius:10px;padding:30px;margin:32px 0}
+.assess h3{font-family:"Playfair Display",serif;font-size:21px;margin-bottom:6px}
+.a-sub{font-size:13px;color:rgba(250,249,245,.5);margin-bottom:22px}
+.s-row{display:flex;align-items:center;gap:14px;margin-bottom:13px}
+.s-lbl{min-width:190px;font-size:13px;color:rgba(250,249,245,.8);flex-shrink:0}
+.s-rng{flex:1;-webkit-appearance:none;height:3px;border-radius:2px;background:rgba(255,255,255,.15);outline:none;cursor:pointer}
+.s-rng::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:#5ac8d0;cursor:pointer}
+.s-val{min-width:22px;text-align:center;font-family:"JetBrains Mono",monospace;font-size:13px;color:#5ac8d0}
+.s-tot{border-top:1px solid rgba(255,255,255,.1);padding-top:16px;margin-top:6px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.s-sc{font-family:"Playfair Display",serif;font-size:42px;font-weight:700;color:#5ac8d0;line-height:1}
+.s-of{font-size:13px;color:rgba(250,249,245,.45)}
+.s-msg{font-size:13px;color:rgba(250,249,245,.6);max-width:220px;text-align:right}
+.div{text-align:center;margin:52px 0;font-size:22px;color:var(--border);letter-spacing:14px}
+.nxt{background:linear-gradient(135deg,var(--a),var(--am));color:var(--wh);padding:36px 28px;border-radius:10px;margin:52px 0;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.nxt h3{font-family:"Playfair Display",serif;font-size:22px;margin-bottom:6px}
+.nxt p{font-size:14px;color:rgba(255,255,255,.8);margin:0}
+.nxt-btn{background:var(--wh);color:var(--a);padding:12px 24px;border-radius:6px;font-weight:700;font-size:14px;text-decoration:none;white-space:nowrap;font-family:"DM Sans",sans-serif;flex-shrink:0}
+.footer{background:var(--ink);color:var(--wh);text-align:center;padding:56px 24px 40px}
+.footer h2{font-family:"Playfair Display",serif;font-size:28px;margin-bottom:12px}
+.footer p{color:rgba(250,249,245,.55);font-size:15px;max-width:480px;margin:0 auto}
+.footer-small{font-size:12px;color:rgba(250,249,245,.22);margin-top:36px}
+.footer-links{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin-bottom:2rem}
+.footer-links a{color:rgba(250,249,245,.55);text-decoration:none;font-size:0.85rem;transition:color 0.2s}
+.footer-links a:hover{color:var(--gold)}
+/* Section strip */
+.sec-strip{background:#fff;border-bottom:1px solid var(--border);padding:9px 24px;overflow-x:auto;white-space:nowrap;display:flex;gap:6px;align-items:center;scrollbar-width:none}
+.sec-strip::-webkit-scrollbar{display:none}
+.ss-lbl{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-right:4px;flex-shrink:0}
+.ss-btn{font-family:"JetBrains Mono",monospace;font-size:10.5px;padding:4px 11px;border-radius:4px;border:1px solid var(--border);background:transparent;color:var(--slate);white-space:nowrap;transition:all .18s;text-decoration:none;display:inline-block}
+.ss-btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+p{margin-bottom:16px}strong{font-weight:600;color:var(--ink)}ul,ol{padding-left:22px;margin-bottom:14px}li{margin-bottom:5px}.lead{font-size:19px;line-height:1.85;color:#282420}
+@media(max-width:620px){.hero{padding:54px 18px 46px}.nav-phase{display:none}body{font-size:16px}#drawer{width:100%;right:-100%}.acid-grid{grid-template-columns:1fr}.s-lbl{min-width:130px}.nxt{flex-direction:column;align-items:flex-start}}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+<div id="ov" onclick="closeDrawer()"></div>
+<div id="drawer">
+  <button class="dr-close" onclick="closeDrawer()">&#x2715;</button>
+  <div class="dr-title">DBMS &#8212; Contents</div>
+  <div class="tg"><span class="tg-label">Overview</span><a href="#overview">Why DBMS Goes Beyond SQL</a><a href="#assess">Readiness Check</a></div>
+  <div class="tg"><span class="tg-label">Foundations (Q1&#8211;Q6)</span><a href="#q-basics">DBMS vs RDBMS, Keys, Schemas</a></div>
+  <div class="tg"><span class="tg-label">Normalization (Q7&#8211;Q11)</span><a href="#q-norm">1NF&#8211;BCNF, Anomalies, Denormalization</a></div>
+  <div class="tg"><span class="tg-label">ACID &amp; Transactions (Q12&#8211;Q17)</span><a href="#q-acid">ACID, Transactions, Isolation Levels, Deadlocks</a></div>
+  <div class="tg"><span class="tg-label">Indexing &amp; Performance (Q18&#8211;Q22)</span><a href="#q-index">B-tree, Hash, Clustered, Query Optimization</a></div>
+  <div class="tg"><span class="tg-label">Advanced DBMS (Q23&#8211;Q32)</span><a href="#q-advanced">MVCC, WAL, NoSQL, CAP Theorem, ER Model</a></div>
+</div>
+<nav class="nav">
+  <span class="nav-brand">The Tech Intel</span>
+  <span class="nav-center">Part 2 &middot; Phase 4 of 6 &middot; DBMS</span>
+  <button class="nav-btn" onclick="openDrawer()">Contents &#x2197;</button>
+</nav>
+<div class="pstrip">
+  <a href="../index.html" class="pb">&#8592; Part 1</a>
+  <span class="pl">Part 2:</span>
+  <a href="./Phase1_dsa.html" class="pb done">&#9312; DSA &#x2713;</a>
+  <a href="./Phase2_sql.html" class="pb done">&#9313; SQL &#x2713;</a>
+  <a href="./Phase3_oops.html" class="pb done">&#9314; OOPs &#x2713;</a>
+  <a href="./Phase4_dbms.html" class="pb now">&#9315; DBMS</a>
+  <a href="./Phase5_os.html" class="pb">&#9316; OS</a>
+  <a href="./Phase6_final.html" class="pb">&#9317; Networks + SD + SDLC</a>
+</div>
+<!-- Section strip -->
+<div class="sec-strip">
+  <span class="ss-lbl">Jump to:</span>
+  <a class="ss-btn" href="#overview">Overview</a>
+  <a class="ss-btn" href="#assess">Readiness</a>
+  <a class="ss-btn" href="#q-basics">Foundations</a>
+  <a class="ss-btn" href="#q-norm">Normalization</a>
+  <a class="ss-btn" href="#q-acid">ACID</a>
+  <a class="ss-btn" href="#q-index">Indexing</a>
+  <a class="ss-btn" href="#q-advanced">Advanced</a>
+</div>
+
+<header class="hero">
+  <div class="hero-ph">&#127963; Part 2 &middot; Phase 4 of 6 &middot; April 2025</div>
+  <h1>Database Management Systems<br><em>32 Real Interview Questions</em></h1>
+  <p class="hero-sub">Beyond SQL &#8212; how databases actually work internally. ACID guarantees, transaction internals, deadlock handling, B-tree indexing, MVCC, WAL, NoSQL trade-offs, and the CAP theorem. Every question answered with real-world depth.</p>
+  <div class="hero-chips">
+    <span class="chip on">ACID &amp; Transactions</span><span class="chip on">Normalization</span><span class="chip on">B-tree Indexes</span><span class="chip on">Deadlocks</span><span class="chip on">MVCC</span><span class="chip on">WAL</span><span class="chip on">Isolation Levels</span><span class="chip on">NoSQL vs SQL</span><span class="chip on">CAP Theorem</span><span class="chip on">ER Model</span>
+  </div>
+  <div class="hero-meta"><span>&#9998; The Tech Intel</span><span>&#9200; ~40 min read</span><span>&#128203; 32 Questions &middot; All Answered</span><span>&#127963; Internal Database Architecture</span></div>
+</header>
+<main class="main">
+<p class="lead" style="margin-top:48px;">SQL tells you <em>what</em> to do. DBMS knowledge tells you <em>why</em> it works and <em>when</em> it breaks. Interviewers ask DBMS questions to distinguish candidates who can write queries from those who understand the engine running beneath. <strong>ACID anomalies, deadlock conditions, B-tree traversal, and MVCC concurrency</strong> &#8212; these reveal whether you think like a database engineer.</p>
+<div class="pills">
+  <a class="pill" href="#q-basics">&#127963; Foundations</a>
+  <a class="pill" href="#q-norm">&#128208; Normalization</a>
+  <a class="pill" href="#q-acid">&#9883; ACID</a>
+  <a class="pill" href="#q-index">&#128269; Indexing</a>
+  <a class="pill" href="#q-advanced">&#9889; Advanced</a>
+</div>
+
+<!-- ASSESS -->
+<section id="assess">
+  <div class="assess">
+    <h3>&#127963; DBMS Readiness Score</h3>
+    <p class="a-sub">Be honest. Target 8+ in every row. Come back after reading.</p>
+    <div class="s-row"><span class="s-lbl">DBMS vs RDBMS, Keys</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-lbl">Normalization (1NF&#8211;BCNF)</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-lbl">ACID properties</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-lbl">Transactions &amp; isolation levels</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-lbl">Deadlocks (4 conditions, handling)</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-lbl">Indexes (B-tree, Hash, Clustered)</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-lbl">MVCC and WAL internals</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-lbl">NoSQL vs SQL, CAP theorem</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
+    <div class="s-tot"><div><div class="s-sc" id="sc">40</div><div class="s-of">/ 80 &#8212; Target: 64+</div></div><div class="s-msg" id="sc-msg"></div></div>
+  </div>
+</section>
+
+<!-- OVERVIEW -->
+<section id="overview">
+  <div class="sh"><div class="sh-eye">Overview</div><h2>&#127963; Why DBMS Goes Beyond SQL</h2></div>
+  <div class="why"><div class="why-l">&#9889; What DBMS Questions Actually Test</div><p>SQL questions test whether you can query data. DBMS questions test whether you understand the engine beneath. Infosys technical rounds ask DBMS to gauge: can you reason about data integrity? Do you understand why transactions exist? Can you diagnose a deadlock? Do you know why an index can make a query 1000x faster &#8212; or 10x slower? These are the questions that reveal systems thinking over syntax familiarity.</p></div>
+  <div class="qb"><blockquote>"A database is not just a place to store data. It is a system that makes promises &#8212; about consistency, durability, and isolation. Understanding those promises is what separates a developer from a database engineer."</blockquote><cite>&#8212; Michael Stonebraker &middot; Turing Award 2014 &middot; Creator of Ingres and PostgreSQL &middot; MIT CSAIL</cite></div>
+</section>
+
+<!-- SECTION 1: FOUNDATIONS -->
+<section id="q-basics">
+  <div class="sh"><div class="sh-eye">Questions 1&#8211;6</div><h2>&#127963; Foundations &#8212; DBMS, Keys &amp; Schemas</h2></div>
+  <div class="why"><div class="why-l">&#9889; Why Foundations Are Always Asked First</div><p>Interviewers begin with foundations to establish a baseline. DBMS vs RDBMS, types of keys, and schema concepts are guaranteed questions in every Infosys technical round. A confident, concise answer sets the tone for the entire interview. A fumbled answer on "what is a primary key" loses credibility before the harder questions begin.</p></div>
+  <div class="xp"><button class="xp-btn" onclick="xA('qa-b')">Expand All</button><button class="xp-btn" onclick="xN('qa-b')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa-b">
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q1</span>DBMS vs RDBMS &#8212; what is the actual difference?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>DBMS (Database Management System):</strong> Any software that organizes and manages data. Can be hierarchical (like IBM IMS), network-based, or relational. Provides data storage, retrieval, and basic management. Does NOT necessarily enforce relationships between data.</p>
+      <p><strong>RDBMS (Relational Database Management System):</strong> A DBMS built on E.F. Codd&#39;s relational model. Data is organized in tables (relations) with rows and columns. Enforces referential integrity via foreign keys. Supports SQL. Guarantees ACID properties.</p>
+      <table><tr><th>Property</th><th>DBMS</th><th>RDBMS</th></tr>
+      <tr><td>Data model</td><td>Hierarchical, network, or relational</td><td>Relational (tables, rows, columns)</td></tr>
+      <tr><td>Relationships</td><td>Not enforced by default</td><td>Foreign keys enforce referential integrity</td></tr>
+      <tr><td>ACID</td><td>Not guaranteed</td><td>Core guarantee</td></tr>
+      <tr><td>Query language</td><td>Varies</td><td>SQL (standardized)</td></tr>
+      <tr><td>Examples</td><td>IMS, dBase, early file systems</td><td>MySQL, PostgreSQL, Oracle, SQL Server</td></tr></table>
+      <div class="tip">&#128161; Interview shortcut: "DBMS is the broad category. RDBMS is the specific type that uses the relational model, SQL, and ACID guarantees. All RDBMS are DBMS but not vice versa."</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q2</span>All key types &#8212; Super, Candidate, Primary, Alternate, Foreign, Composite, Surrogate?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table><tr><th>Key Type</th><th>Definition</th><th>Example</th></tr>
+      <tr><td><strong>Super Key</strong></td><td>Any set of attributes that uniquely identifies a row. Can have redundant attributes.</td><td>{emp_id}, {emp_id, name}, {emp_id, email}</td></tr>
+      <tr><td><strong>Candidate Key</strong></td><td>Minimal super key &#8212; no redundant attributes. Multiple can exist per table.</td><td>{emp_id}, {email} &#8212; both minimal and unique</td></tr>
+      <tr><td><strong>Primary Key</strong></td><td>The chosen candidate key. NOT NULL + UNIQUE. Exactly ONE per table.</td><td>emp_id CHOSEN as PK</td></tr>
+      <tr><td><strong>Alternate Key</strong></td><td>Candidate keys NOT chosen as primary key.</td><td>email &#8212; unique but not PK</td></tr>
+      <tr><td><strong>Foreign Key</strong></td><td>Column referencing the PK of another table. Enforces referential integrity.</td><td>orders.customer_id &#8594; customers.id</td></tr>
+      <tr><td><strong>Composite Key</strong></td><td>PK made of 2+ columns. Neither alone is unique; together they are.</td><td>(student_id, course_id) in Enrollments</td></tr>
+      <tr><td><strong>Surrogate Key</strong></td><td>Artificial key with no business meaning (auto-increment int, UUID). Added for technical reasons.</td><td>id INT AUTO_INCREMENT</td></tr></table>
+      <div class="note">&#128203; Surrogate vs Natural Key: Natural keys have business meaning (SSN, email) but can change. Surrogate keys are stable, simple, and fast for joins &#8212; preferred in most modern designs.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q3</span>What is referential integrity? What happens on DELETE of a parent row?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>Referential integrity:</strong> A constraint ensuring that a foreign key value always references an existing primary key in the parent table. No orphan records &#8212; a child row cannot reference a non-existent parent.</p>
+      <p><strong>ON DELETE behavior options:</strong></p>
+      <table><tr><th>Option</th><th>What happens</th><th>Use when</th></tr>
+      <tr><td><code>CASCADE</code></td><td>Deleting parent automatically deletes all matching children</td><td>Children are meaningless without parent (e.g., order items without order)</td></tr>
+      <tr><td><code>SET NULL</code></td><td>Child FK column set to NULL when parent deleted</td><td>Child can exist without parent (e.g., employee without dept)</td></tr>
+      <tr><td><code>RESTRICT / NO ACTION</code></td><td>Reject the parent deletion if children exist</td><td>Parent cannot be deleted while children exist (most common default)</td></tr>
+      <tr><td><code>SET DEFAULT</code></td><td>Child FK set to its column default value</td><td>Rarely used; requires a valid default FK value</td></tr></table>
+<pre>CREATE TABLE orders (
+    order_id   INT PRIMARY KEY,
+    customer_id INT,
+    FOREIGN KEY (customer_id) REFERENCES customers(id)
+        ON DELETE RESTRICT    -- reject delete if orders exist
+        ON UPDATE CASCADE     -- update child FK if parent PK changes
+);</pre>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q4</span>What is a schema? Three-level schema architecture?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>Schema:</strong> The blueprint/structure of a database &#8212; defines all tables, columns, data types, constraints, indexes, and relationships. Contains no actual data.</p>
+      <p><strong>Three-Level Schema Architecture (ANSI/SPARC):</strong></p>
+      <table><tr><th>Level</th><th>Name</th><th>Description</th><th>Who sees it</th></tr>
+      <tr><td>External</td><td>View Level</td><td>Customized views for different user groups (a view showing only certain columns to certain users)</td><td>End users, application developers</td></tr>
+      <tr><td>Conceptual</td><td>Logical Level</td><td>Complete logical structure: all tables, relationships, constraints &#8212; hardware-independent</td><td>Database administrators</td></tr>
+      <tr><td>Internal</td><td>Physical Level</td><td>How data is physically stored on disk: file formats, page sizes, indexes, storage blocks</td><td>DBMS engine, DBAs</td></tr></table>
+      <p><strong>Data Independence:</strong> The three levels provide independence. Physical independence: change storage without affecting logical schema. Logical independence: change schema without affecting application views.</p>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q5</span>What is a view? What is a materialized view? When to use each?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>View:</strong> A virtual table defined by a SELECT query. No physical storage &#8212; recomputed from base tables every time queried. Benefits: security (expose only certain columns/rows), simplify complex queries, centralize business logic.</p>
+<pre>-- Create a view for frequently-queried employee-department join
+CREATE VIEW emp_dept AS
+SELECT e.id, e.name, e.salary, d.dept_name
+FROM employees e JOIN departments d ON e.dept_id = d.id;
+
+-- Query the view like a table
+SELECT * FROM emp_dept WHERE dept_name = 'Engineering';
+-- Database rewrites this as the full JOIN internally</pre>
+      <p><strong>Materialized View:</strong> Physically stores the query result as a table snapshot. Much faster for expensive aggregations. Needs explicit refresh when underlying data changes.</p>
+<pre>-- PostgreSQL materialized view
+CREATE MATERIALIZED VIEW monthly_sales AS
+SELECT DATE_TRUNC('month', order_date) AS month,
+       SUM(amount) AS total
+FROM orders GROUP BY 1;
+
+REFRESH MATERIALIZED VIEW monthly_sales; -- refresh when data changes</pre>
+      <table><tr><th></th><th>View</th><th>Materialized View</th></tr>
+      <tr><td>Storage</td><td>None &#8212; virtual</td><td>Physical table on disk</td></tr>
+      <tr><td>Query speed</td><td>Recomputed each time</td><td>Instant &#8212; pre-computed</td></tr>
+      <tr><td>Data freshness</td><td>Always current</td><td>Stale until refreshed</td></tr>
+      <tr><td>Use for</td><td>Security, simplification</td><td>Expensive aggregations, reporting</td></tr></table>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q6</span>What is a cursor? When to use it &#8212; and when to avoid it?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>A <strong>cursor</strong> is a database object that allows row-by-row processing of a query result set &#8212; like an iterator for SQL results. It maintains a pointer to the current row in a result set.</p>
+<pre>-- MySQL cursor example
+DELIMITER $$
+CREATE PROCEDURE process_employees()
+BEGIN
+    DECLARE emp_name VARCHAR(100);
+    DECLARE done INT DEFAULT 0;
+    DECLARE cur CURSOR FOR SELECT name FROM employees WHERE active = 1;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+    OPEN cur;
+    read_loop: LOOP
+        FETCH cur INTO emp_name;
+        IF done THEN LEAVE read_loop; END IF;
+        -- process each row here
+    END LOOP;
+    CLOSE cur;
+END$$</pre>
+      <p><strong>When to use:</strong> Complex procedural logic that cannot be expressed as set-based SQL &#8212; different processing logic per row, dependent sequential operations.</p>
+      <p><strong>When to AVOID (most of the time):</strong> Cursors are significantly slower than set-based operations because SQL is optimized for sets, not row-by-row loops. Always try to replace cursor logic with JOINs, window functions, CTEs, or subqueries first. A cursor that processes 1 million rows may take 100x longer than an equivalent set-based query.</p>
+      <div class="crit">&#9888; Rule of thumb: if you are writing a cursor, first ask &#8212; can this be done with a single SQL statement? 90% of the time, the answer is yes.</div>
+    </div></div>
+
+  </div>
+</section>
+
+<!-- NORMALIZATION -->
+<section id="q-norm">
+  <div class="sh"><div class="sh-eye">Questions 7&#8211;11</div><h2>&#128208; Normalization &#8212; 1NF through BCNF</h2></div>
+  <div class="why"><div class="why-l">&#9889; Why Normalization Is a Core Database Design Skill</div><p>Normalization is the art of designing schemas that don&#39;t lie to you &#8212; where every fact is stored in exactly one place, with no hidden contradictions. Infosys interviewers ask normalization questions because every enterprise project involves schema design. Getting it wrong causes update anomalies in production that are nightmarish to fix. Getting it right means data integrity is guaranteed by structure, not by application code.</p></div>
+  <div class="xp"><button class="xp-btn" onclick="xA('qa-n')">Expand All</button><button class="xp-btn" onclick="xN('qa-n')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa-n">
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q7</span>Three database anomalies &#8212; insertion, update, deletion with examples?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>Anomalies are data integrity problems that arise from redundancy in poorly designed (un-normalized) schemas.</p>
+<pre>-- Un-normalized Orders table (violates 2NF):
+-- OrderID | CustomerName | CustomerCity | Product  | Price
+-- 1       | Alice        | Mumbai       | Laptop   | 60000
+-- 2       | Alice        | Mumbai       | Mouse    |   500
+-- 3       | Bob          | Delhi        | Keyboard |   800</pre>
+      <p><strong>Insertion Anomaly:</strong> Cannot register a new customer until they place an order.</p>
+<pre>-- Want to add Charlie from Pune as a customer (no orders yet)
+-- IMPOSSIBLE: OrderID is NOT NULL and there is no product to attach yet.
+-- We cannot store Charlie's city until he buys something.</pre>
+      <p><strong>Update Anomaly:</strong> Changing Alice's city requires updating EVERY row with her name.</p>
+<pre>UPDATE orders SET CustomerCity = 'Pune' WHERE CustomerName = 'Alice';
+-- Must update rows 1 AND 2. Miss row 2 --> inconsistency.
+-- Two rows say Alice lives in different cities --> DATA CORRUPTION.</pre>
+      <p><strong>Deletion Anomaly:</strong> Deleting Bob's only order also deletes his existence from the database.</p>
+<pre>DELETE FROM orders WHERE OrderID = 3;
+-- Bob's name and city are now GONE from the database.
+-- We lost customer information because he had no more orders.</pre>
+      <div class="tip">&#128161; All three anomalies are solved by normalization &#8212; storing each fact in exactly one place. Alice's city in a Customers table, updated once. Bob persists in Customers even with no Orders.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q8</span>1NF, 2NF, 3NF &#8212; step-by-step with a full worked example?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>Starting point &#8212; un-normalized order data:</strong></p>
+<pre>OrderID | CustomerName | CustomerCity | Products         | Prices
+1       | Alice        | Mumbai       | Laptop, Mouse    | 60000, 500
+2       | Bob          | Delhi        | Keyboard         | 800</pre>
+      <p><strong>Step 1 &#8212; Apply 1NF:</strong> All values atomic. No multi-valued attributes. Each row uniquely identifiable.</p>
+<pre>-- PK = (OrderID, LineNum)
+OrderID | LineNum | CustomerName | CustomerCity | Product  | Price
+1       | 1       | Alice        | Mumbai       | Laptop   | 60000
+1       | 2       | Alice        | Mumbai       | Mouse    |   500
+2       | 1       | Bob          | Delhi        | Keyboard |   800
+-- 1NF satisfied: all values atomic.
+-- Problem: CustomerName and CustomerCity depend only on OrderID, not on LineNum.
+-- This is a PARTIAL DEPENDENCY on the composite PK --> violates 2NF.</pre>
+      <p><strong>Step 2 &#8212; Apply 2NF:</strong> Remove partial dependencies. Split into Orders and OrderItems.</p>
+<pre>-- Orders: attributes depending only on OrderID
+Orders(OrderID PK, CustomerName, CustomerCity)
+1, Alice, Mumbai
+2, Bob,   Delhi
+
+-- OrderItems: attributes depending on the full (OrderID, LineNum) key
+OrderItems(OrderID FK, LineNum, Product, Price)
+1, 1, Laptop,   60000
+1, 2, Mouse,    500
+2, 1, Keyboard, 800
+-- 2NF satisfied: every non-key attribute depends on the WHOLE key.
+-- Problem: CustomerCity depends on CustomerName (not on OrderID directly).
+-- If Alice moves, ALL her orders need updating --> transitive dependency --> violates 3NF.</pre>
+      <p><strong>Step 3 &#8212; Apply 3NF:</strong> Remove transitive dependencies.</p>
+<pre>-- Customers: CustomerCity is moved here (depends on CustomerName/ID, not OrderID)
+Customers(CustomerID PK, CustomerName, CustomerCity)
+1, Alice, Mumbai
+2, Bob,   Delhi
+
+-- Orders: now references Customer by ID
+Orders(OrderID PK, CustomerID FK)
+1, 1
+2, 2
+-- 3NF satisfied: no transitive dependencies.
+-- Each fact stored in exactly one place.</pre>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q9</span>BCNF &#8212; how is it stricter than 3NF?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>BCNF (Boyce-Codd Normal Form):</strong> Stricter than 3NF. Rule: for every functional dependency A &#8594; B, A must be a candidate key (or superkey). A table can be in 3NF but violate BCNF when there are overlapping candidate keys.</p>
+<pre>-- Classic BCNF violation: CourseRegistration(Student, Course, Teacher)
+-- Functional dependencies:
+--   (Student, Course) --> Teacher  [a student in a course has one teacher]
+--   Teacher --> Course              [each teacher teaches only one course]
+-- Candidate keys: (Student, Course) and (Student, Teacher)
+-- FD: Teacher --> Course violates BCNF because Teacher alone is NOT a candidate key.
+
+-- Fix: decompose into two tables
+TeacherCourse(Teacher PK, Course)
+-- Teacher --> Course: Teacher IS the PK here. BCNF satisfied.
+
+StudentTeacher(Student, Teacher FK references TeacherCourse)
+-- Now every determinant is a candidate key.</pre>
+      <table><tr><th>Normal Form</th><th>Eliminates</th><th>Rule</th></tr>
+      <tr><td>1NF</td><td>Multi-valued attributes</td><td>All values atomic, each row unique</td></tr>
+      <tr><td>2NF</td><td>Partial dependencies</td><td>Every non-key attr depends on WHOLE composite PK</td></tr>
+      <tr><td>3NF</td><td>Transitive dependencies</td><td>Non-key attrs must depend directly on PK, not on other non-keys</td></tr>
+      <tr><td>BCNF</td><td>Remaining anomalies with overlapping keys</td><td>Every determinant must be a candidate key</td></tr></table>
+      <div class="note">&#128203; In practice: 3NF is usually sufficient for OLTP systems. BCNF is theoretically superior but decomposing to BCNF can sometimes lose the ability to enforce certain constraints using only keys and foreign keys.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q10</span>Denormalization &#8212; when is it the right choice?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>Denormalization is the intentional introduction of redundancy to improve read performance by reducing JOIN overhead. You are deliberately reversing normalization for a performance reason.</p>
+      <p><strong>When to denormalize:</strong></p>
+      <ul>
+        <li><strong>Data warehouses / OLAP:</strong> Reports run complex queries over billions of rows. JOIN cost is prohibitive. Star/snowflake schemas deliberately denormalize.</li>
+        <li><strong>Read-heavy, write-light workloads:</strong> Table read 10,000 times, written once a day &#8212; redundancy cost is trivial vs query speed gain.</li>
+        <li><strong>Pre-computed aggregates:</strong> Storing total_orders directly on the customer row instead of counting on every request.</li>
+        <li><strong>High-traffic hot paths:</strong> The user profile endpoint called 10M times/day &#8212; avoid 3 JOINs per call.</li>
+      </ul>
+      <p><strong>When NOT to denormalize:</strong></p>
+      <ul>
+        <li>OLTP systems where data changes frequently &#8212; update anomalies return</li>
+        <li>Before profiling to confirm JOINs are actually the bottleneck &#8212; premature optimization</li>
+        <li>Without a plan for keeping redundant data consistent (trigger, application update, or explicit eventual consistency)</li>
+      </ul>
+      <div class="crit">&#9888; Denormalization should always be a deliberate architectural decision with a documented reason, not an accident of poor design. If you denormalize an OLTP table, you must answer: how do we keep the redundant data consistent when the source changes?</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q11</span>OLTP vs OLAP &#8212; schema design differences?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table><tr><th>Dimension</th><th>OLTP</th><th>OLAP</th></tr>
+      <tr><td>Purpose</td><td>Day-to-day transactional operations</td><td>Business intelligence, analytics, reporting</td></tr>
+      <tr><td>Operations</td><td>Short read/write transactions</td><td>Complex aggregations over large datasets</td></tr>
+      <tr><td>Schema design</td><td>Highly normalized (3NF/BCNF)</td><td>Denormalized (Star or Snowflake schema)</td></tr>
+      <tr><td>Concurrency</td><td>Many concurrent users (thousands)</td><td>Few analysts or BI tools</td></tr>
+      <tr><td>Data volume</td><td>Current data, GB range</td><td>Historical data, TB&#8211;PB range</td></tr>
+      <tr><td>Query pattern</td><td>Simple queries on few rows (by PK)</td><td>Full-table scans, heavy aggregations</td></tr>
+      <tr><td>Examples</td><td>MySQL, PostgreSQL, Oracle</td><td>Snowflake, BigQuery, Redshift, ClickHouse</td></tr></table>
+      <p><strong>Star Schema</strong> (OLAP): one central fact table + multiple dimension tables directly connected. Simple, fast queries, some redundancy in dimensions.</p>
+      <p><strong>Snowflake Schema</strong> (OLAP): dimension tables are further normalized into sub-dimensions. Less redundancy, more complex JOINs, slower queries. Star schema is preferred for most BI workloads.</p>
+    </div></div>
+
+  </div>
+</section>
+
+<!-- ACID & TRANSACTIONS -->
+<section id="q-acid">
+  <div class="sh"><div class="sh-eye">Questions 12&#8211;17</div><h2>&#9883; ACID Properties &amp; Transactions</h2></div>
+  <div class="why"><div class="why-l">&#9889; Why ACID Is Non-Negotiable Interview Knowledge</div><p>ACID properties are what make databases trustworthy for critical operations &#8212; banking, booking, inventory. If you are building software at Infosys for financial or enterprise clients, you need to understand exactly what guarantees the database provides and what can go wrong when they are violated. "What is ACID?" is asked in virtually every Infosys technical interview for database-related roles.</p></div>
+
+  <div class="acid-grid">
+    <div class="acid-card"><div class="acid-letter">A</div><h4>Atomicity</h4><p>All-or-nothing. Either ALL operations in a transaction succeed, or NONE do.</p></div>
+    <div class="acid-card"><div class="acid-letter">C</div><h4>Consistency</h4><p>Valid state to valid state. All constraints hold before and after every transaction.</p></div>
+    <div class="acid-card"><div class="acid-letter">I</div><h4>Isolation</h4><p>Concurrent transactions execute as if sequential. Intermediate states invisible to others.</p></div>
+    <div class="acid-card"><div class="acid-letter">D</div><h4>Durability</h4><p>Once committed, changes survive crashes. Written to durable storage.</p></div>
+  </div>
+
+  <div class="xp"><button class="xp-btn" onclick="xA('qa-a')">Expand All</button><button class="xp-btn" onclick="xN('qa-a')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa-a">
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q12</span>ACID properties &#8212; explain each with the banking transfer example?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><em>Scenario: transfer &#8377;1000 from Account A (balance &#8377;5000) to Account B (balance &#8377;2000)</em></p>
+<pre>START TRANSACTION;
+UPDATE accounts SET balance = balance - 1000 WHERE id = 'A';
+UPDATE accounts SET balance = balance + 1000 WHERE id = 'B';
+COMMIT;</pre>
+      <p><strong>A &#8212; Atomicity: "All or nothing"</strong><br>If the system crashes after the first UPDATE (deducted from A) but before the second (not yet added to B), the transaction is automatically rolled back. The &#8377;1000 does not vanish. Implemented via: undo logs.</p>
+      <p><strong>C &#8212; Consistency: "Valid state to valid state"</strong><br>Before: A=5000, B=2000, total=7000. After: A=4000, B=3000, total=7000. Money is conserved. All constraints (NOT NULL, FK, CHECK) hold throughout. Implemented via: constraint checking at commit.</p>
+      <p><strong>I &#8212; Isolation: "As if serial"</strong><br>If another transaction reads A&#39;s balance concurrently during the transfer, it sees either 5000 (before) or 4000 (after commit) &#8212; never an inconsistent intermediate state. Implemented via: locking or MVCC.</p>
+      <p><strong>D &#8212; Durability: "Committed = permanent"</strong><br>Once COMMIT succeeds, the transfer persists even if the server loses power 1ms later. Implemented via: redo logs (Write-Ahead Log), writing changes to durable storage before confirming commit.</p>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q13</span>Transaction states and how ROLLBACK / SAVEPOINT work?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>Transaction states:</strong> New &#8594; Active (executing) &#8594; Partially Committed (last statement done, not yet on disk) &#8594; Committed (success) / Failed &#8594; Aborted (rolled back).</p>
+<pre>START TRANSACTION;
+
+INSERT INTO orders VALUES (101, 5, 'pending');
+SAVEPOINT after_order;        -- mark a save point
+
+INSERT INTO payments VALUES (201, 101, 500);
+-- Payment processing fails here
+
+ROLLBACK TO after_order;      -- undo payment only, keep order
+COMMIT;                       -- order committed, payment rolled back</pre>
+      <p><strong>SAVEPOINT rules:</strong></p>
+      <ul>
+        <li>ROLLBACK TO savepoint &#8212; undoes work done AFTER the savepoint, keeps work before it</li>
+        <li>RELEASE SAVEPOINT &#8212; removes the savepoint (cannot rollback to it anymore)</li>
+        <li>Plain ROLLBACK &#8212; undoes the ENTIRE transaction since START TRANSACTION</li>
+        <li>COMMIT &#8212; makes all remaining changes permanent (savepoints disappear)</li>
+      </ul>
+      <div class="note">&#128203; DDL statements (CREATE, ALTER, DROP) automatically commit in MySQL &#8212; they cannot be rolled back. Always be careful when mixing DDL with DML in transaction-sensitive code.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q14</span>Isolation levels &#8212; all 4, the 3 anomalies they prevent, with real examples?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>Three read anomalies to know:</strong></p>
+      <ul>
+        <li><strong>Dirty Read:</strong> T1 reads uncommitted data from T2. T2 then rolls back. T1 read data that never existed.</li>
+        <li><strong>Non-Repeatable Read:</strong> T1 reads a row. T2 updates and commits that row. T1 reads the same row again &#8212; gets a different value.</li>
+        <li><strong>Phantom Read:</strong> T1 runs a range query. T2 inserts a new row matching the range and commits. T1 runs the same query &#8212; gets an extra "phantom" row.</li>
+      </ul>
+      <table><tr><th>Isolation Level</th><th>Dirty Read</th><th>Non-Repeatable Read</th><th>Phantom Read</th><th>Performance</th></tr>
+      <tr><td><strong>Read Uncommitted</strong></td><td>&#10003; Possible</td><td>&#10003; Possible</td><td>&#10003; Possible</td><td>Fastest &#8212; no read locks</td></tr>
+      <tr><td><strong>Read Committed</strong></td><td>&#10007; Prevented</td><td>&#10003; Possible</td><td>&#10003; Possible</td><td>Fast (default in PG, Oracle)</td></tr>
+      <tr><td><strong>Repeatable Read</strong></td><td>&#10007; Prevented</td><td>&#10007; Prevented</td><td>&#10003; Possible</td><td>Moderate (default in MySQL)</td></tr>
+      <tr><td><strong>Serializable</strong></td><td>&#10007; Prevented</td><td>&#10007; Prevented</td><td>&#10007; Prevented</td><td>Slowest &#8212; full locking</td></tr></table>
+<pre>-- Set isolation level for current session (MySQL)
+SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED;
+
+START TRANSACTION;
+SELECT * FROM accounts WHERE id = 1;  -- reads committed data only
+COMMIT;</pre>
+      <div class="tip">&#128161; In practice: Read Committed is the right default for most OLTP systems &#8212; prevents dirty reads while maintaining good concurrency. Use Serializable only for financial-critical paths (inventory deduction, seat booking) where phantom reads would cause real damage.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q15</span>Deadlock &#8212; the 4 Coffman conditions and how databases handle it?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>Deadlock:</strong> Two or more transactions each holding a lock that the other needs &#8212; circular wait &#8212; none can proceed.</p>
+<pre>-- Classic DB deadlock:
+-- T1: UPDATE accounts SET balance = balance - 100 WHERE id = 1;  (locks row 1)
+-- T2: UPDATE accounts SET balance = balance - 100 WHERE id = 2;  (locks row 2)
+-- T1: UPDATE accounts SET balance = balance + 100 WHERE id = 2;  (waits for T2's lock on row 2)
+-- T2: UPDATE accounts SET balance = balance + 100 WHERE id = 1;  (waits for T1's lock on row 1)
+-- DEADLOCK: both wait forever</pre>
+      <p><strong>Four Coffman Conditions (ALL must hold simultaneously):</strong></p>
+      <ol style="padding-left:20px;line-height:2.2">
+        <li><strong>Mutual Exclusion:</strong> Resources not sharable &#8212; only one transaction can hold a lock at a time</li>
+        <li><strong>Hold and Wait:</strong> Transaction holds a lock while waiting for another</li>
+        <li><strong>No Preemption:</strong> Locks cannot be forcibly taken from a transaction</li>
+        <li><strong>Circular Wait:</strong> Chain of transactions each waiting for a resource held by the next</li>
+      </ol>
+      <p><strong>How databases handle deadlocks:</strong></p>
+      <ul>
+        <li><strong>Detection + Recovery (most common):</strong> DBMS builds a wait-for graph; if a cycle exists, it picks a "victim" transaction (usually the one with least work done) and kills it. The victim gets a deadlock error &#8212; application should retry.</li>
+        <li><strong>Prevention via lock ordering:</strong> Always acquire locks in the same order (e.g., always lock lower-numbered rows first). Eliminates circular wait.</li>
+        <li><strong>Timeouts:</strong> If a transaction waits longer than N seconds for a lock, abort it. Simple but may abort non-deadlocked transactions.</li>
+      </ul>
+      <div class="note">&#128203; Break ANY ONE of the four Coffman conditions &#8212; no deadlock is possible. Lock ordering is the most practical prevention in application code: always UPDATE account 1 before account 2, regardless of transfer direction.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q16</span>Two-Phase Locking (2PL) &#8212; how does it guarantee serializability?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>2PL Protocol:</strong> A concurrency control protocol that guarantees serializability (transactions appear to execute sequentially). All lock acquisitions happen before any lock releases.</p>
+      <p><strong>Two phases:</strong></p>
+      <ul>
+        <li><strong>Growing phase:</strong> transaction acquires locks (shared for reads, exclusive for writes). Never releases any lock.</li>
+        <li><strong>Shrinking phase:</strong> transaction releases locks. Never acquires new ones.</li>
+      </ul>
+<pre>-- Growing phase: T1 acquires locks
+LOCK TABLE accounts READ;    -- shared lock for read
+LOCK TABLE orders WRITE;     -- exclusive lock for write
+
+-- Execute operations...
+SELECT * FROM accounts WHERE ...;
+UPDATE orders SET status = 'processed' WHERE ...;
+
+-- Shrinking phase: T1 releases locks
+UNLOCK TABLES;  -- all locks released together</pre>
+      <p><strong>Strict 2PL:</strong> Hold ALL locks until commit. Prevents cascading rollbacks (if T1 releases a lock early and T2 reads that data, T1&#39;s rollback forces T2&#39;s rollback too). Most databases implement Strict 2PL.</p>
+      <div class="tip">&#128161; 2PL guarantees serializability but can cause deadlocks &#8212; the two are orthogonal problems. MVCC (Q23) is the alternative approach that avoids locking for reads entirely.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q17</span>What is a checkpoint in DBMS? Why does it reduce recovery time?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>A <strong>checkpoint</strong> is a synchronization point where the DBMS flushes all dirty (modified, not yet written to disk) buffer pages from memory to disk AND records the current position in the transaction log.</p>
+      <p><strong>Why it matters for crash recovery:</strong></p>
+      <ul>
+        <li>After a crash, the DBMS must replay the transaction log to restore a consistent state</li>
+        <li>Without checkpoints: must replay the ENTIRE log from the beginning &#8212; could be hours for a busy system</li>
+        <li>With checkpoints: replay only starts from the last checkpoint &#8212; dramatically reduces recovery time</li>
+      </ul>
+<pre>-- Recovery after crash (simplified):
+-- 1. Read the log backwards from crash point to find last checkpoint
+-- 2. Redo all committed transactions that were in-flight at checkpoint
+-- 3. Undo all uncommitted transactions that were in-flight at checkpoint
+-- Result: consistent state as of the last completed checkpoint + all committed work</pre>
+      <p><strong>Trade-off:</strong> More frequent checkpoints = faster recovery but higher runtime I/O cost (more disk writes). Less frequent = lower overhead but longer recovery time after a crash. Most databases checkpoint every few seconds to minutes.</p>
+    </div></div>
+
+  </div>
+</section>
+
+<!-- INDEXING -->
+<section id="q-index">
+  <div class="sh"><div class="sh-eye">Questions 18&#8211;22</div><h2>&#128269; Indexing &amp; Query Performance</h2></div>
+  <div class="why"><div class="why-l">&#9889; Why Indexing Is the #1 Performance Topic in DB Interviews</div><p>Indexes are where theoretical database knowledge meets real-world performance engineering. A candidate who says "just add an index on every column" reveals they don&#39;t understand databases. One who explains B-tree structure, clustered vs non-clustered trade-offs, and when NOT to index demonstrates production-level thinking. Infosys interviewers use indexing questions to gauge whether you can actually optimize a slow query.</p></div>
+  <div class="xp"><button class="xp-btn" onclick="xA('qa-i')">Expand All</button><button class="xp-btn" onclick="xN('qa-i')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa-i">
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q18</span>What is a database index? Advantages and disadvantages?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>A database index is a separate data structure (usually a B-tree) maintained alongside a table to speed up data retrieval &#8212; like a book&#39;s index letting you jump to a page without reading the whole book.</p>
+<pre>-- Create an index on frequently-searched column
+CREATE INDEX idx_employees_email ON employees(email);
+
+-- Composite index: speeds up queries filtering BOTH columns together
+CREATE INDEX idx_dept_salary ON employees(dept_id, salary);
+
+-- Unique index: enforces uniqueness AND speeds up lookups
+CREATE UNIQUE INDEX idx_unique_email ON employees(email);</pre>
+      <p><strong>Advantages:</strong></p>
+      <ul>
+        <li>Dramatically faster SELECT with WHERE, JOIN, ORDER BY, GROUP BY on indexed columns</li>
+        <li>Turns O(n) full table scan into O(log n) B-tree lookup</li>
+        <li>Unique indexes enforce data integrity at the database level</li>
+        <li>Can enable index-only scans &#8212; query satisfied entirely from the index without touching the table</li>
+      </ul>
+      <p><strong>Disadvantages:</strong></p>
+      <ul>
+        <li><strong>Slower writes:</strong> every INSERT/UPDATE/DELETE must update all affected indexes &#8212; 2&#8211;5x slower for write-heavy tables</li>
+        <li><strong>Extra disk space:</strong> each index can be 10&#8211;50% the size of the table</li>
+        <li><strong>Index maintenance:</strong> fragmentation over time requires periodic REBUILD/REORGANIZE</li>
+        <li><strong>Query planner confusion:</strong> stale statistics can cause the optimizer to choose a bad index</li>
+      </ul>
+      <div class="crit">&#9888; When NOT to add an index: small tables (full scan is faster), columns with very high write frequency, low-cardinality columns (boolean, gender &#8212; only 2-3 values, not selective), columns never used in WHERE/JOIN/ORDER BY. Too many indexes slow down writes without proportional read benefit.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q19</span>B-tree index &#8212; how does it actually work internally?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>A B-tree (Balanced tree) is the default index structure in virtually all RDBMS. It is a self-balancing tree where all leaf nodes are at the same depth, guaranteeing O(log n) operations.</p>
+      <p><strong>Structure:</strong></p>
+      <ul>
+        <li><strong>Root node:</strong> top-level node with key ranges guiding traversal</li>
+        <li><strong>Internal nodes:</strong> contain separator keys and pointers to child nodes</li>
+        <li><strong>Leaf nodes:</strong> contain the actual index keys + pointers to table rows (for non-clustered) or the actual row data (for clustered)</li>
+        <li><strong>Leaf nodes are linked:</strong> a doubly-linked list connects all leaf nodes &#8212; enables efficient range scans without backtracking up the tree</li>
+      </ul>
+<pre>-- B+ tree for index on salary column (simplified):
+--
+--                [50000]
+--               /        --       [30000]           [70000]
+--       /     \           /     -- [10k,20k] [30k,40k] [50k,60k] [70k,80k]
+--   |   |     |   |     |   |     |   |
+-- row  row   row  row   row row  row  row
+--  pointers to actual table rows (non-clustered)
+
+-- Range query: WHERE salary BETWEEN 30000 AND 60000
+-- 1. Traverse tree to find leaf with 30000 (3 hops for this tree)
+-- 2. Scan linked leaf nodes rightward until > 60000
+-- No full table scan needed!</pre>
+      <p><strong>Why B-trees are used for databases (not binary search trees):</strong> High branching factor (each node holds many keys) &#8212; a single disk page stores hundreds of keys, minimizing disk I/O. For 1 billion records, a B-tree is typically only 3&#8211;4 levels deep.</p>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q20</span>Clustered vs Non-clustered index &#8212; the definitive comparison?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table><tr><th>Property</th><th>Clustered Index</th><th>Non-Clustered Index</th></tr>
+      <tr><td>Data storage</td><td>Table rows physically sorted and stored in key order</td><td>Separate B-tree with pointers to actual row locations</td></tr>
+      <tr><td>Count per table</td><td>Only ONE &#8212; rows can only be sorted one way physically</td><td>Multiple allowed (up to 999 in SQL Server)</td></tr>
+      <tr><td>Default on</td><td>Primary key (MySQL InnoDB)</td><td>All other indexes</td></tr>
+      <tr><td>Range queries</td><td>Very fast &#8212; consecutive rows are physically adjacent</td><td>Slower &#8212; many random disk seeks (bookmark lookup)</td></tr>
+      <tr><td>Lookup cost</td><td>One B-tree traversal &#8212; data IS the index leaf</td><td>Two hops &#8212; index leaf has pointer to data row</td></tr></table>
+      <p><strong>Analogy:</strong></p>
+      <ul>
+        <li><strong>Clustered:</strong> like a physical dictionary &#8212; words stored in alphabetical order ON THE PAGE ITSELF. Find "algorithm" &#8594; open to A section &#8594; definition is right there.</li>
+        <li><strong>Non-clustered:</strong> like a book&#39;s back index &#8212; look up "algorithm" &#8594; get page number (pointer) &#8594; flip to that page to read.</li>
+      </ul>
+<pre>-- In MySQL InnoDB: PRIMARY KEY = Clustered Index (automatically)
+CREATE TABLE employees (
+    emp_id INT PRIMARY KEY,   -- THIS is the clustered index
+    name   VARCHAR(100),
+    email  VARCHAR(100)
+);
+-- Rows are physically stored sorted by emp_id.
+-- SELECT * WHERE emp_id = 42: one B-tree traversal, directly at the row.
+
+CREATE INDEX idx_email ON employees(email);  -- non-clustered
+-- SELECT * WHERE email = 'x@y.com':
+-- Step 1: traverse email B-tree --> find emp_id = 42
+-- Step 2: traverse primary key B-tree with emp_id = 42 --> find the row
+-- This second lookup is called a "bookmark lookup" or "key lookup".</pre>
+      <div class="crit">&#9888; Choosing the clustering key matters enormously for performance. Use a monotonically increasing integer (auto-increment) as PK &#8212; new rows always go to the end, no page splits. NEVER use UUIDs as a clustered index &#8212; random ordering causes constant page splits and severe fragmentation.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q21</span>B-tree vs Hash index &#8212; when to use each?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table><tr><th>Property</th><th>B-tree Index</th><th>Hash Index</th></tr>
+      <tr><td>Equality lookup</td><td>O(log n)</td><td>O(1) average</td></tr>
+      <tr><td>Range queries (BETWEEN, &lt;, &gt;)</td><td>&#10003; Excellent &#8212; data is ordered</td><td>&#10007; Impossible &#8212; hash destroys ordering</td></tr>
+      <tr><td>ORDER BY acceleration</td><td>&#10003; Yes &#8212; already sorted</td><td>&#10007; No</td></tr>
+      <tr><td>Prefix matching (LIKE &#39;A%&#39;)</td><td>&#10003; Yes</td><td>&#10007; No</td></tr>
+      <tr><td>Default in MySQL InnoDB</td><td>&#10003; Yes &#8212; all indexes are B-tree</td><td>&#10007; Not supported in InnoDB</td></tr>
+      <tr><td>Best for</td><td>Almost always &#8212; the safe default</td><td>Equality-only lookups, in-memory use cases</td></tr></table>
+      <div class="tip">&#128161; In practice: always use B-tree (the default). Hash indexes only make sense in very specific in-memory scenarios (like MEMORY engine in MySQL) or PostgreSQL&#39;s hash indexes for pure equality workloads. If in doubt: B-tree.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q22</span>Query optimization &#8212; how does the query planner work? What is EXPLAIN?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>The <strong>query optimizer/planner</strong> automatically finds the most efficient execution plan for a SQL query. It considers: available indexes, table statistics (row counts, value distributions), join order, and available join algorithms (nested loop, hash join, merge join).</p>
+<pre>-- Use EXPLAIN to see the query plan (MySQL)
+EXPLAIN SELECT e.name, d.dept_name
+FROM employees e JOIN departments d ON e.dept_id = d.id
+WHERE e.salary > 50000;
+
+-- Key columns in EXPLAIN output:
+-- type:  const > ref > range > index > ALL (ALL = full table scan, avoid!)
+-- key:   which index was used (NULL = no index!)
+-- rows:  estimated rows examined
+-- Extra: Using index, Using filesort, Using temporary (bad ones to watch)
+
+-- EXPLAIN ANALYZE (PostgreSQL) - shows ACTUAL execution times
+EXPLAIN ANALYZE SELECT * FROM employees WHERE email = 'x@y.com';</pre>
+      <p><strong>Common query optimization tips:</strong></p>
+      <ul>
+        <li>Avoid functions on indexed columns in WHERE: <code>WHERE YEAR(created_at) = 2024</code> cannot use index on created_at &#8212; use <code>WHERE created_at BETWEEN '2024-01-01' AND '2024-12-31'</code></li>
+        <li>Use covering indexes: if the index contains all columns the query needs, the table is never touched</li>
+        <li>Left-most prefix rule for composite indexes: index on (a, b, c) helps queries filtering on (a), (a,b), (a,b,c) &#8212; but NOT on (b) alone</li>
+        <li>Keep statistics updated: <code>ANALYZE TABLE employees</code> refreshes the planner&#39;s statistics</li>
+      </ul>
+    </div></div>
+
+  </div>
+</section>
+
+<!-- ADVANCED DBMS -->
+<section id="q-advanced">
+  <div class="sh"><div class="sh-eye">Questions 23&#8211;32</div><h2>&#9889; Advanced DBMS &#8212; MVCC, WAL, NoSQL, CAP</h2></div>
+  <div class="why"><div class="why-l">&#9889; Why Advanced DBMS Questions Separate Good From Great</div><p>MVCC, WAL, connection pools, and the CAP theorem are questions that appear increasingly in Infosys SP and DSE rounds. They reveal whether you understand the architectural decisions that make modern databases fast, reliable, and scalable. These are not obscure topics &#8212; they are the daily reality of production database engineering.</p></div>
+  <div class="xp"><button class="xp-btn" onclick="xA('qa-adv')">Expand All</button><button class="xp-btn" onclick="xN('qa-adv')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa-adv">
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q23</span>MVCC &#8212; how does it allow reads without blocking writes?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>MVCC (Multi-Version Concurrency Control):</strong> A concurrency control method where each write creates a new version of the row instead of overwriting the old one. Readers see a consistent snapshot from the start of their transaction &#8212; without blocking writers, and writers without blocking readers.</p>
+      <p><strong>How it works (PostgreSQL model):</strong></p>
+<pre>-- Each row has hidden system columns:
+-- xmin: transaction ID that created this row version
+-- xmax: transaction ID that deleted/updated this row version (0 = visible)
+
+-- Initial state: row (id=1, salary=50000) created by T100
+-- Row: id=1, salary=50000, xmin=100, xmax=0
+
+-- T200 updates salary to 60000:
+-- Old row: id=1, salary=50000, xmin=100, xmax=200  (marked deleted by T200)
+-- New row: id=1, salary=60000, xmin=200, xmax=0     (new version by T200)
+
+-- T300 started BEFORE T200 committed:
+-- T300 sees xmax=200 but T200 has not committed yet when T300 started
+-- T300 reads salary=50000 (the old version) -- snapshot isolation!
+
+-- T400 started AFTER T200 committed:
+-- T400 sees xmax=200, T200 committed, so old row is invisible
+-- T400 reads salary=60000 (new version)</pre>
+      <p><strong>Benefits:</strong> reads never block writes, writes never block reads. Consistent snapshots for each transaction. <strong>Cost:</strong> old row versions accumulate (dead tuples in PostgreSQL). Requires VACUUM to reclaim space.</p>
+      <div class="tip">&#128161; MVCC is why PostgreSQL and MySQL InnoDB can handle thousands of concurrent readers and writers without constant locking. The alternative &#8212; lock-based concurrency &#8212; causes readers to block writers and vice versa.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q24</span>WAL (Write-Ahead Log) &#8212; how does it ensure durability and enable crash recovery?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>WAL (Write-Ahead Log):</strong> A logging strategy where all changes are written to an append-only log on durable storage BEFORE being applied to the actual data files. The fundamental rule: the log record must be on disk before the corresponding data change is considered committed.</p>
+<pre>-- WAL write sequence for a transaction:
+-- 1. Transaction modifies data in memory buffer pool
+-- 2. WAL record describing the change is written to disk (the log)
+-- 3. COMMIT is acknowledged to the application
+-- 4. Data page is written to disk later (background, in batches)
+--
+-- If crash happens between step 2 and step 4:
+-- On restart, DBMS reads WAL and REDOES all committed changes
+-- Data files are brought to a consistent committed state</pre>
+      <p><strong>WAL enables:</strong></p>
+      <ul>
+        <li><strong>Durability:</strong> once WAL record is on disk, the change is durable even if data file not yet written</li>
+        <li><strong>Crash recovery:</strong> replay WAL from last checkpoint &#8212; redo committed, undo uncommitted transactions</li>
+        <li><strong>Replication:</strong> streaming WAL to replica servers &#8212; PostgreSQL streaming replication, MySQL binlog</li>
+        <li><strong>Point-in-time recovery:</strong> replay WAL up to any specific moment in time</li>
+      </ul>
+      <p><strong>Performance benefit:</strong> Sequential writes to the WAL are much faster than random writes to data files. Fsync the WAL once per commit instead of fsync-ing potentially many random data pages.</p>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q25</span>Database connection pooling &#8212; why is it critical for web applications?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>A <strong>connection pool</strong> is a cache of pre-established database connections that are reused across requests instead of creating a new one each time.</p>
+      <p><strong>Why connection creation is expensive:</strong></p>
+      <ul>
+        <li>TCP handshake with the database server</li>
+        <li>Authentication (username/password validation)</li>
+        <li>Session setup (time zone, character set, search path)</li>
+        <li>Total cost: 20&#8211;200ms per connection &#8212; unacceptable for a web request targeting &lt;50ms</li>
+      </ul>
+<pre>-- Without connection pool: creates/destroys connection per request
+-- Request 1: create connection (100ms) + query (5ms) + close = 105ms
+-- Request 2: create connection (100ms) + query (5ms) + close = 105ms
+-- 1000 req/sec = 1000 connections per second created!
+
+-- With connection pool (HikariCP, Java):
+HikariConfig config = new HikariConfig();
+config.setJdbcUrl("jdbc:mysql://localhost/mydb");
+config.setMaximumPoolSize(20);          // max 20 connections
+config.setMinimumIdle(5);               // keep 5 ready
+config.setConnectionTimeout(30000);     // 30s timeout if pool exhausted
+HikariDataSource ds = new HikariDataSource(config);
+
+// Each request borrows a connection from pool (~1ms), returns it after
+// 20 connections can serve thousands of concurrent requests</pre>
+      <p><strong>Configuration guidelines:</strong> max pool size &#8248; CPU cores &#215; 2 + effective disk spindle count (for I/O-bound). Too many connections overwhelm the DB; too few creates a bottleneck. Popular tools: HikariCP (Java), pgBouncer (PostgreSQL connection pooler), ProxySQL (MySQL).</p>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q26</span>SQL vs NoSQL &#8212; when to choose each? With real examples?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table><tr><th>Dimension</th><th>SQL (RDBMS)</th><th>NoSQL</th></tr>
+      <tr><td>Schema</td><td>Fixed, predefined, enforced</td><td>Flexible / schema-less</td></tr>
+      <tr><td>Data model</td><td>Tables, rows, columns, relations</td><td>Documents, Key-Value, Graph, Columnar</td></tr>
+      <tr><td>Scaling</td><td>Vertical (mostly); some horizontal</td><td>Horizontal (built for it)</td></tr>
+      <tr><td>ACID</td><td>Strong guarantees</td><td>Varies &#8212; often eventual consistency</td></tr>
+      <tr><td>Query power</td><td>Complex joins, aggregations, transactions</td><td>Simple queries (get by key); limited joins</td></tr>
+      <tr><td>Examples</td><td>MySQL, PostgreSQL, Oracle, SQL Server</td><td>MongoDB (doc), Redis (KV), Cassandra (columnar), Neo4j (graph)</td></tr></table>
+      <p><strong>Choose SQL when:</strong> complex joins needed, ACID required (financial, booking), schema is well-defined and stable, data is inherently relational.</p>
+      <p><strong>Choose NoSQL when:</strong> need horizontal scale beyond what SQL can handle, schema is flexible or rapidly evolving, simple access patterns (get by ID), need to store documents/blobs, or need extreme write throughput (Cassandra: millions of writes/sec).</p>
+      <p><strong>Real decision examples:</strong></p>
+      <ul>
+        <li>Bank ledger &#8594; PostgreSQL (ACID critical, complex queries)</li>
+        <li>User session store &#8594; Redis (ultra-fast KV, TTL support)</li>
+        <li>Product catalog (varied fields) &#8594; MongoDB (flexible schema per product category)</li>
+        <li>Social graph &#8594; Neo4j (graph traversal &#8212; "friends of friends" impossible in SQL)</li>
+        <li>Clickstream analytics &#8594; Cassandra (massive write throughput, time-series)</li>
+      </ul>
+      <div class="note">&#128203; Do not choose NoSQL just because it is modern. Match the data model and access patterns to the problem. Many production systems use BOTH &#8212; PostgreSQL for transactional data + Redis for caching + Elasticsearch for full-text search.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q27</span>CAP Theorem &#8212; explain with a real distributed database example?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>In a distributed system, you can guarantee at most 2 of these 3 properties simultaneously:</p>
+      <ul>
+        <li><strong>Consistency (C):</strong> every read returns the most recent write (or an error)</li>
+        <li><strong>Availability (A):</strong> every request gets a non-error response (though it may not be the latest data)</li>
+        <li><strong>Partition Tolerance (P):</strong> system continues operating despite network partitions (communication failures between nodes)</li>
+      </ul>
+      <p><strong>Why P is non-negotiable:</strong> In any distributed system, network partitions WILL happen. So the real choice is between C and A during a partition.</p>
+      <table><tr><th>Choice</th><th>During partition</th><th>Examples</th><th>Use when</th></tr>
+      <tr><td><strong>CP</strong> (Consistent + Partition-tolerant)</td><td>Reject requests rather than return stale data</td><td>HBase, Zookeeper, MongoDB (strong read concern)</td><td>Financial systems, inventory deduction &#8212; wrong data is worse than no response</td></tr>
+      <tr><td><strong>AP</strong> (Available + Partition-tolerant)</td><td>Serve requests, possibly returning stale data</td><td>Cassandra, DynamoDB, CouchDB</td><td>Social media, shopping carts &#8212; stale data acceptable, availability critical</td></tr></table>
+<pre>-- Analogy: bank with two branches, network goes down:
+-- CP choice: reject all transactions until link restored
+--            (customers cannot withdraw but no inconsistency)
+-- AP choice: both branches keep serving, may make conflicting changes
+--            (customer might overdraft by withdrawing from both branches)</pre>
+      <div class="tip">&#128161; CAP is a theoretical framework &#8212; in practice, the choice is not binary. Modern systems like Cassandra offer tunable consistency: you can configure per-operation consistency level (e.g., QUORUM &#8212; majority of nodes must agree before responding).</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q28</span>Eventual Consistency vs Strong Consistency &#8212; real-world trade-offs?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>Strong Consistency:</strong> After a write, all subsequent reads from any node see the new value immediately. Safe. Slower (requires coordination between nodes).</p>
+      <p><strong>Eventual Consistency:</strong> All replicas will converge to the same value given no new writes &#8212; but reads may temporarily return stale data. Higher availability and performance.</p>
+      <table><tr><th>Scenario</th><th>Right choice</th><th>Why</th></tr>
+      <tr><td>Bank account balance</td><td>Strong consistency</td><td>Reading stale balance could allow overdraft &#8212; incorrect data has financial consequences</td></tr>
+      <tr><td>Facebook like count</td><td>Eventual consistency</td><td>Seeing 1,243 likes vs 1,244 likes for a few seconds is completely acceptable</td></tr>
+      <tr><td>DNS updates</td><td>Eventual consistency</td><td>DNS propagates worldwide over minutes/hours &#8212; stale responses acceptable during propagation</td></tr>
+      <tr><td>Airline seat booking</td><td>Strong consistency</td><td>Two users cannot both see seat 14A as available and book it &#8212; overbooking is unacceptable</td></tr>
+      <tr><td>Shopping cart</td><td>Eventual consistency</td><td>Cart briefly showing old item count is harmless; high availability is more valuable</td></tr></table>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q29</span>Database sharding vs replication &#8212; what each solves?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>Replication:</strong> Copying data to multiple database nodes (replicas/slaves). One primary accepts writes; replicas serve reads. Solves: read scalability, high availability, disaster recovery.</p>
+      <p><strong>Sharding:</strong> Horizontal partitioning of data across multiple database instances. Each shard holds a subset of data. Solves: write scalability and storage beyond what one machine can handle.</p>
+      <table><tr><th>Dimension</th><th>Replication</th><th>Sharding</th></tr>
+      <tr><td>Solves</td><td>Read scalability, HA, failover</td><td>Write scalability, massive data volume</td></tr>
+      <tr><td>Each node holds</td><td>Full copy of all data</td><td>Subset of data (different rows/users/regions)</td></tr>
+      <tr><td>Complexity</td><td>Moderate &#8212; replication lag, failover</td><td>High &#8212; cross-shard queries, resharding</td></tr>
+      <tr><td>Cross-node queries</td><td>Easy &#8212; any replica has all data</td><td>Expensive &#8212; must fan out and merge</td></tr></table>
+<pre>-- Sharding by user_id (hash-based):
+-- Shard 1: user_ids 0-999,999
+-- Shard 2: user_ids 1,000,000-1,999,999
+-- Shard 3: user_ids 2,000,000-2,999,999
+
+-- Query "SELECT * FROM orders WHERE user_id = 1500000"
+-- --> Goes directly to Shard 2 only (no fan-out needed)
+
+-- Query "SELECT COUNT(*) FROM orders" (total count)
+-- --> Must query ALL shards and sum results (fan-out + aggregate)</pre>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q30</span>ER Model &#8212; entities, attributes, relationships, cardinality?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>The <strong>Entity-Relationship (ER) Model</strong> is a conceptual data model used during database design to describe the structure of data before implementing in a RDBMS.</p>
+      <p><strong>Core components:</strong></p>
+      <ul>
+        <li><strong>Entity:</strong> A real-world object or concept with independent existence. Represented as a rectangle. Example: Student, Course, Employee.</li>
+        <li><strong>Attribute:</strong> A property of an entity. Types: simple (name), composite (address = street + city + zip), derived (age derived from date of birth), multi-valued (phone numbers).</li>
+        <li><strong>Relationship:</strong> Association between entities. Represented as a diamond. Example: Student ENROLLS IN Course.</li>
+        <li><strong>Cardinality:</strong> How many entities participate in a relationship.</li>
+      </ul>
+      <table><tr><th>Cardinality</th><th>Meaning</th><th>Example</th><th>Implementation</th></tr>
+      <tr><td>One-to-One (1:1)</td><td>One A relates to exactly one B</td><td>Employee &#8594; Passport</td><td>FK in either table (or same table)</td></tr>
+      <tr><td>One-to-Many (1:N)</td><td>One A relates to many B</td><td>Department &#8594; Employees</td><td>FK in the "many" side (Employee.dept_id)</td></tr>
+      <tr><td>Many-to-Many (M:N)</td><td>Many A relate to many B</td><td>Students &#8594; Courses</td><td>Junction table: Enrollments(student_id, course_id)</td></tr></table>
+      <p><strong>ER to Relational mapping:</strong> Entities become tables. Attributes become columns. Relationships become foreign keys or junction tables. The ER diagram is the design; the relational schema is the implementation.</p>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q31</span>Data integrity &#8212; four types and how databases enforce them?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table><tr><th>Type</th><th>Definition</th><th>Enforced By</th><th>Example</th></tr>
+      <tr><td><strong>Entity Integrity</strong></td><td>Each row is uniquely identifiable</td><td>PRIMARY KEY (NOT NULL + UNIQUE)</td><td>emp_id cannot be NULL or duplicate</td></tr>
+      <tr><td><strong>Referential Integrity</strong></td><td>FK values reference existing PK values</td><td>FOREIGN KEY constraint</td><td>orders.customer_id must exist in customers.id</td></tr>
+      <tr><td><strong>Domain Integrity</strong></td><td>Column values conform to type and constraints</td><td>Data types, CHECK, NOT NULL, DEFAULT</td><td>salary DECIMAL(10,2) CHECK (salary &gt; 0)</td></tr>
+      <tr><td><strong>User-Defined Integrity</strong></td><td>Business-specific rules beyond the above</td><td>Triggers, application logic, stored procedures</td><td>End date must be after start date; discount cannot exceed list price</td></tr></table>
+<pre>CREATE TABLE employees (
+    emp_id    INT PRIMARY KEY,                    -- Entity integrity
+    dept_id   INT REFERENCES departments(id),    -- Referential integrity
+    salary    DECIMAL(10,2) NOT NULL              -- Domain: not null
+              CHECK (salary > 0),                -- Domain: must be positive
+    hire_date DATE NOT NULL,
+    end_date  DATE,
+    CONSTRAINT chk_dates                         -- User-defined
+        CHECK (end_date IS NULL OR end_date > hire_date)
+);</pre>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q32</span>What is a data warehouse? How does it differ from a transactional database?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>A <strong>data warehouse</strong> is a large, centralized repository of historical, integrated data from multiple source systems &#8212; structured specifically for analytics and reporting, not for transactional operations.</p>
+      <p><strong>Key characteristics:</strong></p>
+      <ul>
+        <li><strong>Subject-oriented:</strong> organized around business subjects (sales, customers, products) rather than applications</li>
+        <li><strong>Integrated:</strong> data from many sources cleansed to consistent format, units, naming</li>
+        <li><strong>Time-variant:</strong> stores historical snapshots &#8212; always has a time dimension</li>
+        <li><strong>Non-volatile:</strong> data is loaded in bulk, not updated in place &#8212; read-heavy</li>
+      </ul>
+      <table><tr><th>Dimension</th><th>Transactional DB (OLTP)</th><th>Data Warehouse (OLAP)</th></tr>
+      <tr><td>Schema</td><td>Normalized (3NF)</td><td>Denormalized (Star/Snowflake)</td></tr>
+      <tr><td>Query type</td><td>Simple, by PK (ms response)</td><td>Complex aggregations (seconds to minutes)</td></tr>
+      <tr><td>Data age</td><td>Current operational data</td><td>Historical data, years of history</td></tr>
+      <tr><td>Load pattern</td><td>Continuous real-time writes</td><td>Batch ETL loads (nightly/hourly)</td></tr>
+      <tr><td>Optimization for</td><td>Write throughput, ACID</td><td>Read throughput, column compression</td></tr>
+      <tr><td>Examples</td><td>MySQL, PostgreSQL</td><td>Snowflake, BigQuery, Redshift, ClickHouse</td></tr></table>
+      <p><strong>ETL Pipeline:</strong> Extract data from OLTP sources &#8594; Transform (clean, join, aggregate) &#8594; Load into warehouse. Modern approach: ELT &#8212; load raw first, transform in the warehouse using SQL.</p>
+    </div></div>
+
+  </div>
+</section>
+
+<div class="div">&#183; &#183; &#183;</div>
+
+<!-- SUMMARY -->
+<section>
+  <div class="sh"><div class="sh-eye">Summary</div><h2>&#128448; DBMS Quick-Review Cheatsheet</h2></div>
+  <div class="formula"><span class="f-l">12 DBMS Rules to Know Cold Before Any Interview</span><div class="f-b">1.  DBMS vs RDBMS: RDBMS enforces relational model, SQL, ACID. All RDBMS are DBMS, not vice versa.&#10;2.  Keys: Super &gt; Candidate &gt; Primary (chosen, NOT NULL, UNIQUE, one per table)&#10;3.  Foreign key ON DELETE: CASCADE, SET NULL, RESTRICT, SET DEFAULT &#8212; know all four&#10;4.  Normalization: 1NF (atomic) &#8594; 2NF (no partial dep) &#8594; 3NF (no transitive dep) &#8594; BCNF&#10;5.  Three anomalies: Insertion (cannot add without unrelated data), Update (must change many rows), Deletion (lose data accidentally)&#10;6.  ACID: Atomicity (all-or-nothing), Consistency (valid states), Isolation (as-if-serial), Durability (persists)&#10;7.  Isolation levels: Read Uncommitted &#8594; Read Committed &#8594; Repeatable Read &#8594; Serializable&#10;8.  Deadlock: 4 Coffman conditions. Fix: detection+victim, lock ordering, or timeouts&#10;9.  B-tree: balanced, O(log n), supports range queries, linked leaf nodes. Hash: O(1) equality only&#10;10. Clustered index: rows physically sorted by key (ONE per table). Non-clustered: separate B-tree + pointer&#10;11. MVCC: writes create new row versions; readers see snapshot without blocking writers&#10;12. CAP: pick 2 of Consistency, Availability, Partition Tolerance. P is unavoidable &#8594; choose C or A</div></div>
+</section>
+
+<div class="nxt">
+  <div><h3>Up Next: Phase 5 &#8212; Operating Systems</h3><p>33 OS interview questions &#8212; processes vs threads, deadlocks, scheduling algorithms, virtual memory, paging, semaphores, and everything Infosys asks about the OS layer.</p></div>
+  <a href="./Phase5_os.html" class="nxt-btn">Phase 5: OS &#8594;</a>
+</div>
+</main>
+
+<footer class="footer">
+  <h2>The Tech Intel &middot; Interview Mastery Series</h2>
+  <p>Phase 4 complete. DBMS mastered. Two technical phases remaining &#8212; OS and Networks + System Design + SDLC.</p>
+    <div class="footers">AI/ML & Tech Content | Built for engineers who build the future</div>
+  <div class="footer-links">
+    <a href="https://substack.com/@thetechintel">Substack</a>
+    <a href="https://www.linkedin.com/in/priyanshu-arya/">LinkedIn</a>
+    <a href="https://www.instagram.com/thetechintel/">Instagram</a>
+    <a href="https://www.instagram.com/thetechintel/">X (Twitter)</a>
+    <a href="https://github.com/priyanshu-arya">GitHub</a>
+  </div>
+  <div class="footer-small">&copy; 2025 The Tech Intel &middot; Priyanshu &middot; April 2025 &middot; Not affiliated with Infosys &middot; Educational content only</div>
+</footer>
+
+<script>
+window.addEventListener("scroll",()=>{const d=document.documentElement;document.getElementById("bar").style.width=(window.scrollY/(d.scrollHeight-d.clientHeight)*100)+"%";},{passive:true});
+function openDrawer(){document.getElementById("ov").style.display="block";document.getElementById("drawer").classList.add("open");}
+function closeDrawer(){document.getElementById("ov").style.display="none";document.getElementById("drawer").classList.remove("open");}
+function tQ(btn){const b=btn.nextElementSibling,o=b.classList.contains("open");btn.classList.toggle("open",!o);b.classList.toggle("open",!o);}
+function xA(id){document.querySelectorAll("#"+id+" .qa-btn").forEach(b=>{b.classList.add("open");b.nextElementSibling.classList.add("open");});}
+function xN(id){document.querySelectorAll("#"+id+" .qa-btn").forEach(b=>{b.classList.remove("open");b.nextElementSibling.classList.remove("open");});}
+function upS(){const sl=document.querySelectorAll(".s-rng");let t=0;sl.forEach(s=>{const v=parseInt(s.value);s.parentElement.querySelector(".s-val").textContent=v;t+=v;});document.getElementById("sc").textContent=t;const m=[[0,31,"Needs serious work. Start from Q1."],[32,47,"Developing. Focus on ACID, normalization, and indexes."],[48,59,"Good. Work through the advanced questions."],[60,71,"Strong. Practice explaining MVCC and CAP theorem."],[72,80,"Interview-ready. You understand databases at the engine level."]].find(([l,h])=>t>=l&&t<=h);document.getElementById("sc-msg").textContent=m?m[2]:"";}
+upS();
+const secs=document.querySelectorAll("section[id]"),lnks=document.querySelectorAll("#drawer a");
+window.addEventListener("scroll",()=>{let c="";secs.forEach(s=>{if(window.scrollY>=s.offsetTop-80)c=s.id;});lnks.forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+c));},{passive:true});
+</script>
+</body>
+</html>

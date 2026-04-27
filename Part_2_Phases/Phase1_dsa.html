@@ -33,10 +33,10 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--paper);color:va
 
 /* Nav */
 .nav{position:sticky;top:0;z-index:200;background:rgba(250,249,245,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:52px}
-.nav-logo{font-family:'Playfair Display',serif;font-weight:900;font-size:16px}
-.nav-phase{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
-.nav-toc{padding:6px 16px;border:1px solid var(--border);border-radius:20px;font-size:12px;cursor:pointer;background:none;color:var(--slate);font-family:'DM Sans',sans-serif;transition:all .2s}
-.nav-toc:hover{background:var(--ink);color:var(--white);border-color:var(--ink)}
+.nav-brand{font-family:'Playfair Display',serif;font-weight:900;font-size:16px}
+.nav-center{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.nav-btn{padding:6px 16px;border:1px solid var(--border);border-radius:20px;font-size:12px;cursor:pointer;background:none;color:var(--slate);font-family:'DM Sans',sans-serif;transition:all .2s}
+.nav-btn:hover{background:var(--ink);color:var(--white);border-color:var(--ink)}
 
 /* Drawer */
 #ov{display:none;position:fixed;inset:0;background:rgba(15,14,11,.55);z-index:300}
@@ -189,29 +189,16 @@ ul,ol{padding-left:22px;margin-bottom:14px}
 li{margin-bottom:5px}
 .lead{font-size:19px;line-height:1.85;color:#282420}
 
-/* ── Footer ── */
-.footer { background: var(--ink); color: var(--paper); text-align: center; padding: 64px 24px 48px; }
-.footer h2 { font-family: 'Playfair Display', serif; font-size: 32px; margin-bottom: 14px; }
-.footer p { color: rgba(250,249,246,.6); margin-bottom: 28px; max-width: 520px; margin-left: auto; margin-right: auto; }
-.cta { display: inline-block; background: var(--gold); color: var(--ink); padding: 14px 34px; border-radius: 6px; font-weight: 700; font-size: 14px; letter-spacing: .04em; text-decoration: none; font-family: 'DM Sans', sans-serif; transition: opacity .2s; }
-.cta:hover { opacity: .88; }
-.footer-small { font-size: 12px; color: rgba(250,249,246,.25); margin-top: 40px; }
-.footer-links {
-    display: flex;
-    gap: 2rem;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 2rem;
-  }
-
-  .footer-links a {
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 0.85rem;
-    transition: color 0.2s;
-  }
-
-  .footer-links a:hover { color: var(--accent); }
+/* Section strip */
+.sec-strip{background:#fff;border-bottom:1px solid var(--border);padding:9px 24px;overflow-x:auto;white-space:nowrap;display:flex;gap:6px;align-items:center;scrollbar-width:none}
+.sec-strip::-webkit-scrollbar{display:none}
+.ss-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-right:4px;flex-shrink:0}
+.ss-btn{font-family:'JetBrains Mono',monospace;font-size:10.5px;padding:4px 11px;border-radius:4px;border:1px solid var(--border);background:transparent;color:var(--slate);white-space:nowrap;transition:all .18s;text-decoration:none;display:inline-block}
+.ss-btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+/* Footer links */
+.footer-links{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin-bottom:2rem}
+.footer-links a{color:rgba(250,249,245,.55);text-decoration:none;font-size:0.85rem;transition:color 0.2s}
+.footer-links a:hover{color:var(--gold)}
 
 @media(max-width:620px){
   .hero{padding:54px 18px 46px}
@@ -228,9 +215,9 @@ li{margin-bottom:5px}
 <div id="bar"></div>
 
 <!-- Drawer -->
-<div id="ov" onclick="closeD()"></div>
+<div id="ov" onclick="closeDrawer()"></div>
 <div id="drawer">
-  <button class="dr-close" onclick="closeD()">✕</button>
+  <button class="dr-close" onclick="closeDrawer()">✕</button>
   <div class="dr-title">DSA — Table of Contents</div>
   <div class="tg">
     <span class="tg-label">Overview</span>
@@ -265,20 +252,40 @@ li{margin-bottom:5px}
 
 <!-- Nav -->
 <nav class="nav">
-  <span class="nav-logo">The Tech Intel</span>
-  <span class="nav-phase">Part 2 · Phase 1 of 6 · DSA</span>
-  <button class="nav-toc" onclick="openD()">Contents ↗</button>
+  <span class="nav-brand">The Tech Intel</span>
+  <span class="nav-center">Part 2 · Phase 1 of 6 · DSA</span>
+  <button class="nav-btn" onclick="openDrawer()">Contents ↗</button>
 </nav>
 
 <!-- Phase strip -->
 <div class="phase-strip">
+  <a href="../index.html"><span class="ph-btn">← Part 1</span></a>
   <span class="ph-label">Part 2:</span>
   <a href="./Phase1_dsa.html"><span class="ph-btn now">① DSA</span></a>
   <a href="./Phase2_sql.html"><span class="ph-btn">② SQL</span></a>
-  <a href="./Phase1_dsa.html"><span class="ph-btn">③ OOPs</span></a>
-  <a href="./Phase1_dsa.html"><span class="ph-btn">④ DBMS</span></a>
-  <a href="./Phase1_dsa.html"><span class="ph-btn">⑤ OS</span></a>
-  <a href="./Phase1_dsa.html"><span class="ph-btn">⑥ Networks + System Design + SDLC</span></a>
+  <a href="./Phase3_oops.html"><span class="ph-btn">③ OOPs</span></a>
+  <a href="./Phase4_dbms.html"><span class="ph-btn">④ DBMS</span></a>
+  <a href="./Phase5_os.html"><span class="ph-btn">⑤ OS</span></a>
+  <a href="./Phase6_final.html"><span class="ph-btn">⑥ Networks + System Design + SDLC</span></a>
+</div>
+
+<!-- Section strip -->
+<div class="sec-strip">
+  <span class="ss-lbl">Jump to:</span>
+  <a class="ss-btn" href="#overview">Overview</a>
+  <a class="ss-btn" href="#bigo">Big-O</a>
+  <a class="ss-btn" href="#patterns">Patterns</a>
+  <a class="ss-btn" href="#assess">Readiness</a>
+  <a class="ss-btn" href="#q-arrays">Arrays</a>
+  <a class="ss-btn" href="#q-stack">Stacks/Q</a>
+  <a class="ss-btn" href="#q-trees">Trees</a>
+  <a class="ss-btn" href="#q-graphs">Graphs</a>
+  <a class="ss-btn" href="#q-hash">Hashing</a>
+  <a class="ss-btn" href="#q-sort">Sorting</a>
+  <a class="ss-btn" href="#q-recursion">Recursion</a>
+  <a class="ss-btn" href="#q-dp">DP</a>
+  <a class="ss-btn" href="#q-greedy">Greedy</a>
+  <a class="ss-btn" href="#q-coding">Coding</a>
 </div>
 
 <!-- Hero -->
@@ -1589,11 +1596,11 @@ window.addEventListener('scroll', () => {
 });
 
 // Drawer
-function openD() {
+function openDrawer() {
   document.getElementById('ov').style.display = 'block';
   document.getElementById('drawer').classList.add('open');
 }
-function closeD() {
+function closeDrawer() {
   document.getElementById('ov').style.display = 'none';
   document.getElementById('drawer').classList.remove('open');
 }

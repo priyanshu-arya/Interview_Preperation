@@ -29,10 +29,10 @@
 body{font-family:'DM Sans',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.8;font-size:17px}
 #bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--teal));width:0%;z-index:999;transition:width .08s}
 .nav{position:sticky;top:0;z-index:200;background:rgba(250,249,245,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:52px}
-.nav-logo{font-family:'Playfair Display',serif;font-weight:900;font-size:16px}
-.nav-phase{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
-.nav-toc{padding:6px 16px;border:1px solid var(--border);border-radius:20px;font-size:12px;cursor:pointer;background:none;color:var(--slate);font-family:'DM Sans',sans-serif;transition:all .2s}
-.nav-toc:hover{background:var(--ink);color:var(--white);border-color:var(--ink)}
+.nav-brand{font-family:'Playfair Display',serif;font-weight:900;font-size:16px}
+.nav-center{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.nav-btn{padding:6px 16px;border:1px solid var(--border);border-radius:20px;font-size:12px;cursor:pointer;background:none;color:var(--slate);font-family:'DM Sans',sans-serif;transition:all .2s}
+.nav-btn:hover{background:var(--ink);color:var(--white);border-color:var(--ink)}
 #ov{display:none;position:fixed;inset:0;background:rgba(15,14,11,.55);z-index:300}
 #drawer{position:fixed;right:-380px;top:0;bottom:0;width:360px;background:var(--white);z-index:400;padding:28px 22px;overflow-y:auto;transition:right .3s cubic-bezier(.4,0,.2,1);box-shadow:-8px 0 40px rgba(0,0,0,.14)}
 #drawer.open{right:0}
@@ -176,38 +176,25 @@ li{margin-bottom:5px}
   body{font-size:16px}#drawer{width:100%;right:-100%}
   .s-label{min-width:130px}.join-grid{grid-template-columns:1fr 1fr}.norm-steps{flex-direction:column}
 }
-/* ── Footer ── */
-.footer { background: var(--ink); color: var(--paper); text-align: center; padding: 64px 24px 48px; }
-.footer h2 { font-family: 'Playfair Display', serif; font-size: 32px; margin-bottom: 14px; }
-.footer p { color: rgba(250,249,246,.6); margin-bottom: 28px; max-width: 520px; margin-left: auto; margin-right: auto; }
-.cta { display: inline-block; background: var(--gold); color: var(--ink); padding: 14px 34px; border-radius: 6px; font-weight: 700; font-size: 14px; letter-spacing: .04em; text-decoration: none; font-family: 'DM Sans', sans-serif; transition: opacity .2s; }
-.cta:hover { opacity: .88; }
-.footer-small { font-size: 12px; color: rgba(250,249,246,.25); margin-top: 40px; }
-.footer-links {
-    display: flex;
-    gap: 2rem;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 2rem;
-  }
-
-  .footer-links a {
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 0.85rem;
-    transition: color 0.2s;
-  }
-
-  .footer-links a:hover { color: var(--accent); }
+/* Section strip */
+.sec-strip{background:#fff;border-bottom:1px solid var(--border);padding:9px 24px;overflow-x:auto;white-space:nowrap;display:flex;gap:6px;align-items:center;scrollbar-width:none}
+.sec-strip::-webkit-scrollbar{display:none}
+.ss-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-right:4px;flex-shrink:0}
+.ss-btn{font-family:'JetBrains Mono',monospace;font-size:10.5px;padding:4px 11px;border-radius:4px;border:1px solid var(--border);background:transparent;color:var(--slate);white-space:nowrap;transition:all .18s;text-decoration:none;display:inline-block}
+.ss-btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+/* Footer links */
+.footer-links{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin-bottom:2rem}
+.footer-links a{color:rgba(250,249,245,.55);text-decoration:none;font-size:0.85rem;transition:color 0.2s}
+.footer-links a:hover{color:var(--gold)}
 </style>
 </head>
 <body>
 
 <div id="bar"></div>
 
-<div id="ov" onclick="closeD()"></div>
+<div id="ov" onclick="closeDrawer()"></div>
 <div id="drawer">
-  <button class="dr-close" onclick="closeD()">✕</button>
+  <button class="dr-close" onclick="closeDrawer()">✕</button>
   <div class="dr-title">SQL — Table of Contents</div>
   <div class="tg">
     <span class="tg-label">Overview</span>
@@ -247,19 +234,36 @@ li{margin-bottom:5px}
 </div>
 
 <nav class="nav">
-  <span class="nav-logo">The Tech Intel</span>
-  <span class="nav-phase">Part 2 · Phase 2 of 6 · SQL</span>
-  <button class="nav-toc" onclick="openD()">Contents ↗</button>
+  <span class="nav-brand">The Tech Intel</span>
+  <span class="nav-center">Part 2 · Phase 2 of 6 · SQL</span>
+  <button class="nav-btn" onclick="openDrawer()">Contents ↗</button>
 </nav>
 
 <div class="phase-strip">
+  <a href="../index.html"><span class="ph-btn">← Part 1</span></a>
   <span class="ph-label">Part 2:</span>
-  <a href="./Phase1_dsa.html" class=""><span class="ph-btn now">① DSA ✓</span></a>
-  <a href="./Phase2_sql.html"><span class="ph-btn">② SQL</span></a>
-  <a href="./Phase1_dsa.html"><span class="ph-btn">③ OOPs</span></a>
-  <a href="./Phase1_dsa.html"><span class="ph-btn">④ DBMS</span></a>
-  <a href="./Phase1_dsa.html"><span class="ph-btn">⑤ OS</span></a>
-  <a href="./Phase1_dsa.html"><span class="ph-btn">⑥ Networks + System Design + SDLC</span></a>
+  <a href="./Phase1_dsa.html"><span class="ph-btn done">① DSA ✓</span></a>
+  <a href="./Phase2_sql.html"><span class="ph-btn now">② SQL</span></a>
+  <a href="./Phase3_oops.html"><span class="ph-btn">③ OOPs</span></a>
+  <a href="./Phase4_dbms.html"><span class="ph-btn">④ DBMS</span></a>
+  <a href="./Phase5_os.html"><span class="ph-btn">⑤ OS</span></a>
+  <a href="./Phase6_final.html"><span class="ph-btn">⑥ Networks + System Design + SDLC</span></a>
+</div>
+
+<!-- Section strip -->
+<div class="sec-strip">
+  <span class="ss-lbl">Jump to:</span>
+  <a class="ss-btn" href="#overview">Overview</a>
+  <a class="ss-btn" href="#commands">Commands</a>
+  <a class="ss-btn" href="#execorder">Exec Order</a>
+  <a class="ss-btn" href="#assess">Readiness</a>
+  <a class="ss-btn" href="#q-core">Basics/JOINs</a>
+  <a class="ss-btn" href="#q-dml">DML</a>
+  <a class="ss-btn" href="#q-agg">Aggregation</a>
+  <a class="ss-btn" href="#q-index">Indexes</a>
+  <a class="ss-btn" href="#q-norm">Normalization</a>
+  <a class="ss-btn" href="#q-acid">ACID</a>
+  <a class="ss-btn" href="#q-advanced">Advanced</a>
 </div>
 
 <header class="hero">
@@ -1524,7 +1528,7 @@ DELETE FROM Orders WHERE OrderID = 3;
     <h3>Up Next: Phase 3 — OOPs</h3>
     <p>32 OOPs interview questions — 4 pillars with code, abstract vs interface, SOLID principles, design patterns, and every Java-specific question Infosys asks.</p>
   </div>
-  <a href="#" class="next-btn">Phase 3: OOPs →</a>
+  <a href="./Phase3_oops.html" class="next-btn">Phase 3: OOPs →</a>
 </div>
 
 </main>
@@ -1551,11 +1555,11 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 // Drawer
-function openD() {
+function openDrawer() {
   document.getElementById('ov').style.display = 'block';
   document.getElementById('drawer').classList.add('open');
 }
-function closeD() {
+function closeDrawer() {
   document.getElementById('ov').style.display = 'none';
   document.getElementById('drawer').classList.remove('open');
 }

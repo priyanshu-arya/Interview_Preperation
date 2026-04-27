@@ -189,13 +189,13 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--paper); 
   }
 
   .footer-links a {
-    color: var(--text-muted);
+    color: rgba(250,249,246,.55);
     text-decoration: none;
     font-size: 0.85rem;
     transition: color 0.2s;
   }
 
-  .footer-links a:hover { color: var(--accent); }
+  .footer-links a:hover { color: var(--gold); }
 
 /* ── Prose ── */
 p { margin-bottom: 18px; }
@@ -203,6 +203,13 @@ strong { color: var(--ink); font-weight: 600; }
 ul, ol { padding-left: 22px; margin-bottom: 14px; }
 li { margin-bottom: 5px; }
 .lead { font-size: 19px; line-height: 1.85; color: #2a2620; }
+
+/* ── Section strip ── */
+.sec-strip{background:#fff;border-bottom:1px solid var(--border);padding:9px 24px;overflow-x:auto;white-space:nowrap;display:flex;gap:6px;align-items:center;scrollbar-width:none}
+.sec-strip::-webkit-scrollbar{display:none}
+.ss-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-right:4px;flex-shrink:0}
+.ss-btn{font-family:'JetBrains Mono',monospace;font-size:10.5px;padding:4px 11px;border-radius:4px;border:1px solid var(--border);background:transparent;color:var(--slate);white-space:nowrap;transition:all .18s;text-decoration:none;display:inline-block}
+.ss-btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
 
 @media (max-width: 620px) {
   .fw-grid { grid-template-columns: 1fr; }
@@ -250,8 +257,28 @@ li { margin-bottom: 5px; }
 <nav class="nav">
   <span class="nav-brand">The Tech Intel</span>
   <span class="nav-center">Interview Mastery · Part 1 of 2</span>
-  <button class="nav-btn" onclick="openDrawer()">Contents ↗</button>
+  <div style="display: flex; gap: 10px;">
+    <a href="Part_2_Phases/Phase1_dsa.html" class="nav-btn" style="text-decoration: none;">Part 2 ↗</a>
+    <button class="nav-btn" onclick="openDrawer()">Contents ↗</button>
+  </div>
 </nav>
+
+<!-- Section strip -->
+<div class="sec-strip">
+  <span class="ss-lbl">Jump to:</span>
+  <a class="ss-btn" href="#intro">Self-Intro</a>
+  <a class="ss-btn" href="#projects">Projects</a>
+  <a class="ss-btn" href="#experience">Experience</a>
+  <a class="ss-btn" href="#skills">Skills</a>
+  <a class="ss-btn" href="#cocurr">Co-curricular</a>
+  <a class="ss-btn" href="#infosys">Infosys</a>
+  <a class="ss-btn" href="#infosys-hr">HR 32 Qs</a>
+  <a class="ss-btn" href="#hr50">Behavioral 50+</a>
+  <a class="ss-btn" href="#ask">Ask Back</a>
+  <a class="ss-btn" href="#dos">Dos/Don'ts</a>
+  <a class="ss-btn" href="#frameworks">Frameworks</a>
+  <a class="ss-btn" href="#mindset">Mindset</a>
+</div>
 
 <!-- Hero -->
 <header class="hero">

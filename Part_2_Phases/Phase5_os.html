@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IT Interview 2025 — Part 2, Phase 5: OS Mastery | 33 Questions | The Tech Intel</title>
+<meta name="description" content="33 real Operating Systems interview questions — processes, threads, deadlocks, CPU scheduling, virtual memory, paging, semaphores, IPC, and kernel internals. Phase 5 of 6.">
+<meta name="keywords" content="operating systems interview questions 2025, OS interview questions freshers, process vs thread interview, deadlock interview questions, CPU scheduling algorithms interview, virtual memory paging interview, semaphore mutex interview, IPC interview questions, Infosys OS questions freshers">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0f0e0b;--paper:#faf9f5;--cream:#f0ebe0;
+  --a:#b44830;--ap:#fdf0ec;--am:#c05840;
+  --gold:#c48a28;--gp:#f8edda;
+  --teal:#1a6b72;--tp:#e4f2f3;
+  --v:#5a2d8a;--vp:#f0ebfc;
+  --slate:#383430;--muted:#7a746a;--border:#e0dbd0;--wh:#fff;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"DM Sans",system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.8;font-size:17px}
+#bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--a),var(--am),var(--gold));width:0%;z-index:999;transition:width .08s}
+.nav{position:sticky;top:0;z-index:200;background:rgba(250,249,245,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:52px}
+.nav-brand{font-family:"Playfair Display",serif;font-weight:900;font-size:16px}
+.nav-center{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.nav-btn{padding:6px 16px;border:1px solid var(--border);border-radius:20px;font-size:12px;cursor:pointer;background:none;color:var(--slate);font-family:"DM Sans",sans-serif;transition:all .2s}
+.nav-btn:hover{background:var(--ink);color:var(--wh);border-color:var(--ink)}
+#ov{display:none;position:fixed;inset:0;background:rgba(15,14,11,.55);z-index:300}
+#drawer{position:fixed;right:-380px;top:0;bottom:0;width:360px;background:var(--wh);z-index:400;padding:28px 22px;overflow-y:auto;transition:right .3s cubic-bezier(.4,0,.2,1);box-shadow:-8px 0 40px rgba(0,0,0,.14)}
+#drawer.open{right:0}
+.dr-close{position:absolute;top:18px;right:18px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted)}
+.dr-title{font-family:"Playfair Display",serif;font-size:20px;font-weight:700;margin:6px 0 22px}
+.tg{margin-bottom:22px}
+.tg-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);display:block;font-family:"JetBrains Mono",monospace}
+.tg a{display:block;font-size:13.5px;color:var(--slate);text-decoration:none;padding:5px 8px;border-radius:5px;border-left:2px solid transparent;transition:all .2s}
+.tg a:hover,.tg a.active{color:var(--a);border-left-color:var(--a);background:var(--ap)}
+.hero{background:var(--ink);color:var(--wh);padding:80px 24px 60px;text-align:center;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 75% 70%,rgba(180,72,48,.22) 0%,transparent 65%),radial-gradient(ellipse 60% 50% at 20% 20%,rgba(196,138,40,.12) 0%,transparent 65%);pointer-events:none}
+.hero-ph{display:inline-flex;align-items:center;gap:8px;background:rgba(180,72,48,.2);border:1px solid rgba(180,72,48,.4);color:#f0a090;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:5px 16px;border-radius:20px;margin-bottom:28px;position:relative;z-index:1}
+.hero h1{font-family:"Playfair Display",serif;font-size:clamp(32px,5vw,58px);font-weight:900;line-height:1.08;margin-bottom:20px;position:relative;z-index:1}
+.hero h1 em{font-style:normal;color:#f0a090}
+.hero-sub{font-size:17px;color:rgba(250,249,245,.7);max-width:640px;margin:0 auto 32px;line-height:1.75;position:relative;z-index:1}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;position:relative;z-index:1}
+.chip{font-family:"JetBrains Mono",monospace;font-size:11.5px;padding:5px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:rgba(250,249,245,.75)}
+.chip.on{background:rgba(180,72,48,.25);border-color:rgba(180,72,48,.45);color:#f0a090}
+.hero-meta{display:flex;flex-wrap:wrap;gap:6px 20px;justify-content:center;font-size:13px;color:rgba(250,249,245,.4);margin-top:22px;position:relative;z-index:1}
+.pstrip{background:var(--cream);border-bottom:1px solid var(--border);padding:12px 24px;overflow-x:auto;white-space:nowrap;display:flex;gap:8px;align-items:center}
+.pl{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-right:6px;flex-shrink:0}
+.pb{font-family:"JetBrains Mono",monospace;font-size:11px;padding:5px 13px;border-radius:20px;border:1px solid var(--border);background:var(--wh);color:var(--slate);white-space:nowrap;transition:all .2s;text-decoration:none;display:inline-block}
+.pb.done{background:var(--tp);border-color:var(--teal);color:var(--teal)}
+.pb.now{background:var(--a);color:var(--wh);border-color:var(--a)}
+.main{max-width:720px;margin:0 auto;padding:0 24px 100px}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin:36px 0 28px}
+.pill{font-size:11px;font-family:"JetBrains Mono",monospace;padding:5px 13px;border-radius:20px;border:1px solid var(--border);background:var(--cream);color:var(--slate);text-decoration:none;transition:all .2s}
+.pill:hover{background:var(--a);color:var(--wh);border-color:var(--a)}
+.sh{margin:68px 0 26px;padding-bottom:14px;border-bottom:2px solid var(--border)}
+.sh-eye{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.sh h2{font-family:"Playfair Display",serif;font-size:clamp(24px,3.5vw,34px);font-weight:700;line-height:1.2}
+.why{border-left:4px solid var(--a);background:var(--ap);padding:18px 22px;border-radius:0 8px 8px 0;margin:26px 0}
+.why-l{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--a);font-weight:700;margin-bottom:6px}
+.why p{font-size:15px;color:#6b2a18;margin:0;line-height:1.75}
+.qb{background:var(--ink);color:var(--wh);padding:32px 38px;margin:32px 0;border-radius:6px;position:relative}
+.qb::before{content:"\201C";font-family:"Playfair Display",serif;font-size:96px;color:rgba(180,72,48,.22);position:absolute;top:4px;left:26px;line-height:1}
+.qb blockquote{font-family:"Playfair Display",serif;font-size:18px;font-style:italic;line-height:1.65;position:relative;margin-bottom:14px}
+.qb cite{font-family:"JetBrains Mono",monospace;font-size:11px;color:#f0a090;letter-spacing:.05em;font-style:normal}
+.formula{background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin:20px 0}
+.f-l{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:8px;display:block;font-family:"JetBrains Mono",monospace}
+.f-b{font-family:"JetBrains Mono",monospace;font-size:13px;line-height:2;color:var(--slate)}
+.tbl{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px}
+.tbl th{background:var(--ink);color:var(--wh);padding:9px 13px;text-align:left;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.04em;font-weight:400}
+.tbl td{padding:9px 13px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.55}
+.tbl tr:nth-child(even) td{background:var(--cream)}
+.tbl td code{font-family:"JetBrains Mono",monospace;background:var(--cream);padding:1px 6px;border-radius:3px;font-size:12px;border:1px solid var(--border)}
+.sched-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:20px 0}
+.sc-card{background:var(--wh);border:1px solid var(--border);border-radius:8px;padding:16px;border-top:3px solid var(--a)}
+.sc-card:nth-child(2){border-top-color:var(--gold)}
+.sc-card:nth-child(3){border-top-color:var(--teal)}
+.sc-card:nth-child(4){border-top-color:var(--v)}
+.sc-card:nth-child(5){border-top-color:var(--a)}
+.sc-card:nth-child(6){border-top-color:var(--gold)}
+.sc-name{font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:600;color:var(--a);margin-bottom:6px}
+.sc-card:nth-child(2) .sc-name{color:var(--gold)}
+.sc-card:nth-child(3) .sc-name{color:var(--teal)}
+.sc-card:nth-child(4) .sc-name{color:var(--v)}
+.sc-card p{font-size:13px;color:var(--muted);margin:0}
+.qa-wrap{margin:18px 0}
+.qa-cat{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:14px 0 10px;border-top:1px solid var(--border);margin-top:20px;display:block}
+.qa-item{border-bottom:1px solid var(--border)}
+.qa-btn{width:100%;display:flex;align-items:flex-start;gap:12px;padding:14px 0;background:none;border:none;cursor:pointer;text-align:left;font-family:"DM Sans",sans-serif;font-size:15.5px;font-weight:600;color:var(--slate);transition:color .2s}
+.qa-btn:hover{color:var(--a)}
+.qa-num{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--a);font-weight:600;min-width:28px;padding-top:3px;flex-shrink:0}
+.qa-icon{margin-left:auto;font-size:11px;color:var(--muted);transition:transform .3s;flex-shrink:0;padding-top:4px}
+.qa-btn.open .qa-icon{transform:rotate(180deg)}
+.qa-body{max-height:0;overflow:hidden;transition:max-height .45s ease;padding-left:40px}
+.qa-body.open{max-height:3500px;padding-bottom:18px}
+.qa-body p,.qa-body li{font-size:15px;color:var(--slate);line-height:1.78}
+.qa-body ul,.qa-body ol{padding-left:20px;margin:8px 0}
+.qa-body li{margin-bottom:5px}
+.qa-body strong{color:var(--ink)}
+.qa-body code{font-family:"JetBrains Mono",monospace;background:var(--cream);padding:1px 6px;border-radius:3px;font-size:12.5px;border:1px solid var(--border);color:var(--ink)}
+.qa-body pre{background:#1a1815;color:#ddd8ce;padding:18px 20px;border-radius:8px;font-family:"JetBrains Mono",monospace;font-size:12.5px;line-height:1.9;margin:12px 0;overflow-x:auto}
+.qa-body table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0}
+.qa-body th{background:var(--cream);padding:8px 11px;border:1px solid var(--border);text-align:left;font-weight:600;font-size:12px}
+.qa-body td{padding:8px 11px;border:1px solid var(--border);vertical-align:top;line-height:1.55}
+.qa-body .tip{background:var(--ap);border-left:3px solid var(--a);padding:10px 14px;margin-top:12px;font-size:14px;border-radius:0 5px 5px 0;color:#6b2a18}
+.qa-body .note{background:var(--gp);border-left:3px solid var(--gold);padding:10px 14px;margin-top:10px;font-size:14px;border-radius:0 5px 5px 0;color:#5a4010}
+.qa-body .crit{background:var(--ap);border-left:3px solid var(--a);padding:10px 14px;margin-top:10px;font-size:14px;border-radius:0 5px 5px 0;color:#6b2a18}
+.qa-body .pur{background:var(--vp);border-left:3px solid var(--v);padding:10px 14px;margin-top:10px;font-size:14px;border-radius:0 5px 5px 0;color:#3a1a6a}
+.qa-body .teal{background:var(--tp);border-left:3px solid var(--teal);padding:10px 14px;margin-top:10px;font-size:14px;border-radius:0 5px 5px 0;color:#1a4a50}
+.xp{display:flex;gap:10px;margin:12px 0}
+.xp-btn{font-family:"JetBrains Mono",monospace;font-size:11px;padding:5px 13px;border:1px solid var(--border);border-radius:4px;cursor:pointer;background:none;color:var(--slate);transition:all .2s}
+.xp-btn:hover{background:var(--ap);border-color:var(--a);color:var(--a)}
+.assess{background:var(--ink);color:var(--wh);border-radius:10px;padding:30px;margin:32px 0}
+.assess h3{font-family:"Playfair Display",serif;font-size:21px;margin-bottom:6px}
+.a-sub{font-size:13px;color:rgba(250,249,245,.5);margin-bottom:22px}
+.s-row{display:flex;align-items:center;gap:14px;margin-bottom:13px}
+.s-lbl{min-width:200px;font-size:13px;color:rgba(250,249,245,.8);flex-shrink:0}
+.s-rng{flex:1;-webkit-appearance:none;height:3px;border-radius:2px;background:rgba(255,255,255,.15);outline:none;cursor:pointer}
+.s-rng::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:#f0a090;cursor:pointer}
+.s-val{min-width:22px;text-align:center;font-family:"JetBrains Mono",monospace;font-size:13px;color:#f0a090}
+.s-tot{border-top:1px solid rgba(255,255,255,.1);padding-top:16px;margin-top:6px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.s-sc{font-family:"Playfair Display",serif;font-size:42px;font-weight:700;color:#f0a090;line-height:1}
+.s-of{font-size:13px;color:rgba(250,249,245,.45)}
+.s-msg{font-size:13px;color:rgba(250,249,245,.6);max-width:220px;text-align:right}
+.div{text-align:center;margin:52px 0;font-size:22px;color:var(--border);letter-spacing:14px}
+.nxt{background:linear-gradient(135deg,#3a1810,#5a2818);color:var(--wh);padding:36px 28px;border-radius:10px;margin:52px 0;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;border:1px solid rgba(180,72,48,.35)}
+.nxt h3{font-family:"Playfair Display",serif;font-size:22px;margin-bottom:6px;color:#f0a090}
+.nxt p{font-size:14px;color:rgba(255,255,255,.75);margin:0}
+.nxt-btn{background:var(--a);color:var(--wh);padding:12px 24px;border-radius:6px;font-weight:700;font-size:14px;text-decoration:none;white-space:nowrap;font-family:"DM Sans",sans-serif;flex-shrink:0}
+.footer{background:var(--ink);color:var(--wh);text-align:center;padding:56px 24px 40px}
+.footer h2{font-family:"Playfair Display",serif;font-size:28px;margin-bottom:12px}
+.footer p{color:rgba(250,249,245,.55);font-size:15px;max-width:480px;margin:0 auto}
+.footer-small{font-size:12px;color:rgba(250,249,245,.22);margin-top:36px}
+.footer-links{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin-bottom:2rem}
+.footer-links a{color:rgba(250,249,245,.55);text-decoration:none;font-size:0.85rem;transition:color 0.2s}
+.footer-links a:hover{color:var(--gold)}
+/* Section strip */
+.sec-strip{background:#fff;border-bottom:1px solid var(--border);padding:9px 24px;overflow-x:auto;white-space:nowrap;display:flex;gap:6px;align-items:center;scrollbar-width:none}
+.sec-strip::-webkit-scrollbar{display:none}
+.ss-lbl{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-right:4px;flex-shrink:0}
+.ss-btn{font-family:"JetBrains Mono",monospace;font-size:10.5px;padding:4px 11px;border-radius:4px;border:1px solid var(--border);background:transparent;color:var(--slate);white-space:nowrap;transition:all .18s;text-decoration:none;display:inline-block}
+.ss-btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+p{margin-bottom:16px}strong{font-weight:600;color:var(--ink)}ul,ol{padding-left:22px;margin-bottom:14px}li{margin-bottom:5px}.lead{font-size:19px;line-height:1.85;color:#282420}
+@media(max-width:620px){.hero{padding:54px 18px 46px}.nav-phase{display:none}body{font-size:16px}#drawer{width:100%;right:-100%}.sched-grid{grid-template-columns:1fr 1fr}.s-lbl{min-width:130px}.nxt{flex-direction:column;align-items:flex-start}}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+<div id="ov" onclick="closeDrawer()"></div>
+<div id="drawer">
+  <button class="dr-close" onclick="closeDrawer()">&#x2715;</button>
+  <div class="dr-title">OS &#8212; Contents</div>
+  <div class="tg"><span class="tg-label">Overview</span>
+    <a href="#overview">Why OS Separates Systems Thinkers</a>
+    <a href="#assess">Readiness Check</a></div>
+  <div class="tg"><span class="tg-label">Processes &amp; Threads (Q1&#8211;Q7)</span>
+    <a href="#q-proc">Process, PCB, States, Context Switch</a>
+    <a href="#q-thread">Threads, Concurrency vs Parallelism</a></div>
+  <div class="tg"><span class="tg-label">CPU Scheduling (Q8&#8211;Q12)</span>
+    <a href="#q-sched">FCFS, SJF, RR, Priority, Starvation</a></div>
+  <div class="tg"><span class="tg-label">Synchronization (Q13&#8211;Q18)</span>
+    <a href="#q-sync">Deadlock, Semaphore, Mutex, Producer-Consumer</a></div>
+  <div class="tg"><span class="tg-label">Memory Management (Q19&#8211;Q25)</span>
+    <a href="#q-mem">Virtual Memory, Paging, Page Faults, Thrashing</a></div>
+  <div class="tg"><span class="tg-label">I/O &amp; Advanced (Q26&#8211;Q33)</span>
+    <a href="#q-io">System Calls, IPC, File Systems, Kernel Types</a></div>
+</div>
+
+<nav class="nav">
+  <span class="nav-brand">The Tech Intel</span>
+  <span class="nav-center">Part 2 &middot; Phase 5 of 6 &middot; OS</span>
+  <button class="nav-btn" onclick="openDrawer()">Contents &#x2197;</button>
+</nav>
+<div class="pstrip">
+  <a href="../index.html" class="pb">&#8592; Part 1</a>
+  <span class="pl">Part 2:</span>
+  <a href="./Phase1_dsa.html" class="pb done">&#9312; DSA &#x2713;</a>
+  <a href="./Phase2_sql.html" class="pb done">&#9313; SQL &#x2713;</a>
+  <a href="./Phase3_oops.html" class="pb done">&#9314; OOPs &#x2713;</a>
+  <a href="./Phase4_dbms.html" class="pb done">&#9315; DBMS &#x2713;</a>
+  <a href="./Phase5_os.html" class="pb now">&#9316; OS</a>
+  <a href="./Phase6_final.html" class="pb">&#9317; Networks + SD + SDLC</a>
+</div>
+<!-- Section strip -->
+<div class="sec-strip">
+  <span class="ss-lbl">Jump to:</span>
+  <a class="ss-btn" href="#overview">Overview</a>
+  <a class="ss-btn" href="#assess">Readiness</a>
+  <a class="ss-btn" href="#q-proc">Processes</a>
+  <a class="ss-btn" href="#q-thread">Threads</a>
+  <a class="ss-btn" href="#q-sched">Scheduling</a>
+  <a class="ss-btn" href="#q-sync">Sync/Deadlocks</a>
+  <a class="ss-btn" href="#q-mem">Memory</a>
+  <a class="ss-btn" href="#q-io">I/O &amp; Syscalls</a>
+</div>
+
+<header class="hero">
+  <div class="hero-ph">&#9881; Part 2 &middot; Phase 5 of 6 &middot; April 2025</div>
+  <h1>Operating Systems<br><em>33 Real Interview Questions</em></h1>
+  <p class="hero-sub">The invisible infrastructure your code runs on. Processes, threads, deadlocks, CPU scheduling, virtual memory, semaphores, IPC, and kernel internals &#8212; every question answered with real system-level depth.</p>
+  <div class="hero-chips">
+    <span class="chip on">Processes &amp; PCB</span>
+    <span class="chip on">Threads</span>
+    <span class="chip on">CPU Scheduling</span>
+    <span class="chip on">Deadlocks</span>
+    <span class="chip on">Semaphores</span>
+    <span class="chip on">Virtual Memory</span>
+    <span class="chip on">Paging</span>
+    <span class="chip on">Page Replacement</span>
+    <span class="chip on">IPC</span>
+    <span class="chip on">System Calls</span>
+  </div>
+  <div class="hero-meta">
+    <span>&#9998; The Tech Intel</span>
+    <span>&#9200; ~40 min read</span>
+    <span>&#128203; 33 Questions &middot; All Answered</span>
+    <span>&#9881; System-Level Depth</span>
+  </div>
+</header>
+<main class="main">
+<p class="lead" style="margin-top:48px;">OS questions reveal whether you think like a systems engineer or just a syntax user. When your web server slows under load, the answer might be in thread scheduling. When a process hangs, deadlock theory applies. When a database is slow, virtual memory and page faults may be the cause. <strong>OS knowledge is what makes code debuggable in production.</strong></p>
+<div class="pills">
+  <a class="pill" href="#q-proc">&#128260; Processes</a>
+  <a class="pill" href="#q-thread">&#129300; Threads</a>
+  <a class="pill" href="#q-sched">&#128336; Scheduling</a>
+  <a class="pill" href="#q-sync">&#128274; Sync</a>
+  <a class="pill" href="#q-mem">&#129504; Memory</a>
+  <a class="pill" href="#q-io">&#128268; I/O &amp; Advanced</a>
+</div>
+
+<section id="assess">
+  <div class="assess">
+    <h3>&#9881; OS Readiness Score</h3>
+    <p class="a-sub">Target 8+ in every row before your interview. Come back after reading.</p>
+    <div class="s-row"><span class="s-lbl">Process vs Thread</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-lbl">CPU scheduling algorithms</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-lbl">Deadlock (4 conditions + handling)</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-lbl">Semaphore vs Mutex</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-lbl">Virtual memory &amp; paging</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-lbl">Page replacement algorithms</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-lbl">IPC mechanisms</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-lbl">System calls, kernel types</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
+    <div class="s-tot"><div><div class="s-sc" id="sc">40</div><div class="s-of">/ 80 &#8212; Target: 64+</div></div><div class="s-msg" id="sc-msg"></div></div>
+  </div>
+</section>
+
+
+<section id="overview">
+  <div class="sh"><div class="sh-eye">Overview</div><h2>&#9881; Why OS Knowledge Separates Systems Thinkers</h2></div>
+  <div class="why"><div class="why-l">&#9889; What OS Questions Actually Test</div><p>OS questions test whether you understand the invisible infrastructure your code runs on. Infosys interviewers use OS questions to gauge: can you reason about what happens when two threads access the same variable? Do you know why context switching is expensive? Can you diagnose a deadlock? Do you understand why 32-bit systems were limited to 4GB RAM? These reveal whether you think at the system level or only at the application level.</p></div>
+  <div class="qb"><blockquote>"An operating system has no purpose other than to run application programs. The whole reason it exists is to be convenient for programs to use and to be efficient in using the hardware."</blockquote><cite>&#8212; Abraham Silberschatz &middot; Co-author, "Operating System Concepts" (the "dinosaur book") &middot; Yale University</cite></div>
+</section>
+
+
+<!-- PROCESSES -->
+<section id="q-proc">
+  <div class="sh"><div class="sh-eye">Questions 1&#8211;7</div><h2>&#128260; Processes, Threads &amp; Context Switching</h2></div>
+  <div class="why"><div class="why-l">&#9889; Why Process &amp; Thread Questions Open Every OS Round</div><p>Process and thread concepts are the foundation of every OS question. Interviewers start here to establish baseline systems knowledge. "Process vs thread" is the single most commonly asked OS question at Infosys &#8212; fumble this and everything else is uphill. Know it cold, with memory layout, trade-offs, and a real-world example.</p></div>
+  <div class="xp"><button class="xp-btn" onclick="xA(&#39;qa-pr&#39;)">Expand All</button><button class="xp-btn" onclick="xN(&#39;qa-pr&#39;)">Collapse All</button></div>
+  <div class="qa-wrap" id="qa-pr">
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q1</span>What is a process? What does the PCB (Process Control Block) contain?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>A <strong>process</strong> is a program in execution &#8212; the active, running instance of a program. A program is a passive set of instructions on disk; a process is that program loaded into memory with its own execution context.</p>
+      <p><strong>Process Control Block (PCB):</strong> The OS&#39;s data structure representing a process. The OS maintains one PCB per process, used to save/restore state during context switches.</p>
+      <table><tr><th>PCB Field</th><th>Description</th></tr>
+      <tr><td>Process ID (PID)</td><td>Unique numeric identifier for the process</td></tr>
+      <tr><td>Process state</td><td>Current state: New, Ready, Running, Waiting, Terminated</td></tr>
+      <tr><td>Program Counter (PC)</td><td>Address of the next instruction to execute</td></tr>
+      <tr><td>CPU registers</td><td>All register values at last context switch (accumulator, stack pointer, etc.)</td></tr>
+      <tr><td>Memory management info</td><td>Page table base address, segment limits, memory bounds</td></tr>
+      <tr><td>I/O status</td><td>List of open files, pending I/O operations</td></tr>
+      <tr><td>Accounting info</td><td>CPU time used, wall time, priority, resource limits</td></tr>
+      <tr><td>Parent PID</td><td>PID of the parent process that created this one</td></tr></table>
+      <div class="tip">&#128161; Interview answer: "A process is a program in execution. The PCB is the OS&#39;s bookkeeping structure &#8212; it stores everything needed to pause a process and resume it later: the program counter, registers, memory maps, open files, and scheduling info."</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q2</span>Process states and valid transitions &#8212; the 5-state model?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+<pre>                 admitted
+  [New] ─────────────────────────▶ [Ready]
+                                      │  ▲
+                          scheduled   │  │  preempted /
+                          by OS       │  │  time quantum expires
+                                      ▼  │
+                                   [Running]
+                                      │  │
+              I/O request / event wait│  │ exit
+                                      ▼  ▼
+                                   [Waiting] ──────▶ [Terminated]
+                                      │
+                          I/O done /  │
+                          event occurs│
+                                      ▼
+                                   [Ready]</pre>
+      <table><tr><th>State</th><th>Meaning</th><th>What triggers transition OUT</th></tr>
+      <tr><td><strong>New</strong></td><td>Process created but not yet admitted to ready queue</td><td>OS admits it (allocates memory, creates PCB)</td></tr>
+      <tr><td><strong>Ready</strong></td><td>Waiting for CPU &#8212; has everything else it needs</td><td>Scheduler selects it (dispatches to CPU)</td></tr>
+      <tr><td><strong>Running</strong></td><td>Currently executing on CPU</td><td>I/O request, time quantum expires, or process exits</td></tr>
+      <tr><td><strong>Waiting (Blocked)</strong></td><td>Waiting for I/O completion or event</td><td>I/O completes / event occurs &#8594; moves to Ready</td></tr>
+      <tr><td><strong>Terminated</strong></td><td>Process finished execution. PCB held briefly for parent&#39;s wait()</td><td>Parent calls wait() &#8594; PCB released</td></tr></table>
+      <div class="note">&#128203; A process spends most of its life bouncing between Ready and Waiting, with brief bursts in Running. I/O-bound processes (web servers, DB queries) spend more time Waiting. CPU-bound processes (ML training, video encoding) spend more time Running and Ready.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q3</span>Process vs Thread &#8212; the definitive comparison with memory layout?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table><tr><th>Property</th><th>Process</th><th>Thread</th></tr>
+      <tr><td>Definition</td><td>Independent program in execution; its own address space</td><td>Lightweight unit of execution within a process; shares the process&#39;s address space</td></tr>
+      <tr><td>Memory</td><td>Own code, data, heap, stack segments</td><td>Shares code, data, heap with siblings; own stack + registers only</td></tr>
+      <tr><td>Creation cost</td><td>Heavy &#8212; full address space duplication (fork)</td><td>Light &#8212; just allocate a new stack + TCB</td></tr>
+      <tr><td>Communication</td><td>IPC needed (pipes, sockets, shared memory, signals)</td><td>Direct via shared memory &#8212; fast but needs synchronization</td></tr>
+      <tr><td>Crash impact</td><td>Isolated &#8212; one process crash doesn&#39;t affect others</td><td>One thread crash can bring down the entire process</td></tr>
+      <tr><td>Context switch</td><td>Expensive &#8212; must switch address space (TLB flush)</td><td>Cheaper &#8212; same address space, only switch registers + stack</td></tr>
+      <tr><td>Typical use</td><td>Separate applications (browser + word processor)</td><td>Concurrent work within one app (web server handling many requests)</td></tr></table>
+<pre>-- Memory layout comparison:
+Process A:                       Process B:
+┌──────────────┐                ┌──────────────┐
+│  Stack (A)   │                │  Stack (B)   │
+├──────────────┤                ├──────────────┤
+│  Heap (A)    │                │  Heap (B)    │
+├──────────────┤                ├──────────────┤
+│  Data (A)    │                │  Data (B)    │
+├──────────────┤                ├──────────────┤
+│  Code (A)    │                │  Code (B)    │
+└──────────────┘                └──────────────┘
+
+Process with 3 threads:
+┌──────────────────────────────────────────┐
+│  Stack T1  │  Stack T2  │  Stack T3      │  (separate per thread)
+├────────────────────────────────────────  │
+│              Heap (shared)               │  (all threads share)
+├──────────────────────────────────────────┤
+│              Data (shared)               │
+├──────────────────────────────────────────┤
+│              Code (shared)               │
+└──────────────────────────────────────────┘</pre>
+      <div class="tip">&#128161; Real-world: a Java web server (Tomcat) uses a thread pool &#8212; one process, many threads sharing heap memory. A browser uses processes per tab for isolation &#8212; one crashed tab cannot corrupt another. Both choices are valid; the trade-off is isolation vs efficiency.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q4</span>What is context switching? Why is it expensive?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>A <strong>context switch</strong> is the OS mechanism of saving the complete execution state (context) of the currently running process/thread and loading the saved state of the next one &#8212; allowing the CPU to switch between processes/threads.</p>
+      <p><strong>Steps during a process context switch:</strong></p>
+      <ol style="padding-left:20px;line-height:2.1">
+        <li>Timer interrupt fires (or process blocks on I/O)</li>
+        <li>OS saves current process state into its PCB: program counter, all CPU registers, memory limits</li>
+        <li>OS updates process state (Running &#8594; Ready or Waiting)</li>
+        <li>OS scheduler selects next process to run</li>
+        <li>OS loads next process&#39;s PCB: restores program counter, registers</li>
+        <li>OS switches memory address space &#8212; updates page table pointer (CR3 register on x86)</li>
+        <li>TLB (Translation Lookaside Buffer) flush &#8212; all cached virtual-to-physical address mappings invalidated</li>
+        <li>CPU resumes execution of new process</li>
+      </ol>
+      <p><strong>Why it&#39;s expensive:</strong></p>
+      <ul>
+        <li><strong>No useful work done</strong> during the switch itself &#8212; pure overhead</li>
+        <li><strong>TLB flush</strong> means all subsequent memory accesses must re-walk the page table until the TLB warms up &#8212; can cause hundreds of extra memory accesses</li>
+        <li><strong>Cache pollution:</strong> the new process&#39;s working set evicts the previous process&#39;s cache lines</li>
+        <li>Typical cost: 1&#8211;10 microseconds + cache warming time</li>
+      </ul>
+      <div class="note">&#128203; Thread context switch is cheaper than process context switch because threads share the same address space &#8212; no page table switch, no TLB flush. Only the stack pointer and registers need to be swapped.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q5</span>fork() and exec() &#8212; how do shells create processes?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>fork():</strong> Creates a new process (child) by duplicating the calling process (parent). The child is an almost-exact copy of the parent &#8212; same code, data, heap, open files. fork() returns 0 in the child and the child&#39;s PID in the parent. Both continue execution from the same point after the fork() call.</p>
+      <p><strong>exec():</strong> Replaces the current process&#39;s memory image with a new program. Does NOT create a new process &#8212; just loads and starts a different program within the existing process. The calling process&#39;s code, data, stack are replaced entirely.</p>
+<pre>// Classic shell fork+exec pattern:
+pid_t pid = fork();
+
+if (pid == 0) {
+    // Child process: replace myself with "ls -la"
+    execvp("ls", args);   // child's memory replaced with ls
+    // Code here never runs if exec succeeds
+} else {
+    // Parent process: wait for child to complete
+    wait(NULL);           // reap the zombie
+    // Continue shell loop
+}</pre>
+      <div class="tip">&#128161; Why fork then exec instead of just "create process running X"? Unix philosophy: fork gives you a full copy of the parent&#39;s state (including open file descriptors, environment variables) which you can modify BEFORE exec. This enables powerful features like I/O redirection: close stdout, open a file as stdout, then exec &#8212; the new program writes to the file without knowing about it.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q6</span>Zombie and Orphan processes &#8212; what are they and how are they handled?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>Zombie process:</strong> A process that has finished executing but still has an entry in the process table because the parent has not yet called wait() to collect its exit status. It holds no resources (memory freed) but occupies a PID and a process table slot.</p>
+<pre>// Creating a zombie:
+pid_t pid = fork();
+if (pid == 0) {
+    exit(0);     // Child exits immediately
+}
+sleep(10);       // Parent sleeps without calling wait()
+// During this 10 seconds: child is a ZOMBIE
+// It appears in ps output as "&lt;defunct&gt;" or "Z" state
+
+// Fix: parent calls wait()
+waitpid(pid, &status, 0);  // zombie cleaned up, PID released</pre>
+      <p><strong>Orphan process:</strong> A process whose parent has terminated before it. The OS re-parents it to the init process (PID 1 on Linux, launchd on macOS), which periodically calls wait() to clean up orphaned processes.</p>
+<pre>// Creating an orphan:
+pid_t pid = fork();
+if (pid &gt; 0) {
+    exit(0);     // Parent exits immediately
+}
+// Child continues running: it is now an orphan
+// Init (PID 1) automatically becomes its new parent
+// Init will wait() for it when it eventually exits</pre>
+      <div class="crit">&#9888; Zombie accumulation is a real production problem. If a server creates many child processes but never calls wait(), eventually it runs out of PIDs and cannot create new processes. Always collect child exit status promptly, or use SIGCHLD handler to call wait() asynchronously.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q7</span>Concurrency vs Parallelism &#8212; what is the difference?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>Concurrency:</strong> Multiple tasks making progress over time &#8212; not necessarily at the same physical instant. Interleaved execution on a single CPU. The OS creates the illusion of simultaneity through rapid context switching.</p>
+      <p><strong>Parallelism:</strong> Multiple tasks executing at literally the same physical instant &#8212; requires multiple CPU cores. True simultaneous execution.</p>
+<pre>-- Concurrency on 1 CPU (interleaved):
+Time:  ──────────────────────────────────────▶
+CPU:   [T1][T1][T2][T2][T1][T3][T3][T2][T1]
+(T1, T2, T3 all progress, but only one runs at a time)
+
+-- Parallelism on 4 CPUs (simultaneous):
+Time:  ──────────────────────────────────────▶
+CPU 1: [T1][T1][T1][T1][T1][T1][T1][T1][T1]
+CPU 2: [T2][T2][T2][T2][T2][T2][T2][T2][T2]
+CPU 3: [T3][T3][T3][T3][T3][T3][T3][T3][T3]
+CPU 4: [T4][T4][T4][T4][T4][T4][T4][T4][T4]
+(All truly run simultaneously)</pre>
+      <table><tr><th>Dimension</th><th>Concurrency</th><th>Parallelism</th></tr>
+      <tr><td>Hardware needed</td><td>Single CPU is sufficient</td><td>Requires multiple cores</td></tr>
+      <tr><td>Execution model</td><td>Interleaved &#8212; time-sliced</td><td>Simultaneous &#8212; literally same moment</td></tr>
+      <tr><td>Solves</td><td>Responsiveness &#8212; keep CPU busy, handle many tasks</td><td>Throughput &#8212; compute faster by dividing work</td></tr>
+      <tr><td>Risk</td><td>Race conditions, deadlocks from interleaving</td><td>Same + data sharing across cores (cache coherence)</td></tr></table>
+      <div class="tip">&#128161; Rob Pike (Go language creator): "Concurrency is about dealing with many things at once. Parallelism is about doing many things at once." A single-core system can be concurrent but not parallel. All parallel systems are concurrent, but not vice versa.</div>
+    </div></div>
+
+  </div>
+</section>
+
+
+<!-- SCHEDULING -->
+<section id="q-sched">
+  <div class="sh"><div class="sh-eye">Questions 8&#8211;12</div><h2>&#128336; CPU Scheduling Algorithms</h2></div>
+  <div class="why"><div class="why-l">&#9889; Why Scheduling Algorithms Are Classic Interview Territory</div><p>CPU scheduling algorithms are asked because they require you to reason about trade-offs: fairness vs efficiency, response time vs throughput, starvation vs performance. They also reveal whether you can analyze algorithms &#8212; not just name them. Always know: how does each work, what does it optimize, what is its weakness, and what is the time complexity of the scheduling decision itself.</p></div>
+  <div class="sched-grid">
+    <div class="sc-card"><div class="sc-name">FCFS</div><p>First Come First Served. Simplest. Convoy effect problem.</p></div>
+    <div class="sc-card"><div class="sc-name">SJF</div><p>Shortest Job First. Optimal average wait. Requires knowing burst time.</p></div>
+    <div class="sc-card"><div class="sc-name">SRTF</div><p>Shortest Remaining Time First. Preemptive SJF. Optimal but starvation risk.</p></div>
+    <div class="sc-card"><div class="sc-name">Round Robin</div><p>Time quantum. Fair. Quantum size is critical design choice.</p></div>
+    <div class="sc-card"><div class="sc-name">Priority</div><p>By priority value. Flexible. Can starve low-priority processes.</p></div>
+    <div class="sc-card"><div class="sc-name">Multilevel Queue</div><p>Multiple queues per class. Different policy per queue.</p></div>
+  </div>
+  <div class="xp"><button class="xp-btn" onclick="xA(&#39;qa-sc&#39;)">Expand All</button><button class="xp-btn" onclick="xN(&#39;qa-sc&#39;)">Collapse All</button></div>
+  <div class="qa-wrap" id="qa-sc">
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q8</span>CPU scheduling metrics &#8212; what are we optimizing for?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>Different scheduling algorithms optimize for different goals. Understanding these metrics is essential for evaluating which algorithm is "best" for a given workload.</p>
+      <table><tr><th>Metric</th><th>Definition</th><th>Formula</th><th>Who cares</th></tr>
+      <tr><td><strong>CPU Utilization</strong></td><td>% of time CPU is doing useful work</td><td>Busy time / Total time</td><td>Data centers, batch systems</td></tr>
+      <tr><td><strong>Throughput</strong></td><td>Number of processes completed per unit time</td><td>Processes / Time</td><td>Batch processing</td></tr>
+      <tr><td><strong>Turnaround Time</strong></td><td>Total time from submission to completion</td><td>Completion &#8722; Arrival time</td><td>Batch jobs</td></tr>
+      <tr><td><strong>Waiting Time</strong></td><td>Total time spent in the Ready queue</td><td>Turnaround &#8722; Burst time</td><td>All systems</td></tr>
+      <tr><td><strong>Response Time</strong></td><td>Time from submission to FIRST response</td><td>First run &#8722; Arrival time</td><td>Interactive systems, UIs</td></tr></table>
+      <div class="note">&#128203; There is no single "best" scheduler. Interactive systems (desktops, web servers) optimize for response time. Batch systems (payroll, backups) optimize for throughput. Real-time systems (medical devices, aircraft) optimize for deadline guarantees.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q9</span>FCFS, SJF, SRTF &#8212; explain each with worked example?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>FCFS (First Come First Served):</strong> Non-preemptive. Processes executed in arrival order. Simple but suffers the <em>convoy effect</em> &#8212; one long job blocks all short jobs behind it.</p>
+<pre>-- Processes: P1(burst=24ms), P2(burst=3ms), P3(burst=3ms) all arrive at t=0
+-- FCFS order: P1 &#8594; P2 &#8594; P3
+-- Gantt: [P1: 0-24][P2: 24-27][P3: 27-30]
+-- Waiting: P1=0, P2=24, P3=27 &#8594; Average = 17ms (BAD for P2, P3!)</pre>
+      <p><strong>SJF (Shortest Job First):</strong> Non-preemptive. Always run the process with the shortest CPU burst time next. Provably optimal for minimizing average waiting time. Problem: requires knowing burst time in advance (usually estimated from history).</p>
+<pre>-- Same processes with SJF: P2(3) &#8594; P3(3) &#8594; P1(24)
+-- Gantt: [P2: 0-3][P3: 3-6][P1: 6-30]
+-- Waiting: P1=6, P2=0, P3=3 &#8594; Average = 3ms (MUCH better!)</pre>
+      <p><strong>SRTF (Shortest Remaining Time First):</strong> Preemptive version of SJF. If a new process arrives with a shorter remaining burst than the current process, preempt and run the new one. Minimizes average waiting time even more than SJF but risks starvation of long jobs.</p>
+<pre>-- P1 arrives t=0 (burst=8), P2 arrives t=1 (burst=4), P3 arrives t=2 (burst=9), P4 arrives t=3 (burst=5)
+-- t=0: P1 starts (remaining=8)
+-- t=1: P2 arrives (remaining=4 &lt; P1&#39;s remaining=7) &#8594; preempt P1, run P2
+-- t=2: P3 arrives (remaining=9 &gt; P2&#39;s remaining=3) &#8594; continue P2
+-- t=3: P4 arrives (remaining=5 &gt; P2&#39;s remaining=2) &#8594; continue P2
+-- t=5: P2 done, compare P1(7), P3(9), P4(5) &#8594; run P4...</pre>
+      <div class="crit">&#9888; SJF/SRTF can cause starvation &#8212; if short jobs keep arriving, a long job may NEVER run. Fix: aging (gradually increase priority of waiting processes based on waiting time).</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q10</span>Round Robin &#8212; how does quantum size affect performance?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>Round Robin:</strong> Each process gets a fixed time quantum (time slice). When the quantum expires, the process is preempted and moved to the back of the ready queue. Fair by design &#8212; no starvation possible.</p>
+<pre>-- P1(burst=53ms), P2(burst=17ms), P3(burst=68ms), P4(burst=24ms), quantum=20ms
+-- Gantt:
+-- [P1:0-20][P2:20-37][P3:37-57][P4:57-77][P1:77-97][P3:97-117][P4:117-121][P1:121-134][P3:134-154]
+-- All processes get CPU turns in rotation. No one starves.</pre>
+      <p><strong>How quantum size affects performance:</strong></p>
+      <table><tr><th>Quantum Size</th><th>Behavior</th><th>Result</th></tr>
+      <tr><td>Very small (1ms)</td><td>Context switch every 1ms</td><td>Nearly all CPU time wasted on context switching! Terrible throughput.</td></tr>
+      <tr><td>Very large (&#8734;)</td><td>Never preempts &#8212; runs to completion</td><td>Degenerates to FCFS. Poor response time for short jobs.</td></tr>
+      <tr><td>Sweet spot (10&#8211;100ms)</td><td>Mostly completes jobs in one quantum</td><td>Good balance: &lt;10% time in context switching, responsive</td></tr></table>
+      <div class="tip">&#128161; Rule of thumb: quantum should be slightly larger than the typical CPU burst of an interactive request &#8212; so most interactions complete in one quantum without preemption. Linux default: 100ms. Modern systems typically use 4&#8211;20ms for interactive responsiveness.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q11</span>Priority Scheduling &#8212; preemptive vs non-preemptive, and starvation fix?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>Each process is assigned a priority number. The scheduler always runs the highest-priority ready process. Two variants:</p>
+      <ul>
+        <li><strong>Non-preemptive:</strong> Current process runs to completion (or I/O block) before checking priority</li>
+        <li><strong>Preemptive:</strong> If a higher-priority process becomes ready, immediately preempt the current process</li>
+      </ul>
+<pre>-- Example (lower number = higher priority):
+-- P1(priority=3, burst=10), P2(priority=1, burst=1), P3(priority=4, burst=2), P4(priority=5, burst=1), P5(priority=2, burst=5)
+-- Non-preemptive order (arrival at t=0): P2(1) &#8594; P5(2) &#8594; P1(3) &#8594; P3(4) &#8594; P4(5)
+-- P4 always runs last regardless of how long it waits &#8212; starvation if P1-P3 keep arriving!</pre>
+      <p><strong>Starvation:</strong> Low-priority processes may wait indefinitely if high-priority processes keep arriving. A process submitted at priority 10 may never run if priority 1&#8211;9 processes keep arriving.</p>
+      <p><strong>Fix &#8212; Aging:</strong> Gradually increase the priority of processes that have been waiting for a long time.</p>
+<pre>-- Aging example: increase priority by 1 every 15 minutes of waiting
+-- P4 starts at priority 5
+-- After 15 min waiting: priority becomes 4
+-- After 30 min waiting: priority becomes 3
+-- Eventually P4 reaches priority 1 and MUST run
+-- Aging guarantees eventual execution for all processes</pre>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q12</span>Preemptive vs Non-preemptive scheduling &#8212; when each is appropriate?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table><tr><th>Property</th><th>Preemptive</th><th>Non-Preemptive</th></tr>
+      <tr><td>CPU control</td><td>OS can forcibly remove CPU from running process</td><td>Process keeps CPU until it voluntarily yields</td></tr>
+      <tr><td>Trigger for switch</td><td>Timer interrupt, higher-priority arrival, I/O block</td><td>Only when process blocks (I/O) or terminates</td></tr>
+      <tr><td>Response time</td><td>Better &#8212; urgent tasks can preempt immediately</td><td>Worse &#8212; must wait for current process to finish</td></tr>
+      <tr><td>Context switch overhead</td><td>Higher &#8212; more frequent switches</td><td>Lower &#8212; fewer switches</td></tr>
+      <tr><td>Risk</td><td>Race conditions if shared data modified mid-operation</td><td>One CPU-bound process can monopolize CPU indefinitely</td></tr>
+      <tr><td>Examples</td><td>Round Robin, Priority Preemptive, SRTF</td><td>FCFS, SJF, Non-preemptive Priority</td></tr>
+      <tr><td>Best for</td><td>Interactive systems, real-time systems</td><td>Batch processing, embedded systems</td></tr></table>
+      <div class="pur">&#129504; Kernel preemption: Modern OS kernels (Linux 2.6+) are themselves preemptible &#8212; a high-priority process can preempt the kernel even while it is in the middle of a system call. Older kernels were non-preemptible in kernel mode, causing latency spikes for real-time applications.</div>
+    </div></div>
+
+  </div>
+</section>
+
+
+<!-- SYNCHRONIZATION -->
+<section id="q-sync">
+  <div class="sh"><div class="sh-eye">Questions 13&#8211;18</div><h2>&#128274; Synchronization, Deadlocks &amp; Semaphores</h2></div>
+  <div class="why"><div class="why-l">&#9889; Why Synchronization Is the Heart of Concurrent Programming</div><p>Synchronization problems are the root cause of some of the most catastrophic and hardest-to-reproduce bugs in production systems. Race conditions, deadlocks, and starvation have caused real financial losses, system outages, and safety failures. Interviewers test these because they reveal whether you can reason about concurrent execution &#8212; the fundamental skill of systems programming.</p></div>
+  <div class="xp"><button class="xp-btn" onclick="xA(&#39;qa-sy&#39;)">Expand All</button><button class="xp-btn" onclick="xN(&#39;qa-sy&#39;)">Collapse All</button></div>
+  <div class="qa-wrap" id="qa-sy">
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q13</span>Race condition &#8212; what is it and how is it caused?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>A <strong>race condition</strong> occurs when the correctness of a program depends on the relative timing of events, particularly when multiple threads access shared data concurrently and at least one access is a write.</p>
+<pre>// Classic race condition: two threads incrementing a shared counter
+int counter = 0;
+
+// Thread 1 and Thread 2 both execute:
+void increment() {
+    counter++;  // NOT atomic! This is 3 operations:
+                // 1. LOAD: read counter from memory into register (counter=5)
+                // 2. ADD:  increment register (register=6)
+                // 3. STORE: write register back to memory (counter=6)
+}
+
+// Timeline showing the race:
+// T1: LOAD counter=5
+// T2: LOAD counter=5      (T2 reads BEFORE T1 stores)
+// T1: ADD  register=6
+// T2: ADD  register=6
+// T1: STORE counter=6
+// T2: STORE counter=6     (T2 OVERWRITES T1&#39;s result!)
+// Expected: counter=7. Actual: counter=6. Lost update!</pre>
+      <p><strong>Critical Section:</strong> The portion of code that accesses shared resources. Must be executed atomically &#8212; only one thread at a time.</p>
+      <p><strong>Conditions for a correct critical section solution:</strong></p>
+      <ol style="padding-left:20px;line-height:2.1">
+        <li><strong>Mutual Exclusion:</strong> Only one process in the critical section at any time</li>
+        <li><strong>Progress:</strong> If no process is in the critical section and some want to enter, the decision cannot be postponed indefinitely</li>
+        <li><strong>Bounded Waiting:</strong> There is a limit on how many times other processes can enter the critical section before a waiting process is allowed in</li>
+      </ol>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q14</span>Semaphore &#8212; what is it? Types and operations?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>A <strong>semaphore</strong> is a synchronization primitive: an integer variable with two atomic operations. Proposed by Edsger Dijkstra. Used to control access to shared resources and coordinate between processes/threads.</p>
+      <p><strong>Two atomic operations:</strong></p>
+      <ul>
+        <li><strong>wait() / P() / down():</strong> Decrement value. If value becomes negative, block the calling process (add to semaphore&#39;s waiting queue).</li>
+        <li><strong>signal() / V() / up():</strong> Increment value. If value is still &#8804; 0, wake one blocked process from the waiting queue.</li>
+      </ul>
+<pre>// wait(S):
+if (S.value > 0) {
+    S.value--;         // can proceed immediately
+} else {
+    block(current_process);  // add to S.waiting_queue, block
+}
+
+// signal(S):
+S.value++;
+if (S.value &lt;= 0) {
+    wake_up(one_from_waiting_queue);  // unblock one waiter
+}</pre>
+      <p><strong>Types:</strong></p>
+      <table><tr><th>Type</th><th>Initial Value</th><th>Used For</th><th>Example</th></tr>
+      <tr><td><strong>Binary Semaphore (Mutex)</strong></td><td>1</td><td>Mutual exclusion &#8212; only 1 in critical section</td><td>Protecting a shared counter</td></tr>
+      <tr><td><strong>Counting Semaphore</strong></td><td>N (&gt;1)</td><td>Control access to N instances of a resource</td><td>Connection pool with 10 connections (N=10)</td></tr></table>
+      <div class="teal">&#128161; Semaphore operations MUST be atomic &#8212; the decrement+check+block sequence must happen without interruption. Implemented using hardware atomic instructions (test-and-set, compare-and-swap) or by disabling interrupts briefly in kernel mode.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q15</span>Mutex vs Semaphore &#8212; key differences?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table><tr><th>Property</th><th>Mutex</th><th>Semaphore</th></tr>
+      <tr><td>Full name</td><td>Mutual Exclusion Lock</td><td>Semaphore (general synchronization)</td></tr>
+      <tr><td>Ownership</td><td>The thread that locked it MUST unlock it</td><td>No ownership &#8212; one thread can signal what another waited on</td></tr>
+      <tr><td>Value range</td><td>Binary: locked (0) or unlocked (1)</td><td>Any non-negative integer (counting semaphore)</td></tr>
+      <tr><td>Primary use</td><td>Mutual exclusion: protect a critical section</td><td>Signaling between threads; counting resources</td></tr>
+      <tr><td>Can be released by non-owner?</td><td>No &#8212; undefined behavior</td><td>Yes &#8212; any thread can signal</td></tr>
+      <tr><td>Priority inversion handling</td><td>Yes &#8212; priority inheritance in most OS</td><td>No built-in mechanism</td></tr></table>
+<pre>// MUTEX: protect a shared counter (ownership matters)
+mutex.lock();        // only ONE thread can be here
+counter++;           // critical section
+mutex.unlock();      // MUST be the same thread that locked
+
+// SEMAPHORE: signal between threads (no ownership)
+sem_t sem;
+sem_init(&sem, 0, 0);  // initial value 0
+
+// Producer thread:
+produce_item();
+sem_post(&sem);    // signal: item is ready (value now 1)
+
+// Consumer thread:
+sem_wait(&sem);    // wait: blocks until value &gt; 0, then decrements
+consume_item();
+// (Different threads do wait and signal &#8212; OK for semaphore, wrong for mutex)</pre>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q16</span>Producer-Consumer problem &#8212; classic semaphore solution?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>Classic synchronization problem: producer adds to a bounded buffer; consumer removes. Constraints: producer must not write when buffer full; consumer must not read when buffer empty; mutual exclusion when accessing buffer.</p>
+<pre>// Solution using 3 semaphores:
+semaphore mutex = 1;     // binary: mutual exclusion for buffer access
+semaphore empty = N;     // counting: # empty slots (starts at N = buffer capacity)
+semaphore full  = 0;     // counting: # filled slots (starts at 0)
+
+// PRODUCER:
+while(true) {
+    item = produce_item();
+    wait(empty);          // wait for an empty slot
+    wait(mutex);          // lock the buffer
+    add_item(buffer, item);
+    signal(mutex);         // unlock the buffer
+    signal(full);          // notify: one more item available
+}
+
+// CONSUMER:
+while(true) {
+    wait(full);            // wait for an item to be available
+    wait(mutex);           // lock the buffer
+    item = remove_item(buffer);
+    signal(mutex);         // unlock the buffer
+    signal(empty);         // notify: one more empty slot
+    consume_item(item);
+}</pre>
+      <div class="crit">&#9888; ORDER MATTERS: always wait(empty/full) BEFORE wait(mutex). If you do wait(mutex) first and then wait(empty/full), you can get a deadlock: Producer holds mutex, waits for empty; Consumer cannot enter buffer to signal empty because Producer holds mutex.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q17</span>OS Deadlocks &#8212; 4 Coffman conditions and all 4 handling strategies?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>Deadlock:</strong> Two or more processes permanently blocked, each waiting for a resource held by another in the group.</p>
+      <p><strong>Four Coffman Conditions (ALL must hold simultaneously for deadlock):</strong></p>
+      <ol style="padding-left:20px;line-height:2.1">
+        <li><strong>Mutual Exclusion:</strong> At least one resource is non-sharable (only one process can use it at a time)</li>
+        <li><strong>Hold and Wait:</strong> A process holds at least one resource while waiting for additional resources held by others</li>
+        <li><strong>No Preemption:</strong> Resources cannot be forcibly taken from a process; must be voluntarily released</li>
+        <li><strong>Circular Wait:</strong> A circular chain of processes exists, each waiting for a resource held by the next in the chain</li>
+      </ol>
+      <p><strong>Breaking any ONE condition prevents deadlock. Four handling strategies:</strong></p>
+      <table><tr><th>Strategy</th><th>Approach</th><th>Cost</th><th>Real Usage</th></tr>
+      <tr><td><strong>Prevention</strong></td><td>Eliminate one Coffman condition permanently (e.g., require all resources upfront = no Hold and Wait)</td><td>Very restrictive, low utilization</td><td>Embedded systems, safety-critical</td></tr>
+      <tr><td><strong>Avoidance</strong></td><td>Dynamically check before granting a request &#8212; Banker&#39;s Algorithm checks if granting leads to a "safe state"</td><td>Requires knowing max needs upfront, overhead per request</td><td>Rarely practical &#8212; theoretical</td></tr>
+      <tr><td><strong>Detection + Recovery</strong></td><td>Allow deadlocks, detect via wait-for graph cycles, kill a victim process (or rollback a transaction)</td><td>Overhead of periodic detection; victim loses work</td><td>Database systems (transaction deadlock detection)</td></tr>
+      <tr><td><strong>Ignorance (Ostrich)</strong></td><td>Pretend deadlocks don&#39;t happen. Reboot if one occurs.</td><td>Occasional crash, but low overhead</td><td>Most desktop OS (Windows, macOS) for process deadlocks</td></tr></table>
+      <div class="note">&#128203; The Banker&#39;s Algorithm: maintains state for each process&#39;s maximum needs, current allocation, and remaining request. Before granting a request, checks if the resulting state is "safe" (there exists an ordering in which all processes can eventually complete). Theoretically elegant; rarely used in production because requirements are too strict.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q18</span>Dining Philosophers &#8212; the classic problem and solutions?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>Problem:</strong> 5 philosophers sit around a circular table. Between each pair is one chopstick (5 total). To eat, a philosopher needs BOTH the left and right chopstick. If all philosophers simultaneously pick up their left chopstick and then wait for the right one &#8212; circular wait &#8212; deadlock.</p>
+<pre>// Naive approach (DEADLOCK):
+while(true) {
+    think();
+    pick_up(left_chopstick);   // all philosophers do this simultaneously
+    pick_up(right_chopstick);  // all wait here - DEADLOCK!
+    eat();
+    put_down(right_chopstick);
+    put_down(left_chopstick);
+}</pre>
+      <p><strong>Solutions:</strong></p>
+      <ol style="padding-left:20px;line-height:2.1">
+        <li><strong>Asymmetric:</strong> Odd philosophers pick left first, even pick right first. Breaks circular wait.</li>
+        <li><strong>At most N-1 philosophers sit simultaneously:</strong> At least one philosopher always gets both chopsticks &#8212; guarantees progress.</li>
+        <li><strong>Atomic pickup:</strong> A philosopher picks up both chopsticks in one atomic action or neither. If both not available, wait without holding any.</li>
+        <li><strong>Resource hierarchy:</strong> Number chopsticks 1&#8211;5. Always pick up lower-numbered first. Breaks circular wait.</li>
+        <li><strong>Monitor/Waiter:</strong> A central coordinator (monitor) decides who gets to eat &#8212; never lets circular wait form.</li>
+      </ol>
+      <div class="tip">&#128161; The Dining Philosophers is a model for any system where multiple concurrent actors compete for multiple shared resources (network connections, database locks, file handles). The asymmetric solution maps directly to lock ordering in production code: always acquire locks in a consistent order to prevent circular wait.</div>
+    </div></div>
+
+  </div>
+</section>
+
+
+<!-- MEMORY -->
+<section id="q-mem">
+  <div class="sh"><div class="sh-eye">Questions 19&#8211;25</div><h2>&#129504; Memory Management</h2></div>
+  <div class="why"><div class="why-l">&#9889; Why Memory Management Reveals Systems Depth</div><p>Memory management questions test whether you understand the gap between what a programmer sees (a flat address space, unlimited memory) and what actually exists (physical RAM, page tables, TLBs, swap). These concepts explain why 32-bit systems were limited to 4GB, why reading from RAM is 100x faster than disk, and why a misconfigured JVM heap causes GC pauses. These are daily production concerns.</p></div>
+  <div class="xp"><button class="xp-btn" onclick="xA(&#39;qa-mm&#39;)">Expand All</button><button class="xp-btn" onclick="xN(&#39;qa-mm&#39;)">Collapse All</button></div>
+  <div class="qa-wrap" id="qa-mm">
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q19</span>What is virtual memory? Why does it exist?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>Virtual memory</strong> is an abstraction that gives each process the illusion of its own large, private, contiguous address space &#8212; regardless of the actual physical RAM size or fragmentation.</p>
+      <p><strong>Why it exists &#8212; 4 key benefits:</strong></p>
+      <ol style="padding-left:20px;line-height:2.1">
+        <li><strong>Programs larger than RAM:</strong> The OS can run a 16GB program on a machine with 8GB RAM by swapping less-used pages to disk. Not all pages need to be in RAM simultaneously.</li>
+        <li><strong>Process isolation:</strong> Each process has its own virtual address space. Process A at virtual address 0x1000 accesses completely different physical memory than Process B at virtual address 0x1000. No process can access another&#39;s memory (without explicit sharing).</li>
+        <li><strong>Simplified programming model:</strong> Programs can be written assuming they start at address 0 and have the entire address space available. The OS handles the physical layout transparently.</li>
+        <li><strong>Efficient memory sharing:</strong> Multiple processes can share the same physical pages (e.g., shared libraries like libc &#8212; loaded once in RAM, mapped into every process&#39;s address space).</li>
+      </ol>
+<pre>-- Virtual address space per process (64-bit):
+-- 0x0000000000000000 ... 0x00007FFFFFFFFFFF (128 TB user space)
+-- The SAME virtual addresses in DIFFERENT processes map to DIFFERENT physical pages
+-- Process A: virtual 0x1000 &#8594; physical 0x4A3000
+-- Process B: virtual 0x1000 &#8594; physical 0x7B1000  (completely different!)</pre>
+      <div class="note">&#128203; Why 32-bit systems were limited to 4GB: a 32-bit address space has 2&#x2032; = 4,294,967,296 addresses. Each address is 1 byte. Total addressable memory = 4GB. 64-bit systems: 2&#x2E3C; = 16 exabytes of addressable space &#8212; effectively unlimited for any current workload.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q20</span>Paging &#8212; how does virtual-to-physical address translation work?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>Paging</strong> divides both virtual address space and physical memory into fixed-size blocks: <strong>pages</strong> (virtual) and <strong>frames</strong> (physical). A page table maps virtual page numbers to physical frame numbers.</p>
+<pre>-- Address translation:
+-- Virtual Address = [Virtual Page Number (VPN) | Offset]
+-- VPN is used to look up the page table &#8594; gives Physical Frame Number (PFN)
+-- Physical Address = [PFN | Offset] (offset is unchanged)
+
+-- Example (page size = 4KB = 2^12 bytes):
+-- Virtual address: 0x12345678
+-- Offset (lower 12 bits): 0x678
+-- VPN   (upper bits):      0x12345
+-- Page table lookup: VPN 0x12345 &#8594; PFN 0x00ABC
+-- Physical address: 0x00ABC678
+
+-- Page Table Entry (PTE) contains:
+-- Physical Frame Number (PFN)
+-- Present bit:    1 = page in RAM, 0 = page on disk (triggers page fault)
+-- Dirty bit:      1 = page modified, must write back to disk on eviction
+-- Referenced bit: 1 = page accessed recently (used by replacement algorithms)
+-- Protection bits: Read / Write / Execute permissions</pre>
+      <p><strong>TLB (Translation Lookaside Buffer):</strong> Hardware cache of recent page table entries. Avoids slow page table walk on every memory access. TLB hit: single cycle translation. TLB miss: full page table walk (10&#8211;100 cycles), then cache in TLB.</p>
+      <div class="teal">&#128161; TLB hit rate must be very high (99%+) for paging to be efficient. Fortunately, programs exhibit spatial and temporal locality &#8212; the same pages are accessed repeatedly, so a small TLB (64&#8211;1024 entries) handles most accesses.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q21</span>Segmentation vs Paging &#8212; difference and why most systems use paging?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table><tr><th>Property</th><th>Segmentation</th><th>Paging</th></tr>
+      <tr><td>Division unit</td><td>Variable-size logical segments (code, data, stack, heap)</td><td>Fixed-size pages (typically 4KB)</td></tr>
+      <tr><td>Address format</td><td>[Segment number, Offset]</td><td>[Page number, Offset]</td></tr>
+      <tr><td>External fragmentation</td><td>Yes &#8212; variable-size gaps between segments</td><td>No &#8212; all frames are the same size</td></tr>
+      <tr><td>Internal fragmentation</td><td>No</td><td>Yes &#8212; last page may be partially empty</td></tr>
+      <tr><td>Programmer visibility</td><td>Visible &#8212; programmer manages segments</td><td>Transparent &#8212; automatic, programmer unaware</td></tr>
+      <tr><td>Protection</td><td>Per-segment (code = execute-only, data = read-write)</td><td>Per-page (with NX bit, read/write bits in PTE)</td></tr></table>
+      <p><strong>Why modern systems use paging (not segmentation):</strong></p>
+      <ul>
+        <li>External fragmentation is hard to manage &#8212; memory becomes Swiss cheese over time</li>
+        <li>Fixed-size pages make allocation trivial (any free frame fits any page)</li>
+        <li>Paging enables clean virtual memory: any subset of virtual pages can be in RAM</li>
+      </ul>
+      <p><strong>Modern systems (x86-64) use paged segmentation:</strong> hardware segments reduced to ring 0/3 privilege (kernel vs user mode). Actual memory management is entirely paging-based.</p>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q22</span>Page fault &#8212; what happens step by step?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>A <strong>page fault</strong> occurs when a process accesses a virtual page that is not currently in physical RAM (the present bit in the page table entry is 0).</p>
+<pre>-- Step-by-step page fault handling:
+1. CPU accesses virtual address &#8594; looks up TLB &#8594; TLB miss
+2. CPU walks page table &#8594; PTE found, but present bit = 0 (page not in RAM)
+3. CPU raises a page fault exception &#8594; control transfers to OS page fault handler
+4. OS checks: is this a valid virtual address for this process?
+   If NO: segmentation fault &#8594; SIGSEGV, process killed
+   If YES: continue
+5. OS finds a free physical frame (or evicts one &#8212; see page replacement)
+6. OS initiates disk I/O to read the required page from swap/file into the frame
+7. Process is blocked during disk I/O
+8. I/O completes: OS updates PTE (set present=1, PFN=new frame)
+9. OS updates TLB
+10. OS restarts the faulting instruction &#8594; process continues transparently
+
+-- Cost: ~10ms for a disk page fault (vs ~100ns for RAM access)
+-- 100,000x slower than a RAM access!</pre>
+      <p><strong>Types of page faults:</strong></p>
+      <ul>
+        <li><strong>Minor (soft) fault:</strong> Page is in RAM but not in this process&#39;s page table (e.g., shared library, copy-on-write). Cheap &#8212; just update page table. No disk I/O.</li>
+        <li><strong>Major (hard) fault:</strong> Page must be read from disk. Expensive &#8212; 10ms+ disk I/O.</li>
+        <li><strong>Invalid fault:</strong> Access to unmapped virtual address &#8594; Segmentation Fault (SIGSEGV).</li>
+      </ul>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q23</span>Page replacement algorithms &#8212; FIFO, LRU, Optimal, Clock?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>When a page fault occurs and no free frames are available, the OS must evict (replace) an existing page. Which one?</p>
+      <table><tr><th>Algorithm</th><th>Policy</th><th>Performance</th><th>Implementable?</th></tr>
+      <tr><td><strong>FIFO</strong></td><td>Evict the oldest page (first loaded)</td><td>Simple but poor &#8212; may evict heavily used pages. Suffers Belady&#39;s Anomaly: MORE frames can cause MORE page faults!</td><td>Yes &#8212; just a queue</td></tr>
+      <tr><td><strong>Optimal (OPT)</strong></td><td>Evict the page that won&#39;t be used for the longest time in the future</td><td>Theoretically best &#8212; minimum page faults. Used as a benchmark.</td><td>No &#8212; requires future knowledge</td></tr>
+      <tr><td><strong>LRU</strong></td><td>Evict the page Least Recently Used</td><td>Near-optimal in practice. Uses past as proxy for future (locality).</td><td>Expensive &#8212; must track access time for every page</td></tr>
+      <tr><td><strong>Clock (Second Chance)</strong></td><td>Pages arranged in a circle with a reference bit. Clock hand sweeps; if reference bit=1, clear it (give second chance); if 0, evict. On access, set reference bit=1.</td><td>Good approximation of LRU with much lower overhead</td><td>Yes &#8212; used in Linux (approx. LRU)</td></tr></table>
+<pre>-- LRU example: page reference string = 7,0,1,2,0,3,0,4,2,3,0,3,2 (3 frames)
+-- Track which page was used LEAST recently at each step
+-- Evict the LRU page when a fault occurs
+
+-- Clock algorithm (simplified):
+-- Pages in circular buffer: [2*, 7*, 1, 5] (* = reference bit set)
+-- Need to evict one. Clock hand at position 0 (page 2):
+-- Page 2: ref bit=1 &#8594; clear bit, advance (page 2 gets second chance)
+-- Page 7: ref bit=1 &#8594; clear bit, advance
+-- Page 1: ref bit=0 &#8594; EVICT page 1, load new page here</pre>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q24</span>Thrashing &#8212; what causes it and how to fix it?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>Thrashing</strong> occurs when the system spends more time handling page faults than executing actual program instructions &#8212; the OS is constantly swapping pages in and out with no useful progress.</p>
+<pre>-- Thrashing scenario:
+-- 5 processes each need 4 frames to run efficiently
+-- System has only 10 frames (not enough for even 3 processes properly)
+-- Each process constantly needs pages not in RAM
+-- One process faults &#8594; OS swaps in its page &#8594; evicts another process&#39;s page
+-- That process faults &#8594; evicts the first process&#39;s page &#8594; cycle repeats
+-- CPU utilization drops to near 0 (CPU always waiting for disk I/O)</pre>
+      <p><strong>Causes:</strong></p>
+      <ul>
+        <li>Too many processes competing for too few physical frames</li>
+        <li>Degree of multiprogramming too high for available RAM</li>
+        <li>Process&#39;s working set does not fit in allocated frames</li>
+      </ul>
+      <p><strong>Solutions:</strong></p>
+      <ul>
+        <li><strong>Working Set Model:</strong> Track the set of pages each process actively uses (working set). Only run a process if there are enough free frames to hold its full working set. Suspend processes if necessary.</li>
+        <li><strong>Reduce degree of multiprogramming:</strong> Swap out entire processes to disk &#8212; free up frames for remaining processes.</li>
+        <li><strong>Local replacement:</strong> Each process has a fixed frame allocation; can only evict its own pages &#8212; prevents one process thrashing from polluting others.</li>
+        <li><strong>Add more RAM:</strong> The physical fix for a RAM-starved system.</li>
+      </ul>
+      <div class="tip">&#128161; Thrashing is observable: CPU utilization suddenly drops while disk I/O shoots up (the OS is spending all its time on page fault handling). In Linux: watch /proc/vmstat for pgfault and pgmajfault rates.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q25</span>Internal vs External Fragmentation &#8212; which allocation schemes cause each?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table><tr><th>Type</th><th>Definition</th><th>Caused By</th><th>Fix</th></tr>
+      <tr><td><strong>Internal Fragmentation</strong></td><td>Allocated block is larger than what is needed. Unused bytes INSIDE the allocated block.</td><td>Fixed-size allocation: requesting 100 bytes but getting a 128-byte block (the 28 extra bytes are wasted inside)</td><td>Use variable-size allocation or smaller block sizes</td></tr>
+      <tr><td><strong>External Fragmentation</strong></td><td>Enough total free memory exists but it is scattered in non-contiguous chunks. A large request cannot be satisfied even though total free &gt; request size.</td><td>Variable-size allocation over time: allocate/free blocks of different sizes leaves holes</td><td>Compaction (defragmentation), paging, buddy system</td></tr></table>
+<pre>-- External fragmentation example:
+-- Memory: [FREE:10KB][USED:20KB][FREE:10KB][USED:30KB][FREE:10KB]
+-- Total free = 30KB. Request for 25KB CONTIGUOUS block &#8594; FAILS
+-- (No single free block is 25KB, even though 30KB is free in total)
+
+-- Paging ELIMINATES external fragmentation:
+-- The 25KB request needs 7 pages (7x4KB = 28KB, 3KB internal fragmentation)
+-- The 7 frames can come from ANY 7 free frames in physical RAM
+-- They do NOT need to be contiguous in physical memory!</pre>
+    </div></div>
+
+  </div>
+</section>
+
+
+<!-- I/O & ADVANCED -->
+<section id="q-io">
+  <div class="sh"><div class="sh-eye">Questions 26&#8211;33</div><h2>&#128268; I/O, System Calls, IPC &amp; Kernel Architecture</h2></div>
+  <div class="why"><div class="why-l">&#9889; Why I/O and System Call Questions Round Out OS Knowledge</div><p>Every interaction between application code and the hardware goes through system calls. Every process communicating with another uses IPC. Every OS design decision about monolithic vs microkernel involves fundamental trade-offs. These concepts explain why switching from HTTP polling to WebSockets is fast, why pipes are faster than sockets for local IPC, and why Linux is a monolithic kernel but is still modular.</p></div>
+  <div class="xp"><button class="xp-btn" onclick="xA(&#39;qa-io&#39;)">Expand All</button><button class="xp-btn" onclick="xN(&#39;qa-io&#39;)">Collapse All</button></div>
+  <div class="qa-wrap" id="qa-io">
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q26</span>User mode vs Kernel mode &#8212; why does this distinction exist?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>Modern CPUs operate in at least two privilege levels (rings):</p>
+      <table><tr><th>Mode</th><th>Privilege</th><th>What runs here</th><th>Can access</th></tr>
+      <tr><td><strong>User mode</strong> (Ring 3)</td><td>Restricted</td><td>Application programs (your Java/Python code, browsers, etc.)</td><td>Own process memory only; cannot execute privileged instructions; cannot directly access hardware</td></tr>
+      <tr><td><strong>Kernel mode</strong> (Ring 0)</td><td>Unrestricted</td><td>OS kernel, device drivers</td><td>All physical memory; all hardware; all privileged CPU instructions</td></tr></table>
+      <p><strong>Why this boundary exists:</strong></p>
+      <ul>
+        <li><strong>Stability:</strong> A buggy application cannot crash the OS or corrupt other processes&#39; memory</li>
+        <li><strong>Security:</strong> Applications cannot directly access each other&#39;s memory or hardware (keyboard, disk, network)</li>
+        <li><strong>Control:</strong> The OS mediates all hardware access &#8212; can enforce policies (quotas, permissions, sandboxing)</li>
+      </ul>
+<pre>-- How applications cross the boundary: system calls
+-- Application code (user mode):
+char buf[100];
+read(fd, buf, 100);   // application cannot directly access disk!
+                      // this triggers a system call:
+
+-- Kernel mode execution (transparent to application):
+// 1. CPU switches to kernel mode (privilege ring 0)
+// 2. Kernel validates fd, permissions, buffer address
+// 3. Kernel issues I/O command to disk controller
+// 4. Kernel copies data from kernel buffer to user buffer
+// 5. CPU switches back to user mode
+// 6. read() returns to application with byte count</pre>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q27</span>What is a system call? Give 10 real examples?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>A <strong>system call</strong> is the mechanism through which user-space programs request services from the OS kernel. It is the only legal way for a user-mode program to perform privileged operations.</p>
+<pre>-- System call mechanism:
+// 1. Application calls wrapper function (e.g., C library's read())
+// 2. Wrapper loads system call number into CPU register (e.g., EAX on x86)
+// 3. Wrapper executes SYSCALL instruction (or INT 0x80 on older x86)
+// 4. CPU switches to kernel mode, jumps to syscall handler
+// 5. Kernel identifies call by number, validates arguments
+// 6. Kernel performs the operation, places return value in register
+// 7. CPU switches back to user mode
+// 8. Wrapper returns to application</pre>
+      <table><tr><th>Category</th><th>System Call</th><th>What it does</th></tr>
+      <tr><td>File I/O</td><td><code>open()</code>, <code>read()</code>, <code>write()</code>, <code>close()</code></td><td>Open, read, write, and close files</td></tr>
+      <tr><td>Process</td><td><code>fork()</code>, <code>exec()</code>, <code>wait()</code>, <code>exit()</code></td><td>Create, replace, wait for, and terminate processes</td></tr>
+      <tr><td>Memory</td><td><code>mmap()</code>, <code>brk()</code></td><td>Map files into memory, extend heap (malloc uses these)</td></tr>
+      <tr><td>Networking</td><td><code>socket()</code>, <code>connect()</code>, <code>send()</code>, <code>recv()</code></td><td>Create and use network sockets</td></tr>
+      <tr><td>Signals</td><td><code>kill()</code>, <code>signal()</code></td><td>Send signals between processes</td></tr></table>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q28</span>IPC mechanisms &#8212; all 6 methods, speed and use case comparison?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table><tr><th>IPC Method</th><th>How it works</th><th>Speed</th><th>Best for</th></tr>
+      <tr><td><strong>Pipes (anonymous)</strong></td><td>Unidirectional byte stream. Created with pipe(). Parent-child only.</td><td>Fast &#8212; kernel buffer</td><td><code>ls | grep txt</code> &#8212; shell pipelines between related processes</td></tr>
+      <tr><td><strong>Named Pipes (FIFOs)</strong></td><td>Like pipes but with a filesystem path. Unrelated processes can use it.</td><td>Fast</td><td>Simple unidirectional communication between unrelated processes</td></tr>
+      <tr><td><strong>Message Queues</strong></td><td>Kernel-managed queue of typed messages. Both sender and receiver can be asynchronous.</td><td>Medium</td><td>Asynchronous work queues, buffering bursts between producer and consumer</td></tr>
+      <tr><td><strong>Shared Memory</strong></td><td>Multiple processes map the same physical pages. Communicate by reading/writing the shared region directly.</td><td>Fastest &#8212; no copying, direct memory access</td><td>High-throughput data transfer (video frames, sensor streams); requires external synchronization (semaphore/mutex)</td></tr>
+      <tr><td><strong>Sockets</strong></td><td>Bidirectional communication endpoint. Can be local (Unix domain socket) or network (TCP/UDP).</td><td>Medium &#8212; Unix fast, TCP slowest</td><td>Network communication; local RPC (gRPC uses TCP sockets)</td></tr>
+      <tr><td><strong>Signals</strong></td><td>Software interrupts: one process sends a signal (integer) to another. Very limited data &#8212; just the signal number.</td><td>Fast</td><td>Notifications and control: SIGTERM (graceful shutdown), SIGKILL (force kill), SIGUSR1/SIGUSR2 (custom)</td></tr></table>
+      <div class="tip">&#128161; Speed order: Shared Memory &gt; Pipes/FIFOs &gt; Message Queues &gt; Unix Sockets &gt; TCP Sockets. Shared memory has no data copying &#8212; just read/write memory directly. TCP involves copying: app buffer &#8594; kernel send buffer &#8594; network stack &#8594; kernel recv buffer &#8594; app buffer.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q29</span>What is DMA (Direct Memory Access) and why does it matter?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>DMA (Direct Memory Access):</strong> A hardware feature that allows I/O devices (disk controllers, network cards) to transfer data directly to/from RAM without involving the CPU for each byte transferred.</p>
+<pre>-- WITHOUT DMA (Programmed I/O &#8212; CPU does everything):
+for each byte to transfer:
+    CPU waits for device to be ready
+    CPU reads byte from device I/O port
+    CPU writes byte to memory address
+-- CPU is 100% occupied during transfer &#8212; cannot do anything else!
+
+-- WITH DMA:
+CPU: "DMA controller, transfer 64KB from disk to memory address 0x5000. Tell me when done."
+DMA controller: *handles the entire transfer*
+CPU: *free to do other work*
+DMA completes: *raises interrupt* "Done!"
+CPU: *handles interrupt, processes data*</pre>
+      <p><strong>Why it matters:</strong></p>
+      <ul>
+        <li>Without DMA: a 1GB file read would consume the CPU for the entire transfer duration</li>
+        <li>With DMA: CPU initiates the transfer and is immediately free to schedule other processes</li>
+        <li>Modern NVMe SSDs and 10Gbps NICs transfer gigabytes per second &#8212; DMA is essential for this throughput without starving the CPU</li>
+      </ul>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q30</span>Monolithic vs Microkernel vs Hybrid kernel &#8212; trade-offs?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table><tr><th>Kernel Type</th><th>Architecture</th><th>Pros</th><th>Cons</th><th>Examples</th></tr>
+      <tr><td><strong>Monolithic</strong></td><td>All OS services (scheduler, file system, device drivers, networking) run in kernel space (ring 0)</td><td>Fast &#8212; no IPC needed between kernel components; direct function calls</td><td>Large codebase in privileged mode; one buggy driver can crash the whole OS</td><td>Linux, traditional Unix</td></tr>
+      <tr><td><strong>Microkernel</strong></td><td>Minimal kernel (scheduling, basic IPC, memory management). All other services (file system, drivers) run as user-space servers</td><td>More reliable &#8212; a crashed driver doesn&#39;t crash the kernel; easier to verify formally</td><td>Slower &#8212; every service interaction requires IPC (user&#8594;kernel&#8594;user); higher overhead</td><td>Mach, Minix, QNX, seL4</td></tr>
+      <tr><td><strong>Hybrid</strong></td><td>Monolithic base + some microkernel principles. Performance-critical code in kernel; some services user-space</td><td>Balance of performance and modularity</td><td>Complexity of both approaches</td><td>Windows NT, macOS XNU (Mach + BSD)</td></tr></table>
+      <div class="note">&#128203; Linux is technically monolithic but designed modularly &#8212; device drivers are loadable kernel modules (LKMs) that can be added/removed at runtime without recompiling the kernel. This gives most of the flexibility of a microkernel at monolithic performance.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q31</span>File system &#8212; what is it? Key examples and their trade-offs?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>A <strong>file system</strong> is the OS component that organizes and provides access to files on storage devices &#8212; managing directory hierarchies, file metadata (name, size, permissions, timestamps), and the mapping of file data to physical storage blocks.</p>
+      <table><tr><th>File System</th><th>OS</th><th>Key Feature</th><th>Max File Size</th></tr>
+      <tr><td><strong>ext4</strong></td><td>Linux (default)</td><td>Journaling, backwards compatible with ext2/3</td><td>16TB</td></tr>
+      <tr><td><strong>NTFS</strong></td><td>Windows</td><td>Journaling, ACLs, compression, encryption</td><td>16EB</td></tr>
+      <tr><td><strong>APFS</strong></td><td>macOS</td><td>Copy-on-write, snapshots, strong encryption</td><td>8EB</td></tr>
+      <tr><td><strong>FAT32</strong></td><td>Universal</td><td>Maximum compatibility (USB drives)</td><td>4GB (huge limitation)</td></tr>
+      <tr><td><strong>ZFS</strong></td><td>FreeBSD, Linux</td><td>Built-in checksumming (detects silent corruption), RAID, snapshots</td><td>16EB</td></tr>
+      <tr><td><strong>XFS</strong></td><td>Linux (RHEL default)</td><td>High performance, excellent for large files and parallel I/O</td><td>8EB</td></tr></table>
+      <p><strong>Journaling:</strong> Before modifying the file system, write the intended changes to a log (journal). If a crash occurs mid-operation, replay the journal on next boot to restore consistency. Without journaling: a crash mid-write can corrupt the file system structure (fsck needed, potentially data loss).</p>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q32</span>CPU-bound vs I/O-bound processes &#8212; and how the scheduler handles them differently?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table><tr><th>Property</th><th>CPU-bound</th><th>I/O-bound</th></tr>
+      <tr><td>Bottleneck</td><td>CPU computation speed</td><td>I/O device speed (disk, network, DB)</td></tr>
+      <tr><td>CPU bursts</td><td>Long &#8212; runs CPU for a while before blocking</td><td>Short &#8212; runs briefly then waits for I/O</td></tr>
+      <tr><td>Time state</td><td>Mostly Running or Ready</td><td>Mostly Waiting (blocked on I/O)</td></tr>
+      <tr><td>Examples</td><td>ML training, video encoding, scientific computing, cryptography</td><td>Web servers, database queries, file copying, anything network-dependent</td></tr>
+      <tr><td>Scales with</td><td>More CPU cores, faster CPU</td><td>Faster disk/network, async I/O, connection pools</td></tr>
+      <tr><td>Typical multiplexing</td><td>Process-per-core, parallel computation</td><td>Many threads/coroutines, async/await, event loops</td></tr></table>
+      <p><strong>How schedulers handle them:</strong> I/O-bound processes voluntarily release the CPU frequently (they block on I/O). Schedulers often give I/O-bound processes higher priority or shorter quantum &#8212; they do not use their full quantum anyway, and responding to their I/O completion quickly improves user-perceived responsiveness. CPU-bound processes get longer quantum to reduce context switch overhead.</p>
+      <div class="tip">&#128161; Most real-world web applications are I/O-bound &#8212; they spend 90% of their time waiting for database queries, external APIs, or file reads. This is why Node.js&#39;s single-threaded event loop works: the single thread is almost always waiting for I/O callbacks, not computing. CPU-bound work BLOCKS the event loop and must be offloaded to a worker thread.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q33</span>Spooling and Buffering &#8212; what problem do they solve?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>Buffering:</strong> Storing data in a temporary area (buffer) in memory while it is being transferred between two devices or between a device and an application. Solves speed mismatches &#8212; producer produces faster than consumer can consume.</p>
+<pre>-- Buffering example: playing a video from a slow network
+-- Network data arrives at variable rate (5 Mbps avg but bursty)
+-- Video player needs smooth 4 Mbps stream
+-- Buffer: accumulate data ahead of playback position
+-- When network is fast: buffer fills up (building cushion)
+-- When network is slow: buffer drains (player still plays smoothly)
+-- "Buffering..." on screen = buffer completely drained</pre>
+      <p><strong>Spooling (Simultaneous Peripheral Operations On-Line):</strong> A special form of buffering where jobs are stored in a disk queue (spool) and processed by a slower device (like a printer) at its own pace, allowing the CPU to continue processing other jobs.</p>
+<pre>-- Print spooling example:
+-- App 1: "print document" &#8594; instantly returns (job sent to spool on disk)
+-- App 2: "print photo"    &#8594; instantly returns (job sent to spool on disk)
+-- App 3: "print report"   &#8594; instantly returns (job sent to spool on disk)
+-- Print spooler daemon:   processes jobs one by one at printer&#39;s pace
+-- All apps continue without waiting for printer to finish!</pre>
+      <div class="note">&#128203; Spooling is the foundation of print queues, mail queues (SMTP), job schedulers (HPC cluster queues), and message queues (RabbitMQ, SQS). The pattern: fast producer puts work on a queue; slow consumer processes at its own pace; no blocking on either side.</div>
+    </div></div>
+
+  </div>
+</section>
+
+
+<div class="div">&#183; &#183; &#183;</div>
+
+<section>
+  <div class="sh"><div class="sh-eye">Summary</div><h2>&#128448; OS Quick-Review Cheatsheet</h2></div>
+  <div class="formula"><span class="f-l">12 OS Rules to Know Cold</span><div class="f-b">1.  Process = program in execution (own address space). Thread = lightweight unit within a process (shared memory, own stack).&#10;2.  Process context switch: expensive (TLB flush, cache pollution). Thread switch: cheap (same address space).&#10;3.  Process states: New &#8594; Ready &#8594; Running &#8594; Waiting &#8594; Terminated. Know ALL valid transitions.&#10;4.  Scheduling: FCFS (convoy), SJF (optimal avg wait), RR (fair, quantum matters), Priority (aging fixes starvation).&#10;5.  Preemptive = OS can forcibly remove CPU. Non-preemptive = process yields voluntarily.&#10;6.  Race condition: shared data + concurrent access + at least one write. Fix: mutual exclusion.&#10;7.  Semaphore: P/wait (decrement) and V/signal (increment). Binary for mutex. Counting for resource pools.&#10;8.  Deadlock: all 4 Coffman conditions must hold. Break any one = no deadlock possible.&#10;9.  Virtual memory: each process gets own virtual address space. Page table maps VPN to PFN.&#10;10. Page fault: present bit=0 &#8594; OS loads page from disk. Major fault = 100,000x slower than RAM access.&#10;11. Thrashing: more time on page faults than execution. Fix: reduce multiprogramming, use working set model.&#10;12. IPC speed: Shared memory &gt; Pipes &gt; Message queues &gt; Unix sockets &gt; TCP sockets.</div></div>
+</section>
+
+<div class="nxt">
+  <div><h3>Up Next: Phase 6 &#8212; Networks + System Design + SDLC</h3><p>The final phase: Computer Networks (OSI model, TCP/UDP, HTTP/HTTPS, DNS), System Design fresher problems, and SDLC/Agile questions &#8212; all in one comprehensive phase.</p></div>
+  <a href="./Phase6_final.html" class="nxt-btn">Phase 6: Final Phase &#8594;</a>
+</div>
+</main>
+
+<footer class="footer">
+  <h2>The Tech Intel &middot; Interview Mastery Series</h2>
+  <p>Phase 5 complete. OS mastered. One phase remaining &#8212; Computer Networks + System Design + SDLC.</p>
+    <div class="footers">AI/ML & Tech Content | Built for engineers who build the future</div>
+  <div class="footer-links">
+    <a href="https://substack.com/@thetechintel">Substack</a>
+    <a href="https://www.linkedin.com/in/priyanshu-arya/">LinkedIn</a>
+    <a href="https://www.instagram.com/thetechintel/">Instagram</a>
+    <a href="https://www.instagram.com/thetechintel/">X (Twitter)</a>
+    <a href="https://github.com/priyanshu-arya">GitHub</a>
+  </div>
+  <div class="footer-small">&copy; 2025 The Tech Intel &middot; Priyanshu &middot; April 2025 &middot; Not affiliated with Infosys &middot; Educational content only</div>
+</footer>
+
+<script>
+window.addEventListener("scroll",()=>{const d=document.documentElement;document.getElementById("bar").style.width=(window.scrollY/(d.scrollHeight-d.clientHeight)*100)+"%";},{passive:true});
+function openDrawer(){document.getElementById("ov").style.display="block";document.getElementById("drawer").classList.add("open");}
+function closeDrawer(){document.getElementById("ov").style.display="none";document.getElementById("drawer").classList.remove("open");}
+function tQ(btn){const b=btn.nextElementSibling,o=b.classList.contains("open");btn.classList.toggle("open",!o);b.classList.toggle("open",!o);}
+function xA(id){document.querySelectorAll("#"+id+" .qa-btn").forEach(b=>{b.classList.add("open");b.nextElementSibling.classList.add("open");});}
+function xN(id){document.querySelectorAll("#"+id+" .qa-btn").forEach(b=>{b.classList.remove("open");b.nextElementSibling.classList.remove("open");});}
+function upS(){const sl=document.querySelectorAll(".s-rng");let t=0;sl.forEach(s=>{const v=parseInt(s.value);s.parentElement.querySelector(".s-val").textContent=v;t+=v;});document.getElementById("sc").textContent=t;const m=[[0,31,"Needs work. Start from Q1 &#8212; processes first."],[32,47,"Developing. Focus on deadlocks, semaphores, and paging."],[48,59,"Good. Deepen MVCC, page replacement, and IPC."],[60,71,"Strong. Practice explaining scheduling trade-offs."],[72,80,"Interview-ready. You think like a systems engineer."]].find(([l,h])=>t>=l&&t<=h);document.getElementById("sc-msg").textContent=m?m[2]:"";}
+upS();
+const secs=document.querySelectorAll("section[id]"),lnks=document.querySelectorAll("#drawer a");
+window.addEventListener("scroll",()=>{let c="";secs.forEach(s=>{if(window.scrollY>=s.offsetTop-80)c=s.id;});lnks.forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+c));},{passive:true});
+</script>
+</body>
+</html>
+

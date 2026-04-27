@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IT Interview 2025 — Part 2, Phase 3: OOPs Mastery | 32 Real Questions | The Tech Intel</title>
+<meta name="description" content="32 real OOPs interview questions with complete Java code — 4 Pillars, SOLID Principles, Design Patterns. Phase 3 of 6.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0f0e0b;--paper:#faf9f6;--cream:#f0ebe1;--v:#5a2d8a;--vp:#f0ebfc;--vm:#7040a8;--gold:#c48a28;--gp:#f8edda;--teal:#1a6b72;--tp:#e4f2f3;--rust:#b44830;--rp:#fdf0ec;--slate:#383430;--muted:#7a746a;--border:#e0dbd0;--wh:#fff}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"DM Sans",system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.8;font-size:17px}
+#bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--v),var(--vm),var(--gold));width:0%;z-index:999;transition:width .08s}
+.nav{position:sticky;top:0;z-index:200;background:rgba(250,249,246,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:52px}
+.nav-brand{font-family:"Playfair Display",serif;font-weight:900;font-size:16px}
+.nav-center{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.nav-btn{padding:6px 16px;border:1px solid var(--border);border-radius:20px;font-size:12px;cursor:pointer;background:none;color:var(--slate);font-family:"DM Sans",sans-serif;transition:all .2s}
+.nav-btn:hover{background:var(--ink);color:var(--wh);border-color:var(--ink)}
+#ov{display:none;position:fixed;inset:0;background:rgba(15,14,11,.55);z-index:300}
+#drawer{position:fixed;right:-380px;top:0;bottom:0;width:360px;background:var(--wh);z-index:400;padding:28px 22px;overflow-y:auto;transition:right .3s cubic-bezier(.4,0,.2,1);box-shadow:-8px 0 40px rgba(0,0,0,.14)}
+#drawer.open{right:0}
+.dr-close{position:absolute;top:18px;right:18px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted)}
+.dr-title{font-family:"Playfair Display",serif;font-size:20px;font-weight:700;margin:6px 0 22px}
+.tg{margin-bottom:22px}
+.tg-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);display:block;font-family:"JetBrains Mono",monospace}
+.tg a{display:block;font-size:13.5px;color:var(--slate);text-decoration:none;padding:5px 8px;border-radius:5px;border-left:2px solid transparent;transition:all .2s}
+.tg a:hover,.tg a.active{color:var(--v);border-left-color:var(--v);background:var(--vp)}
+.hero{background:var(--ink);color:var(--wh);padding:80px 24px 60px;text-align:center;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 80% 70%,rgba(90,45,138,.3) 0%,transparent 65%),radial-gradient(ellipse 60% 50% at 15% 20%,rgba(112,64,168,.18) 0%,transparent 65%);pointer-events:none}
+.hero-ph{display:inline-flex;align-items:center;gap:8px;background:rgba(90,45,138,.25);border:1px solid rgba(90,45,138,.45);color:#c8a8f0;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:5px 16px;border-radius:20px;margin-bottom:28px;position:relative;z-index:1}
+.hero h1{font-family:"Playfair Display",serif;font-size:clamp(32px,5vw,58px);font-weight:900;line-height:1.08;margin-bottom:20px;position:relative;z-index:1}
+.hero h1 em{font-style:normal;color:#c8a8f0}
+.hero-sub{font-size:17px;color:rgba(250,249,246,.7);max-width:640px;margin:0 auto 32px;line-height:1.75;position:relative;z-index:1}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;position:relative;z-index:1}
+.chip{font-family:"JetBrains Mono",monospace;font-size:11.5px;padding:5px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:rgba(250,249,246,.75)}
+.chip.on{background:rgba(90,45,138,.3);border-color:rgba(90,45,138,.5);color:#c8a8f0}
+.hero-meta{display:flex;flex-wrap:wrap;gap:6px 20px;justify-content:center;font-size:13px;color:rgba(250,249,246,.4);margin-top:22px;position:relative;z-index:1}
+.pstrip{background:var(--cream);border-bottom:1px solid var(--border);padding:12px 24px;overflow-x:auto;white-space:nowrap;display:flex;gap:8px;align-items:center}
+.pl{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-right:6px;flex-shrink:0}
+.pb{font-family:"JetBrains Mono",monospace;font-size:11px;padding:5px 13px;border-radius:20px;border:1px solid var(--border);background:var(--wh);color:var(--slate);white-space:nowrap;transition:all .2s;text-decoration:none;display:inline-block}
+.pb.done{background:var(--tp);border-color:var(--teal);color:var(--teal)}
+.pb.now{background:var(--v);color:var(--wh);border-color:var(--v)}
+.main{max-width:720px;margin:0 auto;padding:0 24px 100px}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin:36px 0 28px}
+.pill{font-size:11px;font-family:"JetBrains Mono",monospace;padding:5px 13px;border-radius:20px;border:1px solid var(--border);background:var(--cream);color:var(--slate);text-decoration:none;transition:all .2s}
+.pill:hover{background:var(--v);color:var(--wh);border-color:var(--v)}
+.sh{margin:68px 0 26px;padding-bottom:14px;border-bottom:2px solid var(--border)}
+.sh-eye{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.sh h2{font-family:"Playfair Display",serif;font-size:clamp(24px,3.5vw,34px);font-weight:700;line-height:1.2}
+.why{border-left:4px solid var(--v);background:var(--vp);padding:18px 22px;border-radius:0 8px 8px 0;margin:26px 0}
+.why-l{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--v);font-weight:700;margin-bottom:6px}
+.why p{font-size:15px;color:#3a1a6a;margin:0;line-height:1.75}
+.qb{background:var(--ink);color:var(--wh);padding:32px 38px;margin:32px 0;border-radius:6px;position:relative}
+.qb::before{content:"\201C";font-family:"Playfair Display",serif;font-size:96px;color:rgba(90,45,138,.25);position:absolute;top:4px;left:26px;line-height:1}
+.qb blockquote{font-family:"Playfair Display",serif;font-size:18px;font-style:italic;line-height:1.65;position:relative;margin-bottom:14px}
+.qb cite{font-family:"JetBrains Mono",monospace;font-size:11px;color:#c8a8f0;letter-spacing:.05em;font-style:normal}
+.formula{background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin:20px 0}
+.f-l{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:8px;display:block;font-family:"JetBrains Mono",monospace}
+.f-b{font-family:"JetBrains Mono",monospace;font-size:13px;line-height:2;color:var(--slate)}
+.tbl{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px}
+.tbl th{background:var(--ink);color:var(--wh);padding:9px 13px;text-align:left;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.04em;font-weight:400}
+.tbl td{padding:9px 13px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.55}
+.tbl tr:nth-child(even) td{background:var(--cream)}
+.tbl td code{font-family:"JetBrains Mono",monospace;background:var(--cream);padding:1px 6px;border-radius:3px;font-size:12px;border:1px solid var(--border)}
+.pg{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.pc{background:var(--wh);border:1px solid var(--border);border-radius:10px;padding:22px;border-top:4px solid var(--v)}
+.pc:nth-child(2){border-top-color:var(--teal)}.pc:nth-child(3){border-top-color:var(--gold)}.pc:nth-child(4){border-top-color:var(--rust)}
+.pl2{font-family:"Playfair Display",serif;font-size:48px;font-weight:900;line-height:1;margin-bottom:6px;color:var(--v)}
+.pc:nth-child(2) .pl2{color:var(--teal)}.pc:nth-child(3) .pl2{color:var(--gold)}.pc:nth-child(4) .pl2{color:var(--rust)}
+.pc h4{font-size:16px;font-weight:600;margin-bottom:4px}.pc p{font-size:13px;color:var(--muted);margin:0}
+.solid-list{display:flex;flex-direction:column;gap:12px;margin:20px 0}
+.si{display:flex;gap:16px;align-items:flex-start;background:var(--wh);border:1px solid var(--border);border-radius:8px;padding:16px 18px}
+.si-l{font-family:"Playfair Display",serif;font-size:36px;font-weight:900;color:var(--v);line-height:1;flex-shrink:0;width:36px;text-align:center}
+.si-c h4{font-size:15px;font-weight:600;margin-bottom:4px}.si-c p{font-size:13.5px;color:var(--slate);margin:0;line-height:1.65}
+.qa-wrap{margin:18px 0}
+.qa-cat{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:14px 0 10px;border-top:1px solid var(--border);margin-top:20px;display:block}
+.qa-item{border-bottom:1px solid var(--border)}
+.qa-btn{width:100%;display:flex;align-items:flex-start;gap:12px;padding:14px 0;background:none;border:none;cursor:pointer;text-align:left;font-family:"DM Sans",sans-serif;font-size:15.5px;font-weight:600;color:var(--slate);transition:color .2s}
+.qa-btn:hover{color:var(--v)}
+.qa-num{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--v);font-weight:600;min-width:28px;padding-top:3px;flex-shrink:0}
+.qa-icon{margin-left:auto;font-size:11px;color:var(--muted);transition:transform .3s;flex-shrink:0;padding-top:4px}
+.qa-btn.open .qa-icon{transform:rotate(180deg)}
+.qa-body{max-height:0;overflow:hidden;transition:max-height .45s ease;padding-left:40px}
+.qa-body.open{max-height:3500px;padding-bottom:18px}
+.qa-body p,.qa-body li{font-size:15px;color:var(--slate);line-height:1.78}
+.qa-body ul,.qa-body ol{padding-left:20px;margin:8px 0}
+.qa-body li{margin-bottom:5px}
+.qa-body strong{color:var(--ink)}
+.qa-body code{font-family:"JetBrains Mono",monospace;background:var(--cream);padding:1px 6px;border-radius:3px;font-size:12.5px;border:1px solid var(--border);color:var(--ink)}
+.qa-body pre{background:#1a1815;color:#ddd8ce;padding:18px 20px;border-radius:8px;font-family:"JetBrains Mono",monospace;font-size:12.5px;line-height:1.9;margin:12px 0;overflow-x:auto}
+.qa-body table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0}
+.qa-body th{background:var(--cream);padding:8px 11px;border:1px solid var(--border);text-align:left;font-weight:600;font-size:12px}
+.qa-body td{padding:8px 11px;border:1px solid var(--border);vertical-align:top;line-height:1.55}
+.qa-body .tip{background:var(--vp);border-left:3px solid var(--v);padding:10px 14px;margin-top:12px;font-size:14px;border-radius:0 5px 5px 0;color:#3a1a6a}
+.qa-body .note{background:var(--tp);border-left:3px solid var(--teal);padding:10px 14px;margin-top:10px;font-size:14px;border-radius:0 5px 5px 0;color:#1a4a50}
+.qa-body .crit{background:var(--rp);border-left:3px solid var(--rust);padding:10px 14px;margin-top:10px;font-size:14px;border-radius:0 5px 5px 0;color:#6b2a18}
+.qa-body .gold{background:var(--gp);border-left:3px solid var(--gold);padding:10px 14px;margin-top:10px;font-size:14px;border-radius:0 5px 5px 0;color:#5a4010}
+.xp{display:flex;gap:10px;margin:12px 0}
+.xp-btn{font-family:"JetBrains Mono",monospace;font-size:11px;padding:5px 13px;border:1px solid var(--border);border-radius:4px;cursor:pointer;background:none;color:var(--slate);transition:all .2s}
+.xp-btn:hover{background:var(--vp);border-color:var(--v);color:var(--v)}
+.assess{background:var(--ink);color:var(--wh);border-radius:10px;padding:30px;margin:32px 0}
+.assess h3{font-family:"Playfair Display",serif;font-size:21px;margin-bottom:6px}
+.a-sub{font-size:13px;color:rgba(250,249,246,.5);margin-bottom:22px}
+.s-row{display:flex;align-items:center;gap:14px;margin-bottom:13px}
+.s-lbl{min-width:190px;font-size:13px;color:rgba(250,249,246,.8);flex-shrink:0}
+.s-rng{flex:1;-webkit-appearance:none;height:3px;border-radius:2px;background:rgba(255,255,255,.15);outline:none;cursor:pointer}
+.s-rng::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:#c8a8f0;cursor:pointer}
+.s-val{min-width:22px;text-align:center;font-family:"JetBrains Mono",monospace;font-size:13px;color:#c8a8f0}
+.s-tot{border-top:1px solid rgba(255,255,255,.1);padding-top:16px;margin-top:6px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.s-sc{font-family:"Playfair Display",serif;font-size:42px;font-weight:700;color:#c8a8f0;line-height:1}
+.s-of{font-size:13px;color:rgba(250,249,246,.45)}
+.s-msg{font-size:13px;color:rgba(250,249,246,.6);max-width:220px;text-align:right}
+.div{text-align:center;margin:52px 0;font-size:22px;color:var(--border);letter-spacing:14px}
+.nxt{background:linear-gradient(135deg,#1a1030,#2a1848);color:var(--wh);padding:36px 28px;border-radius:10px;margin:52px 0;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;border:1px solid rgba(90,45,138,.35)}
+.nxt h3{font-family:"Playfair Display",serif;font-size:22px;margin-bottom:6px;color:#c8a8f0}
+.nxt p{font-size:14px;color:rgba(255,255,255,.7);margin:0}
+.nxt-btn{background:var(--v);color:var(--wh);padding:12px 24px;border-radius:6px;font-weight:700;font-size:14px;text-decoration:none;white-space:nowrap;font-family:"DM Sans",sans-serif;flex-shrink:0}
+.footer{background:var(--ink);color:var(--wh);text-align:center;padding:56px 24px 40px}
+.footer h2{font-family:"Playfair Display",serif;font-size:28px;margin-bottom:12px}
+.footer p{color:rgba(250,249,246,.55);font-size:15px;max-width:480px;margin:0 auto}
+.footer-small{font-size:12px;color:rgba(250,249,246,.22);margin-top:36px}
+.footer-links{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin-bottom:2rem}
+.footer-links a{color:rgba(250,249,246,.55);text-decoration:none;font-size:0.85rem;transition:color 0.2s}
+.footer-links a:hover{color:var(--gold)}
+/* Section strip */
+.sec-strip{background:#fff;border-bottom:1px solid var(--border);padding:9px 24px;overflow-x:auto;white-space:nowrap;display:flex;gap:6px;align-items:center;scrollbar-width:none}
+.sec-strip::-webkit-scrollbar{display:none}
+.ss-lbl{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-right:4px;flex-shrink:0}
+.ss-btn{font-family:"JetBrains Mono",monospace;font-size:10.5px;padding:4px 11px;border-radius:4px;border:1px solid var(--border);background:transparent;color:var(--slate);white-space:nowrap;transition:all .18s;text-decoration:none;display:inline-block}
+.ss-btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+p{margin-bottom:16px}strong{font-weight:600;color:var(--ink)}ul,ol{padding-left:22px;margin-bottom:14px}li{margin-bottom:5px}.lead{font-size:19px;line-height:1.85;color:#282420}
+@media(max-width:620px){.hero{padding:54px 18px 46px}.nav-phase{display:none}body{font-size:16px}#drawer{width:100%;right:-100%}.pg{grid-template-columns:1fr}.s-lbl{min-width:130px}.nxt{flex-direction:column;align-items:flex-start}}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+<div id="ov" onclick="closeDrawer()"></div>
+<div id="drawer">
+  <button class="dr-close" onclick="closeDrawer()">&#x2715;</button>
+  <div class="dr-title">OOPs &#8212; Contents</div>
+  <div class="tg"><span class="tg-label">Overview</span><a href="#overview">Why OOPs Is a Fresher Killer</a><a href="#pillars">4 Pillars Reference</a><a href="#assess">Readiness Check</a></div>
+  <div class="tg"><span class="tg-label">4 Pillars (Q1&#8211;Q10)</span><a href="#q-encap">Encapsulation Q1&#8211;Q2</a><a href="#q-inherit">Inheritance Q3&#8211;Q5</a><a href="#q-poly">Polymorphism Q6&#8211;Q8</a><a href="#q-abstr">Abstraction Q9&#8211;Q10</a></div>
+  <div class="tg"><span class="tg-label">Core Concepts (Q11&#8211;Q20)</span><a href="#q-class">Classes, Objects &amp; Constructors</a><a href="#q-kw">Keywords &amp; Modifiers</a><a href="#q-java">Java Internals</a></div>
+  <div class="tg"><span class="tg-label">Design (Q21&#8211;Q32)</span><a href="#q-solid">SOLID Principles</a><a href="#q-patterns">Design Patterns</a><a href="#q-adv">Advanced OOP</a></div>
+</div>
+
+<nav class="nav">
+  <span class="nav-brand">The Tech Intel</span>
+  <span class="nav-center">Part 2 &middot; Phase 3 of 6 &middot; OOPs</span>
+  <button class="nav-btn" onclick="openDrawer()">Contents &#x2197;</button>
+</nav>
+<div class="pstrip">
+  <a href="../index.html" class="pb">&#8592; Part 1</a>
+  <span class="pl">Part 2:</span>
+  <a href="./Phase1_dsa.html" class="pb done">&#9312; DSA &#x2713;</a>
+  <a href="./Phase2_sql.html" class="pb done">&#9313; SQL &#x2713;</a>
+  <a href="./Phase3_oops.html" class="pb now">&#9314; OOPs</a>
+  <a href="./Phase4_dbms.html" class="pb">&#9315; DBMS</a>
+  <a href="./Phase5_os.html" class="pb">&#9316; OS</a>
+  <a href="./Phase6_final.html" class="pb">&#9317; Networks + SD + SDLC</a>
+</div>
+
+<!-- Section strip -->
+<div class="sec-strip">
+  <span class="ss-lbl">Jump to:</span>
+  <a class="ss-btn" href="#overview">Overview</a>
+  <a class="ss-btn" href="#pillars">4 Pillars</a>
+  <a class="ss-btn" href="#assess">Readiness</a>
+  <a class="ss-btn" href="#q-encap">Encapsulation</a>
+  <a class="ss-btn" href="#q-inherit">Inheritance</a>
+  <a class="ss-btn" href="#q-poly">Polymorphism</a>
+  <a class="ss-btn" href="#q-abstr">Abstraction</a>
+  <a class="ss-btn" href="#q-class">Classes</a>
+  <a class="ss-btn" href="#q-kw">Keywords</a>
+  <a class="ss-btn" href="#q-java">Java</a>
+  <a class="ss-btn" href="#q-solid">SOLID</a>
+  <a class="ss-btn" href="#q-patterns">Patterns</a>
+  <a class="ss-btn" href="#q-adv">Advanced</a>
+</div>
+
+<header class="hero">
+  <div class="hero-ph">&#128311; Part 2 &middot; Phase 3 of 6 &middot; April 2025</div>
+  <h1>Object-Oriented Programming<br><em>32 Real Interview Questions</em></h1>
+  <p class="hero-sub">Every OOPs question you will face &#8212; fully answered with real Java code, analogy-based explanations, SOLID principles, design patterns, and all the tricky differentiators interviewers love to test.</p>
+  <div class="hero-chips">
+    <span class="chip on">4 Pillars</span><span class="chip on">Encapsulation</span><span class="chip on">Inheritance</span><span class="chip on">Polymorphism</span><span class="chip on">Abstraction</span><span class="chip on">SOLID</span><span class="chip on">Design Patterns</span><span class="chip on">Abstract vs Interface</span><span class="chip on">Overloading vs Overriding</span><span class="chip on">Java Internals</span>
+  </div>
+  <div class="hero-meta"><span>&#9998; The Tech Intel</span><span>&#9200; ~40 min read</span><span>&#128203; 32 Questions &middot; All Answered</span><span>&#128187; Full Java Code</span></div>
+</header>
+
+<main class="main">
+<p class="lead" style="margin-top:48px;">OOPs is the #1 topic where freshers lose technical interviews. It is deceptively easy to claim and genuinely hard to demonstrate. The winning formula: every answer needs (1) a one-line definition, (2) a real-world analogy, (3) a short code snippet, and (4) a practical reason it exists.</p>
+<div class="pills">
+  <a class="pill" href="#pillars">&#128311; 4 Pillars</a><a class="pill" href="#q-encap">&#128274; Encapsulation</a><a class="pill" href="#q-inherit">&#129516; Inheritance</a><a class="pill" href="#q-poly">&#128256; Polymorphism</a><a class="pill" href="#q-abstr">&#127917; Abstraction</a><a class="pill" href="#q-class">&#127959; Classes</a><a class="pill" href="#q-kw">&#128273; Keywords</a><a class="pill" href="#q-solid">&#128208; SOLID</a><a class="pill" href="#q-patterns">&#129513; Patterns</a><a class="pill" href="#q-adv">&#9889; Advanced</a>
+</div>
+
+<section id="overview">
+  <div class="sh"><div class="sh-eye">Overview</div><h2>&#128311; Why OOPs Questions Are Fresher Killers</h2></div>
+  <div class="why"><div class="why-l">&#9889; The Real Problem</div><p>Almost every fresher can define the 4 pillars. Almost none can demonstrate them in code. The winning move: every answer needs (1) one-line definition, (2) real-world analogy, (3) short code snippet, (4) practical reason it exists. Without all four, the answer sounds memorized, not understood.</p></div>
+  <div class="qb"><blockquote>"Object-oriented programming forces you to think about the world as interacting, encapsulated entities with clear responsibilities. That mental model is the real skill &#8212; not the syntax."</blockquote><cite>&#8212; Edsger W. Dijkstra &middot; Turing Award Winner &middot; Pioneer of structured programming</cite></div>
+  <div class="formula"><span class="f-l">The 4-Part Formula for Every OOPs Answer</span><div class="f-b">&#10122; DEFINE IT   &#8212; one crisp sentence, no jargon&#10;&#10123; ANALOGY     &#8212; real-world parallel (ATM, car, animal hierarchy)&#10;&#10124; CODE IT     &#8212; 8&#8211;15 lines that actually demonstrate the concept&#10;&#10125; WHY IT EXISTS &#8212; what problem it solves, what breaks without it</div></div>
+</section>
+
+<section id="pillars">
+  <div class="sh"><div class="sh-eye">Reference</div><h2>&#128311; The 4 Pillars &#8212; Quick Reference</h2></div>
+  <div class="pg">
+    <div class="pc"><div class="pl2">E</div><h4>Encapsulation</h4><p>Bundle data + methods. Hide internals via access modifiers. Expose only what is needed.</p></div>
+    <div class="pc"><div class="pl2">I</div><h4>Inheritance</h4><p>Child acquires properties of parent. Code reuse and IS-A relationships.</p></div>
+    <div class="pc"><div class="pl2">P</div><h4>Polymorphism</h4><p>Same interface, different behavior. One method name, many implementations.</p></div>
+    <div class="pc"><div class="pl2">A</div><h4>Abstraction</h4><p>Hide complexity. Expose only essential features. Users interact with interface, not internals.</p></div>
+  </div>
+  <table class="tbl">
+    <thead><tr><th>Pillar</th><th>Real-World Analogy</th><th>Achieved Via</th><th>Without It</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Encapsulation</strong></td><td>Car engine &#8212; you use accelerator, not fuel injector</td><td>private fields + public getters/setters</td><td>Any code can corrupt any object&#39;s state</td></tr>
+      <tr><td><strong>Inheritance</strong></td><td>Dog IS-A Animal &#8212; gets eat()/sleep(), adds bark()</td><td>extends keyword</td><td>Copy-paste code everywhere</td></tr>
+      <tr><td><strong>Polymorphism</strong></td><td>draw() on circle vs square &#8212; same call, different result</td><td>Method overriding + interfaces</td><td>Giant if-else chains for every object type</td></tr>
+      <tr><td><strong>Abstraction</strong></td><td>ATM &#8212; press &#34;Withdraw&#34;, don&#39;t see the DB calls</td><td>abstract class, interface</td><td>Complexity leaks everywhere</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="assess">
+  <div class="assess">
+    <h3>&#128311; OOPs Readiness Score</h3>
+    <p class="a-sub">Be honest. 8+ in every row before your interview. Come back after reading.</p>
+    <div class="s-row"><span class="s-lbl">4 Pillars (define + code)</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-lbl">Overloading vs Overriding</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-lbl">Abstract class vs Interface</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-lbl">Constructors and keywords</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-lbl">SOLID principles</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-lbl">Design Patterns</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-lbl">Coupling and cohesion</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
+    <div class="s-row"><span class="s-lbl">Java internals</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
+    <div class="s-tot"><div><div class="s-sc" id="sc">40</div><div class="s-of">/ 80 &#8212; Target: 64+</div></div><div class="s-msg" id="sc-msg"></div></div>
+  </div>
+</section>
+
+<!-- ENCAPSULATION -->
+<section id="q-encap">
+  <div class="sh"><div class="sh-eye">Questions 1&#8211;2</div><h2>&#128274; Encapsulation</h2></div>
+  <div class="why"><div class="why-l">&#9889; Why Encapsulation Is the Foundation of Safe Code</div><p>Without encapsulation, any code can directly modify any object&#39;s internal state. A bank account where anyone writes directly to the balance field vs one where all changes go through validated deposit()/withdraw() methods &#8212; that difference is encapsulation in action.</p></div>
+  <div class="xp"><button class="xp-btn" onclick="xA('qa-enc')">Expand All</button><button class="xp-btn" onclick="xN('qa-enc')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa-enc">
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q1</span>What is Encapsulation? How is it achieved? Why does it matter?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>Definition:</strong> Bundling data (fields) and the methods that operate on them into a single unit (class), restricting direct external access using access modifiers.</p>
+      <p><strong>Analogy:</strong> A bank account &#8212; you cannot write directly to the balance field. All changes go through deposit() or withdraw() with validation.</p>
+<pre>public class BankAccount {
+    private double balance;        // PRIVATE - no direct access
+    private String owner;
+
+    public BankAccount(String owner, double initial) {
+        this.owner = owner;  this.balance = initial;
+    }
+
+    public void deposit(double amount) {
+        if (amount &lt;= 0) throw new IllegalArgumentException("Invalid");
+        balance += amount;    // validated before state change
+    }
+
+    public boolean withdraw(double amount) {
+        if (amount &gt; balance) return false;
+        balance -= amount;  return true;
+    }
+
+    public double getBalance() { return balance; }  // read-only, no setter
+}
+
+account.balance = -99999;   // Without encapsulation: state corrupted
+account.withdraw(99999);    // With encapsulation: fails gracefully</pre>
+      <ul>
+        <li><strong>Data protection:</strong> invalid states prevented at the source</li>
+        <li><strong>Maintainability:</strong> internal changes do not break external code</li>
+        <li><strong>Controlled access:</strong> read-only, write-only, or computed fields</li>
+      </ul>
+      <div class="tip">&#128161; Encapsulation enables the Open/Closed Principle &#8212; change storage from double to BigDecimal? External code never knows. The public API stays identical.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q2</span>Access modifiers &#8212; private, default, protected, public?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table><tr><th>Modifier</th><th>Same Class</th><th>Same Package</th><th>Subclass (diff pkg)</th><th>Everywhere</th></tr>
+      <tr><td><code>private</code></td><td>&#10003;</td><td>&#10007;</td><td>&#10007;</td><td>&#10007;</td></tr>
+      <tr><td><em>default</em></td><td>&#10003;</td><td>&#10003;</td><td>&#10007;</td><td>&#10007;</td></tr>
+      <tr><td><code>protected</code></td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td><td>&#10007;</td></tr>
+      <tr><td><code>public</code></td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td></tr></table>
+<pre>public class Employee {
+    private   String ssn;      // most restrictive - this class only
+              int    id;       // default - this package only
+    protected String name;     // package + subclasses
+    public    String dept;     // everywhere
+}</pre>
+      <div class="gold">&#128204; Design rule: start with private for all fields. Expose only what external code truly needs. Use protected when subclasses specifically need access.</div>
+    </div></div>
+  </div>
+</section>
+
+<!-- INHERITANCE -->
+<section id="q-inherit">
+  <div class="sh"><div class="sh-eye">Questions 3&#8211;5</div><h2>&#129516; Inheritance</h2></div>
+  <div class="why"><div class="why-l">&#9889; Why Inheritance Is Both Powerful and Dangerous</div><p>Only use inheritance for genuine IS-A relationships. Java&#39;s own Stack extends Vector &#8212; exposing 43 extra methods that break the Stack contract. This mistake is cited in every OOP textbook as a cautionary tale.</p></div>
+  <div class="xp"><button class="xp-btn" onclick="xA('qa-inh')">Expand All</button><button class="xp-btn" onclick="xN('qa-inh')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa-inh">
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q3</span>What is Inheritance? Types? IS-A vs HAS-A?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>Definition:</strong> A mechanism where a child (subclass) acquires the properties and behaviors of a parent (superclass), enabling code reuse and IS-A relationships.</p>
+<pre>class Animal {
+    String name;
+    void eat()  { System.out.println(name + " is eating"); }
+    void sleep(){ System.out.println(name + " is sleeping"); }
+}
+
+class Dog extends Animal {    // Dog IS-A Animal
+    void bark(){ System.out.println(name + " says Woof!"); }
+}
+
+Dog d = new Dog();  d.name = "Rex";
+d.eat();   // inherited from Animal
+d.bark();  // Dog's own method</pre>
+      <p><strong>Types:</strong> Single (A&#8594;B), Multilevel (A&#8594;B&#8594;C), Hierarchical (A&#8594;B and A&#8594;C) &#8212; all in Java. Multiple class inheritance: NOT supported (Diamond Problem). Multiple interface: YES.</p>
+      <p><strong>IS-A vs HAS-A:</strong> Dog IS-A Animal &#8594; extends. Car HAS-A Engine &#8594; use a field. Prefer composition when no genuine IS-A relationship exists.</p>
+      <div class="crit">&#9888; Only use inheritance for genuine IS-A. If inheriting purely for code reuse, use composition.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q4</span>Why no multiple inheritance through classes? The Diamond Problem?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>When class D inherits from B and C, both of which override the same method from A &#8212; the compiler cannot resolve which version D should use.</p>
+<pre>// Hypothetical - NOT valid Java:
+class A           { void greet() { print("A"); } }
+class B extends A { void greet() { print("B"); } }
+class C extends A { void greet() { print("C"); } }
+class D extends B, C { }  // Which greet() does D use? Ambiguous!
+
+// Java solution: disallow multiple class inheritance.
+// Allow multiple INTERFACE implementation with explicit resolution:
+interface B { default void greet() { print("B"); } }
+interface C { default void greet() { print("C"); } }
+class D implements B, C {
+    public void greet() { B.super.greet(); }  // must explicitly choose
+}</pre>
+      <div class="tip">&#128161; Interfaces have no instance state, so multiple implementation causes no ambiguity about data &#8212; only about default methods, which must be explicitly resolved.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q5</span>super keyword &#8212; three uses with code?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+<pre>class Animal {
+    String name;  int age;
+    Animal(String name, int age){ this.name=name; this.age=age; }
+    void describe(){ System.out.println("Animal: " + name); }
+}
+
+class Dog extends Animal {
+    String breed;
+
+    // USE 1: super() calls parent constructor - MUST be first line
+    Dog(String name, int age, String breed){
+        super(name, age);    // initialises Animal fields
+        this.breed = breed;
+    }
+
+    // USE 2: super.method() calls parent's overridden method
+    void describe(){
+        super.describe();          // "Animal: Rex"
+        System.out.println("Breed: " + breed);
+    }
+
+    // USE 3: super.field accesses parent field when shadowed
+    String getParentName(){ return super.name; }
+}</pre>
+      <div class="note">&#129504; If you do not call super() explicitly, Java inserts super() (no-arg) automatically as the first statement. If the parent has no no-arg constructor, you MUST explicitly call super(args).</div>
+    </div></div>
+  </div>
+</section>
+
+<!-- POLYMORPHISM -->
+<section id="q-poly">
+  <div class="sh"><div class="sh-eye">Questions 6&#8211;8</div><h2>&#128256; Polymorphism</h2></div>
+  <div class="why"><div class="why-l">&#9889; Why Polymorphism Is the Most Powerful OOP Concept</div><p>Without polymorphism, you need a giant if-else every time you process different object types. With it, code written against an interface works for every type that implements it &#8212; including types that did not exist when you wrote the code. This is the foundation of every plugin system and framework hook in existence.</p></div>
+  <div class="xp"><button class="xp-btn" onclick="xA('qa-pol')">Expand All</button><button class="xp-btn" onclick="xN('qa-pol')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa-pol">
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q6</span>What is Polymorphism? Compile-time vs Runtime with code?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>Compile-time (Method Overloading):</strong> Same method name, different parameter signatures in the same class. Resolved at compile time &#8212; static binding.</p>
+<pre>class Calculator {
+    int    add(int a, int b)         { return a+b; }
+    double add(double a, double b)   { return a+b; }
+    int    add(int a, int b, int c)  { return a+b+c; }
+}
+calc.add(1,2);      // compile time: add(int,int)
+calc.add(1.5,2.5);  // compile time: add(double,double)</pre>
+      <p><strong>Runtime (Method Overriding):</strong> Child redefines parent&#39;s method. Resolved at runtime based on actual object type &#8212; dynamic dispatch.</p>
+<pre>class Shape     { void draw(){ System.out.println("Shape");  } }
+class Circle    extends Shape { void draw(){ System.out.println("Drawing a circle"); } }
+class Rectangle extends Shape { void draw(){ System.out.println("Drawing a rectangle"); } }
+class Triangle  extends Shape { void draw(){ System.out.println("Drawing a triangle"); } }
+
+Shape[] shapes = { new Circle(), new Rectangle(), new Triangle() };
+for(Shape s : shapes) s.draw();
+// One loop handles ALL shape types, including future ones.
+// Add Pentagon? Just extend Shape. ZERO changes to this loop.</pre>
+      <div class="tip">&#128161; The real power: this loop was written once and automatically handles every future Shape subtype. That is how frameworks call your custom code without knowing it exists.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q7</span>Method Overloading vs Method Overriding &#8212; complete comparison?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table><tr><th>Property</th><th>Overloading</th><th>Overriding</th></tr>
+      <tr><td>Definition</td><td>Same name, different params &#8212; SAME class</td><td>Child redefines parent method &#8212; SAME signature</td></tr>
+      <tr><td>Binding</td><td>Compile-time (static)</td><td>Runtime (dynamic)</td></tr>
+      <tr><td>Signature</td><td>MUST differ</td><td>MUST be identical</td></tr>
+      <tr><td>Return type</td><td>Can differ</td><td>Same or covariant</td></tr>
+      <tr><td>Access modifier</td><td>Anything</td><td>Cannot reduce visibility</td></tr>
+      <tr><td>Static methods?</td><td>&#10003; Can overload</td><td>&#10007; Static methods are HIDDEN, not overridden</td></tr></table>
+<pre>class Parent {
+    public void   show()            { System.out.println("Parent show"); }
+    public void   show(String msg)  { System.out.println("Parent: " + msg); }
+}
+class Child extends Parent {
+    @Override
+    public void show()              { System.out.println("Child show"); }  // overriding
+    public void show(int n)         { System.out.println("Child: " + n); } // overloading
+}
+
+Parent p = new Child();
+p.show();        // "Child show"  - runtime dispatch (overriding)
+p.show("hi");    // "Parent: hi"  - compile-time (overloading)</pre>
+      <div class="crit">&#9888; Always use @Override when intending to override. If you accidentally change the signature, it becomes an overload. @Override catches this at compile time.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q8</span>Can we override static methods? What is method hiding?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>No.</strong> Static methods belong to the class, not instances. They are resolved at compile time by reference type. When a child defines a static method with the same signature, it is called <strong>method hiding</strong>.</p>
+<pre>class Parent {
+    static void  staticMethod()  { System.out.println("Parent static"); }
+    void         instanceMethod(){ System.out.println("Parent instance"); }
+}
+class Child extends Parent {
+    static void  staticMethod()  { System.out.println("Child static"); }   // HIDING
+    void         instanceMethod(){ System.out.println("Child instance"); } // OVERRIDING
+}
+
+Parent ref = new Child();
+ref.staticMethod();    // "Parent static"  - REFERENCE TYPE decides (compile time)
+ref.instanceMethod();  // "Child instance" - ACTUAL OBJECT decides (runtime)</pre>
+      <div class="note">&#129504; Instance methods use dynamic dispatch (runtime polymorphism). Static methods use static dispatch (compile-time). There is no vtable lookup for static methods.</div>
+    </div></div>
+  </div>
+</section>
+
+<!-- ABSTRACTION -->
+<section id="q-abstr">
+  <div class="sh"><div class="sh-eye">Questions 9&#8211;10</div><h2>&#127917; Abstraction</h2></div>
+  <div class="why"><div class="why-l">&#9889; Why Abstraction Manages Complexity</div><p>Abstraction is why you can use HashMap without knowing its hash function, or use JDBC without knowing your database protocol. It allows systems to grow &#8212; no single engineer needs to understand the entire stack to contribute.</p></div>
+  <div class="xp"><button class="xp-btn" onclick="xA('qa-abs')">Expand All</button><button class="xp-btn" onclick="xN('qa-abs')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa-abs">
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q9</span>Abstract Class vs Interface &#8212; the definitive comparison with code?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table><tr><th>Property</th><th>Abstract Class</th><th>Interface</th></tr>
+      <tr><td>Methods</td><td>Abstract AND concrete</td><td>Abstract by default; default/static (Java 8+)</td></tr>
+      <tr><td>Fields</td><td>Any visibility, instance variables</td><td>public static final constants only</td></tr>
+      <tr><td>Constructor</td><td>&#10003; Yes</td><td>&#10007; No</td></tr>
+      <tr><td>Multiple inheritance</td><td>&#10007; Extend only ONE</td><td>&#10003; Implement MANY</td></tr>
+      <tr><td>Use when</td><td>Partial impl + shared state + IS-A</td><td>Contract/capability + multiple inheritance of type</td></tr></table>
+<pre>// Abstract class: partial implementation + shared state
+abstract class Vehicle {
+    private String color;
+    public Vehicle(String color){ this.color = color; }
+    abstract void refuel();      // subclasses MUST implement
+    public void start(){ System.out.println(color + " engine started"); }
+}
+class Car extends Vehicle {
+    public Car(String c){ super(c); }
+    public void refuel(){ System.out.println("Filling petrol"); }
+}
+
+// Interface: capability contract
+interface Flyable   { void fly(); }
+interface Swimmable { void swim(); }
+class Duck extends Animal implements Flyable, Swimmable {
+    public void fly() { System.out.println("Duck flies"); }
+    public void swim(){ System.out.println("Duck swims"); }
+}
+// Duck IS-A Animal, and is BOTH Flyable and Swimmable</pre>
+      <div class="gold">&#128204; Decision rule: need shared state (instance vars) or partial impl? &#8594; abstract class. Defining a capability contract for many unrelated classes? &#8594; interface. When in doubt: use an interface (Java 8+ default methods make them nearly as powerful).</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q10</span>Abstraction vs Encapsulation &#8212; what is the real difference?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table><tr><th>Aspect</th><th>Abstraction</th><th>Encapsulation</th></tr>
+      <tr><td>Hides</td><td>Complexity &#8212; the HOW</td><td>Data &#8212; internal WHAT</td></tr>
+      <tr><td>Question</td><td>"What does this DO?"</td><td>"How does it PROTECT its data?"</td></tr>
+      <tr><td>Level</td><td>Design/architecture</td><td>Implementation/coding</td></tr>
+      <tr><td>Achieved via</td><td>Interfaces, abstract classes</td><td>private fields + public methods</td></tr></table>
+      <p><strong>Analogy:</strong> ATM machine &#8212; Abstraction: you see "Withdraw" button, not the DB calls (complexity hidden). Encapsulation: the cash tray &#8212; you cannot reach in directly; all interactions go through the process (data protected).</p>
+      <div class="note">&#129504; Abstraction defines WHAT this account supports. Encapsulation enforces HOW you access it. Abstraction = architect&#39;s concern; Encapsulation = builder&#39;s concern.</div>
+    </div></div>
+  </div>
+</section>
+
+<!-- CLASSES, OBJECTS, CONSTRUCTORS -->
+<section id="q-class">
+  <div class="sh"><div class="sh-eye">Questions 11&#8211;15</div><h2>&#127959; Classes, Objects &amp; Constructors</h2></div>
+  <div class="why"><div class="why-l">&#9889; Why Constructor Questions Trip Up Freshers</div><p>Constructor chaining, this() vs super() ordering rules, private constructors for Singleton, and copy constructors appear regularly in Infosys technical rounds. These are daily Java mechanics every developer uses.</p></div>
+  <div class="xp"><button class="xp-btn" onclick="xA('qa-cls')">Expand All</button><button class="xp-btn" onclick="xN('qa-cls')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa-cls">
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q11</span>Class vs Object &#8212; definition and memory allocation?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>Class:</strong> Blueprint defining attributes and behaviors. No memory allocated for instance data at definition time. <strong>Object:</strong> A specific instance. Memory allocated on the heap when new is called.</p>
+<pre>class Car { String brand; int year; void start(){ System.out.println(brand + " started"); } }
+
+Car car1 = new Car();  car1.brand = "Toyota";  // heap memory for car1
+Car car2 = new Car();  car2.brand = "Honda";   // separate heap memory
+car1.start();  // "Toyota started" - same method, different data
+car2.start();  // "Honda started"</pre>
+      <p><strong>Memory layout:</strong> Stack &#8594; reference variable. Heap &#8594; actual object data (GC-managed). Method Area &#8594; class metadata and bytecode shared across all instances.</p>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q12</span>Types of constructors &#8212; default, parameterized, copy, chaining?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+<pre>class Student {
+    String name;  int age;  String major;
+
+    // 1. DEFAULT: chains to parameterized via this()
+    Student(){ this("Unknown", 18, "Undecided"); }
+
+    // 2. PARAMETERIZED: initialises all fields
+    Student(String name, int age, String major){
+        this.name = name;  this.age = age;  this.major = major;
+    }
+
+    // 3. COPY: creates new object from existing one
+    Student(Student other){ this(other.name, other.age, other.major); }
+}
+
+// Rules:
+// this(...) - calls another constructor in SAME class, must be FIRST line
+// super(...) - calls parent constructor, must be FIRST line
+// Cannot call BOTH this() AND super() in the same constructor</pre>
+      <div class="tip">&#128161; If you define ANY constructor, Java stops auto-generating the no-arg default. Frameworks (Spring, Hibernate) often require a no-arg constructor &#8212; write it explicitly when needed.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q13</span>Can a constructor be private? What is it used for?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>Yes. A private constructor prevents external code from calling new ClassName() directly.</p>
+<pre>// Singleton - double-checked locking
+public class AppConfig {
+    private static volatile AppConfig instance;
+    private AppConfig(){ }     // private - no external instantiation
+
+    public static AppConfig getInstance(){
+        if(instance == null){
+            synchronized(AppConfig.class){
+                if(instance == null) instance = new AppConfig();
+            }
+        }
+        return instance;
+    }
+}
+
+// Enum Singleton (BEST - JVM-guaranteed thread-safe + serialization-safe)
+public enum Config { INSTANCE;  public String getDb(){ return "jdbc:..."; } }
+Config.INSTANCE.getDb();  // guaranteed single instance
+
+// Static factory methods - named, expressive constructors
+public class Color {
+    private int r, g, b;
+    private Color(int r, int g, int b){ this.r=r; this.g=g; this.b=b; }
+    public static Color red()           { return new Color(255, 0, 0); }
+    public static Color fromHex(String h){ /* parse */ return new Color(r, g, b); }
+}</pre>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q14</span>this keyword &#8212; all four uses with code?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+<pre>public class Person {
+    private String name;  private int age;
+
+    // USE 1: disambiguate instance variable from parameter
+    public Person(String name, int age){ this.name = name;  this.age = age; }
+
+    // USE 2: call another constructor in same class (FIRST line)
+    public Person(String name){ this(name, 0); }
+
+    // USE 3: pass current object as argument
+    public void register(Registry r){ r.add(this); }
+
+    // USE 4: return current object - enables fluent builder chaining
+    public Person setName(String n){ this.name = n;  return this; }
+    public Person setAge(int a)    { this.age  = a;  return this; }
+}
+
+// Builder chaining:
+Person p = new Person("Alice").setName("Alice Chen").setAge(25);</pre>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q15</span>Composition vs Aggregation vs Association &#8212; differences?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table><tr><th>Relationship</th><th>Ownership</th><th>Lifecycle</th><th>Example</th></tr>
+      <tr><td><strong>Association</strong></td><td>None</td><td>Independent</td><td>Student has a Teacher</td></tr>
+      <tr><td><strong>Aggregation</strong></td><td>Weak &#8212; parts independent</td><td>Parts survive the whole</td><td>Library HAS Books (books survive if library closes)</td></tr>
+      <tr><td><strong>Composition</strong></td><td>Strong &#8212; owns exclusively</td><td>Parts destroyed with whole</td><td>Human HAS Heart (heart cannot exist without Human)</td></tr></table>
+<pre>// AGGREGATION: Engine passed in from outside
+class Car { private Engine engine; Car(Engine e){ this.engine = e; } }
+
+// COMPOSITION: Rooms created inside, destroyed with House
+class House {
+    private final Room[] rooms;
+    House(int n){ rooms = new Room[n];  for(int i=0;i&lt;n;i++) rooms[i] = new Room(); }
+}</pre>
+      <div class="gold">&#128204; Prefer Composition over Inheritance (GoF principle): composition is more flexible &#8212; you can swap the contained object at runtime. Inheritance is static. Use composition for HAS-A; use inheritance only for genuine IS-A.</div>
+    </div></div>
+  </div>
+</section>
+
+<!-- KEYWORDS -->
+<section id="q-kw">
+  <div class="sh"><div class="sh-eye">Questions 16&#8211;18</div><h2>&#128273; Keywords &amp; Modifiers</h2></div>
+  <div class="why"><div class="why-l">&#9889; Why static, final, and Exceptions Are Always Tested</div><p>These appear in every Infosys question set as "What happens when..." scenarios. Understanding what each prevents and the edge cases separates solid Java knowledge from surface-level familiarity.</p></div>
+  <div class="xp"><button class="xp-btn" onclick="xA('qa-kw')">Expand All</button><button class="xp-btn" onclick="xN('qa-kw')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa-kw">
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q16</span>static keyword &#8212; field, method, block, nested class?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+<pre>class Counter {
+    private static int count = 0;  // STATIC FIELD: shared by ALL instances
+    private int id;                // instance field: each object has its own
+
+    static {                       // STATIC BLOCK: runs ONCE when class loads
+        count = 100;
+        System.out.println("Counter class loaded");
+    }
+
+    public Counter(){ this.id = ++count; }
+
+    // STATIC METHOD: no 'this', cannot access instance fields
+    public static int getCount(){ return count; }
+    // public static int getId(){ return this.id; }  // compile error - no 'this'
+}
+
+// STATIC NESTED CLASS: no outer instance needed
+class Outer {
+    private int x = 10;
+    static class Nested { void show(){ System.out.println("nested"); } }
+    class Inner         { void show(){ System.out.println(x); } }  // CAN access x
+}</pre>
+      <div class="crit">&#9888; A static method cannot access non-static fields &#8212; there is no implicit this. This is why main() must be static: it runs before any object is created.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q17</span>final keyword &#8212; variable, method, class &#8212; with edge cases?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+<pre>// 1. FINAL VARIABLE: cannot be reassigned after initialization
+final int MAX = 100;
+MAX = 200;                    // compile error
+
+final StringBuilder sb = new StringBuilder("hello");
+sb.append(" world");          // OK - mutating the OBJECT is fine
+sb = new StringBuilder();     // compile error - reassigning the REFERENCE is not
+// CRUCIAL: final prevents reference reassignment, NOT object mutation!
+
+// 2. FINAL METHOD: cannot be overridden
+class Base  { final void critical(){ } }
+class Child extends Base { void critical(){ } }  // compile error
+
+// 3. FINAL CLASS: cannot be subclassed
+// Java's String is final:
+// 1. Security: cannot override hashCode/equals used as HashMap keys
+// 2. Thread safety: immutable = no synchronization needed
+// 3. String pool: JVM can safely reuse interned literals</pre>
+      <div class="tip">&#128161; static final = compile-time constant. private final = instance constant set in constructor. final parameter = cannot be reassigned inside method body (needed for lambda variable capture).</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q18</span>Checked vs Unchecked Exceptions &#8212; when to throw each?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table><tr><th>Property</th><th>Checked</th><th>Unchecked</th></tr>
+      <tr><td>Detected at</td><td>Compile time &#8212; enforced</td><td>Runtime &#8212; optional to handle</td></tr>
+      <tr><td>Must handle?</td><td>&#10003; Yes &#8212; try-catch or throws</td><td>&#10007; No</td></tr>
+      <tr><td>Indicates</td><td>Recoverable external conditions</td><td>Programming errors (bugs)</td></tr>
+      <tr><td>Examples</td><td>IOException, SQLException, ClassNotFoundException</td><td>NullPointerException, IllegalArgumentException, ArrayIndexOutOfBoundsException</td></tr></table>
+<pre>// CHECKED: predictable external failure - caller MUST handle
+void readFile(String path) throws IOException {
+    new BufferedReader(new FileReader(path));
+}
+
+// UNCHECKED: programmer error - fix it, do not catch it
+void setAmount(double amt){
+    if(amt &lt; 0) throw new IllegalArgumentException("Amount negative: " + amt);
+}
+
+// Exception hierarchy:
+//              Throwable
+//             /         //       Exception       Error         (Error: JVM issues, do not catch)
+//      /          // Checked       RuntimeException      (Unchecked)</pre>
+      <div class="gold">&#128204; Rule: external conditions the caller can recover from &#8594; checked. Programming mistakes that should be fixed in code &#8594; unchecked (IllegalArgumentException, IllegalStateException).</div>
+    </div></div>
+  </div>
+</section>
+
+<!-- JAVA INTERNALS -->
+<section id="q-java">
+  <div class="sh"><div class="sh-eye">Questions 19&#8211;20</div><h2>&#9749; Java-Specific Internals</h2></div>
+  <div class="why"><div class="why-l">&#9889; Why Java Questions Appear in Every Infosys Round</div><p>Infosys primarily uses Java. String immutability, == vs .equals(), StringBuilder vs StringBuffer, and garbage collection are the most common Java-specific OOP questions. These reveal whether you actually write Java or just know its syntax.</p></div>
+  <div class="xp"><button class="xp-btn" onclick="xA('qa-jv')">Expand All</button><button class="xp-btn" onclick="xN('qa-jv')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa-jv">
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q19</span>String vs StringBuffer vs StringBuilder &#8212; when to use each?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <table><tr><th>Property</th><th>String</th><th>StringBuffer</th><th>StringBuilder</th></tr>
+      <tr><td>Mutable?</td><td>&#10007; Immutable</td><td>&#10003; Mutable</td><td>&#10003; Mutable</td></tr>
+      <tr><td>Thread-safe?</td><td>&#10003; Yes</td><td>&#10003; Yes (synchronized)</td><td>&#10007; No</td></tr>
+      <tr><td>Use when</td><td>Simple strings, HashMap keys</td><td>Multi-threaded string building</td><td>Single-threaded string building (99% of cases)</td></tr></table>
+<pre>// BAD: creates 10,000 String objects in heap - O(n squared)
+String result = "";
+for(int i = 0; i &lt; 10000; i++) result += "item" + i;  // each += creates new object
+
+// GOOD: one mutable object, amortized O(1) per append
+StringBuilder sb = new StringBuilder();
+for(int i = 0; i &lt; 10000; i++) sb.append("item").append(i);
+String result = sb.toString();
+
+// Why String is immutable:
+// 1. String Pool: JVM reuses identical literals safely
+// 2. Thread safety: immutable = no synchronization needed
+// 3. HashMap key safety: hashCode() is stable after insertion
+// 4. Security: prevents class-loading attacks</pre>
+      <div class="note">&#129504; == compares references (same heap object?). .equals() compares content. "hello" == "hello" may be true (String pool). new String("hello") == new String("hello") is always false. ALWAYS use .equals() to compare String content.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q20</span>Garbage Collection &#8212; how does it work? finalize() vs AutoCloseable?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>Java&#39;s GC automatically reclaims heap memory occupied by objects no longer reachable from any live root reference.</p>
+      <p><strong>Generational GC:</strong> Young Generation (Eden + Survivor) &#8594; Minor GC (frequent, cheap, most objects die here). Old Generation &#8594; Full GC (infrequent, expensive). Metaspace (Java 8+) &#8594; class metadata, not heap.</p>
+<pre>Object obj = new Object();
+obj = null;     // unreachable - eligible for GC
+System.gc();    // hint only - JVM decides WHEN, NOT guaranteed
+
+// finalize(): deprecated Java 9+, removed Java 18.
+// Problems: no timing guarantee, silent exception swallowing, can resurrect objects.
+
+// CORRECT approach: AutoCloseable + try-with-resources (deterministic cleanup)
+class DBConn implements AutoCloseable {
+    public void close(){ System.out.println("Connection closed"); }
+}
+try(DBConn c = new DBConn()){ /* use c */ }  // close() called automatically</pre>
+      <div class="tip">&#128161; Modern JVMs use G1GC by default (Java 9+) &#8212; divides heap into equal regions, prioritizes most garbage-dense regions, predictably meets pause time targets. For ultra-low-latency: ZGC or Shenandoah GC.</div>
+    </div></div>
+  </div>
+</section>
+
+<!-- SOLID -->
+<section id="q-solid">
+  <div class="sh"><div class="sh-eye">Questions 21&#8211;26</div><h2>&#128208; SOLID Principles</h2></div>
+  <div class="why"><div class="why-l">&#9889; Why SOLID Is Now a Standard Fresher Question</div><p>SOLID reveals whether you think about code quality and maintainability, not just functionality. One sentence per principle plus a concrete before/after example is what impresses Infosys interviewers.</p></div>
+  <div class="solid-list" style="margin-bottom:28px;">
+    <div class="si"><div class="si-l">S</div><div class="si-c"><h4>Single Responsibility</h4><p>A class should have only ONE reason to change &#8212; one job, done well.</p></div></div>
+    <div class="si"><div class="si-l">O</div><div class="si-c"><h4>Open / Closed</h4><p>Open for extension (new behavior via new classes). Closed for modification (do not change working code).</p></div></div>
+    <div class="si"><div class="si-l">L</div><div class="si-c"><h4>Liskov Substitution</h4><p>Subtype objects must be substitutable for supertype objects without breaking the program.</p></div></div>
+    <div class="si"><div class="si-l">I</div><div class="si-c"><h4>Interface Segregation</h4><p>Many small focused interfaces beat one large bloated one. Clients should not depend on methods they do not use.</p></div></div>
+    <div class="si"><div class="si-l">D</div><div class="si-c"><h4>Dependency Inversion</h4><p>Depend on abstractions (interfaces), not concrete implementations.</p></div></div>
+  </div>
+  <div class="xp"><button class="xp-btn" onclick="xA('qa-sld')">Expand All</button><button class="xp-btn" onclick="xN('qa-sld')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa-sld">
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q21</span>Single Responsibility &#8212; what is wrong with doing too much?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+<pre>// VIOLATES SRP: UserManager has 3 reasons to change
+class UserManager {
+    void createUser(String name) { /* DB insert */ }
+    void sendEmail(String email)  { /* SMTP logic */ }
+    void genReport(String id)     { /* PDF gen */ }
+}
+// Change email provider  -&gt; modify UserManager
+// Change PDF library     -&gt; modify UserManager
+// Change DB schema       -&gt; modify UserManager
+
+// FOLLOWS SRP: each class has ONE responsibility
+class UserRepository  { void save(User u){ } }
+class EmailService    { void send(User u){ } }
+class ReportGenerator { void gen(User u) { } }
+// Change email provider -&gt; only EmailService changes. Others untouched.</pre>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q22</span>Open/Closed &#8212; adding features without modifying existing code?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+<pre>// VIOLATES OCP: every new discount type requires modifying this method
+double discount(String type, double price){
+    if(type.equals("Regular")) return price * 0.05;
+    if(type.equals("Premium")) return price * 0.10;
+    // Adding "Corporate"? Must MODIFY this method - risky!
+    return 0;
+}
+
+// FOLLOWS OCP: new types extend the interface - zero existing code changed
+interface DiscountStrategy  { double apply(double p); }
+class RegularDiscount  implements DiscountStrategy { public double apply(double p){ return p*0.05; } }
+class PremiumDiscount  implements DiscountStrategy { public double apply(double p){ return p*0.10; } }
+class CorporateDiscount implements DiscountStrategy { public double apply(double p){ return p*0.25; } }
+// Add "Enterprise"? Just add a new class. Zero changes to existing code.</pre>
+      <div class="tip">&#128161; OCP is why well-designed frameworks are extensible &#8212; you write your plugins, the framework calls them without you modifying the framework source. Spring beans, Java&#39;s Comparator, JDBC drivers &#8212; all OCP in action.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q23</span>Liskov Substitution &#8212; the classic Square/Rectangle violation?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+<pre>// VIOLATES LSP: Square is not a proper behavioral subtype of Rectangle
+class Rectangle {
+    protected int width, height;
+    void setWidth(int w)  { this.width = w; }
+    void setHeight(int h) { this.height = h; }
+    int  area()           { return width * height; }
+}
+class Square extends Rectangle {
+    void setWidth(int w)  { this.width = w;  this.height = w; } // side effect!
+    void setHeight(int h) { this.width = h;  this.height = h; }
+}
+
+void test(Rectangle r){
+    r.setWidth(5);  r.setHeight(10);
+    assert r.area() == 50;  // PASSES for Rectangle, FAILS for Square (area=100)
+}
+
+// Fix: do not inherit just because of geometric "is-a".
+// Mathematical is-a does not equal behavioral is-a in OOP.
+// Both should independently implement a Shape interface.</pre>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q24</span>Interface Segregation &#8212; why fat interfaces are harmful?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+<pre>// VIOLATES ISP: fat interface forces animals to implement irrelevant methods
+interface Animal {
+    void eat();   void sleep();
+    void fly();   // Penguins cannot fly - forced to throw UnsupportedOperationException
+    void swim();  // Eagles do not swim - forced empty implementation
+}
+
+// FOLLOWS ISP: small focused interfaces
+interface Eatable  { void eat(); }
+interface Sleepable{ void sleep(); }
+interface Flyable  { void fly(); }
+interface Swimmable{ void swim(); }
+
+class Eagle   implements Eatable, Sleepable, Flyable             { }
+class Penguin implements Eatable, Sleepable, Swimmable           { }
+class Duck    implements Eatable, Sleepable, Flyable, Swimmable  { }</pre>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q25</span>Dependency Inversion &#8212; the foundation of Spring&#39;s IoC?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+<pre>// VIOLATES DIP: OrderService directly coupled to MySQLDatabase
+class OrderService {
+    private MySQLDatabase db = new MySQLDatabase();  // tightly coupled!
+    void placeOrder(String o){ db.save(o); }
+}
+// Switching to MongoDB requires changing OrderService - violation!
+
+// FOLLOWS DIP: depends on ABSTRACTION
+interface Database { void save(String data); }
+class MySQLDatabase   implements Database { public void save(String d){ System.out.println("MySQL: " + d); } }
+class MongoDatabase   implements Database { public void save(String d){ System.out.println("Mongo: " + d); } }
+
+class OrderService {
+    private final Database db;
+    OrderService(Database db){ this.db = db; }  // INJECTED - loose coupling
+    void placeOrder(String o){ db.save(o); }
+}
+
+// Switch to MongoDB? Just inject MongoDatabase. OrderService unchanged.
+OrderService svc = new OrderService(new MongoDatabase());</pre>
+      <div class="tip">&#128161; DIP is the foundation of Spring Framework&#39;s IoC container. You program against interfaces; Spring decides which concrete implementation to wire in based on configuration.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q26</span>Coupling vs Cohesion &#8212; why "low coupling, high cohesion" is the goal?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>Cohesion:</strong> How strongly related are the responsibilities within a single class? High cohesion = does one thing well. Low cohesion = does many unrelated things.</p>
+      <p><strong>Coupling:</strong> How dependent are modules on each other? Low coupling = change independently. High coupling = changing one forces changes in others.</p>
+      <table><tr><th>Combination</th><th>Outcome</th></tr>
+      <tr><td>High cohesion + Low coupling</td><td>&#10003; Ideal &#8212; maintainable, testable, extensible</td></tr>
+      <tr><td>Low cohesion + High coupling</td><td>&#10007; Worst &#8212; spaghetti code</td></tr></table>
+<pre>// LOW COHESION: God class doing unrelated things
+class GodClass { void parseJSON(){} void sendEmail(){} void generatePDF(){} }
+
+// HIGH COHESION: each class focused on one responsibility
+class JsonParser    { Object parse(String json){ return null; } }
+class EmailSender   { void   send(String to, String body){ } }
+class PdfGenerator  { byte[] generate(Object data){ return null; } }</pre>
+      <div class="note">&#129504; The SOLID principles are essentially rules for achieving high cohesion and low coupling. Apply them consistently and your code will be naturally more maintainable, testable, and extensible.</div>
+    </div></div>
+  </div>
+</section>
+
+<!-- DESIGN PATTERNS -->
+<section id="q-patterns">
+  <div class="sh"><div class="sh-eye">Questions 27&#8211;30</div><h2>&#129513; Design Patterns</h2></div>
+  <div class="why"><div class="why-l">&#9889; Why Design Patterns Are Now Fresher Interview Territory</div><p>Singleton, Factory, Observer, and Strategy are standard fresher questions at Infosys for DSE and SP roles. You need to explain the pattern, write its code, and explain the real problem it solves. Definitions alone will not pass.</p></div>
+  <div class="xp"><button class="xp-btn" onclick="xA('qa-pat')">Expand All</button><button class="xp-btn" onclick="xN('qa-pat')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa-pat">
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q27</span>Singleton Pattern &#8212; implementation, thread-safety, enum approach?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>Problem it solves:</strong> Ensure only one instance of a class exists throughout the application (logger, config, DB connection pool).</p>
+<pre>// VERSION 1: Not thread-safe (avoid)
+class Logger {
+    private static Logger instance;
+    private Logger(){ }
+    public static Logger getInstance(){
+        if(instance == null) instance = new Logger();  // race condition!
+        return instance;
+    }
+}
+
+// VERSION 2: Double-checked locking (thread-safe + efficient)
+class Logger {
+    private static volatile Logger instance;  // volatile prevents reordering
+    private Logger(){ }
+    public static Logger getInstance(){
+        if(instance == null){
+            synchronized(Logger.class){
+                if(instance == null) instance = new Logger();
+            }
+        }
+        return instance;
+    }
+}
+
+// VERSION 3: Enum Singleton (BEST - JVM-guaranteed, serialization-safe)
+public enum AppConfig {
+    INSTANCE;
+    public String getDbUrl(){ return "jdbc:mysql://..."; }
+}
+AppConfig.INSTANCE.getDbUrl();  // guaranteed single instance</pre>
+      <div class="crit">&#9888; Singletons make unit testing hard &#8212; they carry state between tests. Consider Spring&#39;s DI container to manage the singleton lifecycle, which maintains single-instance behavior while keeping the class testable with mocks.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q28</span>Factory Pattern &#8212; why create objects through a factory?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>Problem it solves:</strong> The exact type of object to create is determined at runtime. Using new ConcreteClass() directly couples code to specific implementations.</p>
+<pre>interface Document    { void open();  void save(); }
+class PdfDocument  implements Document { public void open(){ System.out.println("PDF open"); }  public void save(){ } }
+class WordDocument implements Document { public void open(){ System.out.println("Word open"); } public void save(){ } }
+
+// Factory: one centralized place for all creation logic
+class DocumentFactory {
+    public static Document create(String type){
+        return switch(type.toLowerCase()){
+            case "pdf"  -&gt; new PdfDocument();
+            case "word" -&gt; new WordDocument();
+            default     -&gt; throw new IllegalArgumentException("Unknown: " + type);
+        };
+    }
+}
+
+// Client does not know WHICH concrete class it gets
+Document doc = DocumentFactory.create("pdf");
+doc.open();  // works for any Document type
+// Add Excel support? New class + one case in factory. Client code unchanged.</pre>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q29</span>Observer Pattern &#8212; publish-subscribe model with code?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>Problem it solves:</strong> One object (publisher) needs to notify many observers when its state changes &#8212; without knowing who those observers are.</p>
+<pre>interface StockObserver { void update(String stock, double price); }
+
+class StockMarket {                          // Publisher
+    private List&lt;StockObserver&gt; list = new ArrayList&lt;&gt;();
+    public void subscribe(StockObserver o)   { list.add(o); }
+    public void unsubscribe(StockObserver o) { list.remove(o); }
+    public void setPrice(String s, double p) {
+        list.forEach(o -&gt; o.update(s, p));  // notify ALL observers
+    }
+}
+
+class EmailAlert implements StockObserver { public void update(String s,double p){ System.out.println("Email: " + s + "=" + p); } }
+class MobilePush implements StockObserver { public void update(String s,double p){ System.out.println("Push: "  + s + "=" + p); } }
+class TradingBot  implements StockObserver { public void update(String s,double p){ System.out.println("Bot trading: " + s); } }
+
+StockMarket mkt = new StockMarket();
+mkt.subscribe(new EmailAlert()); mkt.subscribe(new MobilePush()); mkt.subscribe(new TradingBot());
+mkt.setPrice("INFY", 1750.50);  // all 3 notified automatically</pre>
+      <div class="tip">&#128161; Observer is everywhere in real code: Java&#39;s ActionListener, React state management, Spring ApplicationEvents, JavaScript&#39;s addEventListener &#8212; all Observer pattern implementations.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q30</span>Strategy Pattern &#8212; replacing if-else chains with swappable algorithms?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p><strong>Problem it solves:</strong> Multiple algorithms for the same task &#8212; switch between them at runtime without if-else chains.</p>
+<pre>interface SortStrategy { void sort(int[] arr); }
+class BubbleSort implements SortStrategy { public void sort(int[] a){ System.out.println("Bubble"); } }
+class MergeSort  implements SortStrategy { public void sort(int[] a){ System.out.println("Merge");  } }
+class QuickSort  implements SortStrategy { public void sort(int[] a){ System.out.println("Quick");  } }
+
+class Sorter {
+    private SortStrategy strategy;
+    Sorter(SortStrategy s){ this.strategy = s; }
+    void setStrategy(SortStrategy s){ this.strategy = s; }
+    void sort(int[] arr){ strategy.sort(arr); }  // delegates to current strategy
+}
+
+Sorter sorter = new Sorter(new QuickSort());
+sorter.sort(data);                      // uses QuickSort
+sorter.setStrategy(new MergeSort());    // swap at runtime
+sorter.sort(data);                      // now uses MergeSort
+// Java's Comparator IS a strategy: Collections.sort(list, comparator)</pre>
+    </div></div>
+  </div>
+</section>
+
+<!-- ADVANCED OOP -->
+<section id="q-adv">
+  <div class="sh"><div class="sh-eye">Questions 31&#8211;32</div><h2>&#9889; Advanced OOP Concepts</h2></div>
+  <div class="xp"><button class="xp-btn" onclick="xA('qa-adv')">Expand All</button><button class="xp-btn" onclick="xN('qa-adv')">Collapse All</button></div>
+  <div class="qa-wrap" id="qa-adv">
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q31</span>"Program to an interface, not an implementation" &#8212; what does this mean?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+      <p>Declare variables, parameters, and return types using interfaces (or abstract types), not concrete classes. Let the concrete implementation be determined at runtime or by injection.</p>
+<pre>// Tightly coupled to ArrayList
+ArrayList&lt;String&gt; list = new ArrayList&lt;&gt;();
+// Switching to LinkedList requires finding and changing every usage.
+
+// Loosely coupled - programmed to interface
+List&lt;String&gt; list = new ArrayList&lt;&gt;();    // declare as List (interface)
+// Switch to LinkedList? ONE change, nothing else breaks:
+// List&lt;String&gt; list = new LinkedList&lt;&gt;();
+
+// Powerful real-world example: payment gateway abstraction
+interface PaymentProcessor { boolean process(double amount); }
+
+class PaymentService {
+    private final PaymentProcessor processor;   // depends on INTERFACE
+    PaymentService(PaymentProcessor p){ this.processor = p; }
+    boolean pay(double amt){ return processor.process(amt); }
+}
+
+PaymentService live = new PaymentService(new RazorpayProcessor());
+PaymentService test = new PaymentService(new MockPaymentProcessor()); // for unit tests</pre>
+      <div class="note">&#129504; This principle directly enables DIP (SOLID), testability (inject mocks in tests), and the entire ecosystem of framework design &#8212; Spring&#39;s ApplicationContext, JDBC drivers, SLF4J logging facade. It is not just a preference; it is the foundation of enterprise architecture.</div>
+    </div></div>
+
+    <div class="qa-item"><button class="qa-btn" onclick="tQ(this)"><span class="qa-num">Q32</span>== vs .equals() in Java? What is the String pool?<span class="qa-icon">&#9662;</span></button>
+    <div class="qa-body">
+<pre>// == compares REFERENCES (same object in heap?)
+// .equals() compares CONTENT (same logical value?)
+
+String s1 = "hello";              // from String pool
+String s2 = "hello";              // same pool object
+String s3 = new String("hello");  // new heap object, NOT from pool
+
+System.out.println(s1 == s2);        // TRUE  - same pool object
+System.out.println(s1 == s3);        // FALSE - s3 is a different heap object
+System.out.println(s1.equals(s3));   // TRUE  - same content
+
+// Integer cache trap (values -128 to 127):
+Integer a = 127;  Integer b = 127;  System.out.println(a == b);  // TRUE (cached)
+Integer c = 128;  Integer d = 128;  System.out.println(c == d);  // FALSE (not cached)
+System.out.println(c.equals(d));                                   // TRUE</pre>
+      <p><strong>The String Pool:</strong> Java maintains a pool of String literals in JVM non-heap memory. When you write "hello" as a literal, the JVM checks if that value already exists. If yes, the existing reference is reused (memory saving). <code>new String("hello")</code> always creates a new heap object, bypassing the pool.</p>
+<pre>// Explicitly intern a String back into the pool:
+String s4 = new String("hello").intern();  // now references the pool object
+System.out.println(s1 == s4);              // TRUE</pre>
+      <div class="crit">&#9888; ALWAYS use .equals() to compare String values &#8212; never ==. String pool behavior depends on JVM, compile-time constant folding, and runtime conditions. Code relying on == for Strings is a latent bug.</div>
+    </div></div>
+  </div>
+</section>
+
+<div class="div">&#183; &#183; &#183;</div>
+
+<!-- SUMMARY -->
+<section>
+  <div class="sh"><div class="sh-eye">Summary</div><h2>&#128448; OOPs Quick-Review Cheatsheet</h2></div>
+  <div class="qb"><blockquote>"Programs must be written for people to read, and only incidentally for machines to execute. OOP, done right, achieves exactly that."</blockquote><cite>&#8212; Harold Abelson &middot; MIT &middot; Co-author of "Structure and Interpretation of Computer Programs"</cite></div>
+  <div class="formula"><span class="f-l">12 OOPs Rules to Know Cold Before Any Interview</span><div class="f-b">1.  4 pillars: Encapsulation (private+getters) &middot; Inheritance (extends) &middot; Polymorphism (override) &middot; Abstraction (interface/abstract)&#10;2.  Overloading = same class, different params, compile-time &middot; Overriding = subclass, same sig, runtime dispatch&#10;3.  Abstract class: partial impl + constructor + instance vars &middot; Interface: pure contract + multiple inheritance&#10;4.  Static methods are HIDDEN not overridden &#8212; resolved by reference type at compile time&#10;5.  final variable: cannot reassign reference &middot; final method: cannot override &middot; final class: cannot extend&#10;6.  super() must be FIRST statement in child constructor. Cannot call both this() AND super().&#10;7.  Composition over Inheritance for HAS-A (more flexible, less coupled, easier to test)&#10;8.  SOLID: Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion&#10;9.  Singleton: private constructor + volatile static + double-checked locking (or use enum)&#10;10. Factory: centralized creation &middot; Observer: one-to-many notification &middot; Strategy: swappable algorithms&#10;11. == compares references &middot; .equals() compares content &middot; ALWAYS use .equals() for String comparison&#10;12. Checked exceptions: must handle (external failures) &middot; Unchecked: optional (programmer errors)</div></div>
+
+  <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin:28px 0 12px;">Design Patterns Quick Reference</h3>
+  <table class="tbl">
+    <thead><tr><th>Pattern</th><th>Category</th><th>Problem Solved</th><th>Key Structure</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Singleton</strong></td><td>Creational</td><td>Exactly one global instance</td><td>Private constructor + volatile static + getInstance()</td></tr>
+      <tr><td><strong>Factory</strong></td><td>Creational</td><td>Object type decided at runtime</td><td>Interface + concrete classes + static factory method</td></tr>
+      <tr><td><strong>Builder</strong></td><td>Creational</td><td>Complex object with many optional params</td><td>Fluent setters returning this + build()</td></tr>
+      <tr><td><strong>Observer</strong></td><td>Behavioral</td><td>One-to-many state change notification</td><td>Subject + Observer interface + subscribe/notify list</td></tr>
+      <tr><td><strong>Strategy</strong></td><td>Behavioral</td><td>Swappable algorithms at runtime</td><td>Strategy interface + concrete strategies + context</td></tr>
+      <tr><td><strong>Decorator</strong></td><td>Structural</td><td>Add behavior without subclassing</td><td>Component interface + concrete + wrapper</td></tr>
+      <tr><td><strong>Adapter</strong></td><td>Structural</td><td>Incompatible interfaces need to work together</td><td>Target interface + Adaptee + Adapter wrapping Adaptee</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<div class="nxt">
+  <div><h3>Up Next: Phase 4 &#8212; DBMS</h3><p>32 DBMS questions &#8212; beyond SQL into how databases work internally: transactions, B-tree indexing, deadlocks, MVCC, connection pools, and modern database architecture.</p></div>
+  <a href="./Phase4_dbms.html" class="nxt-btn">Phase 4: DBMS &#8594;</a>
+</div>
+
+</main>
+
+<footer class="footer">
+  <h2>The Tech Intel &middot; Interview Mastery Series</h2>
+  <p>Phase 3 complete. OOPs mastered. Three technical phases remaining &#8212; DBMS, OS, and Networks + System Design + SDLC.</p>
+    <div class="footers">AI/ML & Tech Content | Built for engineers who build the future</div>
+  <div class="footer-links">
+    <a href="https://substack.com/@thetechintel">Substack</a>
+    <a href="https://www.linkedin.com/in/priyanshu-arya/">LinkedIn</a>
+    <a href="https://www.instagram.com/thetechintel/">Instagram</a>
+    <a href="https://www.instagram.com/thetechintel/">X (Twitter)</a>
+    <a href="https://github.com/priyanshu-arya">GitHub</a>
+  </div>
+  <div class="footer-small">&copy; 2025 The Tech Intel &middot; Priyanshu &middot; April 2025 &middot; Not affiliated with Infosys &middot; Educational content only</div>
+</footer>
+
+<script>
+window.addEventListener("scroll",()=>{const d=document.documentElement;document.getElementById("bar").style.width=(window.scrollY/(d.scrollHeight-d.clientHeight)*100)+"%";},{passive:true});
+function openDrawer(){document.getElementById("ov").style.display="block";document.getElementById("drawer").classList.add("open");}
+function closeDrawer(){document.getElementById("ov").style.display="none";document.getElementById("drawer").classList.remove("open");}
+function tQ(btn){const b=btn.nextElementSibling,o=b.classList.contains("open");btn.classList.toggle("open",!o);b.classList.toggle("open",!o);}
+function xA(id){document.querySelectorAll("#"+id+" .qa-btn").forEach(b=>{b.classList.add("open");b.nextElementSibling.classList.add("open");});}
+function xN(id){document.querySelectorAll("#"+id+" .qa-btn").forEach(b=>{b.classList.remove("open");b.nextElementSibling.classList.remove("open");});}
+function upS(){const sl=document.querySelectorAll(".s-rng");let t=0;sl.forEach(s=>{const v=parseInt(s.value);s.parentElement.querySelector(".s-val").textContent=v;t+=v;});document.getElementById("sc").textContent=t;const m=[[0,31,"Needs serious work. Start from Pillar 1."],[32,47,"Developing. Focus on polymorphism, SOLID, and patterns."],[48,59,"Good. Practice writing code for each pillar from memory."],[60,71,"Strong. Mock with OOPs design scenarios."],[72,80,"Interview-ready. Go nail that OOPs round."]].find(([l,h])=>t>=l&&t<=h);document.getElementById("sc-msg").textContent=m?m[2]:"";}
+upS();
+const secs=document.querySelectorAll("section[id]"),lnks=document.querySelectorAll("#drawer a");
+window.addEventListener("scroll",()=>{let c="";secs.forEach(s=>{if(window.scrollY>=s.offsetTop-80)c=s.id;});lnks.forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+c));},{passive:true});
+</script>
+</body>
+</html>
