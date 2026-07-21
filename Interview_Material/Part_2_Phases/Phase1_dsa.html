@@ -12,203 +12,7 @@
 <meta property="og:type" content="article">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-<style>
-:root{
-  --ink:#0f0e0b;--paper:#faf9f5;--cream:#f0ebe0;
-  --teal:#1a6b72;--teal-pale:#e4f2f3;--teal-mid:#2a8a94;
-  --gold:#c48a28;--gold-pale:#f8edda;
-  --rust:#b44830;--rust-pale:#fdf0ec;
-  --slate:#383430;--muted:#7a746a;--border:#e0dbd0;
-  --white:#fff;--code-bg:#18161200;--code-text:#e2ddd6;
-  --green:#2d7a35;--green-pale:#edf7ee;
-  --blue:#1a5a9a;--blue-pale:#e8f0fa;
-  --orange:#c06020;--orange-pale:#fdf3e8;
-  --red:#9a1a20;--red-pale:#fdeaeb;
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.8;font-size:17px}
-
-/* Progress */
-#bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--teal),var(--gold));width:0%;z-index:999;transition:width .08s}
-
-/* Nav */
-.nav{position:sticky;top:0;z-index:200;background:rgba(250,249,245,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:52px}
-.nav-brand{font-family:'Playfair Display',serif;font-weight:900;font-size:16px}
-.nav-center{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
-.nav-btn{padding:6px 16px;border:1px solid var(--border);border-radius:20px;font-size:12px;cursor:pointer;background:none;color:var(--slate);font-family:'DM Sans',sans-serif;transition:all .2s}
-.nav-btn:hover{background:var(--ink);color:var(--white);border-color:var(--ink)}
-
-/* Drawer */
-#ov{display:none;position:fixed;inset:0;background:rgba(15,14,11,.55);z-index:300}
-#drawer{position:fixed;right:-380px;top:0;bottom:0;width:360px;background:var(--white);z-index:400;padding:28px 22px;overflow-y:auto;transition:right .3s cubic-bezier(.4,0,.2,1);box-shadow:-8px 0 40px rgba(0,0,0,.14)}
-#drawer.open{right:0}
-.dr-close{position:absolute;top:18px;right:18px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted)}
-.dr-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin:6px 0 22px}
-.tg{margin-bottom:22px}
-.tg-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);display:block;font-family:'JetBrains Mono',monospace}
-.tg a{display:block;font-size:13.5px;color:var(--slate);text-decoration:none;padding:5px 8px;border-radius:5px;border-left:2px solid transparent;transition:all .2s}
-.tg a:hover,.tg a.active{color:var(--teal);border-left-color:var(--teal);background:var(--teal-pale)}
-
-/* Hero */
-.hero{background:var(--ink);color:var(--white);padding:80px 24px 60px;text-align:center;position:relative;overflow:hidden}
-.hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 20% 70%,rgba(26,107,114,.22) 0%,transparent 65%),radial-gradient(ellipse 60% 50% at 80% 20%,rgba(196,138,40,.12) 0%,transparent 65%);pointer-events:none}
-.hero-phase{display:inline-flex;align-items:center;gap:8px;background:rgba(26,107,114,.2);border:1px solid rgba(26,107,114,.4);color:#5ac8d0;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:5px 16px;border-radius:20px;margin-bottom:28px;position:relative;z-index:1}
-.hero h1{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,58px);font-weight:900;line-height:1.08;margin-bottom:20px;position:relative;z-index:1}
-.hero h1 em{font-style:normal;color:#5ac8d0}
-.hero-sub{font-size:17px;color:rgba(250,249,245,.7);max-width:620px;margin:0 auto 32px;line-height:1.75;position:relative;z-index:1}
-.hero-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;position:relative;z-index:1}
-.chip{font-family:'JetBrains Mono',monospace;font-size:11.5px;padding:5px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:rgba(250,249,245,.75)}
-.chip.active{background:rgba(26,107,114,.3);border-color:rgba(26,107,114,.5);color:#5ac8d0}
-.hero-meta{display:flex;flex-wrap:wrap;gap:6px 20px;justify-content:center;font-size:13px;color:rgba(250,249,245,.4);margin-top:22px;position:relative;z-index:1}
-
-/* Phase nav strip */
-.phase-strip{background:var(--cream);border-bottom:1px solid var(--border);padding:12px 24px;overflow-x:auto;white-space:nowrap;display:flex;gap:8px;align-items:center}
-.ph-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-right:6px;flex-shrink:0}
-.ph-btn{font-family:'JetBrains Mono',monospace;font-size:11px;padding:5px 13px;border-radius:20px;border:1px solid var(--border);background:var(--white);color:var(--slate);cursor:pointer;white-space:nowrap;transition:all .2s;text-decoration:none;display:inline-block}
-.ph-btn.now{background:var(--teal);color:var(--white);border-color:var(--teal)}
-.ph-btn:hover:not(.now){background:var(--teal-pale);border-color:var(--teal);color:var(--teal)}
-
-/* Main */
-.main{max-width:720px;margin:0 auto;padding:0 24px 100px}
-
-/* Pill row */
-.pills{display:flex;flex-wrap:wrap;gap:8px;margin:36px 0 28px}
-.pill{font-size:11px;font-family:'JetBrains Mono',monospace;padding:5px 13px;border-radius:20px;border:1px solid var(--border);background:var(--cream);color:var(--slate);text-decoration:none;transition:all .2s}
-.pill:hover{background:var(--teal);color:var(--white);border-color:var(--teal)}
-
-/* Section header */
-.sh{margin:68px 0 26px;padding-bottom:14px;border-bottom:2px solid var(--border)}
-.sh-eye{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
-.sh h2{font-family:'Playfair Display',serif;font-size:clamp(24px,3.5vw,34px);font-weight:700;line-height:1.2}
-
-/* Why box */
-.why{border-left:4px solid var(--teal);background:var(--teal-pale);padding:18px 22px;border-radius:0 8px 8px 0;margin:26px 0}
-.why-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);font-weight:700;margin-bottom:6px}
-.why p{font-size:15px;color:#1a4a50;margin:0;line-height:1.75}
-
-/* Expert quote */
-.qb{background:var(--ink);color:var(--white);padding:32px 38px;margin:32px 0;border-radius:6px;position:relative}
-.qb::before{content:'\201C';font-family:'Playfair Display',serif;font-size:96px;color:rgba(90,200,208,.18);position:absolute;top:4px;left:26px;line-height:1}
-.qb blockquote{font-family:'Playfair Display',serif;font-size:18px;font-style:italic;line-height:1.65;position:relative;margin-bottom:14px}
-.qb cite{font-family:'JetBrains Mono',monospace;font-size:11px;color:#5ac8d0;letter-spacing:.05em;font-style:normal}
-
-/* Info box */
-.info{border-left:4px solid var(--gold);background:var(--gold-pale);padding:15px 20px;border-radius:0 6px 6px 0;margin:20px 0}
-.info p{margin:0;font-size:15px;color:#5a4010}
-
-/* Warning */
-.warn{border-left:4px solid var(--rust);background:var(--rust-pale);padding:15px 20px;border-radius:0 6px 6px 0;margin:20px 0}
-.warn-l{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--rust);font-weight:700;margin-bottom:5px}
-.warn p{margin:0;font-size:15px;color:#6b2a18}
-
-/* Formula */
-.formula{background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin:20px 0}
-.f-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:8px;display:block;font-family:'JetBrains Mono',monospace}
-.f-body{font-family:'JetBrains Mono',monospace;font-size:13px;line-height:2;color:var(--slate)}
-
-/* Table */
-.tbl{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px}
-.tbl th{background:var(--ink);color:var(--white);padding:9px 13px;text-align:left;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.04em;font-weight:400}
-.tbl td{padding:9px 13px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.55}
-.tbl tr:nth-child(even) td{background:var(--cream)}
-.tbl td code{font-family:'JetBrains Mono',monospace;background:var(--cream);padding:1px 6px;border-radius:3px;font-size:12px;border:1px solid var(--border)}
-
-/* Complexity badges */
-.o1{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;padding:2px 10px;border-radius:12px;background:#e6f4ea;color:#1b5e20;border:1px solid #a8d5b0}
-.ologn{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;padding:2px 10px;border-radius:12px;background:#e3f0fb;color:#0d47a1;border:1px solid #90bde8}
-.on{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;padding:2px 10px;border-radius:12px;background:#fff3e0;color:#bf360c;border:1px solid #ffb74d}
-.on2{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;padding:2px 10px;border-radius:12px;background:#fce4ec;color:#880e4f;border:1px solid #f48fb1}
-.onlogn{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;padding:2px 10px;border-radius:12px;background:#ede7f6;color:#4527a0;border:1px solid #b39ddb}
-
-/* Q&A */
-.qa-wrap{margin:18px 0}
-.qa-cat{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:14px 0 10px;border-top:1px solid var(--border);margin-top:20px;display:block}
-.qa-item{border-bottom:1px solid var(--border)}
-.qa-btn{width:100%;display:flex;align-items:flex-start;gap:12px;padding:14px 0;background:none;border:none;cursor:pointer;text-align:left;font-family:'DM Sans',sans-serif;font-size:15.5px;font-weight:600;color:var(--slate);transition:color .2s}
-.qa-btn:hover{color:var(--teal)}
-.qa-num{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--teal);font-weight:600;min-width:28px;padding-top:3px;flex-shrink:0}
-.qa-icon{margin-left:auto;font-size:11px;color:var(--muted);transition:transform .3s;flex-shrink:0;padding-top:4px}
-.qa-btn.open .qa-icon{transform:rotate(180deg)}
-.qa-body{max-height:0;overflow:hidden;transition:max-height .45s ease;padding-left:40px}
-.qa-body.open{max-height:3000px;padding-bottom:18px}
-.qa-body p,.qa-body li{font-size:15px;color:var(--slate);line-height:1.78}
-.qa-body ul,.qa-body ol{padding-left:20px;margin:8px 0}
-.qa-body li{margin-bottom:5px}
-.qa-body strong{color:var(--ink)}
-.qa-body code{font-family:'JetBrains Mono',monospace;background:var(--cream);padding:1px 6px;border-radius:3px;font-size:12.5px;border:1px solid var(--border);color:var(--ink)}
-.qa-body pre{background:#1a1815;color:#ddd8ce;padding:18px 20px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.9;margin:12px 0;overflow-x:auto;border:1px solid rgba(255,255,255,.05)}
-.qa-body table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0}
-.qa-body th{background:var(--cream);padding:8px 11px;border:1px solid var(--border);text-align:left;font-weight:600;font-size:12px}
-.qa-body td{padding:8px 11px;border:1px solid var(--border);vertical-align:top;line-height:1.55}
-.qa-body .tip{background:var(--teal-pale);border-left:3px solid var(--teal);padding:10px 14px;margin-top:12px;font-size:14px;border-radius:0 5px 5px 0;color:#1a4a50}
-.qa-body .note{background:var(--gold-pale);border-left:3px solid var(--gold);padding:10px 14px;margin-top:10px;font-size:14px;border-radius:0 5px 5px 0;color:#5a4010}
-.qa-body .crit{background:var(--rust-pale);border-left:3px solid var(--rust);padding:10px 14px;margin-top:10px;font-size:14px;border-radius:0 5px 5px 0;color:#6b2a18}
-
-/* Expand buttons */
-.xp{display:flex;gap:10px;margin:12px 0}
-.xp-btn{font-family:'JetBrains Mono',monospace;font-size:11px;padding:5px 13px;border:1px solid var(--border);border-radius:4px;cursor:pointer;background:none;color:var(--slate);transition:all .2s}
-.xp-btn:hover{background:var(--teal-pale);border-color:var(--teal);color:var(--teal)}
-
-/* Self assess */
-.assess{background:var(--ink);color:var(--white);border-radius:10px;padding:30px;margin:32px 0}
-.assess h3{font-family:'Playfair Display',serif;font-size:21px;margin-bottom:6px}
-.assess-sub{font-size:13px;color:rgba(250,249,245,.5);margin-bottom:22px}
-.s-row{display:flex;align-items:center;gap:14px;margin-bottom:13px}
-.s-label{min-width:180px;font-size:13px;color:rgba(250,249,245,.8);flex-shrink:0}
-.s-range{flex:1;-webkit-appearance:none;height:3px;border-radius:2px;background:rgba(255,255,255,.15);outline:none;cursor:pointer}
-.s-range::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:#5ac8d0;cursor:pointer}
-.s-val{min-width:22px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:13px;color:#5ac8d0}
-.s-total{border-top:1px solid rgba(255,255,255,.1);padding-top:16px;margin-top:6px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
-.s-score{font-family:'Playfair Display',serif;font-size:42px;font-weight:700;color:#5ac8d0;line-height:1}
-.s-of{font-size:13px;color:rgba(250,249,245,.45)}
-.s-msg{font-size:13px;color:rgba(250,249,245,.6);max-width:220px;text-align:right}
-
-/* Tag */
-.tag{display:inline-block;background:var(--cream);color:var(--slate);font-family:'JetBrains Mono',monospace;font-size:11px;padding:3px 9px;border-radius:3px;border:1px solid var(--border);margin:2px}
-
-/* Div */
-.div{text-align:center;margin:52px 0;font-size:22px;color:var(--border);letter-spacing:14px}
-
-/* Next phase bar */
-.next-bar{background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:var(--white);padding:36px 28px;border-radius:10px;margin:52px 0;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
-.next-bar h3{font-family:'Playfair Display',serif;font-size:22px;margin-bottom:6px}
-.next-bar p{font-size:14px;color:rgba(255,255,255,.8);margin:0}
-.next-btn{background:var(--white);color:var(--teal);padding:12px 24px;border-radius:6px;font-weight:700;font-size:14px;text-decoration:none;white-space:nowrap;font-family:'DM Sans',sans-serif;transition:opacity .2s;flex-shrink:0}
-.next-btn:hover{opacity:.9}
-
-/* Footer */
-.footer{background:var(--ink);color:var(--white);text-align:center;padding:56px 24px 40px}
-.footer h2{font-family:'Playfair Display',serif;font-size:28px;margin-bottom:12px}
-.footer p{color:rgba(250,249,245,.55);margin-bottom:0;font-size:15px;max-width:480px;margin-left:auto;margin-right:auto}
-.footer-small{font-size:12px;color:rgba(250,249,245,.22);margin-top:36px}
-
-/* Prose */
-p{margin-bottom:16px}
-strong{font-weight:600;color:var(--ink)}
-ul,ol{padding-left:22px;margin-bottom:14px}
-li{margin-bottom:5px}
-.lead{font-size:19px;line-height:1.85;color:#282420}
-
-/* Section strip */
-.sec-strip{background:#fff;border-bottom:1px solid var(--border);padding:9px 24px;overflow-x:auto;white-space:nowrap;display:flex;gap:6px;align-items:center;scrollbar-width:none}
-.sec-strip::-webkit-scrollbar{display:none}
-.ss-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-right:4px;flex-shrink:0}
-.ss-btn{font-family:'JetBrains Mono',monospace;font-size:10.5px;padding:4px 11px;border-radius:4px;border:1px solid var(--border);background:transparent;color:var(--slate);white-space:nowrap;transition:all .18s;text-decoration:none;display:inline-block}
-.ss-btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
-/* Footer links */
-.footer-links{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin-bottom:2rem}
-.footer-links a{color:rgba(250,249,245,.55);text-decoration:none;font-size:0.85rem;transition:color 0.2s}
-.footer-links a:hover{color:var(--gold)}
-
-@media(max-width:620px){
-  .hero{padding:54px 18px 46px}
-  .nav-phase{display:none}
-  body{font-size:16px}
-  #drawer{width:100%;right:-100%}
-  .s-label{min-width:130px}
-  .next-bar{flex-direction:column;align-items:flex-start}
-}
-</style>
+<link rel="stylesheet" href="../../css/styles.css">
 </head>
 <body>
 
@@ -224,7 +28,6 @@ li{margin-bottom:5px}
     <a href="#overview">Why DSA Matters</a>
     <a href="#bigo">Big-O Reference</a>
     <a href="#patterns">Must-Know Patterns</a>
-    <a href="#assess">Readiness Check</a>
   </div>
   <div class="tg">
     <span class="tg-label">Fundamentals (Q1–Q9)</span>
@@ -252,22 +55,10 @@ li{margin-bottom:5px}
 
 <!-- Nav -->
 <nav class="nav">
-  <span class="nav-brand">The Tech Intel</span>
+  <a href="../../index.html" class="nav-brand" style="text-decoration: none; color: inherit;">The Tech Intel</a>
   <span class="nav-center">Part 2 · Phase 1 of 6 · DSA</span>
   <button class="nav-btn" onclick="openDrawer()">Contents ↗</button>
 </nav>
-
-<!-- Phase strip -->
-<div class="phase-strip">
-  <a href="../index.html"><span class="ph-btn">← Part 1</span></a>
-  <span class="ph-label">Part 2:</span>
-  <a href="./Phase1_dsa.html"><span class="ph-btn now">① DSA</span></a>
-  <a href="./Phase2_sql.html"><span class="ph-btn">② SQL</span></a>
-  <a href="./Phase3_oops.html"><span class="ph-btn">③ OOPs</span></a>
-  <a href="./Phase4_dbms.html"><span class="ph-btn">④ DBMS</span></a>
-  <a href="./Phase5_os.html"><span class="ph-btn">⑤ OS</span></a>
-  <a href="./Phase6_final.html"><span class="ph-btn">⑥ Networks + System Design + SDLC</span></a>
-</div>
 
 <!-- Section strip -->
 <div class="sec-strip">
@@ -275,7 +66,6 @@ li{margin-bottom:5px}
   <a class="ss-btn" href="#overview">Overview</a>
   <a class="ss-btn" href="#bigo">Big-O</a>
   <a class="ss-btn" href="#patterns">Patterns</a>
-  <a class="ss-btn" href="#assess">Readiness</a>
   <a class="ss-btn" href="#q-arrays">Arrays</a>
   <a class="ss-btn" href="#q-stack">Stacks/Q</a>
   <a class="ss-btn" href="#q-trees">Trees</a>
@@ -435,27 +225,6 @@ O(n!)   = factorial  → generating all permutations</div>
   </table>
 </section>
 
-<!-- READINESS -->
-<section id="assess">
-  <div class="assess">
-    <h3>📊 DSA Readiness Score</h3>
-    <p class="assess-sub">Rate yourself honestly. Aim for 8+ before your first interview. Check back after finishing this article.</p>
-    <div class="s-row"><span class="s-label">Arrays & Strings</span><input type="range" class="s-range" min="1" max="10" value="5" oninput="upScore()"><span class="s-val">5</span></div>
-    <div class="s-row"><span class="s-label">Linked Lists</span><input type="range" class="s-range" min="1" max="10" value="5" oninput="upScore()"><span class="s-val">5</span></div>
-    <div class="s-row"><span class="s-label">Stacks & Queues</span><input type="range" class="s-range" min="1" max="10" value="5" oninput="upScore()"><span class="s-val">5</span></div>
-    <div class="s-row"><span class="s-label">Trees & BST</span><input type="range" class="s-range" min="1" max="10" value="5" oninput="upScore()"><span class="s-val">5</span></div>
-    <div class="s-row"><span class="s-label">Graphs (BFS/DFS)</span><input type="range" class="s-range" min="1" max="10" value="5" oninput="upScore()"><span class="s-val">5</span></div>
-    <div class="s-row"><span class="s-label">Hashing & Searching</span><input type="range" class="s-range" min="1" max="10" value="5" oninput="upScore()"><span class="s-val">5</span></div>
-    <div class="s-row"><span class="s-label">Sorting Algorithms</span><input type="range" class="s-range" min="1" max="10" value="5" oninput="upScore()"><span class="s-val">5</span></div>
-    <div class="s-row"><span class="s-label">Dynamic Programming</span><input type="range" class="s-range" min="1" max="10" value="5" oninput="upScore()"><span class="s-val">5</span></div>
-    <div class="s-row"><span class="s-label">Recursion & Backtracking</span><input type="range" class="s-range" min="1" max="10" value="5" oninput="upScore()"><span class="s-val">5</span></div>
-    <div class="s-row"><span class="s-label">Big-O Analysis</span><input type="range" class="s-range" min="1" max="10" value="5" oninput="upScore()"><span class="s-val">5</span></div>
-    <div class="s-total">
-      <div><div class="s-score" id="sc">50</div><div class="s-of">/ 100 — Target: 80+</div></div>
-      <div class="s-msg" id="sc-msg"></div>
-    </div>
-  </div>
-</section>
 
 <!-- ============================================================
      ALL 35 QUESTIONS
@@ -1588,75 +1357,6 @@ boolean isPalindrome(int x) {
   <div class="footer-small">© 2025 The Tech Intel · Priyanshu · April 2025 · Not affiliated with Infosys Limited · All content is educational</div>
 </footer>
 
-<script>
-// Progress bar
-window.addEventListener('scroll', () => {
-  const d = document.documentElement;
-  document.getElementById('bar').style.width = (window.scrollY / (d.scrollHeight - d.clientHeight) * 100) + '%';
-});
-
-// Drawer
-function openDrawer() {
-  document.getElementById('ov').style.display = 'block';
-  document.getElementById('drawer').classList.add('open');
-}
-function closeDrawer() {
-  document.getElementById('ov').style.display = 'none';
-  document.getElementById('drawer').classList.remove('open');
-}
-
-// Toggle Q&A
-function tQ(btn) {
-  const body = btn.nextElementSibling;
-  const open = body.classList.contains('open');
-  btn.classList.toggle('open', !open);
-  body.classList.toggle('open', !open);
-}
-
-// Expand/collapse section
-function xpAll(id) {
-  document.querySelectorAll('#' + id + ' .qa-btn').forEach(b => {
-    b.classList.add('open');
-    b.nextElementSibling.classList.add('open');
-  });
-}
-function xpNone(id) {
-  document.querySelectorAll('#' + id + ' .qa-btn').forEach(b => {
-    b.classList.remove('open');
-    b.nextElementSibling.classList.remove('open');
-  });
-}
-
-// Self-assess score
-function upScore() {
-  const sliders = document.querySelectorAll('.s-range');
-  let total = 0;
-  sliders.forEach(s => {
-    const v = parseInt(s.value);
-    s.parentElement.querySelector('.s-val').textContent = v;
-    total += v;
-  });
-  document.getElementById('sc').textContent = total;
-  const msgs = [
-    [0, 39, '⚠ Needs serious work. Start from Q1 and don\'t skip.'],
-    [40, 59, 'Developing. Focus on your weakest 3 topics.'],
-    [60, 74, 'Good foundation. Need to sharpen with practice problems.'],
-    [75, 89, 'Strong. Mock interviews will close the gap.'],
-    [90, 100, '🎯 Interview-ready. Go dominate that technical round.']
-  ];
-  const m = msgs.find(([lo, hi]) => total >= lo && total <= hi);
-  document.getElementById('sc-msg').textContent = m ? m[2] : '';
-}
-upScore();
-
-// TOC active state
-const sections = document.querySelectorAll('section[id]');
-const links = document.querySelectorAll('#drawer a');
-window.addEventListener('scroll', () => {
-  let cur = '';
-  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) cur = s.id; });
-  links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
-}, { passive: true });
-</script>
+<script src="../../js/script.js" defer></script>
 </body>
 </html>

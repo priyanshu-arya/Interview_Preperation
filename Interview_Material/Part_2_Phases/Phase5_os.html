@@ -8,141 +8,7 @@
 <meta name="keywords" content="operating systems interview questions 2025, OS interview questions freshers, process vs thread interview, deadlock interview questions, CPU scheduling algorithms interview, virtual memory paging interview, semaphore mutex interview, IPC interview questions, Infosys OS questions freshers">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-<style>
-:root{
-  --ink:#0f0e0b;--paper:#faf9f5;--cream:#f0ebe0;
-  --a:#b44830;--ap:#fdf0ec;--am:#c05840;
-  --gold:#c48a28;--gp:#f8edda;
-  --teal:#1a6b72;--tp:#e4f2f3;
-  --v:#5a2d8a;--vp:#f0ebfc;
-  --slate:#383430;--muted:#7a746a;--border:#e0dbd0;--wh:#fff;
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:"DM Sans",system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.8;font-size:17px}
-#bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--a),var(--am),var(--gold));width:0%;z-index:999;transition:width .08s}
-.nav{position:sticky;top:0;z-index:200;background:rgba(250,249,245,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:52px}
-.nav-brand{font-family:"Playfair Display",serif;font-weight:900;font-size:16px}
-.nav-center{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
-.nav-btn{padding:6px 16px;border:1px solid var(--border);border-radius:20px;font-size:12px;cursor:pointer;background:none;color:var(--slate);font-family:"DM Sans",sans-serif;transition:all .2s}
-.nav-btn:hover{background:var(--ink);color:var(--wh);border-color:var(--ink)}
-#ov{display:none;position:fixed;inset:0;background:rgba(15,14,11,.55);z-index:300}
-#drawer{position:fixed;right:-380px;top:0;bottom:0;width:360px;background:var(--wh);z-index:400;padding:28px 22px;overflow-y:auto;transition:right .3s cubic-bezier(.4,0,.2,1);box-shadow:-8px 0 40px rgba(0,0,0,.14)}
-#drawer.open{right:0}
-.dr-close{position:absolute;top:18px;right:18px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted)}
-.dr-title{font-family:"Playfair Display",serif;font-size:20px;font-weight:700;margin:6px 0 22px}
-.tg{margin-bottom:22px}
-.tg-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);display:block;font-family:"JetBrains Mono",monospace}
-.tg a{display:block;font-size:13.5px;color:var(--slate);text-decoration:none;padding:5px 8px;border-radius:5px;border-left:2px solid transparent;transition:all .2s}
-.tg a:hover,.tg a.active{color:var(--a);border-left-color:var(--a);background:var(--ap)}
-.hero{background:var(--ink);color:var(--wh);padding:80px 24px 60px;text-align:center;position:relative;overflow:hidden}
-.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 75% 70%,rgba(180,72,48,.22) 0%,transparent 65%),radial-gradient(ellipse 60% 50% at 20% 20%,rgba(196,138,40,.12) 0%,transparent 65%);pointer-events:none}
-.hero-ph{display:inline-flex;align-items:center;gap:8px;background:rgba(180,72,48,.2);border:1px solid rgba(180,72,48,.4);color:#f0a090;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:5px 16px;border-radius:20px;margin-bottom:28px;position:relative;z-index:1}
-.hero h1{font-family:"Playfair Display",serif;font-size:clamp(32px,5vw,58px);font-weight:900;line-height:1.08;margin-bottom:20px;position:relative;z-index:1}
-.hero h1 em{font-style:normal;color:#f0a090}
-.hero-sub{font-size:17px;color:rgba(250,249,245,.7);max-width:640px;margin:0 auto 32px;line-height:1.75;position:relative;z-index:1}
-.hero-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;position:relative;z-index:1}
-.chip{font-family:"JetBrains Mono",monospace;font-size:11.5px;padding:5px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:rgba(250,249,245,.75)}
-.chip.on{background:rgba(180,72,48,.25);border-color:rgba(180,72,48,.45);color:#f0a090}
-.hero-meta{display:flex;flex-wrap:wrap;gap:6px 20px;justify-content:center;font-size:13px;color:rgba(250,249,245,.4);margin-top:22px;position:relative;z-index:1}
-.pstrip{background:var(--cream);border-bottom:1px solid var(--border);padding:12px 24px;overflow-x:auto;white-space:nowrap;display:flex;gap:8px;align-items:center}
-.pl{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-right:6px;flex-shrink:0}
-.pb{font-family:"JetBrains Mono",monospace;font-size:11px;padding:5px 13px;border-radius:20px;border:1px solid var(--border);background:var(--wh);color:var(--slate);white-space:nowrap;transition:all .2s;text-decoration:none;display:inline-block}
-.pb.done{background:var(--tp);border-color:var(--teal);color:var(--teal)}
-.pb.now{background:var(--a);color:var(--wh);border-color:var(--a)}
-.main{max-width:720px;margin:0 auto;padding:0 24px 100px}
-.pills{display:flex;flex-wrap:wrap;gap:8px;margin:36px 0 28px}
-.pill{font-size:11px;font-family:"JetBrains Mono",monospace;padding:5px 13px;border-radius:20px;border:1px solid var(--border);background:var(--cream);color:var(--slate);text-decoration:none;transition:all .2s}
-.pill:hover{background:var(--a);color:var(--wh);border-color:var(--a)}
-.sh{margin:68px 0 26px;padding-bottom:14px;border-bottom:2px solid var(--border)}
-.sh-eye{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
-.sh h2{font-family:"Playfair Display",serif;font-size:clamp(24px,3.5vw,34px);font-weight:700;line-height:1.2}
-.why{border-left:4px solid var(--a);background:var(--ap);padding:18px 22px;border-radius:0 8px 8px 0;margin:26px 0}
-.why-l{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--a);font-weight:700;margin-bottom:6px}
-.why p{font-size:15px;color:#6b2a18;margin:0;line-height:1.75}
-.qb{background:var(--ink);color:var(--wh);padding:32px 38px;margin:32px 0;border-radius:6px;position:relative}
-.qb::before{content:"\201C";font-family:"Playfair Display",serif;font-size:96px;color:rgba(180,72,48,.22);position:absolute;top:4px;left:26px;line-height:1}
-.qb blockquote{font-family:"Playfair Display",serif;font-size:18px;font-style:italic;line-height:1.65;position:relative;margin-bottom:14px}
-.qb cite{font-family:"JetBrains Mono",monospace;font-size:11px;color:#f0a090;letter-spacing:.05em;font-style:normal}
-.formula{background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin:20px 0}
-.f-l{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:8px;display:block;font-family:"JetBrains Mono",monospace}
-.f-b{font-family:"JetBrains Mono",monospace;font-size:13px;line-height:2;color:var(--slate)}
-.tbl{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px}
-.tbl th{background:var(--ink);color:var(--wh);padding:9px 13px;text-align:left;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.04em;font-weight:400}
-.tbl td{padding:9px 13px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.55}
-.tbl tr:nth-child(even) td{background:var(--cream)}
-.tbl td code{font-family:"JetBrains Mono",monospace;background:var(--cream);padding:1px 6px;border-radius:3px;font-size:12px;border:1px solid var(--border)}
-.sched-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:20px 0}
-.sc-card{background:var(--wh);border:1px solid var(--border);border-radius:8px;padding:16px;border-top:3px solid var(--a)}
-.sc-card:nth-child(2){border-top-color:var(--gold)}
-.sc-card:nth-child(3){border-top-color:var(--teal)}
-.sc-card:nth-child(4){border-top-color:var(--v)}
-.sc-card:nth-child(5){border-top-color:var(--a)}
-.sc-card:nth-child(6){border-top-color:var(--gold)}
-.sc-name{font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:600;color:var(--a);margin-bottom:6px}
-.sc-card:nth-child(2) .sc-name{color:var(--gold)}
-.sc-card:nth-child(3) .sc-name{color:var(--teal)}
-.sc-card:nth-child(4) .sc-name{color:var(--v)}
-.sc-card p{font-size:13px;color:var(--muted);margin:0}
-.qa-wrap{margin:18px 0}
-.qa-cat{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:14px 0 10px;border-top:1px solid var(--border);margin-top:20px;display:block}
-.qa-item{border-bottom:1px solid var(--border)}
-.qa-btn{width:100%;display:flex;align-items:flex-start;gap:12px;padding:14px 0;background:none;border:none;cursor:pointer;text-align:left;font-family:"DM Sans",sans-serif;font-size:15.5px;font-weight:600;color:var(--slate);transition:color .2s}
-.qa-btn:hover{color:var(--a)}
-.qa-num{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--a);font-weight:600;min-width:28px;padding-top:3px;flex-shrink:0}
-.qa-icon{margin-left:auto;font-size:11px;color:var(--muted);transition:transform .3s;flex-shrink:0;padding-top:4px}
-.qa-btn.open .qa-icon{transform:rotate(180deg)}
-.qa-body{max-height:0;overflow:hidden;transition:max-height .45s ease;padding-left:40px}
-.qa-body.open{max-height:3500px;padding-bottom:18px}
-.qa-body p,.qa-body li{font-size:15px;color:var(--slate);line-height:1.78}
-.qa-body ul,.qa-body ol{padding-left:20px;margin:8px 0}
-.qa-body li{margin-bottom:5px}
-.qa-body strong{color:var(--ink)}
-.qa-body code{font-family:"JetBrains Mono",monospace;background:var(--cream);padding:1px 6px;border-radius:3px;font-size:12.5px;border:1px solid var(--border);color:var(--ink)}
-.qa-body pre{background:#1a1815;color:#ddd8ce;padding:18px 20px;border-radius:8px;font-family:"JetBrains Mono",monospace;font-size:12.5px;line-height:1.9;margin:12px 0;overflow-x:auto}
-.qa-body table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0}
-.qa-body th{background:var(--cream);padding:8px 11px;border:1px solid var(--border);text-align:left;font-weight:600;font-size:12px}
-.qa-body td{padding:8px 11px;border:1px solid var(--border);vertical-align:top;line-height:1.55}
-.qa-body .tip{background:var(--ap);border-left:3px solid var(--a);padding:10px 14px;margin-top:12px;font-size:14px;border-radius:0 5px 5px 0;color:#6b2a18}
-.qa-body .note{background:var(--gp);border-left:3px solid var(--gold);padding:10px 14px;margin-top:10px;font-size:14px;border-radius:0 5px 5px 0;color:#5a4010}
-.qa-body .crit{background:var(--ap);border-left:3px solid var(--a);padding:10px 14px;margin-top:10px;font-size:14px;border-radius:0 5px 5px 0;color:#6b2a18}
-.qa-body .pur{background:var(--vp);border-left:3px solid var(--v);padding:10px 14px;margin-top:10px;font-size:14px;border-radius:0 5px 5px 0;color:#3a1a6a}
-.qa-body .teal{background:var(--tp);border-left:3px solid var(--teal);padding:10px 14px;margin-top:10px;font-size:14px;border-radius:0 5px 5px 0;color:#1a4a50}
-.xp{display:flex;gap:10px;margin:12px 0}
-.xp-btn{font-family:"JetBrains Mono",monospace;font-size:11px;padding:5px 13px;border:1px solid var(--border);border-radius:4px;cursor:pointer;background:none;color:var(--slate);transition:all .2s}
-.xp-btn:hover{background:var(--ap);border-color:var(--a);color:var(--a)}
-.assess{background:var(--ink);color:var(--wh);border-radius:10px;padding:30px;margin:32px 0}
-.assess h3{font-family:"Playfair Display",serif;font-size:21px;margin-bottom:6px}
-.a-sub{font-size:13px;color:rgba(250,249,245,.5);margin-bottom:22px}
-.s-row{display:flex;align-items:center;gap:14px;margin-bottom:13px}
-.s-lbl{min-width:200px;font-size:13px;color:rgba(250,249,245,.8);flex-shrink:0}
-.s-rng{flex:1;-webkit-appearance:none;height:3px;border-radius:2px;background:rgba(255,255,255,.15);outline:none;cursor:pointer}
-.s-rng::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:#f0a090;cursor:pointer}
-.s-val{min-width:22px;text-align:center;font-family:"JetBrains Mono",monospace;font-size:13px;color:#f0a090}
-.s-tot{border-top:1px solid rgba(255,255,255,.1);padding-top:16px;margin-top:6px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
-.s-sc{font-family:"Playfair Display",serif;font-size:42px;font-weight:700;color:#f0a090;line-height:1}
-.s-of{font-size:13px;color:rgba(250,249,245,.45)}
-.s-msg{font-size:13px;color:rgba(250,249,245,.6);max-width:220px;text-align:right}
-.div{text-align:center;margin:52px 0;font-size:22px;color:var(--border);letter-spacing:14px}
-.nxt{background:linear-gradient(135deg,#3a1810,#5a2818);color:var(--wh);padding:36px 28px;border-radius:10px;margin:52px 0;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;border:1px solid rgba(180,72,48,.35)}
-.nxt h3{font-family:"Playfair Display",serif;font-size:22px;margin-bottom:6px;color:#f0a090}
-.nxt p{font-size:14px;color:rgba(255,255,255,.75);margin:0}
-.nxt-btn{background:var(--a);color:var(--wh);padding:12px 24px;border-radius:6px;font-weight:700;font-size:14px;text-decoration:none;white-space:nowrap;font-family:"DM Sans",sans-serif;flex-shrink:0}
-.footer{background:var(--ink);color:var(--wh);text-align:center;padding:56px 24px 40px}
-.footer h2{font-family:"Playfair Display",serif;font-size:28px;margin-bottom:12px}
-.footer p{color:rgba(250,249,245,.55);font-size:15px;max-width:480px;margin:0 auto}
-.footer-small{font-size:12px;color:rgba(250,249,245,.22);margin-top:36px}
-.footer-links{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin-bottom:2rem}
-.footer-links a{color:rgba(250,249,245,.55);text-decoration:none;font-size:0.85rem;transition:color 0.2s}
-.footer-links a:hover{color:var(--gold)}
-/* Section strip */
-.sec-strip{background:#fff;border-bottom:1px solid var(--border);padding:9px 24px;overflow-x:auto;white-space:nowrap;display:flex;gap:6px;align-items:center;scrollbar-width:none}
-.sec-strip::-webkit-scrollbar{display:none}
-.ss-lbl{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-right:4px;flex-shrink:0}
-.ss-btn{font-family:"JetBrains Mono",monospace;font-size:10.5px;padding:4px 11px;border-radius:4px;border:1px solid var(--border);background:transparent;color:var(--slate);white-space:nowrap;transition:all .18s;text-decoration:none;display:inline-block}
-.ss-btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
-p{margin-bottom:16px}strong{font-weight:600;color:var(--ink)}ul,ol{padding-left:22px;margin-bottom:14px}li{margin-bottom:5px}.lead{font-size:19px;line-height:1.85;color:#282420}
-@media(max-width:620px){.hero{padding:54px 18px 46px}.nav-phase{display:none}body{font-size:16px}#drawer{width:100%;right:-100%}.sched-grid{grid-template-columns:1fr 1fr}.s-lbl{min-width:130px}.nxt{flex-direction:column;align-items:flex-start}}
-</style>
+<link rel="stylesheet" href="../../css/styles.css">
 </head>
 <body>
 <div id="bar"></div>
@@ -151,8 +17,7 @@ p{margin-bottom:16px}strong{font-weight:600;color:var(--ink)}ul,ol{padding-left:
   <button class="dr-close" onclick="closeDrawer()">&#x2715;</button>
   <div class="dr-title">OS &#8212; Contents</div>
   <div class="tg"><span class="tg-label">Overview</span>
-    <a href="#overview">Why OS Separates Systems Thinkers</a>
-    <a href="#assess">Readiness Check</a></div>
+    <a href="#overview">Why OS Separates Systems Thinkers</a></div>
   <div class="tg"><span class="tg-label">Processes &amp; Threads (Q1&#8211;Q7)</span>
     <a href="#q-proc">Process, PCB, States, Context Switch</a>
     <a href="#q-thread">Threads, Concurrency vs Parallelism</a></div>
@@ -167,25 +32,14 @@ p{margin-bottom:16px}strong{font-weight:600;color:var(--ink)}ul,ol{padding-left:
 </div>
 
 <nav class="nav">
-  <span class="nav-brand">The Tech Intel</span>
+  <a href="../../index.html" class="nav-brand" style="text-decoration: none; color: inherit;">The Tech Intel</a>
   <span class="nav-center">Part 2 &middot; Phase 5 of 6 &middot; OS</span>
   <button class="nav-btn" onclick="openDrawer()">Contents &#x2197;</button>
 </nav>
-<div class="pstrip">
-  <a href="../index.html" class="pb">&#8592; Part 1</a>
-  <span class="pl">Part 2:</span>
-  <a href="./Phase1_dsa.html" class="pb done">&#9312; DSA &#x2713;</a>
-  <a href="./Phase2_sql.html" class="pb done">&#9313; SQL &#x2713;</a>
-  <a href="./Phase3_oops.html" class="pb done">&#9314; OOPs &#x2713;</a>
-  <a href="./Phase4_dbms.html" class="pb done">&#9315; DBMS &#x2713;</a>
-  <a href="./Phase5_os.html" class="pb now">&#9316; OS</a>
-  <a href="./Phase6_final.html" class="pb">&#9317; Networks + SD + SDLC</a>
-</div>
 <!-- Section strip -->
 <div class="sec-strip">
   <span class="ss-lbl">Jump to:</span>
   <a class="ss-btn" href="#overview">Overview</a>
-  <a class="ss-btn" href="#assess">Readiness</a>
   <a class="ss-btn" href="#q-proc">Processes</a>
   <a class="ss-btn" href="#q-thread">Threads</a>
   <a class="ss-btn" href="#q-sched">Scheduling</a>
@@ -227,22 +81,6 @@ p{margin-bottom:16px}strong{font-weight:600;color:var(--ink)}ul,ol{padding-left:
   <a class="pill" href="#q-mem">&#129504; Memory</a>
   <a class="pill" href="#q-io">&#128268; I/O &amp; Advanced</a>
 </div>
-
-<section id="assess">
-  <div class="assess">
-    <h3>&#9881; OS Readiness Score</h3>
-    <p class="a-sub">Target 8+ in every row before your interview. Come back after reading.</p>
-    <div class="s-row"><span class="s-lbl">Process vs Thread</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
-    <div class="s-row"><span class="s-lbl">CPU scheduling algorithms</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
-    <div class="s-row"><span class="s-lbl">Deadlock (4 conditions + handling)</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
-    <div class="s-row"><span class="s-lbl">Semaphore vs Mutex</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
-    <div class="s-row"><span class="s-lbl">Virtual memory &amp; paging</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
-    <div class="s-row"><span class="s-lbl">Page replacement algorithms</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
-    <div class="s-row"><span class="s-lbl">IPC mechanisms</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
-    <div class="s-row"><span class="s-lbl">System calls, kernel types</span><input type="range" class="s-rng" min="1" max="10" value="5" oninput="upS()"><span class="s-val">5</span></div>
-    <div class="s-tot"><div><div class="s-sc" id="sc">40</div><div class="s-of">/ 80 &#8212; Target: 64+</div></div><div class="s-msg" id="sc-msg"></div></div>
-  </div>
-</section>
 
 
 <section id="overview">
@@ -1041,18 +879,7 @@ CPU: *handles interrupt, processes data*</pre>
   <div class="footer-small">&copy; 2025 The Tech Intel &middot; Priyanshu &middot; April 2025 &middot; Not affiliated with Infosys &middot; Educational content only</div>
 </footer>
 
-<script>
-window.addEventListener("scroll",()=>{const d=document.documentElement;document.getElementById("bar").style.width=(window.scrollY/(d.scrollHeight-d.clientHeight)*100)+"%";},{passive:true});
-function openDrawer(){document.getElementById("ov").style.display="block";document.getElementById("drawer").classList.add("open");}
-function closeDrawer(){document.getElementById("ov").style.display="none";document.getElementById("drawer").classList.remove("open");}
-function tQ(btn){const b=btn.nextElementSibling,o=b.classList.contains("open");btn.classList.toggle("open",!o);b.classList.toggle("open",!o);}
-function xA(id){document.querySelectorAll("#"+id+" .qa-btn").forEach(b=>{b.classList.add("open");b.nextElementSibling.classList.add("open");});}
-function xN(id){document.querySelectorAll("#"+id+" .qa-btn").forEach(b=>{b.classList.remove("open");b.nextElementSibling.classList.remove("open");});}
-function upS(){const sl=document.querySelectorAll(".s-rng");let t=0;sl.forEach(s=>{const v=parseInt(s.value);s.parentElement.querySelector(".s-val").textContent=v;t+=v;});document.getElementById("sc").textContent=t;const m=[[0,31,"Needs work. Start from Q1 &#8212; processes first."],[32,47,"Developing. Focus on deadlocks, semaphores, and paging."],[48,59,"Good. Deepen MVCC, page replacement, and IPC."],[60,71,"Strong. Practice explaining scheduling trade-offs."],[72,80,"Interview-ready. You think like a systems engineer."]].find(([l,h])=>t>=l&&t<=h);document.getElementById("sc-msg").textContent=m?m[2]:"";}
-upS();
-const secs=document.querySelectorAll("section[id]"),lnks=document.querySelectorAll("#drawer a");
-window.addEventListener("scroll",()=>{let c="";secs.forEach(s=>{if(window.scrollY>=s.offsetTop-80)c=s.id;});lnks.forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+c));},{passive:true});
-</script>
+<script src="../../js/script.js" defer></script>
 </body>
 </html>
 
