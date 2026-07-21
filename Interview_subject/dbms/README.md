@@ -24,8 +24,6 @@ This repository contains a preparation guide for Database Management Systems (DB
 - [Module 4: Concurrency Control & Recovery Systems](#module-4-concurrency-control--recovery-systems)
 - [Module 5: Storage Structure & Indexing Mechanisms](#module-5-storage-structure--indexing-mechanisms)
 - [Module 6: Query Processing, Distributed & NoSQL Databases](#module-6-query-processing-distributed--nosql-databases)
-- [DBMS Practice Problems](#dbms-practice-problems)
-- [Recommended Learning Path](#recommended-learning-path)
 
 ---
 
@@ -46,7 +44,7 @@ This repository contains a preparation guide for Database Management Systems (DB
 
 ## Module 2: Database Design & Normalization
 
-11. [Functional Dependencies & Armstrong's Axioms](file:///s:/Interview_Preperation/Interview_subject/dbms/DBMS_Interview_Questions.md#11-functional-dependencies--armstrongs-axioms)
+1. [Functional Dependencies & Armstrong's Axioms](file:///s:/Interview_Preperation/Interview_subject/dbms/DBMS_Interview_Questions.md#11-functional-dependencies--armstrongs-axioms)
 2. [Attribute Closure & Candidate Keys](file:///s:/Interview_Preperation/Interview_subject/dbms/DBMS_Interview_Questions.md#12-attribute-closure--candidate-key-determination)
 3. [Normalization & Modification Anomalies](file:///s:/Interview_Preperation/Interview_subject/dbms/DBMS_Interview_Questions.md#13-what-is-normalization-and-modification-anomalies)
 4. [First Normal Form (1NF)](file:///s:/Interview_Preperation/Interview_subject/dbms/DBMS_Interview_Questions.md#14-first-normal-form-1nf)
@@ -59,7 +57,7 @@ This repository contains a preparation guide for Database Management Systems (DB
 
 ## Module 3: Transactions & ACID Properties
 
-21. [Database Transaction States](file:///s:/Interview_Preperation/Interview_subject/dbms/DBMS_Interview_Questions.md#21-database-transaction-states)
+1. [Database Transaction States](file:///s:/Interview_Preperation/Interview_subject/dbms/DBMS_Interview_Questions.md#21-database-transaction-states)
 2. [ACID Properties Deep Dive](file:///s:/Interview_Preperation/Interview_subject/dbms/DBMS_Interview_Questions.md#22-acid-properties-deep-dive)
 3. [Concurrent Read Anomalies](file:///s:/Interview_Preperation/Interview_subject/dbms/DBMS_Interview_Questions.md#23-concurrent-read-anomalies)
 4. [Transaction Isolation Levels](file:///s:/Interview_Preperation/Interview_subject/dbms/DBMS_Interview_Questions.md#24-transaction-isolation-levels)
@@ -70,7 +68,7 @@ This repository contains a preparation guide for Database Management Systems (DB
 
 ## Module 4: Concurrency Control & Recovery Systems
 
-29. [Lock-Based Concurrency Control](file:///s:/Interview_Preperation/Interview_subject/dbms/DBMS_Interview_Questions.md#29-lock-based-concurrency-control-shared-vs-exclusive)
+1. [Lock-Based Concurrency Control](file:///s:/Interview_Preperation/Interview_subject/dbms/DBMS_Interview_Questions.md#29-lock-based-concurrency-control-shared-vs-exclusive)
 2. [Two-Phase Locking (2PL) Protocols](file:///s:/Interview_Preperation/Interview_subject/dbms/DBMS_Interview_Questions.md#30-two-phase-locking-2pl-protocols)
 3. [Deadlock Handling: Wait-Die vs Wound-Wait](file:///s:/Interview_Preperation/Interview_subject/dbms/DBMS_Interview_Questions.md#31-deadlock-handling-wait-die-vs-wound-wait)
 4. [Multiple Granularity Locking & Intent Locks](file:///s:/Interview_Preperation/Interview_subject/dbms/DBMS_Interview_Questions.md#32-multiple-granularity-locking--intent-locks)
@@ -81,7 +79,7 @@ This repository contains a preparation guide for Database Management Systems (DB
 
 ## Module 5: Storage Structure & Indexing Mechanisms
 
-37. [Heap vs Sequential vs Hashed File Organization](file:///s:/Interview_Preperation/Interview_subject/dbms/DBMS_Interview_Questions.md#37-heap-vs-sequential-vs-hashed-file-organization)
+1. [Heap vs Sequential vs Hashed File Organization](file:///s:/Interview_Preperation/Interview_subject/dbms/DBMS_Interview_Questions.md#37-heap-vs-sequential-vs-hashed-file-organization)
 2. [Buffer Manager Mechanics](file:///s:/Interview_Preperation/Interview_subject/dbms/DBMS_Interview_Questions.md#38-buffer-manager-mechanics)
 3. [Primary vs Secondary vs Clustered Index](file:///s:/Interview_Preperation/Interview_subject/dbms/DBMS_Interview_Questions.md#39-primary-vs-secondary-vs-clustered-index)
 4. [B-Tree Index Structure](file:///s:/Interview_Preperation/Interview_subject/dbms/DBMS_Interview_Questions.md#40-b-tree-index-structure)
@@ -92,7 +90,7 @@ This repository contains a preparation guide for Database Management Systems (DB
 
 ## Module 6: Query Processing, Distributed & NoSQL Databases
 
-45. [Query Processing Steps](file:///s:/Interview_Preperation/Interview_subject/dbms/DBMS_Interview_Questions.md#45-query-processing-steps)
+1. [Query Processing Steps](file:///s:/Interview_Preperation/Interview_subject/dbms/DBMS_Interview_Questions.md#45-query-processing-steps)
 2. [Cost-Based Query Optimization (CBO)](file:///s:/Interview_Preperation/Interview_subject/dbms/DBMS_Interview_Questions.md#46-cost-based-query-optimization-cbo)
 3. [CAP Theorem in Distributed Databases](file:///s:/Interview_Preperation/Interview_subject/dbms/DBMS_Interview_Questions.md#47-cap-theorem)
 4. [Two-Phase Commit (2PC) Protocol](file:///s:/Interview_Preperation/Interview_subject/dbms/DBMS_Interview_Questions.md#48-two-phase-commit-2pc-protocol)
