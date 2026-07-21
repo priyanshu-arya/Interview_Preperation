@@ -1,6 +1,6 @@
-# Top 50 DBMS Interview Questions & Answers (2026 Edition)
+# DBMS Interview Questions & Answers
 
-A high-yield compilation of the 50 most frequently asked Database Management Systems (DBMS) interview questions tailored for Freshers and Mid-Level Developers (0–5 YOE). Focuses on relational architecture, ER modeling, normalization (1NF–BCNF), transactions, ACID properties, indexing (B+ Trees), and concurrency control.
+A compilation of essential Database Management Systems (DBMS) interview questions tailored for Freshers and Mid-Level Developers (0–5 YOE). Focuses on relational architecture, ER modeling, normalization (1NF–BCNF), transactions, ACID properties, indexing (B+ Trees), and concurrency control.
 
 ---
 

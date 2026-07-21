@@ -1,6 +1,6 @@
-# Top 60 SQL Interview Questions & Answers (2026 Edition)
+# SQL Interview Questions & Answers
 
-A high-yield, curated compilation of the 60 most frequently asked SQL interview questions for Freshers and Mid-Level Developers (0–5 YOE). Focuses on core concepts, practical query logic, index optimization, and transaction mechanics asked in product and enterprise company interviews.
+A curated compilation of essential SQL interview questions for Freshers and Mid-Level Developers (0–5 YOE). Focuses on core concepts, practical query logic, index optimization, and transaction mechanics asked in technical interviews.
 
 ---
 

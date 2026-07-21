@@ -1,6 +1,6 @@
-# Top 50 SQL Query Practice Questions
+# SQL Query Practice Questions
 
-A curated collection of 50 real-world SQL query practice problems commonly asked in technical coding interviews at top product companies (FAANG, Unicorns, Financial Institutions).
+A curated collection of practical SQL query practice problems commonly asked in technical coding interviews at top product companies.
 
 ---
 
@@ -70,33 +70,11 @@ GROUP BY email
 HAVING COUNT(email) > 1;
 ```
 
-#### Explanation
-`GROUP BY email` groups identical email strings, and `HAVING COUNT(email) > 1` filters out emails that appear only once.
-
 ---
 
 ### Problem 3: Customers Who Never Order
 **Difficulty**: Easy  
 **Scenario**: Find all customers who never placed any orders.
-
-#### Schema & Sample Data
-`customers` table:
-| id | name |
-|---|---|
-| 1 | Joe |
-| 2 | Henry |
-| 3 | Sam |
-
-`orders` table:
-| id | customer_id |
-|---|---|
-| 1 | 3 |
-| 2 | 1 |
-
-#### Expected Output
-| Customers |
-|---|
-| Henry |
 
 #### Solution
 ```sql
@@ -106,28 +84,11 @@ LEFT JOIN orders o ON c.id = o.customer_id
 WHERE o.id IS NULL;
 ```
 
-#### Explanation
-A `LEFT JOIN` includes all customers. Customers without orders will have `NULL` values for `orders.id`. Filtering `WHERE o.id IS NULL` isolated customers with 0 orders.
-
 ---
 
 ### Problem 4: Employees Earning More Than Their Managers
 **Difficulty**: Easy  
 **Scenario**: Find employees who earn more than their direct manager.
-
-#### Schema & Sample Data
-`employees` table:
-| id | name | salary | manager_id |
-|---|---|---|---|
-| 1 | Joe | 70000 | 3 |
-| 2 | Henry | 80000 | 4 |
-| 3 | Sam | 60000 | NULL |
-| 4 | Max | 90000 | NULL |
-
-#### Expected Output
-| Employee |
-|---|
-| Joe |
 
 #### Solution
 ```sql
@@ -137,21 +98,11 @@ JOIN employees m ON e.manager_id = m.id
 WHERE e.salary > m.salary;
 ```
 
-#### Explanation
-Self-join `employees e` with `employees m` on `e.manager_id = m.id` brings the employee row and manager row side by side for direct salary comparison.
-
 ---
 
 ### Problem 5: Big Countries
 **Difficulty**: Easy  
 **Scenario**: A country is big if it has an area of at least 3,000,000 km² or a population of at least 25,000,000. Write a query to report the name, population, and area of big countries.
-
-#### Schema & Sample Data
-`World` table:
-| name | continent | area | population | gdp |
-|---|---|---|---|---|
-| Afghanistan | Asia | 652230 | 25500100 | 20364000000 |
-| Albania | Europe | 28748 | 2831741 | 12960000000 |
 
 #### Solution
 ```sql
@@ -166,14 +117,6 @@ WHERE area >= 3000000 OR population >= 25000000;
 **Difficulty**: Easy  
 **Scenario**: Query all classes that have at least 5 students.
 
-#### Schema & Sample Data
-`courses` table:
-| student | class |
-|---|---|
-| A | Math |
-| B | English |
-| C | Math |
-
 #### Solution
 ```sql
 SELECT class
@@ -181,9 +124,6 @@ FROM courses
 GROUP BY class
 HAVING COUNT(DISTINCT student) >= 5;
 ```
-
-#### Explanation
-`COUNT(DISTINCT student)` prevents counting duplicate student registrations in the same course.
 
 ---
 
@@ -203,7 +143,7 @@ WHERE p1.id > p2.id;
 
 ### Problem 8: Swap Salary
 **Difficulty**: Easy  
-**Scenario**: Swap all 'f' and 'm' values in `salary` table with a single `UPDATE` statement without using temporary tables.
+**Scenario**: Swap all 'f' and 'm' values in `salary` table with a single `UPDATE` statement.
 
 #### Solution
 ```sql
@@ -233,15 +173,7 @@ LEFT JOIN address a ON p.person_id = a.person_id;
 **Difficulty**: Easy  
 **Scenario**: Find all dates' `id` with higher temperatures compared to its previous dates (yesterday).
 
-#### Schema & Sample Data
-`weather` table:
-| id | record_date | temperature |
-|---|---|---|
-| 1 | 2015-01-01 | 10 |
-| 2 | 2015-01-02 | 25 |
-| 3 | 2015-01-03 | 20 |
-
-#### Solution (PostgreSQL / MySQL)
+#### Solution
 ```sql
 SELECT w1.id
 FROM weather w1
@@ -264,7 +196,7 @@ LEFT JOIN employee_uni u ON e.id = u.id;
 
 ---
 
-### Problem 12: Product Sales Analysis I
+### Problem 12: Product Sales Analysis
 **Difficulty**: Easy  
 **Scenario**: Write a query that reports the `product_name`, `year`, and `price` for each `sale_id` in the `Sales` table.
 
@@ -292,7 +224,7 @@ GROUP BY v.customer_id;
 
 ---
 
-### Problem 14: Article Views I
+### Problem 14: Article Views
 **Difficulty**: Easy  
 **Scenario**: Find all authors that viewed at least one of their own articles. Sort result by `id` ascending.
 
@@ -362,15 +294,6 @@ WHERE rnk = 1;
 **Difficulty**: Medium  
 **Scenario**: Find all numbers that appear at least three times consecutively.
 
-#### Schema & Sample Data
-`logs` table:
-| id | num |
-|---|---|
-| 1 | 1 |
-| 2 | 1 |
-| 3 | 1 |
-| 4 | 2 |
-
 #### Solution
 ```sql
 WITH MarkedLogs AS (
@@ -383,9 +306,6 @@ SELECT DISTINCT num AS ConsecutiveNums
 FROM MarkedLogs
 WHERE num = prev1 AND num = prev2;
 ```
-
-#### Explanation
-`LAG(num, 1)` and `LAG(num, 2)` retrieve values of 1st and 2nd prior rows. If current `num` equals both previous values, it appears 3+ times consecutively.
 
 ---
 
@@ -405,15 +325,6 @@ FROM scores;
 ### Problem 20: Tree Node Classification
 **Difficulty**: Medium  
 **Scenario**: Each node in a binary tree can be 'Root', 'Inner', or 'Leaf'. Write a query to output node ID and node type.
-
-#### Schema & Sample Data
-`Tree` table:
-| id | p_id |
-|---|---|
-| 1 | NULL |
-| 2 | 1 |
-| 3 | 1 |
-| 4 | 2 |
 
 #### Solution
 ```sql
@@ -442,7 +353,7 @@ GROUP BY stock_name;
 
 ---
 
-### Problem 22: Monthly Transactions I
+### Problem 22: Monthly Transactions
 **Difficulty**: Medium  
 **Scenario**: Find for each month and country: number of transactions, approved transaction count, total amount, approved total amount.
 
@@ -460,9 +371,9 @@ GROUP BY month, country;
 
 ---
 
-### Problem 23: Immediate Food Delivery II
+### Problem 23: Immediate Food Delivery
 **Difficulty**: Medium  
-**Scenario**: If customer's preferred delivery date is same as order date, it is immediate, else scheduled. Find percentage of immediate orders in first orders of all customers rounded to 2 decimal places.
+**Scenario**: If customer's preferred delivery date is same as order date, it is immediate, else scheduled. Find percentage of immediate orders in first orders of all customers.
 
 #### Solution
 ```sql
@@ -481,7 +392,7 @@ WHERE rn = 1;
 
 ---
 
-### Problem 24: Game Play Analysis IV (1-Day Retention)
+### Problem 24: Game Play Analysis (1-Day Retention)
 **Difficulty**: Medium  
 **Scenario**: Write a query to report the fraction of players that logged in again on the day after their first login.
 
@@ -541,7 +452,7 @@ LEFT JOIN LatestChange lc ON p.product_id = lc.product_id AND lc.rn = 1;
 
 ### Problem 27: Count Salary Categories
 **Difficulty**: Medium  
-**Scenario**: Calculate number of bank accounts for each salary category: "Low Salary" (< 20000), "Average Salary" ([20000, 50000]), "High Salary" (> 50000). All categories must be included in output.
+**Scenario**: Calculate number of bank accounts for each salary category: "Low Salary" (< 20000), "Average Salary" ([20000, 50000]), "High Salary" (> 50000).
 
 #### Solution
 ```sql
@@ -556,9 +467,9 @@ SELECT 'High Salary' AS category, COUNT(*) AS accounts_count FROM accounts WHERE
 
 ### Problem 28: Find Users With Valid E-Mails
 **Difficulty**: Medium  
-**Scenario**: Find users who have valid emails. Valid email prefix must start with letter and contain only letters, digits, underscore `_`, period `.`, or dash `-`. Domain must be `@leetcode.com`.
+**Scenario**: Find users who have valid emails ending with `@leetcode.com`.
 
-#### Solution (Regex)
+#### Solution
 ```sql
 SELECT *
 FROM users
@@ -569,8 +480,7 @@ WHERE email REGEXP '^[A-Za-z][A-Za-z0-9_.-]*@leetcode[.]com$';
 
 ### Problem 29: Movie Rating (Top User & Top Movie)
 **Difficulty**: Medium  
-**Scenario**: 1. Find name of user who has rated greatest number of movies (tie: lexicographically smaller name).  
-2. Find movie name with highest average rating in Feb 2020 (tie: lexicographically smaller name).
+**Scenario**: 1. Find user rating most movies. 2. Find movie with highest average rating in Feb 2020.
 
 #### Solution
 ```sql
@@ -598,16 +508,7 @@ UNION ALL
 
 ### Problem 30: Last Person to Fit in the Bus
 **Difficulty**: Medium  
-**Scenario**: Bus weight limit is 1000 kg. Find the name of the last person who can board without exceeding weight limit.
-
-#### Schema & Sample Data
-`Queue` table:
-| person_id | person_name | weight | turn |
-|---|---|---|---|
-| 5 | Alice | 250 | 1 |
-| 4 | Bob | 350 | 2 |
-| 3 | Alex | 400 | 3 |
-| 6 | John | 100 | 4 |
+**Scenario**: Bus weight limit is 1000 kg. Find the name of the last person who can board.
 
 #### Solution
 ```sql
@@ -627,7 +528,7 @@ LIMIT 1;
 
 ### Problem 31: Exchange Seats
 **Difficulty**: Medium  
-**Scenario**: Swap seat id of every two consecutive students. If number of students is odd, id of last student is not swapped.
+**Scenario**: Swap seat id of every two consecutive students.
 
 #### Solution
 ```sql
@@ -644,9 +545,9 @@ ORDER BY id ASC;
 
 ---
 
-### Problem 32: Friend Requests II: Who Has the Most Friends
+### Problem 32: Friend Requests: Who Has the Most Friends
 **Difficulty**: Medium  
-**Scenario**: Find the person who has the most friends and the total number of friends.
+**Scenario**: Find the person who has the most friends and total number of friends.
 
 #### Solution
 ```sql
@@ -666,9 +567,7 @@ LIMIT 1;
 
 ### Problem 33: Investments in 2016
 **Difficulty**: Medium  
-**Scenario**: Sum all 2016 investment values (`tiv_2016`) for policyholders who:  
-1. Have same `tiv_2015` value as 1+ other policyholders, AND  
-2. Are not located in same city (`lat`, `lon`) as any other policyholder.
+**Scenario**: Sum `tiv_2016` for policyholders matching criteria.
 
 #### Solution
 ```sql
@@ -686,7 +585,7 @@ AND (lat, lon) IN (
 
 ### Problem 34: Second Most Recent Activity
 **Difficulty**: Medium  
-**Scenario**: Write a query to show second most recent activity of each user. If user has only 1 activity, return that single activity.
+**Scenario**: Show second most recent activity of each user (or 1st if only 1).
 
 #### Solution
 ```sql
@@ -705,7 +604,7 @@ WHERE rn = 2 OR total_act = 1;
 
 ### Problem 35: Calculate Special Bonus
 **Difficulty**: Medium  
-**Scenario**: Calculate bonus of each employee. Bonus is 100% of salary if employee `id` is odd AND employee `name` does not start with 'M'. Otherwise, bonus is 0.
+**Scenario**: Calculate bonus of each employee based on conditions.
 
 #### Solution
 ```sql
@@ -722,19 +621,9 @@ ORDER BY employee_id;
 
 ## Hard Problems (36 - 50)
 
-### Problem 36: Human Traffic of Stadium (Gaps & Islands)
+### Problem 36: Stadium Consecutive Rows (Gaps & Islands)
 **Difficulty**: Hard  
-**Scenario**: Display records with 3 or more consecutive rows where `people >= 100`. Order result by `visit_date` ascending.
-
-#### Schema & Sample Data
-`stadium` table:
-| id | visit_date | people |
-|---|---|---|
-| 1 | 2017-01-01 | 10 |
-| 2 | 2017-01-02 | 109 |
-| 3 | 2017-01-03 | 150 |
-| 4 | 2017-01-04 | 99 |
-| 5 | 2017-01-05 | 145 |
+**Scenario**: Display records with 3 or more consecutive rows where `people >= 100`.
 
 #### Solution
 ```sql
@@ -754,11 +643,6 @@ FROM GroupCounts
 WHERE cnt >= 3
 ORDER BY visit_date ASC;
 ```
-
-#### Explanation
-1. Filter rows where `people >= 100`.
-2. Compute `id - ROW_NUMBER()`. For consecutive sequence of IDs, `id - row_number` produces a constant group key (`grp`).
-3. Window `COUNT(*) OVER (PARTITION BY grp)` identifies continuous sequences $\ge 3$.
 
 ---
 
@@ -783,7 +667,7 @@ WHERE rnk <= 3;
 
 ### Problem 38: Trips and Users (Cancellation Rate)
 **Difficulty**: Hard  
-**Scenario**: Find cancellation rate of unbanned users (both client and driver must not be banned) each day between `"2013-10-01"` and `"2013-10-03"`. Round to 2 decimal places.
+**Scenario**: Find cancellation rate of unbanned users each day between `"2013-10-01"` and `"2013-10-03"`.
 
 #### Solution
 ```sql
@@ -801,7 +685,7 @@ GROUP BY t.request_at;
 
 ---
 
-### Problem 39: Consecutive Active Days (User Retention / User Streaks)
+### Problem 39: Consecutive Active Days (User Streaks)
 **Difficulty**: Hard  
 **Scenario**: Find users who logged in for 5 or more consecutive days.
 
@@ -824,9 +708,9 @@ HAVING COUNT(*) >= 5;
 
 ---
 
-### Problem 40: Silent Employees in an Exam
+### Problem 40: Quiet Students in an Exam
 **Difficulty**: Hard  
-**Scenario**: A quiet student is one who took at least one exam and did not score high or low score in any exam. Write query to report quiet students.
+**Scenario**: Report quiet students who took exams but never scored highest or lowest score.
 
 #### Solution
 ```sql
@@ -870,7 +754,7 @@ WHERE rn IN (FLOOR((total_cnt + 1) / 2.0), FLOOR((total_cnt + 2) / 2.0));
 
 ---
 
-### Problem 42: Find Overlapping User Sessions
+### Problem 42: Overlapping User Sessions
 **Difficulty**: Hard  
 **Scenario**: Identify users who have concurrent overlapping sessions.
 
@@ -903,9 +787,9 @@ WHERE user_id IN (SELECT friend_id FROM User1Friends)
 
 ---
 
-### Problem 44: Total Sales Amount by Year (Date Expansion)
+### Problem 44: Date Expansion Sales Report
 **Difficulty**: Hard  
-**Scenario**: Expand report period `[average_daily_sales, start_date, end_date]` into annual sales amount per product for years 2018, 2019, 2020.
+**Scenario**: Expand report period into annual sales amount per product.
 
 #### Solution
 ```sql
@@ -928,9 +812,9 @@ ORDER BY d.product_id, report_year;
 
 ---
 
-### Problem 45: Market Analysis II
+### Problem 45: Market Analysis (Favorite Brand Check)
 **Difficulty**: Hard  
-**Scenario**: Find for each seller whether brand of 2nd item sold (by order date) favors their favorite brand. If seller sold < 2 items, answer is "no".
+**Scenario**: Find for each seller whether brand of 2nd item sold matches their favorite brand.
 
 #### Solution
 ```sql
@@ -953,7 +837,7 @@ LEFT JOIN items i ON ro.item_id = i.item_id;
 
 ### Problem 46: User Churn Rate Calculation
 **Difficulty**: Hard  
-**Scenario**: Calculate monthly churn rate: (Users churned in month / Active users at beginning of month).
+**Scenario**: Calculate monthly churn rate.
 
 #### Solution
 ```sql
@@ -974,7 +858,7 @@ GROUP BY m1.m_date;
 
 ### Problem 47: First and Last Order per Customer
 **Difficulty**: Hard  
-**Scenario**: Display customer name, first order date, last order date, and total amount spent across all orders.
+**Scenario**: Display customer name, first order date, last order date, and total amount spent.
 
 #### Solution
 ```sql
@@ -989,9 +873,9 @@ GROUP BY c.id, c.name;
 
 ---
 
-### Problem 48: Find Employees Working in All Projects
+### Problem 48: Relational Division (Assigned All Projects)
 **Difficulty**: Hard  
-**Scenario**: Find employees who are assigned to every single project in the `projects` table (Relational Division).
+**Scenario**: Find employees assigned to every single project.
 
 #### Solution
 ```sql
@@ -1003,9 +887,9 @@ HAVING COUNT(DISTINCT project_id) = (SELECT COUNT(*) FROM projects);
 
 ---
 
-### Problem 49: Top 2 Highest Transactions Per User Without Window Functions
+### Problem 49: Top 2 Transactions Without Window Functions
 **Difficulty**: Hard  
-**Scenario**: Retrieve top 2 highest amounts for each customer without using window functions (`ROW_NUMBER`/`RANK`).
+**Scenario**: Retrieve top 2 highest amounts for each customer without window functions.
 
 #### Solution
 ```sql
@@ -1021,9 +905,9 @@ ORDER BY t1.customer_id, t1.amount DESC;
 
 ---
 
-### Problem 50: Fiscal Year Quarter Revenue Comparison
+### Problem 50: Quarterly Revenue Pivot & YoY Growth
 **Difficulty**: Hard  
-**Scenario**: Write a query to produce fiscal quarterly revenue pivot table (Q1, Q2, Q3, Q4) alongside Year-over-Year growth percentage.
+**Scenario**: Produce quarterly revenue pivot table alongside YoY growth percentage.
 
 #### Solution
 ```sql

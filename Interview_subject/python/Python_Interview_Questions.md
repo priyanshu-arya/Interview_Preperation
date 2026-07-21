@@ -1,6 +1,6 @@
-# Top 50 Python Interview Questions & Answers (2026 Edition)
+# Python Interview Questions & Answers
 
-A curated compilation of the 50 most frequently asked Python interview questions tailored for Freshers and Mid-Level Developers (0–5 YOE). Focuses on core mechanics, data structures, object-oriented design, memory management, concurrency, and production best practices asked in product companies and tech interviews.
+A curated compilation of Python interview questions tailored for Freshers and Mid-Level Developers (0–5 YOE). Focuses on core mechanics, data structures, object-oriented design, memory management, concurrency, and production best practices asked in tech interviews.
 
 ---
 

@@ -1,6 +1,6 @@
-# Top 50 Java Interview Questions & Answers (Modern Java 2026)
+# Java Interview Questions & Answers
 
-A curated compilation of the 50 most frequently asked Java interview questions for Freshers and Mid-Level Developers (0–5 YOE). Focuses on Java core mechanics, JVM memory layout, Collections framework, Stream API, Concurrency, and modern Java features (Java 8, 17 LTS, Java 21 Virtual Threads).
+A curated compilation of Java interview questions for Freshers and Mid-Level Developers (0–5 YOE). Focuses on Java core mechanics, JVM memory layout, Collections framework, Stream API, Concurrency, and modern Java features (Java 8, 17 LTS, Java 21 Virtual Threads).
 
 ---
 
